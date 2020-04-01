@@ -1,0 +1,140 @@
+body {
+	background: black;
+	font-family: 'Allerta Stencil';
+}
+
+.copywrite {
+	color:white;
+	background-color:black;
+	width:100%;
+	height:150px;
+	margin-top:-16px;
+}
+
+.legal_links {
+	list-style-type: none;
+	float: right;
+}
+
+.title-box {
+	background:white;
+	padding:150px;
+	margin-top:50px;
+	margin-botton:50px;
+}
+
+.title-main {
+	color: hotpink;
+	font-size: 300px;
+	margin: auto;
+	text-align:center;
+	
+}
+
+.main-title-box {
+	padding:100px;
+}
+
+.posts-box {
+	background-color:#141211;
+	color:hotpink;
+	width:80%;
+	height:100px;
+	padding-bottom:400px;
+	margin-left:10%;
+	margin-top:50px;
+	margin-bottom:100px;
+	text-align:center;
+}
+
+.slider-icon {
+	fill:darkred;
+	stroke:#520400;
+}
+
+.slider-icon:hover {
+	fill:darkgrey;
+	stroke:white;
+}
+
+#left-icon {
+	float:left;
+	margin-top:120px;
+	margin-left:10px;
+}
+
+#right-icon {
+	float:right;
+	margin-top:120px;
+}
+
+.slider {
+	background:black;
+	text-align:left;
+	width:95%;
+	margin:auto;
+	height:430px;
+}
+
+.menu_list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+	background-color:#141211;
+	padding:25px;
+	margin-top:15px;
+	text-align:center;
+	font-family: 'Allerta Stencil';
+}
+
+.menu_item {
+	color:hotpink;
+	display:inline;
+	padding:25px;
+	margin:-2px;
+	border-right:5px solid black;
+}
+
+.menu_item:hover {
+	background-color:hotpink;
+	color:black;
+}
+
+.content-box {
+	color:blue;
+	width:100%;
+	height:500px;
+	padding-bottom:400px;
+	
+}
+
+.title-content {
+	color:hotpink;
+	text-align:left;
+	font-size:5em;
+	font-family: 'Allerta Stencil';
+	text-shadow:#5c0037 -5px 5px 3px;
+	margin-left:20px;
+}
+
+#content0 {
+	background-image: url('https://wallpapercave.com/wp/QNQaTlD.jpg');
+	background-size:100% 100%;
+	background-attachment:fixed;
+}
+
+#content1 {
+	background: black;
+	background-size:100% 100%;
+}
+
+#content2 {
+	background-image: url('https://wallpaperplay.com/walls/full/1/5/d/104387.jpg');
+	background-size:100% 100%;
+	background-attachment:fixed;
+}
+
+.content-image {
+	width:35%;
+	margin-left:30px;
+}
