@@ -31,16 +31,36 @@ body {
 
 }
 
+
+.image_frame {
+	border:solid red 10px;
+	position: absolute;
+}
+
+/*.page_title_text {
+	display:flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+}*/
+
 .page_title_text {
 	display: block;
-	margin-left:auto;
-	margin-right:auto;
+	position: absolute;
+	max-height: 100%;
+	max-width:100%;
+	left:50%;
+	top:50%;
+	transform: translate(-50%,-50%);
 }
 
 .main-title-box {
-	background-image: url("../images/background_title.png");
+	background-image: url("../images/background.png");
+	background-size: cover;
+	overflow: hidden;
 	background-repeat: no-repeat;
 	background-position: center;
+	position:relative;
 	max-width: 100%;
 	max-height: 100%;
 	width:100%;
