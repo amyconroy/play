@@ -67,47 +67,6 @@ body {
 	height:1000px;
 }
 
-.posts-box {
-	background-color:#141211;
-	color:hotpink;
-	width:80%;
-	height:100px;
-	padding-bottom:400px;
-	margin-left:10%;
-	margin-top:50px;
-	margin-bottom:100px;
-	text-align:center;
-}
-
-.slider-icon {
-	fill:darkred;
-	stroke:#520400;
-}
-
-.slider-icon:hover {
-	fill:darkgrey;
-	stroke:white;
-}
-
-#left-icon {
-	float:left;
-	margin-top:120px;
-	margin-left:10px;
-}
-
-#right-icon {
-	float:right;
-	margin-top:120px;
-}
-
-.slider {
-	background:black;
-	text-align:left;
-	width:95%;
-	margin:auto;
-	height:430px;
-}
-
 .menu_list {
   list-style-type: none;
   margin: 0;
