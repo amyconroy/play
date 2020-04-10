@@ -4,10 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
 var app = express();
+var router = express.Router();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,8 +19,32 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+router.use(function (req,res,next) {
+  console.log("/" + req.method);
+  next();
+});
+
+router.get("/",function(req,res){
+  res.sendFile(path + "index.html");
+});
+
+router.get("/demo",function(req,res){
+  res.sendFile(path + "demo.html");
+});
+
+router.get("/login",function(req,res){
+  res.sendFile(path + "login.html");
+});
+
+router.get("/products",function(req,res){
+  res.sendFile(path + "products.html");
+});
+
+app.use("/",router);
+
+app.use("*",function(req,res){
+  res.sendFile(path + "404.html");
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -48,17 +70,6 @@ app.use(function(err, req, res, next) {
 // expensive file system operations during normal execution.  A file with a
 // non-lowercase name added while the server is running will get delivered, but
 // it will be detected and banned when the server is next restarted.
-function banUpperCase(root, folder) {
-    var folderBit = 1 << 14;
-    var names = fs.readdirSync(root + folder);
-    for (var i=0; i<names.length; i++) {
-        var name = names[i];
-        var file = folder + "/" + name;
-        if (name != name.toLowerCase()) banned.push(file.toLowerCase());
-        var mode = fs.statSync(root + file).mode;
-        if ((mode & folderBit) == 0) continue;
-        banUpperCase(root, file);
-    }
-}
+
 
 module.exports = app;
