@@ -10,6 +10,7 @@
 
 	margin-bottom:100px;
 	text-align:center;
+
 }
 
 .slider {
@@ -21,12 +22,10 @@
 	height:520px;
 }
 
-.post_image {
-  display:none; /*hide by default*/
-}
-
-.visible {
-  display:block;
+.posts {
+  height:inherit;
+	max-height: 100%;
+  /*hide by default*/
 }
 
 .post_number {
@@ -34,13 +33,24 @@
 }
 
 .post_image {
+  display:none;
+  position:absolute;
+  object-fit: cover;
+  top:0px;
   max-width: 100%;
+  width:100%;
+  height:100%;
+}
+
+.visible {
+  display:block;
 }
 
 .slider_buttons {
+  position:absolute;
   background-color:gray;
   opacity:0.5;
-  margin-top:220px;
+  top:220px;
   font-weight: bold;
   font-size: 50px;
   padding:20px;
@@ -53,13 +63,11 @@
 }
 
 .next {
-  position: absolute;
   border-radius: 10px 0 0 10px;
   right: 0;
 }
 
 .prev {
-  position: absolute;
   border-radius: 0 10px 10px 0;
 }
 
