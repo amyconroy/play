@@ -1,26 +1,32 @@
+a {
+	text-decoration: none;
+}
+
 .posts-box {
-	background-color:#2d0a80;
+	background-color:#1f0036;
 	color:white;
-	width:80%;
-	height:200px;
+	width:100%;
+	height:350px;
 	padding-bottom:400px;
 
-	margin-left:10%; /*need to centre this the proper way!!!!*/
-	margin-top:50px;
+	margin-left:0; /*need to centre this the proper way!!!!*/
+	margin-top:0;
 
 	margin-bottom:100px;
 	text-align:center;
 
-	border-radius: 2rem;
+	/*border-radius: 2rem;
 	border: 0.3rem solid;
 	border-bottom-color: #190445;
 	border-left-color: #0f022b;
   border-right-color: #0f022b;
-  border-top-color: #09011a;
+  border-top-color: #09011a;*/
+}
 
-	box-shadow: inset 0 0 10rem black,
-    inset 0 0 3rem black,
-    0 0 10rem black;
+.post-overlay {
+	position:absolute;
+	z-index:999;
+	color:white;
 }
 
 .title-container {
@@ -32,16 +38,12 @@
 }
 
 .slider {
-	border: 2px solid #1d0147;
-	border-radius: 10px;
-	box-shadow: 0 0 10px #7038ff;
-
   position: relative;
 	background:black;
 	text-align:left;
-	width:95%;
+	width:100%;
 	margin:auto;
-	height:520px;
+	height:750px;
 	margin-top:35px; /*this is a hack, will change*/
 }
 
@@ -49,6 +51,7 @@
   height:inherit;
 	max-height: 100%;
   /*hide by default*/
+
 }
 
 .post_number {
@@ -74,7 +77,7 @@
   position:absolute;
   background-color:gray;
   opacity:0.5;
-  top:220px;
+  top:340px;
   font-weight: bold;
   font-size: 50px;
   padding:20px;
@@ -97,23 +100,3 @@
 
 
 /*below probs not needed anymore*/
-.slider-icon {
-	fill:darkred;
-	stroke:#520400;
-}
-
-.slider-icon:hover {
-	fill:darkgrey;
-	stroke:white;
-}
-
-#left-icon {
-	float:left;
-	margin-top:120px;
-	margin-left:10px;
-}
-
-#right-icon {
-	float:right;
-	margin-top:120px;
-}
