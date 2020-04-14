@@ -3,6 +3,10 @@ body {
 	font-family: 'Allerta Stencil';
 }
 
+a {
+	text-decoration: none;
+}
+
 .copywrite {
 	color:white;
 	background-color:black;
@@ -117,6 +121,10 @@ body {
 
 }
 
+.content-inner { /*styling for things inside content box*/
+
+}
+
 .title-content {
 	color:hotpink;
 	text-align:left;
@@ -125,6 +133,8 @@ body {
 	text-shadow:#5c0037 -5px 5px 3px;
 	margin-left:20px;
 }
+
+/*move to seperate css file?*/
 
 #content0 {
 	background-image: url('https://wallpapercave.com/wp/QNQaTlD.jpg');
