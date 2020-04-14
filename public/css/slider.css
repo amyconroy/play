@@ -1,6 +1,6 @@
 .posts-box {
-	background-color:#141211;
-	color:hotpink;
+	background-color:#2d0a80;
+	color:white;
 	width:80%;
 	height:200px;
 	padding-bottom:400px;
@@ -11,15 +11,38 @@
 	margin-bottom:100px;
 	text-align:center;
 
+	border-radius: 2rem;
+	border: 0.3rem solid;
+	border-bottom-color: #190445;
+	border-left-color: #0f022b;
+  border-right-color: #0f022b;
+  border-top-color: #09011a;
+
+	box-shadow: inset 0 0 10rem black,
+    inset 0 0 3rem black,
+    0 0 10rem black;
+}
+
+.title-container {
+	/*background-color: black;
+	position:relative;
+	border:solid 5px white;
+	width:50%;
+	margin:auto;*/
 }
 
 .slider {
+	border: 2px solid #1d0147;
+	border-radius: 10px;
+	box-shadow: 0 0 10px #7038ff;
+
   position: relative;
 	background:black;
 	text-align:left;
 	width:95%;
 	margin:auto;
 	height:520px;
+	margin-top:35px; /*this is a hack, will change*/
 }
 
 .posts {
@@ -40,6 +63,7 @@
   max-width: 100%;
   width:100%;
   height:100%;
+	border-radius: 10px;
 }
 
 .visible {
