@@ -1,6 +1,6 @@
 body {
 	background: black;
-	font-family: 'Allerta Stencil';
+	font-family: 'Aldrich';
 }
 
 a {
@@ -73,7 +73,7 @@ a {
 	padding:25px;
 	margin-top:15px;
 	text-align:center;
-	font-family: 'Allerta Stencil';
+	font-family: 'Allerta Stencil'; /*override base font*/
 }
 
 .menu_link { /*remove ugly underlines from links*/
@@ -116,22 +116,32 @@ a {
 .content-box {
 	color:blue;
 	width:100%;
-	height:500px;
+	height:600px;
 	padding-bottom:400px;
 
 }
 
 .content-inner { /*styling for things inside content box*/
-
+	color:white;
+	font-size:2em;
 }
 
 .title-content {
-	color:hotpink;
+	position:relative;
+	margin-top:0px;
+	font-family: 'Aldrich';
+	color:#e854ff;
 	text-align:left;
 	font-size:5em;
-	font-family: 'Allerta Stencil';
-	text-shadow:#5c0037 -5px 5px 3px;
+	text-shadow: 0 0 5px purple, 0 0 10px purple, 0 0 15px purple, 0 0 40px #ff00aa, 0 0 70px #ff00aa;
 	margin-left:20px;
+}
+
+.title-content-main {
+	font-size:8em;
+	text-align:center;
+	margin-top:50px;
+	transition: font-size 2s;
 }
 
 /*move to seperate css file?*/
