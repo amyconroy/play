@@ -92,13 +92,21 @@ body {
 	background-color:#ff2bf1;
 	color:black;
 	text-shadow: none;
+	box-shadow: inset 0 0 5rem black,
+    inset 0 0 2rem black,
+    0 0 5rem black;
+	transition: background-color 1s;
 }
 
 .menu_item:hover {
 	background-color:#ff2bf1;
+	box-shadow: inset 0 0 5rem black,
+    inset 0 0 2rem black,
+    0 0 5rem black;
 	color:black;
 	text-shadow: none;
 	transition: background-color 1s;
+
 }
 
 .content-box {
