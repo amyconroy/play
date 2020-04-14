@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<link rel="stylesheet" type="text/css" href="css/main.css"></link>
+	<link rel="stylesheet" type="text/css" href="css/login.css"></link>
 	<link href='https://fonts.googleapis.com/css?family=Allerta Stencil' rel='stylesheet'></link>
 	<link href='https://fonts.googleapis.com/css?family=Aldrich' rel='stylesheet'></link>
 </head>
@@ -27,8 +28,19 @@
 
 	<div class="content-box" id="sign_in">
 		<h4 class="title-content title-content-main">Choose to win. Choose PLAY</h4>
-		<h2>REGISTER</h2>
-		<h2>LOGIN</h2>
+
+		<form class="login-form">
+			<h2>LOGIN</h2>
+  		<label for="username" class="form-label">username:</label><br />
+  		<input type="text" id="user" name="fname" value="USERNAME" class="form-input"><br />
+
+  		<label for="pass" class="form-label">password</label><br />
+  		<input type="text" id="password" name="lname" value="*******" class="form-input"><br />
+
+  		<input type="submit" value="Submit" class="form-submit">
+		</form>
+
+		<!--<h2>REGISTER</h2>-->
 	</div>
 
 	<div class="copywrite">
