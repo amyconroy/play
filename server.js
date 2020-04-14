@@ -3,20 +3,21 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var hbs = require('express-handlebars');
+var handlebars = require('express-handlebars');
 
 var app = express();
 var router = express.Router();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+app.set('view engine', 'handlebars');
 
-app.engine( 'hbs', hbs( {
-  extname: 'hbs',
-  defaultView: 'default',
-  layoutsDir: __dirname + '/views/pages/',
+app.engine( 'handlebars', handlebars( {
+  defaultLayout:'index',
+  extname: '.handlebars',
+  layoutsDir: __dirname + '/views/layouts',
   partialsDir: __dirname + '/views/partials/'
+  
 }));
 
 app.listen(8080, "localhost");
@@ -26,11 +27,16 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 console.log("reeeeeeee");
 
-app.get('/', (req, res) => res.send('Hello World !'));
+app.get('/', (req, res) => {
+	res.render('main', {layout : 'index'});
+});
+
+
 /*
 router.use(function (req,res,next) {
   console.log("/" + req.method);
@@ -55,11 +61,11 @@ router.get("/products",function(req,res){
   res.sendFile(path + "products.html");
 });
 
-//app.use("/",router);*/
+//app.use("/",router);
 
 app.use("*",function(req,res){
   res.sendFile(path + "404.html");
-});
+});*/
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
