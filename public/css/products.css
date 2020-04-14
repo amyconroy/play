@@ -1,0 +1,28 @@
+#product1 {
+  background-image: url('../images/background2.png');
+  background-size: 100% 100%;
+  background-color: purple;
+  background-attachment:fixed;
+}
+
+#product2 {
+
+}
+
+#product3 {
+  background-color: blue;
+  background-image: url('../images/productbackground.png');
+  background-size: 100% 100%;
+  background-attachment:fixed;
+}
+
+#product4 {
+
+}
+
+#product5 {
+  background-color: blue;
+  background-image: url('../images/codingbackground.png');
+  background-size: 100% 100%;
+  background-attachment:fixed;
+}
