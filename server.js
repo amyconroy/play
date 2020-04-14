@@ -14,6 +14,7 @@ app.set('view engine', 'hbs');
 
 app.engine( 'hbs', hbs( {
   extname: 'hbs',
+  defaultView: 'default',
   layoutsDir: __dirname + '/views/pages/',
   partialsDir: __dirname + '/views/partials/'
 }));
@@ -27,6 +28,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+console.log("reeeeeeee");
+
+app.get('/', (req, res) => res.send('Hello World !'));
+/*
 router.use(function (req,res,next) {
   console.log("/" + req.method);
   next();
@@ -34,6 +39,8 @@ router.use(function (req,res,next) {
 
 router.get("/",function(req,res){
   res.sendFile(path + "index.html");
+  console.log("render this biatch");
+  res.render('home', {layout: 'index', template: 'home-template'});
 });
 
 router.get("/demo",function(req,res){
@@ -48,7 +55,7 @@ router.get("/products",function(req,res){
   res.sendFile(path + "products.html");
 });
 
-app.use("/",router);
+//app.use("/",router);*/
 
 app.use("*",function(req,res){
   res.sendFile(path + "404.html");
