@@ -1,2 +1,99 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<link rel="stylesheet" type="text/css" href="css/main.css"></link>
+	<link rel="stylesheet" type="text/css" href="css/slider.css"></link>
+	<link rel="stylesheet" type="text/css" href="css/index.css"></link>
+	<link href='https://fonts.googleapis.com/css?family=Aldrich' rel='stylesheet'></link>
+	<link href='https://fonts.googleapis.com/css?family=Allerta Stencil' rel='stylesheet'></link>
+
+	<script type="text/javascript" src="js/slider.js" async = "async"></script>
+</head>
+<body>
+	<div class="main-title-box">
+		<div class = "">
+				<img src="images/play_text.png" alt="main_text" class="page_title_text" />
+		</div>
+	</div>
+
+	<div class="menu_box">
+		<div class="nav_menu">
+			<ul class="menu_list">
+				<a href="#"><li class="menu_item menu_item_selected">HOME</li></a>
+				<a href="demo.html"><li class="menu_item">DEMO</li></a>
+				<a href="#"><li class="menu_item">FORUM</li></a>
+				<a href="products.html"><li class="menu_item">PRODUCTS</li></a>
+				<a href="#"><li class="menu_item">DOWNLOADS</li></a>
+				<a href="login.html"><li class="menu_item">SIGN-IN</li></a>
+			</ul>
+		</div>
+	</div>
+
+	<div class="posts-box">
+		<!--<div class="title-container">
+			<h4 class="title-post">TOP POSTS OF THE WEEK</h4>
+		</div>-->
+
+		<div class="slider">
+			<div class="post-overlay">
+					<div class="overlay-frame">
+						<h4 class="title-post">WEEKLY BEST</h4>
+						<a href="#"><p>Visit here?</p></a> <!-- this can be dynamic, depending on what post will change link to page-->
+					</div>
+			</div>
+			<div class = "posts" id="post_1">
+					<div class="post_number"></div>
+
+						<img class = "post_image" id = "image_1" src="https://www.scitecheuropa.eu/wp-content/uploads/2019/07/ClaudioVentrella-696x392.jpg" />
+					<div class="caption"></div>
+			</div>
+
+			<div class = "posts" id="post_3">
+				 <div class="post_number"></div>
+				 		<img class = "post_image" id = "image_3" src="https://www.openaccessgovernment.org/wp-content/uploads/2019/09/dreamstime_xxl_123015144.jpg"/>
+				 <div class="caption"></div>
+			</div>
+
+			<div class = "posts" id="post_4">
+				<div class="post_number"></div>
+					<img class = "post_image " id = "image_4" src="https://www.abc.net.au/cm/rimage/10078922-3x2-large.jpg?v=2"/>
+				<div class="caption"></div>
+			</div>
+
+			<a class="prev slider_buttons" id="prev_slide">&#10094;</a>
+			<a class="next slider_buttons" id="next_slide">&#10095;</a>
+		</div>
+
+	</div>
+
+	<div class="content-box" id="content0">
+		<h4 class="title-content">Level Up</h4>
+		<p class="content-inner">Our state of the art text adventure game engine is pleasant to work with.
+		Simple easy to learn syntax, accessable technical interface.</p>
+		<p class="content-inner">We hide nothing behind propriety compilation formats. Every detail, every plugin,
+		every line of code can be customised for you proffesional needs.</p>
+	</div>
+
+	<div class="content-box" id="content1">
+		<h4 class="title-content">Keep Your Head In The Game</h4>
+		<p class="content-inner">Productivity is the name of the game.</p>
+		<p class="content-inner">7 days a week our technical staff team is there to support any of
+		your queries, questions and issues. Never lose another life to hidden engine bugs again;
+		our open source nature and debug tools gives you the power to leverage you expertise
+		and fix issues on the spot. Alternatively, wait for our fully trained admin team to help. We're here
+		for all of your needs ;)</p>
+
+	</div>
+
+	<div class="content-box" id="content2">
+		<h4 class="title-content">Play To Win</h4>
+		<p class="content-inner">Our tools have the potential to become industry standard.</p>
+		<p class="content-inner">PLAY gives your company everything needed to ensure maximum
+		success. From simple zork clones to deep branching adventures, we have you covered.</p>
+		<p class="content-inner">Choose power, freedom, open source. Choose to PLAY.</p>
+	</div>
+	
+	{{> footer}}
+	
+</body>
+</html>
