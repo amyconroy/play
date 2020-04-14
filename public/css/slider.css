@@ -1,0 +1,102 @@
+a {
+	text-decoration: none;
+}
+
+.posts-box {
+	background-color:#1f0036;
+	color:white;
+	width:100%;
+	height:350px;
+	padding-bottom:400px;
+
+	margin-left:0; /*need to centre this the proper way!!!!*/
+	margin-top:0;
+
+	margin-bottom:100px;
+	text-align:center;
+
+	/*border-radius: 2rem;
+	border: 0.3rem solid;
+	border-bottom-color: #190445;
+	border-left-color: #0f022b;
+  border-right-color: #0f022b;
+  border-top-color: #09011a;*/
+}
+
+.post-overlay {
+	position:absolute;
+	z-index:999;
+	color:white;
+}
+
+.title-container {
+	/*background-color: black;
+	position:relative;
+	border:solid 5px white;
+	width:50%;
+	margin:auto;*/
+}
+
+.slider {
+  position: relative;
+	background:black;
+	text-align:left;
+	width:100%;
+	margin:auto;
+	height:750px;
+	margin-top:35px; /*this is a hack, will change*/
+}
+
+.posts {
+  height:inherit;
+	max-height: 100%;
+  /*hide by default*/
+
+}
+
+.post_number {
+
+}
+
+.post_image {
+  display:none;
+  position:absolute;
+  object-fit: cover;
+  top:0px;
+  max-width: 100%;
+  width:100%;
+  height:100%;
+	border-radius: 10px;
+}
+
+.visible {
+  display:block;
+}
+
+.slider_buttons {
+  position:absolute;
+  background-color:gray;
+  opacity:0.5;
+  top:340px;
+  font-weight: bold;
+  font-size: 50px;
+  padding:20px;
+  cursor: pointer;
+}
+
+.slider_buttons:hover {
+  transition: 0.6s ease;
+  opacity:1.0;
+}
+
+.next {
+  border-radius: 10px 0 0 10px;
+  right: 0;
+}
+
+.prev {
+  border-radius: 0 10px 10px 0;
+}
+
+
+/*below probs not needed anymore*/
