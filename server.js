@@ -17,7 +17,7 @@ app.engine( 'handlebars', handlebars( {
   extname: '.handlebars',
   layoutsDir: __dirname + '/views/layouts',
   partialsDir: __dirname + '/views/partials/'
-  
+
 }));
 
 app.listen(8080, "localhost");
@@ -33,9 +33,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 console.log("its reeeeeeelly me");
 
 app.get('/', (req, res) => {
-	res.render('main', {layout : 'index'});
+	res.render('main', {layout : 'index_head'});
 });
 
+app.get('/index', (req, res) => {
+	res.render('main', {layout : 'index_head'});
+});
+
+app.get('/products', (req, res) => {
+	res.render('products', {layout : 'product_head'});
+});
+
+app.get('/login', (req, res) => {
+	res.render('login', {layout : 'login_head'});
+});
 
 /*
 router.use(function (req,res,next) {
