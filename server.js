@@ -9,7 +9,7 @@ var router = express.Router();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'hbs');
 app.listen(8080, "localhost");
 console.log("Visit http://localhost:8080/");
 
