@@ -1,6 +1,10 @@
 body {
 	background: black;
-	font-family: 'Allerta Stencil';
+	font-family: 'Aldrich';
+}
+
+a {
+	text-decoration: none;
 }
 
 .copywrite {
@@ -49,6 +53,7 @@ body {
 
 .main-title-box {
 	background-image: url("../images/background.png");
+
 	background-size: cover;
 	overflow: hidden;
 	background-repeat: no-repeat;
@@ -69,7 +74,7 @@ body {
 	padding:25px;
 	margin-top:15px;
 	text-align:center;
-	font-family: 'Allerta Stencil';
+	font-family: 'Allerta Stencil'; /*override base font*/
 }
 
 .menu_link { /*remove ugly underlines from links*/
@@ -110,40 +115,32 @@ body {
 }
 
 .content-box {
-	color:blue;
+	color:white;
 	width:100%;
-	height:500px;
+	height:600px;
 	padding-bottom:400px;
 
 }
 
+.content-inner { /*styling for things inside content box*/
+	color:white;
+	font-size:2em;
+}
+
 .title-content {
-	color:hotpink;
+	position:relative;
+	margin-top:0px;
+	font-family: 'Aldrich';
+	color:#e854ff;
 	text-align:left;
 	font-size:5em;
-	font-family: 'Allerta Stencil';
-	text-shadow:#5c0037 -5px 5px 3px;
+	text-shadow: 0 0 5px purple, 0 0 10px purple, 0 0 15px purple, 0 0 40px #ff00aa, 0 0 70px #ff00aa;
 	margin-left:20px;
 }
 
-#content0 {
-	background-image: url('https://wallpapercave.com/wp/QNQaTlD.jpg');
-	background-size:100% 100%;
-	background-attachment:fixed;
-}
-
-#content1 {
-	background: black;
-	background-size:100% 100%;
-}
-
-#content2 {
-	background-image: url('https://wallpaperplay.com/walls/full/1/5/d/104387.jpg');
-	background-size:100% 100%;
-	background-attachment:fixed;
-}
-
-.content-image {
-	width:35%;
-	margin-left:30px;
+.title-content-main {
+	font-size:8em;
+	text-align:center;
+	margin-top:50px;
+	transition: font-size 2s;
 }
