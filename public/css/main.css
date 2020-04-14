@@ -53,6 +53,7 @@ a {
 
 .main-title-box {
 	background-image: url("../images/background.png");
+	
 	background-size: cover;
 	overflow: hidden;
 	background-repeat: no-repeat;
