@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<link rel="stylesheet" type="text/css" href="css/main.css"></link>
-	<link rel="stylesheet" type="text/css" href="css/login.css"></link>
+	<link rel="stylesheet" type="text/css" href="../public/css/main.css"></link>
+	<link rel="stylesheet" type="text/css" href="../public/css/login.css"></link>
 	<link href='https://fonts.googleapis.com/css?family=Allerta Stencil' rel='stylesheet'></link>
 	<link href='https://fonts.googleapis.com/css?family=Aldrich' rel='stylesheet'></link>
 </head>
@@ -26,22 +26,30 @@
 		</div>
 	</div>
 
-	<div class="content-box" id="sign_in">
+	<div class="content-box" id="login-content-box">
 		<h4 class="title-content title-content-main">Enter The Game</h4>
 
-		<form class="login-form">
-			<h2>LOGIN</h2>
-  		<label for="username" class="form-label">username:</label><br />
-  		<input type="text" id="user" name="fname" value="USERNAME" class="form-input"></input><br />
+		<form class="login-form" id="login">
+			<h2 class="form-title title-content">LOGIN</h2>
+  		<label for="username" class="form-label">USERNAME:</label><br />
+  		<input type="text" id="user" name="fname" placeholder="USERNAME" class="form-input"></input><br />
 
-  		<label for="pass" class="form-label">password</label><br />
-  		<input type="text" id="password" name="lname" value="*******" class="form-input"></input><br />
+  		<label for="pass" class="form-label">PASSWORD</label><br />
+  		<input type="text" id="password" name="lname" placeholder="*******" class="form-input"></input><br />
 
-  		<input type="submit" value="Submit" class="form-submit"></input>
+  		<input type="submit" value="Enter" class="form-submit"></input>
 		</form>
 
-		<p class="content-inner">Don't have an account?</p>
-		<h2>REGISTER</h2>
+		<form class="login-form" id="register">
+			<h2 class="form-title title-content">JOIN</h2>
+  		<label for="username" class="form-label">USERNAME:</label><br />
+  		<input type="text" id="user" name="fname" placeholder="USERNAME" class="form-input"></input><br />
+
+			<label for="username" class="form-label">EMAIL:</label><br />
+  		<input type="text" id="user" name="fname" placeholder="USERNAME" class="form-input"></input><br />
+
+  		<input type="submit" value="Join" class="form-submit"></input>
+		</form>
 	</div>
 
 	<div class="copywrite">
