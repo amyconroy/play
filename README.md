@@ -32,7 +32,8 @@ N/A
 <b> SERVER : C </b>
 
 Our server has currently been set up by following a tutorial to set up express. 
-// POSSIBLY AIM to reach a B by Wednesday submission : have to deal with port numbs / URL validation / content negotiation for old browsers / redirections to browsers/ UTF-8 
+
+// BY WEDNESDAY to reach a B by Wednesday submission : have to deal with port numbs / URL validation / content negotiation for old browsers / redirections to browsers/ UTF-8 
 
 <b> DATABASE : C </b> 
 
@@ -44,4 +45,5 @@ As well as manually creating a database and extracting data from it in our serve
 <b> DYNAMIC PAGES : C </b>
 
 // BY WEDNESDAY aiming for a B: use more features of handlebars / organise in a more sophisticated way. 
+
 We have delivered dynamic pages by inserting data into templates on the server side, and have currently created a simple dynamic delivery system. 
