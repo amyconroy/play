@@ -29,8 +29,6 @@ app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-console.log("its reeeeeeelly me");
-
 app.get('/', (req, res) => {
 	res.render('main', {layout : 'index_head'});
 });
