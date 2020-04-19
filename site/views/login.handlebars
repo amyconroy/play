@@ -13,21 +13,28 @@
     <h2 class="form-title title-content">LOGIN</h2>
 
     <label for="username" class="form-label">USERNAME:</label><br />
-    <input type="text" id="user_name" name="username" placeholder="USERNAME" class="form-input"></input><br />
+    <input type="text" name="username" placeholder="USERNAME" class="form-input"></input><br />
 
     <label for="pass" class="form-label">PASSWORD</label><br />
-    <input type="password" id="user_password" name="password" placeholder="*******" class="form-input"></input><br />
+    <input type="password" name="password" placeholder="*******" class="form-input"></input><br />
 
     <input type="submit" value="Enter" class="form-submit"></input>
   </form>
 
-  <form class="login-form" id="register" action="register_user" method="post">
+  <form class="login-form" id="register" action="register" method="post">
     <h2 class="form-title title-content">JOIN</h2>
+
     <label for="username" class="form-label">USERNAME:</label><br />
-    <input type="text" id="user" name="username" placeholder="USERNAME" class="form-input"></input><br />
+    <input type="text" name="register_user" placeholder="USERNAME" class="form-input"></input><br />
 
     <label for="username" class="form-label">EMAIL:</label><br />
-    <input type="email" id="user_email" name="email" placeholder="USERNAME" class="form-input"></input><br />
+    <input type="email" name="register_email" placeholder="EMAIL" class="form-input"></input><br />
+
+    <label for="pass" class="form-label">PASSWORD</label><br />
+    <input type="password" name="register_password" placeholder="PASSWORD" class="form-input"></input><br />
+
+    <label for="pass" class="form-label">CONFIRM PASSWORD</label><br />
+    <input type="password"  name="conf_password" placeholder="CONFIRM PASSWORD" class="form-input"></input><br />
 
     <input type="submit" value="Join" class="form-submit"></input>
   </form>

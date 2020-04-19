@@ -53,9 +53,17 @@ app.get('/login', (req, res) => {
 });
 
 app.post('/auth', (req, res) => {
-  var user = req.body.username;
-	var pass = req.body.password;
-  res.send("request recieved cap'n, with: "+user+" "+pass);
+  var username = req.body.username;
+	var password = req.body.password;
+  res.send("request recieved cap'n, with: "+username+" "+password);
+});
+
+app.post('/register', (req, res) => {
+  var username = req.body.register_user;
+	var password = req.body.register_password;
+  var confirm_password = req.body.conf_password;
+  var email = req.body.register_email;
+  res.send("request recieved, registering with info: "+username+password+confirm_password+email);
 });
 
 
