@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var handlebars = require('express-handlebars');
+var bodyParser = require('body-parser');
 var app = express();
 var router = express.Router();
 var db = require('./database.js');
@@ -72,10 +73,14 @@ app.set('view engine', 'handlebars');
 
 // static delivery of public folder
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+//for post requests
+
+
 
 app.get('/', (req, res) => {
 	res.render('main', {layout : 'index_head'});
@@ -86,7 +91,7 @@ app.get('/index', (req, res) => {
 });
 
 app.get('/demo', (req, res) => {
-  res.render('demo', {layout : 'demo_head'});
+  res.render('demo', {layout : 'index_head'});
 });
 
 app.get('/products', (req, res) => {
@@ -97,10 +102,49 @@ app.get('/login', (req, res) => {
 	res.render('login', {layout : 'login_head'});
 });
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+app.post('/auth', (req, res) => {
+  var username = req.body.username;
+	var password = req.body.password;
+  res.send("request recieved cap'n, with: "+username+" "+password);
 });
+
+app.post('/register', (req, res) => {
+  var username = req.body.register_user;
+	var password = req.body.register_password;
+  var confirm_password = req.body.conf_password;
+  var email = req.body.register_email;
+  res.send("request recieved, registering with info: "+username+password+confirm_password+email);
+});
+
+
+/*
+router.use(function (req,res,next) {
+  console.log("/" + req.method);
+  next();
+});
+router.get("/",function(req,res){
+  res.sendFile(path + "index.html");
+  console.log("render this biatch");
+  res.render('home', {layout: 'index', template: 'home-template'});
+});
+router.get("/demo",function(req,res){
+  res.sendFile(path + "demo.html");
+});
+router.get("/login",function(req,res){
+  res.sendFile(path + "login.html");
+});
+router.get("/products",function(req,res){
+  res.sendFile(path + "products.html");
+});
+//app.use("/",router);
+app.use("*",function(req,res){
+  res.sendFile(path + "404.html");
+});*/
+
+// catch 404 and forward to error handler
+/*app.use(function(req, res, next) {
+  next(createError(404));
+});*/
 
 // error handler
 app.use(function(err, req, res, next) {
