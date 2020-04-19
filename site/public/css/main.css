@@ -7,6 +7,19 @@ a {
 	text-decoration: none;
 }
 
+.quote-container {
+	position:relative;
+	color:yellow;
+	margin-top:750px;
+	margin-left:250px;
+}
+
+.quote {
+	font-size:4em;
+	font-family: "Caveat";
+	transform: rotate(-15deg);
+}
+
 .copywrite {
 	color:white;
 	background-color:black;
