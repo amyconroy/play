@@ -36,7 +36,7 @@ app.get('/index', (req, res) => {
 });
 
 app.get('/demo', (req, res) => {
-  res.render('demo', {layout : 'demo_head'});
+  res.render('demo', {layout : 'index_head'});
 });
 
 app.get('/products', (req, res) => {
@@ -46,6 +46,15 @@ app.get('/products', (req, res) => {
 app.get('/login', (req, res) => {
 	res.render('login', {layout : 'login_head'});
 });
+
+app.get('sign_in', (req, res) => {
+  //redirect to page
+  var username = request.body.username;
+	var password = request.body.password;
+  res.respond("This is your request: "+username+" "+password);
+}
+
+)
 
 /*
 router.use(function (req,res,next) {
@@ -74,9 +83,9 @@ app.use("*",function(req,res){
 
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+/*app.use(function(req, res, next) {
   next(createError(404));
-});
+});*/
 
 // error handler
 app.use(function(err, req, res, next) {
