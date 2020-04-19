@@ -7,10 +7,55 @@ var handlebars = require('express-handlebars');
 var bodyParser = require('body-parser');
 var app = express();
 var router = express.Router();
+var db = require('./database.js');
+var sqlite3 = require('sqlite3').verbose();
+var port = 8080;
+var md5 = require('md5'); // use for creating a hash for passwords
+var bodyParser = require('body-parser');
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'handlebars');
+let db = new sqlite3.Database('Play.db', sqlite3.OPEN_READWRITE, (err) => {
+  if(err) {
+    console.error(err.message);
+  }
+  console.log('Connected to the PLAY database.');
+});
+
+
+function newUser(params){
+  db.run('INSERT INTO User VALUES (?, ?, ?)', params, function(err){
+    if(err){
+        return console.error(err.message);
+      }
+      console.log('Rows insterted ${this.changes}');
+    });
+}
+
+function newOrder(params){
+  db.run('INSERT INTO Order VALUES (?, ?, ?, ?, ?)', params, function(err)){
+    if(err){
+        return console.error(err.message);
+      }
+      console.log('Rows insterted ${this.changes}');
+    });
+}
+
+function newOrderDetails(params){
+  db.run('INSERT INTO Order Details VALUES (?, ?, ?, ?)', params, function(err)){
+    if(err){
+        return console.error(err.message);
+      }
+      console.log('Rows insterted ${this.changes}');
+    });
+}
+
+function getProductCategory(params){
+  db.run('SELECT categoryName FROM Product Category JOIN Product ON ProductID WHERE ProductId = (?)', params, function(err)){
+    if(err){
+        return console.error(err.message);
+      }
+      console.log('Rows insterted ${this.changes}');
+    });
+}
 
 app.engine( 'handlebars', handlebars( {
   defaultLayout:'index',
@@ -19,9 +64,14 @@ app.engine( 'handlebars', handlebars( {
   partialsDir: __dirname + '/views/partials/'
 }));
 
-app.listen(8080, "localhost");
+app.listen(port, "localhost");
 console.log("Visit http://localhost:8080/");
 
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'handlebars');
+
+// static delivery of public folder
 app.use(logger('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -91,8 +141,6 @@ app.use("*",function(req,res){
   res.sendFile(path + "404.html");
 });*/
 
-
-
 // catch 404 and forward to error handler
 /*app.use(function(req, res, next) {
   next(createError(404));
@@ -108,14 +156,11 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-
-// Check a folder for files/subfolders with non-lowercase names.  Add them to
-// the banned list so they don't get delivered, making the site case sensitive,
-// so that it can be moved from Windows to Linux, for example. Synchronous I/O
-// is used because this function is only called during startup.  This avoids
-// expensive file system operations during normal execution.  A file with a
-// non-lowercase name added while the server is running will get delivered, but
-// it will be detected and banned when the server is next restarted.
-
+db.close((err) => {
+  if(err){
+    console.error(err.message);
+  }
+  console.log('Closed the database connection.');
+});
 
 module.exports = app;
