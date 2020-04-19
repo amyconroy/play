@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var handlebars = require('express-handlebars');
+var bodyParser = require('body-parser');
 var app = express();
 var router = express.Router();
 
@@ -22,10 +23,14 @@ app.listen(8080, "localhost");
 console.log("Visit http://localhost:8080/");
 
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+//for post requests
+
+
 
 app.get('/', (req, res) => {
 	res.render('main', {layout : 'index_head'});
@@ -47,14 +52,12 @@ app.get('/login', (req, res) => {
 	res.render('login', {layout : 'login_head'});
 });
 
-app.get('sign_in', (req, res) => {
-  //redirect to page
-  var username = request.body.username;
-	var password = request.body.password;
-  res.respond("This is your request: "+username+" "+password);
-}
+app.post('/auth', (req, res) => {
+  var user = req.body.username;
+	var pass = req.body.password;
+  res.send("request recieved cap'n, with: "+user+" "+pass);
+});
 
-)
 
 /*
 router.use(function (req,res,next) {
