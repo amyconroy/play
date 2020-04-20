@@ -12,50 +12,6 @@ var port = 8080;
 var md5 = require('md5'); // use for creating a hash for passwords
 var bodyParser = require('body-parser');
 
-let db = new sqlite3.Database('Play.db', sqlite3.OPEN_READWRITE, (err) => {
-  if(err) {
-    console.error(err.message);
-  }
-  console.log('Connected to the PLAY database.');
-});
-
-
-function newUser(params){
-  db.run('INSERT INTO User VALUES (?, ?, ?)', params, function(err){
-    if(err){
-        return console.error(err.message);
-      }
-      console.log('Rows insterted ${this.changes}');
-    });
-}
-
-function newOrder(params){
-  db.run('INSERT INTO Order VALUES (?, ?, ?, ?, ?)', params, function(err)){
-    if(err){
-        return console.error(err.message);
-      }
-      console.log('Rows insterted ${this.changes}');
-    });
-}
-
-function newOrderDetails(params){
-  db.run('INSERT INTO Order Details VALUES (?, ?, ?, ?)', params, function(err)){
-    if(err){
-        return console.error(err.message);
-      }
-      console.log('Rows insterted ${this.changes}');
-    });
-}
-
-function getProductCategory(params){
-  db.run('SELECT categoryName FROM Product Category JOIN Product ON ProductID WHERE ProductId = (?)', params, function(err)){
-    if(err){
-        return console.error(err.message);
-      }
-      console.log('Rows insterted ${this.changes}');
-    });
-}
-
 app.engine( 'handlebars', handlebars( {
   defaultLayout:'index',
   extname: '.handlebars',
@@ -112,11 +68,64 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-db.close((err) => {
-  if(err){
+///// init database /////
+let db = new sqlite3.Database('Play.db', sqlite3.OPEN_READWRITE, (err) => {
+  if(err) {
     console.error(err.message);
   }
-  console.log('Closed the database connection.');
+  console.log('Connected to the PLAY database.');
 });
+
+// here add in hashing / inserting dummy users / etc
+
+///// sqlite queries /////
+const user_select_username = db.prepare('SELECT * FROM User WHERE userName = ?');
+const user_create          = db.prepare('INSERT INTO User (userName, userEmail, userPassword, userSession) VALUES (?, ?, ?, ?);');
+const user_login           = db.prepare('REPLACE INTO User (userName, userEmail, userPassword, userSession) VALUES (?, ?, ?, ?);');
+const user_logout          = db.prepare('REPLACE INTO User (userName, userSession) VALUES (?, NULL);');
+const user_session         = db.prepare('SELECT * FROM User WHERE userSession = ?');
+const user_add_email       = db.prepare('REPLACE INTO User (userName, userEmail) VALUES (?, ?)');
+const order_create         = db.prepare('INSERT INTO Order VALUES (?, ?, ?, ?, ?)');
+const orderDetails_create  = db.prepare('INSERT INTO Order Details VALUES (?, ?, ?, ?)');
+const productCtgy_get      = db.prepare('SELECT categoryName FROM Product Category JOIN Product ON ProductID WHERE ProductId = ?');
+
+///// database functions /////
+function newUser(userName, userEmail, userPassword, userPassword2, req){
+  if(userPassword == userPassword2) {
+    user_select_username.all([userName], (err, rows) => { // first select user and see if they exist
+      if(err){
+        console.log(err.message);
+      }
+      if(rows.length == 0){
+        user_create.run([userName, userEmail, userPassword, req.sessionID]);
+      }});
+  }
+  else{
+    // insert error message for passwords that don't match
+  }
+}
+
+function userLogin(userName, userPassword, userEmail sessionID){
+  user_select_username.all([username], (err, rows) => {
+    if(err){
+      // can't find user / not matching password
+      console.log(err.message);
+    }
+    if(rows.length == 0){
+      // new user ... create the hash for the password (!!!)
+      user_create.run([username, userEmail, userPassword, sessionId]);
+    }
+  })
+}
+
+function userLogout(req) {
+  user_session.get([req.sessionID], (err, row) => {
+    if(err){
+      console.log(err.message);
+    }
+    user_logout.run(row['userName'], row['userPassword']);
+  });
+}
+
 
 module.exports = app;
