@@ -9,26 +9,38 @@
 <div class="content-box" id="sign_in">
   <h4 class="title-content title-content-main">Enter The Game</h4>
 
-  <form class="login-form" id="login">
-    <h2 class="form-title title-content">LOGIN</h2>
-    <label for="username" class="form-label">USERNAME:</label><br />
-    <input type="text" id="user" name="fname" placeholder="USERNAME" class="form-input"></input><br />
+  <form  action="auth" method="POST" class="login-form" id="login">
+    <div class="form-contents">
+      <h2 class="form-title title-content">LOGIN</h2>
 
-    <label for="pass" class="form-label">PASSWORD</label><br />
-    <input type="text" id="password" name="lname" placeholder="*******" class="form-input"></input><br />
+      <label for="username" class="form-label">USERNAME:</label><br />
+      <input type="text" name="username" placeholder="USERNAME" class="form-input" required></input><br />
 
-    <input type="submit" value="Enter" class="form-submit"></input>
+      <label for="pass" class="form-label">PASSWORD</label><br />
+      <input type="password" name="password" placeholder="*******" class="form-input" required></input><br />
+
+      <input type="submit" value="Enter" class="form-submit"></input>
+    </div>
   </form>
 
-  <form class="login-form" id="register">
-    <h2 class="form-title title-content">JOIN</h2>
-    <label for="username" class="form-label">USERNAME:</label><br />
-    <input type="text" id="user" name="fname" placeholder="USERNAME" class="form-input"></input><br />
+  <form class="login-form" id="register" action="register" method="post">
+    <div class="form-contents">
+      <h2 class="form-title title-content">JOIN</h2>
 
-    <label for="username" class="form-label">EMAIL:</label><br />
-    <input type="text" id="user" name="fname" placeholder="USERNAME" class="form-input"></input><br />
+      <label for="username" class="form-label">USERNAME:</label><br />
+      <input type="text" name="register_user" placeholder="USERNAME" class="form-input" required></input><br />
 
-    <input type="submit" value="Join" class="form-submit"></input>
+      <label for="username" class="form-label">EMAIL:</label><br />
+      <input type="email" name="register_email" placeholder="EMAIL" class="form-input" required></input><br />
+
+      <label for="pass" class="form-label">PASSWORD</label><br />
+      <input type="password" name="register_password" placeholder="PASSWORD" class="form-input" required></input><br />
+
+      <label for="pass" class="form-label">CONFIRM PASSWORD</label><br />
+      <input type="password"  name="conf_password" placeholder="CONFIRM PASSWORD" class="form-input" required></input><br />
+
+      <input type="submit" value="Join" class="form-submit"></input>
+    </div>
   </form>
 </div>
 

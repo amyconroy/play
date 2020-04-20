@@ -4,14 +4,14 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var handlebars = require('express-handlebars');
+var bodyParser = require('body-parser');
 var app = express();
 var router = express.Router();
-var db = require('./database.js');
+//var db = require('./database.js');
 var sqlite3 = require('sqlite3').verbose();
 var port = 8080;
 var md5 = require('md5'); // use for creating a hash for passwords
 var bodyParser = require('body-parser');
-
 app.engine( 'handlebars', handlebars( {
   defaultLayout:'index',
   extname: '.handlebars',
@@ -28,8 +28,10 @@ app.set('view engine', 'handlebars');
 
 // static delivery of public folder
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+//for post requests
+app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -42,7 +44,7 @@ app.get('/index', (req, res) => {
 });
 
 app.get('/demo', (req, res) => {
-  res.render('demo', {layout : 'demo_head'});
+  res.render('demo', {layout : 'index_head'});
 });
 
 app.get('/products', (req, res) => {
@@ -51,11 +53,6 @@ app.get('/products', (req, res) => {
 
 app.get('/login', (req, res) => {
 	res.render('login', {layout : 'login_head'});
-});
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
 });
 
 // error handler
@@ -125,6 +122,55 @@ function userLogout(req) {
     }
     user_logout.run(row['userName'], row['userPassword']);
   });
+}
+
+
+
+app.post('/auth', (req, res) => {
+  var username = req.body.username;
+	var password = req.body.password;
+  res.send("request recieved cap'n, with: "+username+" "+password);
+
+  //should be a basic normal select here
+});
+
+app.post('/register', (req, res) => {
+  var username = req.body.register_user;
+	var password = req.body.register_password;
+  var confirm_password = req.body.conf_password;
+  var email = req.body.register_email;
+
+  if (confirm_password === password) { //check password validity
+    if (!validPass(password)) {
+      res.redirect('/login'); //this is hack, not sure how else to deal apart from maybe a clientside callback? or render
+    }
+
+    res.send("request recieved, registering with info: "+username+password+confirm_password+email);
+  } else {
+    res.redirect('/login');
+  }
+
+  //run a select on the username, if it exists say we need a diff USERNAME
+  //insert new user into our shiny db
+});
+
+function validPass(password) {
+  if (password.length < 5) {
+    console.log("pass too short");
+    return false;
+  }
+
+  if (!password.match(/[0-9]/)) {
+    console.log("pass needs number");
+    return false;
+  }
+
+  if (!password.match(/[!@#$%\^&*]/)) {
+    console.log("pass needs special character");
+    return false;
+  }
+
+  return true;
 }
 
 
