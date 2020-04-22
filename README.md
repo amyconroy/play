@@ -53,10 +53,7 @@ Neon effect on border, add another metallic gradient layer and set to multiply.
 Over top of everything add layer with wide radial black->transparent gradient.
 This creates a soft vignette and adds more focus into the centre. 
 
-<b> SVG : </b>
-
-// BY WEDNESDAY - vector graphics, can also use canvas in light of this... 
-N/A
+<b> SVG : X </b>
 
 <b> SERVER : C </b>
 
