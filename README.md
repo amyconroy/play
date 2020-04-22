@@ -4,19 +4,18 @@ Website for PLAY text adventure game engine, in the style of retro 80's nerds.
 
 <center><b> Grades estimated based on current work. </center></b>
 
-<b> HTML : A </b>
+<b> HTML : C </b>
 
-We have a number of pages working and have ensured that they work with a validator (we can still include XHTML in the partials header, so I think this counts as validation as it will still throw an error for an unclosed tags etc even when rendered with template engine, because the browser is returned a full normal html page rendered by server). We also have experienced a number of issues (issues with html: can't think of any, maybe adding semantic tags instead of div?) and are highly confident in the structure of HTML pages. 
+We tried to include the XHTML tag, however after using Handlebars it does not seem to be validating. However, we also have experienced a number of issues (inlcuding the addition of semantic tags instead of div) and are highly confident in the structure of HTML pages. 
+     In order to move our HTML grade to an A, we will investigate the issues with the HXTML delivery. 
 
 <b> CSS : B </b> 
 
-We have ensured that there are no style tags and attributs in our HTML pages, and have gained a high level of experience with stylesheets. (potential issues still to fix: mostly responsive design. I put in a lot of px measurements which ian doesn't like but these can be easily enough switched to something like rem/em or %. Additionally mediaframes so if looking at webpage on a phone the navbar doesn't crush).
+We have ensured that there are no style tags and attributs in our HTML pages, and have gained a high level of experience with stylesheets. There are some bad relative measurements, currently in px measurements, which will be changed to make it responsive.  By doing so, as we are confident with CSS style, we expect this to bring our grade to an A. 
 
 <b> JS : B </b>
 
-We have written a large amount of script ourselves, including the routes script (!! and db!!). // should potentially touch on the number of issues involved.
-Slider script was self written, main issue with that was timing as javascript does not have native sleep() function.
-Random quote generator -> need to add a text file to pull quotes from, change it from HTMLinner method which is unsafe.
+We have written a large amount of script ourselves, including the routes script and database callbacks. The slider script was self written, main issue with that was timing as javascript does not have native sleep() function. For our random quote generator, we will add a text file to pull quotes from, as we currently change it from HTMLinner method which is unsafe. We are also planning on creating a demo for our game, written ourselves in javascript. We expect this will bring us to an A. 
 
 <b> PNG : A </b>
 
@@ -57,25 +56,12 @@ This creates a soft vignette and adds more focus into the centre.
 
 <b> SERVER : C </b>
 
-Our server has currently been set up by following a tutorial to set up express. 
-
-// BY WEDNESDAY to reach a B by Wednesday submission : have to deal with port numbs / URL validation / content negotiation for old browsers / redirections to browsers/ UTF-8 
+Our server has currently been set up by following a tutorial to set up express. We have been looking in to https and certificates as well as other issues, and will also deal with port numbers/URL validation/content negotiation and redirections to bring our grade up to an A. 
 
 <b> DATABASE : C </b> 
 
-// BY WEDNESDAY aiming for a B by dealing with callbacks and the below: 
-
-As well as manually creating a database and extracting data from it in our server, we also update and insert data from the login and products pages. We update user details when they create an account, and update data based on the products that they buy. 
-(This is just an example for a login, but don't want to use +userid and +password)
-Login route -> connection.query("SELECT * FROM users WHERE userid = ? AND password = ?",[
-     req.body.userid,
-     req.body.password
-    ],function(error, results){});
-To prevent constructing an explicit SQL string and making vulnerable to SQL injection.
-For Registration route -> parameter validation, to make sure username is unique, password is longer than say 8 letters contains numbers, a capital, and a special character. This would have the insert.
+We have currently written some of the callbacks for inserting and updating the data in our database, and have manually created our database as well. We update user details when they create an account, and update data based on the products that they buy. We also plan to organise our database access in to a separate server-side module to bring our grade up to an A. To prevent constructing an explicit SQL string and making vulnerable to SQL injection, we will update the way we insert data.
 
 <b> DYNAMIC PAGES : C </b>
 
-// BY WEDNESDAY aiming for a B: use more features of handlebars / organise in a more sophisticated way. 
-
-We have delivered dynamic pages by inserting data into templates on the server side, and have currently created a simple dynamic delivery system. We also want to pull data from DB for a current user that is loggen in, to display profile.
+We have delivered dynamic pages by inserting data into templates on the server side, and have currently created a simple dynamic delivery system. We are using the handlebars templating engine to dynamically serve our HTML pages. We plan to do more of our own programming to organise it better and remove the redundancy of the headers, as we have spent a lot of time researching this we expect this will bring our grade up to an A.
