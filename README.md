@@ -2,7 +2,7 @@
 
 Website for PLAY text adventure game engine, in the style of retro 80's nerds.
 
-<center><b> Grades estimated based on current work in preparation for formative deadline on Wednesday. </center></b>
+<center><b> Grades estimated based on current work. </center></b>
 
 <b> HTML : A </b>
 
