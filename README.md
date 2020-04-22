@@ -20,12 +20,7 @@ Random quote generator -> need to add a text file to pull quotes from, change it
 
 <b> PNG : A </b>
 
-C means you've sorted out basic skills such as converting images to PNG, cropping away unwanted edges, changing resoluation
-B means you've gained experience with some basic tools such as using filters or changing colours or combining existing images or creating simple shapes or filling
-A means you have gained experience with some more sophisticated tools such as handling layers and transparency, or airbrushing or creating original artwork
-ANA! 
-(I think A but you can decide teehee) 
-Main background and title fonts are all original artwork created in gimp. Following steps to reproduce:
+We have used a number of tools including filters, changing colours, and creating shapes as well as the use of layers and transparency, and the creatioin of original artwork. The main background and title fonts are all original artwork created in gimp. Following steps to reproduce:
 
 Pexels.com for a large resolution Creative Commons license (no attribution required for personal or commercial purposes) as the space background. 3 groups of layers created, one for font, one for grid, one for background.
 Grid group:
