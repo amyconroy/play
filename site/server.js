@@ -102,7 +102,7 @@ function newUser(userName, userEmail, userPassword, userPassword2, req){
   }
 }
 
-function userLogin(userName, userPassword, userEmail sessionID){
+function userLogin(userName, userPassword, userEmail, sessionID){
   user_select_username.all([username], (err, rows) => {
     if(err){
       // can't find user / not matching password
