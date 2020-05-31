@@ -49,7 +49,11 @@ Neon effect on border, add another metallic gradient layer and set to multiply.
 Over top of everything add layer with wide radial black->transparent gradient.
 This creates a soft vignette and adds more focus into the centre. 
 
-<b> SVG : X </b>
+<b> SVG : A </b>
+
+All SVG images created from scratch using various features such as shape tools, freehand drawing, simplification, grouping, gradients. Each logo required significant effort to create. 
+Follow steps to recreate the home logo: 
+     Create a rectangle shape using shape tools. Draw the 'roof' using freehand drawing tools. Border size decreased and filled with radial gradiant. Door added by adding new rectangle shape with transparent background, nodes adjusted around the door to move the border around the door. Similar steps used to create the window with transparent background and border similar to outside border used. Background filled with linear gradiant from blue to pink. All shapes grouped together to create a singular logo. Nodes simplified at the end to smooth image. 
 
 <b> SERVER : C </b>
 
