@@ -55,7 +55,7 @@ All SVG images created from scratch using various features such as shape tools, 
 
 Follow steps to recreate the home logo: 
 
-     Create a rectangle shape using shape tools. Draw the 'roof' using freehand drawing tools. Border size decreased and filled with radial gradiant. Door added by adding new rectangle shape with transparent background, nodes adjusted around the door to move the border around the door. Similar steps used to create the window with transparent background and border similar to outside border used. Background filled with linear gradiant from blue to pink. All shapes grouped together to create a singular logo. Nodes simplified at the end to smooth image. 
+  Create a rectangle shape using shape tools. Draw the 'roof' using freehand drawing tools. Border size decreased and filled with radial gradiant. Door added by adding new rectangle shape with transparent background, nodes adjusted around the door to move the border around the door. Similar steps used to create the window with transparent background and border similar to outside border used. Background filled with linear gradiant from blue to pink. All shapes grouped together to create a singular logo. Nodes simplified at the end to smooth image. 
 
 <b> SERVER : C </b>
 
