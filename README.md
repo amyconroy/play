@@ -15,7 +15,7 @@ We have ensured that there are no style tags and attributes in our HTML pages, a
 
 <b> JS : B </b>
 
-We have written a large amount of script ourselves. The slider script was self written, main issue with that was timing as javascript does not have native sleep() function. For our random quote generator, we will add a text file to pull quotes from, and we currently changing it from HTMLinner method which is unsafe. We are also planning on creating a demo for our game, written ourselves in javascript. We expect this will bring us to an A. 
+We have written a large amount of script ourselves. The slider script was self written, main issue with that was timing as javascript does not have native sleep() function. For our random quote generator (used to insert quotes under the PNG header, different upon each reload), we added a text file to pull quotes from, and we currently changing it from HTMLinner method which is unsafe. We are also planning on creating a demo for our game, written ourselves in javascript. We expect this will bring us to an A. 
 
 <b> PNG : B </b>
 
