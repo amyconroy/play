@@ -82,9 +82,9 @@ const user_login           = db.prepare('REPLACE INTO User (userName, userEmail,
 const user_logout          = db.prepare('REPLACE INTO User (userName, userSession) VALUES (?, NULL);');
 const user_session         = db.prepare('SELECT * FROM User WHERE userSession = ?');
 const user_add_email       = db.prepare('REPLACE INTO User (userName, userEmail) VALUES (?, ?)');
-const order_create         = db.prepare('INSERT INTO Order VALUES (?, ?, ?, ?, ?)');
-const orderDetails_create  = db.prepare('INSERT INTO Order Details VALUES (?, ?, ?, ?)');
-const productCtgy_get      = db.prepare('SELECT categoryName FROM Product Category JOIN Product ON ProductID WHERE ProductId = ?');
+//const order_create         = db.prepare('INSERT INTO Order VALUES (?, ?, ?, ?, ?)');
+//const orderDetails_create  = db.prepare('INSERT INTO Order Details VALUES (?, ?, ?, ?)');
+//const productCtgy_get      = db.prepare('SELECT categoryName FROM Product Category JOIN Product ON ProductID WHERE ProductId = ?');
 
 ///// database functions /////
 function newUser(userName, userEmail, userPassword, userPassword2, req){
@@ -102,7 +102,7 @@ function newUser(userName, userEmail, userPassword, userPassword2, req){
   }
 }
 
-function userLogin(userName, userPassword, userEmail sessionID){
+function userLogin(userName, userPassword, userEmail, sessionID){
   user_select_username.all([username], (err, rows) => {
     if(err){
       // can't find user / not matching password
