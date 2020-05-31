@@ -59,7 +59,7 @@ Our server has currently been set up by following a tutorial to set up express. 
 
 We have currently written some of the callbacks for inserting and updating the data in our database, and have manually created our database as well. We update user details when they create an account, and update data based on the products that they buy, have an orders system for buying products. We also plan to organise our database access in to a separate server-side module to bring our grade up to an A. To prevent constructing an explicit SQL string and making vulnerable to SQL injection, we parametised the way we insert data.
      
-     - normalised to 3NF: multiple tables may not seem efficient, but done to allow for scalability of our website and ensure no contradicitions. 
+normalised to 3NF: multiple tables may not seem efficient, but done to allow for scalability of our website and ensure  no contradicitions. 
 
 <b> DYNAMIC PAGES : C </b>
 
