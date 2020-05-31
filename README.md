@@ -11,7 +11,7 @@ We tried to include the XHTML tag, however after using Handlebars it does not se
 
 <b> CSS : B </b> 
 
-We have ensured that there are no style tags and attributs in our HTML pages, and have gained a high level of experience with stylesheets. There are some bad relative measurements, currently in px measurements, which will be changed to make it responsive.  By doing so, as we are confident with CSS style, we expect this to bring our grade to an A. 
+We have ensured that there are no style tags and attributes in our HTML pages, and have gained a high level of experience with stylesheets. There are some bad relative measurements, currently in px measurements, which will be changed to make it responsive.  By doing so, as we are confident with CSS style, we expect this to bring our grade to an A. 
 
 <b> JS : B </b>
 
