@@ -104,3 +104,29 @@ exports.getAllCategories = function(callback){
       }
   });
 }
+
+/// GET PRODUCTS BY PRICE HIGH to LOW
+exports.getProductHightoLow = function(callback){
+  var query = "SELECT * FROM PRODUCT ORDER BY price DESC;";
+    // use each as all returns everything from db, each runs query first
+    db.all(query, (err, rows) =>{
+      if(rows){
+        callback(null, rows);
+      } else{
+        callback(error, null); // unable to get products
+      }
+  });
+}
+
+/// GET PRODUCTS BY PRICE LOW to HIGH
+exports.getProductLowtoHigh = function(callback){
+  var query = "SELECT * FROM PRODUCT ORDER BY price ASC;";
+    // use each as all returns everything from db, each runs query first
+    db.all(query, (err, rows) =>{
+      if(rows){
+        callback(null, rows);
+      } else{
+        callback(error, null); // unable to get products
+      }
+  });
+}
