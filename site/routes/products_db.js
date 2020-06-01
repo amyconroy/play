@@ -7,8 +7,9 @@ let db = new sqlite3.Database('Play.db', sqlite3.OPEN_READWRITE, (err) => {
   console.log('Connected to the PLAY database.');
 });
 
-
+/////////////////////////////////////////
 /// INIT INITIAL TABLES IF NOT EXISTS ///
+/////////////////////////////////////////
 exports.createCategoryTable = function(){
   db.seralize(() => {
     db.run("CREATE TABLE IF NOT EXISTS Category ("+
@@ -54,5 +55,52 @@ exports.createOrderDetailsTable = function(){
       "FOREIGN KEY(productId) REFERENCES User(productId)," +
       "FOREIGN KEY(orderId) REFERENCES Order(orderId)" +
       ");")
+  });
+}
+
+/////////////////////////////////////////
+///////////// SQL QUERIES ///////////////
+/////////////////////////////////////////
+
+//// GET ALL PRODUCTS
+/// 'view all products'
+exports.getAllProducts = function(callback){
+  var query = "SELECT * FROM Product;";
+    // use each as all returns everything from db, each runs query first
+    db.all(query, (err, rows) =>{
+      if(rows){
+        callback(null, rows);
+      } else{
+        callback(error, null); // unable to get products
+      }
+  });
+}
+
+/// GET PRODUCTS BY CATEGORY
+/// PARAMETER: categoryId
+/// NB: (can store categoryId w/ name? or pass name - get id with another query)
+exports.getProductsByCategory = function(categoryId, callback){
+  var query = "SELECT * FROM Product WHERE productCategory = ?;";
+    // use each as all returns everything from db, each runs query first
+    db.all(query, categoryId, (err, rows) =>{
+      if(rows){
+        callback(null, rows);
+      } else{
+        callback(error, null); // unable to get products
+      }
+  });
+}
+
+/// GET ALL CATEGORIES
+/// 'view all categories'
+exports.getAllCategories = function(callback){
+  var query = "SELECT * FROM Category;";
+    // use each as all returns everything from db, each runs query first
+    db.all(query, (err, rows) =>{
+      if(rows){
+        callback(null, rows);
+      } else{
+        callback(error, null); // unable to get products
+      }
   });
 }
