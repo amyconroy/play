@@ -12,7 +12,7 @@ var app = express();
 var router = express.Router(); //our router for requests
 
 var sqlite3 = require('sqlite3').verbose();
-var port = 443; //443 is https defaul port
+var port = 8080; //443 is https defaul port
 var md5 = require('md5'); // use for creating a hash for passwords, need to change to SHA-1
 var bodyParser = require('body-parser');
 
@@ -53,9 +53,13 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+const fillDB = require('./fillDB.js');
+fillDB.createTables();
+fillDB.fillUsers();
+
+console.log("filled db");
 
 //routing for requests
-
 var indexRoute = require('./routes/index.js');
 var demoRoute = require('./routes/demo.js');
 var loginRoute = require('./routes/login.js');
@@ -79,62 +83,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-///// init database /////
-let db = new sqlite3.Database('Play.db', sqlite3.OPEN_READWRITE, (err) => {
-  if(err) {
-    console.error(err.message);
-  }
-  console.log('Connected to the PLAY database.');
-});
-
-///// sqlite queries /////
-const user_select_username = db.prepare('SELECT * FROM User WHERE userName = ?');
-const user_create          = db.prepare('INSERT INTO User (userName, userEmail, userPassword, userSession) VALUES (?, ?, ?, ?);');
-const user_login           = db.prepare('REPLACE INTO User (userName, userEmail, userPassword, userSession) VALUES (?, ?, ?, ?);');
-const user_logout          = db.prepare('REPLACE INTO User (userName, userSession) VALUES (?, NULL);');
-const user_session         = db.prepare('SELECT * FROM User WHERE userSession = ?');
-const user_add_email       = db.prepare('REPLACE INTO User (userName, userEmail) VALUES (?, ?)');
-//const order_create         = db.prepare('INSERT INTO Order VALUES (?, ?, ?, ?, ?)');
-//const orderDetails_create  = db.prepare('INSERT INTO Order Details VALUES (?, ?, ?, ?)');
-//const productCtgy_get      = db.prepare('SELECT categoryName FROM Product Category JOIN Product ON ProductID WHERE ProductId = ?');
-
-///// database functions /////
-function newUser(userName, userEmail, userPassword, userPassword2, req){
-  if(userPassword == userPassword2) {
-    user_select_username.all([userName], (err, rows) => { // first select user and see if they exist
-      if(err){
-        console.log(err.message);
-      }
-      if(rows.length == 0){
-        user_create.run([userName, userEmail, userPassword, req.sessionID]);
-      }});
-  }
-  else{
-    // insert error message for passwords that don't match
-  }
-}
-
-function userLogin(userName, userPassword, userEmail, sessionID){
-  user_select_username.all([username], (err, rows) => {
-    if(err){
-      // can't find user / not matching password
-      console.log(err.message);
-    }
-    if(rows.length == 0){
-      // new user ... create the hash for the password (!!!)
-      user_create.run([username, userEmail, userPassword, sessionId]);
-    }
-  })
-}
-
-function userLogout(req) {
-  user_session.get([req.sessionID], (err, row) => {
-    if(err){
-      console.log(err.message);
-    }
-    user_logout.run(row['userName'], row['userPassword']);
-  });
-}
 
 module.exports = app;

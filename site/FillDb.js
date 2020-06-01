@@ -37,12 +37,13 @@ exports.fillUsers = function(){
   var userName = ['admin', 'amy', 'ana', 'olaf'];
   var password = ['admin', 'anarocks', 'amyrocks', 'summer'];
 
-  for(var i = 0, i < 4; i++){
-    user = {
+  for(var i = 0; i < 4; i++){
+    console.log("yeet");
+    newuser = {
       email: email[i],
       username: userName[i],
       password: password[i]
     }
-    user.newUser(user);
+    user.newUser(newuser);
   }
 }

@@ -11,7 +11,7 @@ let db = new sqlite3.Database('Play.db', sqlite3.OPEN_READWRITE, (err) => {
 /// INIT INITIAL TABLES IF NOT EXISTS ///
 /////////////////////////////////////////
 exports.createCategoryTable = function(){
-  db.seralize(() => {
+  db.serialize(() => {
     db.run("CREATE TABLE IF NOT EXISTS Category ("+
       "categoryId	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE," +
       "categoryName	TEXT NOT NULL UNIQUE," +
@@ -21,7 +21,7 @@ exports.createCategoryTable = function(){
 }
 
 exports.createProductTable = function(){
-  db.seralize(() => {
+  db.serialize(() => {
     db.run("CREATE TABLE IF NOT EXISTS Product ("+
       "productId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE," +
       "productCategory INTEGER NOT NULL," +
@@ -35,7 +35,7 @@ exports.createProductTable = function(){
 }
 
 exports.createOrderTable = function(){
-  db.seralize(() => {
+  db.serialize(() => {
     db.run("CREATE TABLE IF NOT EXISTS Order ("+
       "orderId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE," +
       "userId TEXT NOT NULL," +
@@ -47,7 +47,7 @@ exports.createOrderTable = function(){
 }
 
 exports.createOrderDetailsTable = function(){
-  db.seralize(() => {
+  db.serialize(() => {
     db.run("CREATE TABLE IF NOT EXISTS OrderDetails ("+
       "orderId	INTEGER NOT NULL," +
       "productId INTERGER NOT NULL," +
@@ -107,7 +107,7 @@ exports.getAllCategories = function(callback){
 
 /// GET PRODUCTS BY PRICE HIGH to LOW
 exports.getProductHightoLow = function(callback){
-  var query = "SELECT * FROM PRODUCT ORDER BY price DESC;";
+  var query = "SELECT * FROM Product ORDER BY price DESC;";
     // use each as all returns everything from db, each runs query first
     db.all(query, (err, rows) =>{
       if(rows){
@@ -120,7 +120,7 @@ exports.getProductHightoLow = function(callback){
 
 /// GET PRODUCTS BY PRICE LOW to HIGH
 exports.getProductLowtoHigh = function(callback){
-  var query = "SELECT * FROM PRODUCT ORDER BY price ASC;";
+  var query = "SELECT * FROM Product ORDER BY price ASC;";
     // use each as all returns everything from db, each runs query first
     db.all(query, (err, rows) =>{
       if(rows){
