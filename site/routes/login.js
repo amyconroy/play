@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var loginDB = require('./login_db.js');
 
 router.get('/', function(req, res){
     res.render('login', {layout : 'login_head'});

@@ -38,7 +38,7 @@ exports.createUserTable = function(){
 exports.newUser = function(newUser){
   var query = "INSERT INTO User";
   query += " (userName, userEmail, userPassword, userSession) VALUES (?, ?, ?, ?);";
-  //  db.serialize(() => {
+    db.serialize(() => {
       db.run(query, [newUser['username'], newUser['email'], newUser['password'], newUser['userSession']], function(error) {
         if(error){
           console.log("test");
@@ -48,17 +48,18 @@ exports.newUser = function(newUser){
           console.log("successfully inserted user");
         }
     });
-    console.log("after run");
+  });
 }
 
 
 ////////////////
 /// GET USER ///
 ////////////////
+
 /// CALLBACK : error, user - error to be set NULL if all good, user NULL if bad
 exports.getUserByUserName = function(username, callback){
   var query = "SELECT * FROM User WHERE userName = ?;";
-//  db.serialize(() => {
+  db.serialize(() => {
     // use each as all returns everything from db, each runs query first
     db.each(query, username, (err, rows) =>{
       if(rows){
@@ -67,6 +68,6 @@ exports.getUserByUserName = function(username, callback){
       } else{
         callback(error, null);
       }
-  //  });
+   });
   });
 }
