@@ -1,4 +1,4 @@
-var createError = require('http-errors');
+var createError = require('http-errors'); //change these to constants so cant be changed?
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -7,12 +7,27 @@ var handlebars = require('express-handlebars');
 var bodyParser = require('body-parser');
 var app = express();
 var router = express.Router(); //our router for requests
-//var db = require('./database.js');
+
 var sqlite3 = require('sqlite3').verbose();
 var port = 8080;
 var md5 = require('md5'); // use for creating a hash for passwords, need to change to SHA-1
 var bodyParser = require('body-parser');
 
+//https and openSSL
+const https = require('https'), fs = require("fs");
+var key = fs.readFileSync(__dirname+"/keys/selfsigned.key");
+var cert = fs.readFileSync(__dirname+"/keys/selfsigned.crt");
+
+var options = {
+  key: key,
+  cert: cert
+};
+
+
+var httpsServer = https.createServer(options, app);
+httpsServer.listen(port, "localhost");
+
+//setup app directories and viewing engine
 app.engine( 'handlebars', handlebars( {
   defaultLayout:'index',
   extname: '.handlebars',
@@ -20,8 +35,7 @@ app.engine( 'handlebars', handlebars( {
   partialsDir: __dirname + '/views/partials/'
 }));
 
-app.listen(port, "localhost");
-console.log("Visit http://localhost:8080/");
+console.log("Visit http(s)://localhost:8080/");
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -35,6 +49,9 @@ app.use(bodyParser.json());
 
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+
 
 //routing for requests
 
@@ -122,36 +139,5 @@ function userLogout(req) {
     user_logout.run(row['userName'], row['userPassword']);
   });
 }
-
-/*app.post('/auth', (req, res) => {
-  var username = req.body.username;
-	var password = req.body.password;
-  res.send("request recieved cap'n, with: "+username+" "+password);
-
-  //should be a basic normal select here
-});
-
-app.post('/register', (req, res) => {
-  var username = req.body.register_user;
-	var password = req.body.register_password;
-  var confirm_password = req.body.conf_password;
-  var email = req.body.register_email;
-
-  if (confirm_password === password) { //check password validity
-    if (!validPass(password)) {
-      res.redirect('/login'); //this is hack, not sure how else to deal apart from maybe a clientside callback? or render
-    }
-
-    res.send("request recieved, registering with info: "+username+password+confirm_password+email);
-  } else {
-    res.redirect('/login');
-  }
-
-  //run a select on the username, if it exists say we need a diff USERNAME
-  //insert new user into our shiny db
-});*/
-
-
-
 
 module.exports = app;
