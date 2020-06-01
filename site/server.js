@@ -1,10 +1,13 @@
 var createError = require('http-errors'); //change these to constants so cant be changed?
 var express = require('express');
 var path = require('path');
+//for session
 var cookieParser = require('cookie-parser');
+var session = require('express-session');
+
 var logger = require('morgan');
 var handlebars = require('express-handlebars');
-var bodyParser = require('body-parser');
+var bodyParser = require('body-parser'); //for post requests
 var app = express();
 var router = express.Router(); //our router for requests
 
