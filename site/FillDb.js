@@ -18,7 +18,7 @@ exports.createTables = function(){
       console.log("category creating fill");
     products.createCategoryTable();
       console.log("order creating fill");
-//    products.createOrderTable();
+    products.createOrderTable();
       console.log("product creating fill");
     products.createProductTable();
       console.log("order deets creating fill");
