@@ -39,17 +39,13 @@ exports.newUser = function(newUser){
   var query = "INSERT INTO User";
   query += " (userName, userEmail, userPassword, userSession) VALUES (?, ?, ?, ?));";
   //  db.serialize(() => {
-      db.run(query, [newUser['username'], newUser['email'], newUser['password'], newUser['userSession'], (err, rows) => {
-        if(err){
+      db.run(query, [newUser['username'], newUser['email'], newUser['password'], newUser['userSession']], function(error) {
+        if(error){
           console.log("test");
-          console.log(err);
-          throw error;
-        } else{
-            console.log("hello");
+          console.log(error);
         }
-      });
+    });
 }
-  //  });
 
 
 ////////////////
