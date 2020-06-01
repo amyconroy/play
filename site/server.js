@@ -6,12 +6,13 @@ var logger = require('morgan');
 var handlebars = require('express-handlebars');
 var bodyParser = require('body-parser');
 var app = express();
-var router = express.Router();
+var router = express.Router(); //our router for requests
 //var db = require('./database.js');
 var sqlite3 = require('sqlite3').verbose();
 var port = 8080;
-var md5 = require('md5'); // use for creating a hash for passwords
+var md5 = require('md5'); // use for creating a hash for passwords, need to change to SHA-1
 var bodyParser = require('body-parser');
+
 app.engine( 'handlebars', handlebars( {
   defaultLayout:'index',
   extname: '.handlebars',
@@ -35,29 +36,22 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', (req, res) => {
-	res.render('main', {layout : 'index_head'});
-});
+//routing for requests
 
-app.get('/index', (req, res) => {
-	res.render('main', {layout : 'index_head'});
-});
+var indexRoute = require('./routes/index.js');
+var demoRoute = require('./routes/demo.js');
+var loginRoute = require('./routes/login.js');
+var commentsRoute = require('./routes/comments.js');
+var productsRoute = require('./routes/products.js');
+var downloadsRoute = require('./routes/downloads.js');
 
-app.get('/demo', (req, res) => {
-  res.render('demo', {layout : 'demo_head'});
-});
+app.use('/', indexRoute);
+app.use('/demo', demoRoute);
+app.use('/products', productsRoute);
+app.use('/login', loginRoute);
+app.use('/downloads', downloadsRoute);
+app.use('/comments', commentsRoute);
 
-app.get('/products', (req, res) => {
-	res.render('products', {layout : 'product_head'});
-});
-
-app.get('/login', (req, res) => {
-	res.render('login', {layout : 'login_head'});
-});
-
-app.get('/downloads', (req,res) => {
-  res.render('downloads', {layout : 'download_head'});
-});
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development

@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/demo', function(req, res, next){
-  res.send('demo', { title: 'Express'});
+router.get('/', function(req, res){
+  res.render('demo', {layout : 'demo_head'});
 });
 
-module.exports = router; 
+module.exports = router;
