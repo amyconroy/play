@@ -66,12 +66,16 @@ var commentsRoute = require('./routes/comments.js');
 var productsRoute = require('./routes/products.js');
 var downloadsRoute = require('./routes/downloads.js');
 
+console.log("created routes");
+
 app.use('/', indexRoute);
 app.use('/demo', demoRoute);
 app.use('/products', productsRoute);
 app.use('/login', loginRoute);
 app.use('/downloads', downloadsRoute);
 app.use('/comments', commentsRoute);
+
+console.log("using routes");
 
 // error handler
 app.use(function(err, req, res, next) {

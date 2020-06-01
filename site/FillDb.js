@@ -49,7 +49,8 @@ exports.fillUsers = function(){
     newuser = {
       email: email[i],
       username: userName[i],
-      password: password[i]
+      password: password[i],
+      userSession: i
     }
     user.newUser(newuser);
   }
