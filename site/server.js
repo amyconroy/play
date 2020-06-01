@@ -121,7 +121,7 @@ function userLogout(req) {
   });
 }
 
-app.post('/auth', (req, res) => {
+/*app.post('/auth', (req, res) => {
   var username = req.body.username;
 	var password = req.body.password;
   res.send("request recieved cap'n, with: "+username+" "+password);
@@ -147,7 +147,7 @@ app.post('/register', (req, res) => {
 
   //run a select on the username, if it exists say we need a diff USERNAME
   //insert new user into our shiny db
-});
+});*/
 
 function validPass(password) {
   if (password.length < 5) {
