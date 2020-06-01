@@ -7,12 +7,6 @@ let db = new sqlite3.Database('Play.db', sqlite3.OPEN_READWRITE, (err) => {
   console.log('Connected to the PLAY database.');
 });
 
-// "CREATE TABLE Category ("+
-  //"categoryId	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE," +
-  //"categoryName	TEXT NOT NULL UNIQUE," +
-  //"categoryDescription	TEXT NOT NULL" +
-  //");")
-
 //////////////////////////
 /// CREATE USER TABLE ////
 /////////////////////////
