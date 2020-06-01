@@ -37,14 +37,18 @@ exports.createUserTable = function(){
 
 exports.newUser = function(newUser){
   var query = "INSERT INTO User";
-  query += " (userName, userEmail, userPassword, userSession) VALUES (?, ?, ?, ?));";
+  query += " (userName, userEmail, userPassword, userSession) VALUES (?, ?, ?, ?);";
   //  db.serialize(() => {
       db.run(query, [newUser['username'], newUser['email'], newUser['password'], newUser['userSession']], function(error) {
         if(error){
           console.log("test");
           console.log(error);
         }
+        else{
+          console.log("successfully inserted user");
+        }
     });
+    console.log("after run");
 }
 
 
