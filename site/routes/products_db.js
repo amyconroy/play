@@ -41,16 +41,13 @@ exports.createProductTable = function(){
 
 exports.createOrderTable = function(){
 //  db.serialize(() => {
-
   console.log("order creating");
-    db.run("CREATE TABLE IF NOT EXISTS Order ("+
-      "orderId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE," +
-      "userId TEXT NOT NULL," +
-      "orderDate TEXT NOT NULL," +
-      "orderPrice REAL NOT NULL," +
-      "FOREIGN KEY(userId) REFERENCES User(userId)" +
-      ");")
-
+    db.run(`CREATE TABLE IF NOT EXISTS Order (
+      orderId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+      orderUserId TEXT NOT NULL,
+      orderDate TEXT NOT NULL,
+      orderPrice REAL NOT NULL,
+      FOREIGN KEY(orderUserId) REFERENCES User(userId));`)
       console.log("order created");
 //  });
 }
