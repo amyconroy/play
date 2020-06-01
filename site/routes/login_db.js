@@ -55,7 +55,6 @@ exports.newUser = function(newUser){
 ////////////////
 /// GET USER ///
 ////////////////
-
 /// CALLBACK : error, user - error to be set NULL if all good, user NULL if bad
 exports.getUserByUserName = function(username, callback){
   var query = "SELECT * FROM User WHERE userName = ?;";
@@ -74,7 +73,6 @@ exports.getUserByUserName = function(username, callback){
 
 
 ///// sqlite queries /////
-const user_select_username = db.prepare('SELECT * FROM User WHERE userName = ?');
 const user_login           = db.prepare('REPLACE INTO User (userName, userEmail, userPassword, userSession) VALUES (?, ?, ?, ?);');
 const user_logout          = db.prepare('REPLACE INTO User (userName, userSession) VALUES (?, NULL);');
 const user_session         = db.prepare('SELECT * FROM User WHERE userSession = ?');
