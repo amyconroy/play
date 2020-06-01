@@ -1,0 +1,45 @@
+.demo-outer-box {
+  background: #40003b;
+  color: #ff99df;
+  font-family: 'VT323';
+  font-size: 20px;
+  line-height: 1.2;
+  height:650px;
+  max-width:60%;
+  margin:auto;
+  font-family: 'DM Mono';
+  text-shadow: 0 0 5px purple, 0 0 10px purple, 0 0 15px purple, 0 0 40px #ff00aa, 0 0 70px #ff00aa;
+}
+
+.demo-outer-screen {
+  background-color: transparent;
+  border-radius: 2rem;
+  border: 1rem solid;
+  border-bottom-color: #121212;
+  border-left-color: #080808;
+  border-right-color: #080808;
+  border-top-color: #020202;
+  box-shadow:
+    inset 0 0 18rem black,
+    inset 0 0 3rem black,
+    0 0 10rem black;
+  height: 96%;
+  position: relative;
+  max-width: 96%;
+}
+
+.demo-inner-screen {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 40%, rgba(0, 0, 0, 0.25) 40%);
+  background-size: 100% 6px, 8px 100%;
+}
+
+.text {
+
+}
