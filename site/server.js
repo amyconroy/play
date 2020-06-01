@@ -6,12 +6,13 @@ var logger = require('morgan');
 var handlebars = require('express-handlebars');
 var bodyParser = require('body-parser');
 var app = express();
-var router = express.Router();
+var router = express.Router(); //our router for requests
 //var db = require('./database.js');
 var sqlite3 = require('sqlite3').verbose();
 var port = 8080;
-var md5 = require('md5'); // use for creating a hash for passwords
+var md5 = require('md5'); // use for creating a hash for passwords, need to change to SHA-1
 var bodyParser = require('body-parser');
+
 app.engine( 'handlebars', handlebars( {
   defaultLayout:'index',
   extname: '.handlebars',
@@ -35,29 +36,22 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', (req, res) => {
-	res.render('main', {layout : 'index_head'});
-});
+//routing for requests
 
-app.get('/index', (req, res) => {
-	res.render('main', {layout : 'index_head'});
-});
+var indexRoute = require('./routes/index.js');
+var demoRoute = require('./routes/demo.js');
+var loginRoute = require('./routes/login.js');
+var commentsRoute = require('./routes/comments.js');
+var productsRoute = require('./routes/products.js');
+var downloadsRoute = require('./routes/downloads.js');
 
-app.get('/demo', (req, res) => {
-  res.render('demo', {layout : 'demo_head'});
-});
+app.use('/', indexRoute);
+app.use('/demo', demoRoute);
+app.use('/products', productsRoute);
+app.use('/login', loginRoute);
+app.use('/downloads', downloadsRoute);
+app.use('/comments', commentsRoute);
 
-app.get('/products', (req, res) => {
-	res.render('products', {layout : 'product_head'});
-});
-
-app.get('/login', (req, res) => {
-	res.render('login', {layout : 'login_head'});
-});
-
-app.get('/downloads', (req,res) => {
-  res.render('downloads', {layout : 'download_head'});
-});
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
@@ -75,6 +69,8 @@ let db = new sqlite3.Database('Play.db', sqlite3.OPEN_READWRITE, (err) => {
   }
   console.log('Connected to the PLAY database.');
 });
+
+
 
 // here add in hashing / inserting dummy users / etc
 
@@ -127,7 +123,7 @@ function userLogout(req) {
   });
 }
 
-app.post('/auth', (req, res) => {
+/*app.post('/auth', (req, res) => {
   var username = req.body.username;
 	var password = req.body.password;
   res.send("request recieved cap'n, with: "+username+" "+password);
@@ -153,26 +149,9 @@ app.post('/register', (req, res) => {
 
   //run a select on the username, if it exists say we need a diff USERNAME
   //insert new user into our shiny db
-});
+});*/
 
-function validPass(password) {
-  if (password.length < 5) {
-    console.log("pass too short");
-    return false;
-  }
 
-  if (!password.match(/[0-9]/)) {
-    console.log("pass needs number");
-    return false;
-  }
-
-  if (!password.match(/[!@#$%\^&*]/)) {
-    console.log("pass needs special character");
-    return false;
-  }
-
-  return true;
-}
 
 
 module.exports = app;
