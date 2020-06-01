@@ -70,6 +70,8 @@ let db = new sqlite3.Database('Play.db', sqlite3.OPEN_READWRITE, (err) => {
   console.log('Connected to the PLAY database.');
 });
 
+
+
 // here add in hashing / inserting dummy users / etc
 
 ///// sqlite queries /////
@@ -149,24 +151,7 @@ app.post('/register', (req, res) => {
   //insert new user into our shiny db
 });*/
 
-function validPass(password) {
-  if (password.length < 5) {
-    console.log("pass too short");
-    return false;
-  }
 
-  if (!password.match(/[0-9]/)) {
-    console.log("pass needs number");
-    return false;
-  }
-
-  if (!password.match(/[!@#$%\^&*]/)) {
-    console.log("pass needs special character");
-    return false;
-  }
-
-  return true;
-}
 
 
 module.exports = app;
