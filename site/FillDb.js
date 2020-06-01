@@ -22,7 +22,7 @@ exports.createTables = function(){
       console.log("product creating fill");
     products.createProductTable();
       console.log("order deets creating fill");
-//    products.createOrderDetailsTable();
+  products.createOrderDetailsTable();
     db.close();
   } catch(error){
     console.log("catching this errror in create tables?");

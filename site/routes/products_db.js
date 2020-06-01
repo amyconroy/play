@@ -42,12 +42,12 @@ exports.createProductTable = function(){
 exports.createOrderTable = function(){
 //  db.serialize(() => {
   console.log("order creating");
-    db.run(`CREATE TABLE IF NOT EXISTS Order (
-      orderId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-      orderUserId TEXT NOT NULL,
-      orderDate TEXT NOT NULL,
-      orderPrice REAL NOT NULL,
-      FOREIGN KEY(orderUserId) REFERENCES User(userId));`)
+    db.run("CREATE TABLE IF NOT EXISTS UserOrder ( "+
+      "orderId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, " +
+      "orderUserId TEXT NOT NULL, " +
+      "orderDate TEXT NOT NULL, " +
+      "orderPrice REAL NOT NULL, "  +
+      "FOREIGN KEY(orderUserId) REFERENCES User(userId));")
       console.log("order created");
 //  });
 }
@@ -60,7 +60,7 @@ exports.createOrderDetailsTable = function(){
       "productId INTERGER NOT NULL," +
       "PRIMARY KEY (orderId, productId)" +
       "FOREIGN KEY(productId) REFERENCES User(productId)," +
-      "FOREIGN KEY(orderId) REFERENCES Order(orderId)" +
+      "FOREIGN KEY(orderId) REFERENCES UserOrder(orderId)" +
       ");")
           console.log("order details created");
 //  });
