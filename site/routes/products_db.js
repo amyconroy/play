@@ -4,24 +4,27 @@ let db = new sqlite3.Database('Play.db', sqlite3.OPEN_READWRITE, (err) => {
   if(err) {
     console.error(err.message);
   }
-  console.log('Connected to the PLAY database.');
+  console.log('Connected to the PLAY database in products.');
 });
 
 /////////////////////////////////////////
 /// INIT INITIAL TABLES IF NOT EXISTS ///
 /////////////////////////////////////////
 exports.createCategoryTable = function(){
-  db.serialize(() => {
+  //db.serialize(() => {
+    console.log("category creating");
     db.run("CREATE TABLE IF NOT EXISTS Category ("+
       "categoryId	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE," +
       "categoryName	TEXT NOT NULL UNIQUE," +
       "categoryDescription	TEXT NOT NULL" +
       ");")
-  });
+        console.log("category created");
+  //});
 }
 
 exports.createProductTable = function(){
-  db.serialize(() => {
+//  db.serialize(() => {
+  console.log("product creating");
     db.run("CREATE TABLE IF NOT EXISTS Product ("+
       "productId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE," +
       "productCategory INTEGER NOT NULL," +
@@ -31,11 +34,15 @@ exports.createProductTable = function(){
       "image	TEXT," +
       "FOREIGN KEY(productCategory) REFERENCES Category(categoryId)" +
       ");")
-  });
+
+        console.log("product created");
+//  });
 }
 
 exports.createOrderTable = function(){
-  db.serialize(() => {
+//  db.serialize(() => {
+
+  console.log("order creating");
     db.run("CREATE TABLE IF NOT EXISTS Order ("+
       "orderId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE," +
       "userId TEXT NOT NULL," +
@@ -43,11 +50,14 @@ exports.createOrderTable = function(){
       "orderPrice REAL NOT NULL," +
       "FOREIGN KEY(userId) REFERENCES User(userId)" +
       ");")
-  });
+
+      console.log("order created");
+//  });
 }
 
 exports.createOrderDetailsTable = function(){
-  db.serialize(() => {
+  //db.serialize(() => {
+      console.log("order details creating");
     db.run("CREATE TABLE IF NOT EXISTS OrderDetails ("+
       "orderId	INTEGER NOT NULL," +
       "productId INTERGER NOT NULL," +
@@ -55,7 +65,8 @@ exports.createOrderDetailsTable = function(){
       "FOREIGN KEY(productId) REFERENCES User(productId)," +
       "FOREIGN KEY(orderId) REFERENCES Order(orderId)" +
       ");")
-  });
+          console.log("order details created");
+//  });
 }
 
 /////////////////////////////////////////

@@ -4,14 +4,15 @@ let db = new sqlite3.Database('Play.db', sqlite3.OPEN_READWRITE, (err) => {
   if(err) {
     console.error(err.message);
   }
-  console.log('Connected to the PLAY database.');
+  console.log('Connected to the PLAY database in login.');
 });
 
 //////////////////////////
 /// CREATE USER TABLE ////
 /////////////////////////
 exports.createUserTable = function(){
-  db.serialize(() => {
+  console.log("creating users");
+//  db.serialize(() => {
     db.run("CREATE TABLE IF NOT EXISTS User ("+
 	   "userName	TEXT NOT NULL UNIQUE," +
 	   "userEmail	TEXT NOT NULL UNIQUE,"+
@@ -19,7 +20,8 @@ exports.createUserTable = function(){
 	   "userSession	TEXT," +
 	   "userId	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE" +
      ");");
-  });
+       console.log("users created");
+//  });
 }
 
 ///////////////////////

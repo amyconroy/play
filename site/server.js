@@ -56,7 +56,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 const fillDB = require('./fillDB.js');
 fillDB.createTables();
 fillDB.fillUsers();
-
 console.log("filled db");
 
 //routing for requests

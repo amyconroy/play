@@ -2,9 +2,10 @@
 var sqlite3 = require('sqlite3').verbose();
 let db = new sqlite3.Database('Play.db', sqlite3.OPEN_READWRITE, (err) => {
   if(err) {
+      console.log("catching this errror in fill db?");
     console.error(err.message);
   }
-  console.log('Connected to the PLAY database.');
+  console.log('Connected to the PLAY database in fill db.');
 });
 
 const user = require('./routes/login_db.js');
@@ -12,15 +13,21 @@ const products = require('./routes/products_db.js');
 
 exports.createTables = function(){
   try{
+      console.log("users creating fill");
     user.createUserTable();
+      console.log("category creating fill");
     products.createCategoryTable();
+      console.log("order creating fill");
     products.createOrderTable();
+      console.log("product creating fill");
     products.createProductTable();
+      console.log("order deets creating fill");
     products.createOrderDetailsTable();
-    db.close();
+  //  db.close();
   } catch(error){
+    console.log("catching this errror in create tables?");
     console.log(error);
-    db.close();
+  //  db.close();
   }
 }
 
