@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var loginDB = require('./login_db.js');
 
 router.get('/', function(req, res){
     res.render('login', {layout : 'login_head'});
@@ -12,11 +13,20 @@ router.post('/register', function(req, res){
   var confirm_password = req.body.conf_password;
   var email = req.body.register_email;
 
+  var newUser = {
+    email: email,
+    username: username,
+    password: password,
+    userSession: 123123
+  }
+
   if (confirm_password === password) { //check password validity
     if (!validPass(password)) {
       res.redirect('/login'); //this is hack, not sure how else to deal apart from maybe a clientside callback? or render
     }
 
+    console.log("adding new user "+newUser);
+    loginDB.newUser(newUser);
     res.send("request recieved, registering with info: "+username+password+confirm_password+email);
   } else {
     res.redirect('/login');

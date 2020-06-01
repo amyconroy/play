@@ -132,10 +132,11 @@ a {
 
 /*icons in navbar partial*/
 .icons {
-	width:auto;
-	height:50%;
+	width:2%;
+	height:auto;
 	position:relative;
-
+	right:15px;
+	top:7px;
 }
 
 .content-box {

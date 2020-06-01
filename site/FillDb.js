@@ -46,6 +46,7 @@ exports.fillUsers = function(){
 
   for(var i = 0; i < 4; i++){
     console.log("yeet");
+    
     newuser = {
       email: email[i],
       username: userName[i],

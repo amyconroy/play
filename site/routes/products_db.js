@@ -44,7 +44,7 @@ exports.createOrderTable = function(){
   console.log("order creating");
     db.run("CREATE TABLE IF NOT EXISTS UserOrder ( "+
       "orderId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, " +
-      "orderUserId TEXT NOT NULL, " +
+      "orderUserId   TEXT NOT NULL, " +
       "orderDate TEXT NOT NULL, " +
       "orderPrice REAL NOT NULL, "  +
       "FOREIGN KEY(orderUserId) REFERENCES User(userId));")

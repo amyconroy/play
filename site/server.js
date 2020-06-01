@@ -13,7 +13,7 @@ var router = express.Router(); //our router for requests
 
 var sqlite3 = require('sqlite3').verbose();
 var port = 8080; //443 is https defaul port
-var md5 = require('md5'); // use for creating a hash for passwords, need to change to SHA-1
+var sha1 = require('sha1'); // use for creating a hash for passwords, need to change to SHA-1
 var bodyParser = require('body-parser');
 
 //https and openSSL setup, self signed certificates so browser will have a 'do you want to accept risk' page
