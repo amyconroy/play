@@ -44,7 +44,7 @@ app.get('/index', (req, res) => {
 });
 
 app.get('/demo', (req, res) => {
-  res.render('demo', {layout : 'index_head'});
+  res.render('demo', {layout : 'demo_head'});
 });
 
 app.get('/products', (req, res) => {
@@ -55,6 +55,9 @@ app.get('/login', (req, res) => {
 	res.render('login', {layout : 'login_head'});
 });
 
+app.get('/downloads', (req,res) => {
+  res.render('downloads', {layout : 'download_head'});
+});
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
@@ -123,8 +126,6 @@ function userLogout(req) {
     user_logout.run(row['userName'], row['userPassword']);
   });
 }
-
-
 
 app.post('/auth', (req, res) => {
   var username = req.body.username;
