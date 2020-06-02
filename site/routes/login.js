@@ -38,7 +38,20 @@ if (confirm_password === password) { //check password validity
   loginDB.newUser(newUser); //try to add new user to DB
 
   //req.session.username = username; //test session works
+  console.log(req.sessionID+" unique sesh id");
+
+  req.session.user = {
+    email: email,
+    name: username
+  }
+
+  console.log("deleting session id");
+
+  delete req.session.user;
+  delete req.sessionID;
+  console.log(req.session.user);
   console.log(req.sessionID);
+
   res.send("request recieved, registering with info: "+username+password+confirm_password+email);
 
 } else {

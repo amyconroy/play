@@ -66,7 +66,9 @@ app.use(session({
     secure:true,
     secret: "343ji43j4n3jn4jk3n",
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: false,
+    unset: 'destroy',
+    cookie: {maxAge:10} //higher in production, this was to test uuid
     }));
 app.use(express.static(path.join(__dirname, 'public')));
 
