@@ -44,12 +44,6 @@ exports.newUser = function(newUser){
   });
 }
 
-// time posted - calculate at client side
-/*comment{
-  userId: x,
-  timePosted: now(),
-  content: x
-} */
 exports.newComment = function(commentDetails){
   var query = "INSERT INTO Comments";
   query += "(userId, timePosted, content) VALUES (?, ?, ?);";
@@ -93,7 +87,7 @@ exports.getTenRecentComments = function(callback){
   });
 }
 
-exports.deleteComment(commentId, callback){
+exports.deleteComments = function(commentId, callback) {
   var query = "DELETE FROM Comments WHERE commentId = ?;";
   db.serialize(() => {
     // use each as all returns everything from db, each runs query first

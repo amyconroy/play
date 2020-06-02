@@ -27,20 +27,12 @@ exports.createTables = function(){
   comments.createCommentsTable();
     db.close();
   } catch(error){
-    console.log("catching this errror in create tables?");
     console.log(error);
     db.close();
   }
 }
 
 // CHANGE THE SESSION ID
-/// PARAM: user variable (JSON AS PER BELOW)
-/// JSON:
-// var user = {'email': req.body.email,
-            // 'username': req.body.username,
-            // 'password' : hashedPassword };
-
-
 exports.fillUsers = function(){
   var email = ['admin@admin.com', 'amy@bris.com', 'ana@bris.com', 'olaf@bris.com'];
   var userName = ['admin', 'amy', 'ana', 'olaf'];
@@ -56,4 +48,13 @@ exports.fillUsers = function(){
     }
     user.newUser(newuser);
   }
+}
+
+exports.fillComments = function(){
+  var userId = ['1', '2', '3', '4'];
+  var content = ['Does anyone else have this issue? when I get to the end I cant seem to beat the final bit!',
+  'wow I love the new downloads that are available!!',
+  'this purchase was the best decision ive ever made',
+  'This game has everything!! so nostalgic'];
+
 }
