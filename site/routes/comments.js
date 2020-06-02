@@ -15,7 +15,7 @@ router.post('/submit_comment', function(req, res){
     content: req.body.content
   }
   commentsDB.newComment(newComment);
-  res.send("inserting comment");
+  req.flash("inserting comment");
 });
 
 /// DELETE COMMENT ////
