@@ -1,3 +1,4 @@
+var flash = require('flash');
 var createError = require('http-errors'); //change these to constants so cant be changed?
 var express = require('express');
 var path = require('path');
@@ -12,8 +13,6 @@ var handlebars = require('express-handlebars');
 var bodyParser = require('body-parser'); //for post requests
 var md5 = require('md5'); // use for creating a hash for passwords, need to change to SHA-1
 var bodyParser = require('body-parser');
-var flash = require('express-flash');
-var session = require('express-session');
 //////////////////
 /// EXPRESS /////
 /////////////////
@@ -58,15 +57,20 @@ app.use(bodyParser.json()); // supporting JSON-econded bodies
 
 //cookies for session storage
 app.use(cookieParser());
-app.use(session({secret: "343ji43j4n3jn4jk3n"}));
+app.use(session({
+    secret: "343ji43j4n3jn4jk3n",
+    resave: true,
+    saveUninitialized: true
+    }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 //////////////
 /// FLASH ///
 /////////////
-/* app.use(express.cookieParser('keyboard cat'));
+/*
+app.use(express.cookieParser('keyboard cat'));
 app.use(express.session({ cookie: { maxAge: 60000 }}));
-app.use(flash());*/
+app.use(flash()); */
 
 ///////////////
 /// ROUTING ///
@@ -83,7 +87,9 @@ app.use('/products', productsRoute);
 app.use('/login', loginRoute);
 app.use('/downloads', downloadsRoute);
 app.use('/comments', commentsRoute);
-
+app.get('*', function(req, res){
+  res.status(404).send('what???');
+});
 
 ///////////////////////////////
 /// FILL DB WITH DUMMY DATA ///
