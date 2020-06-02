@@ -14,26 +14,23 @@ router.post('/register', function(req, res){
   var confirm_password = req.body.conf_password;
   var email = req.body.register_email;
 
-  var saltRounds = 10;
-  var hashedPassword;
-
-  /*bcrypt.hash(password, saltRounds, (err, hash) => {
-    hashedPassword = hash;
-  });
-  console.log("from registration, hash "+hashedPassword);*/
-
-  /*var newUser = {
-    email: email,
-    username: username,
-    password: hashedPassword,
-    userSession: 123123
-  }*/
-
-  /*if (confirm_password === password) { //check password validity
+  if (confirm_password === password) { //check password validity
     if (!validPass(password)) {
       console.log("reg failed message");
       res.status("401");
       res.redirect('/login'); //this is hack, not sure how else to deal apart from maybe a clientside callback? or render
+    }
+
+    var salt = bcrypt.genSaltSync(10); //make salt for password hash
+    var hashedPassword = bcrypt.hashSync(password, salt); //make hashed password
+
+    console.log(hashedPassword);
+
+    var newUser = {
+      email: email,
+      username: username,
+      password: hashedPassword,
+      userSession: 123123
     }
 
     console.log("adding new user "+newUser);
@@ -47,42 +44,29 @@ router.post('/register', function(req, res){
     res.status("401");
     res.redirect('/login');
 
-  }*/
-
-  //sanitise input first
-  console.log("checking user password strength");
-
-  var passStrength = validPass(password, (data, error) => {
-      if (error) {
-        //flash error;
-        console.log(error);
-
-        res.status("401");
-        res.redirect('/login');
-      }
-      if (data) {
-        console.log("password fine");
-        res.send("request recieved, registering with info: "+username+password+confirm_password+email);
-      }
-  });
+  }
 
 });
 
-function validPass(password, callback){
+function validPass(password){
   if (password.length < 5) {
-    callback(new Error("pass too short"), null); //false
+    //callback(new Error("pass too short"), null); //false
+    return false;
   }
 
   if (!password.match(/[0-9]/)) {
-    callback(new Error("pass needs number"), null); //false
+    //callback(new Error("pass needs number"), null); //false
+    return false;
   }
 
   if (!password.match(/[!@#$%\^&*]/)) {
-    callback(new Error("pass needs special character"), null); //false
+    //callback(new Error("pass needs special character"), null); //false
+    return false;
   }
 
   console.log("password fine from val");
-  callback(null, "fine"); //true
+  //callback(null, "fine"); //true
+  return true;
 }
 
 router.post('/auth', function(req, res){
@@ -93,14 +77,22 @@ router.post('/auth', function(req, res){
       if (error) {
         console.log("cant get thing"); //flash user does not exist
       }
+
       if (rows) {
           req.session.name = username;
           console.log("checking password");
-          //if (passwordComparison(rows.userPassword, password) {
-            //console.log("success");
-          //} else {
-            //console.log("wrong password"); //flash error ie pass dont match
-          //}
+
+          console.log(rows.userPassword);
+
+          passCompare(password, rows.userPassword, (error, result)=> {
+            if (result) {
+              console.log("passmatch");
+
+            } else {
+              console.log("incorrect message");
+            }
+
+          });
       }
 
     });
@@ -111,14 +103,13 @@ router.post('/auth', function(req, res){
 
 });
 
-function passwordComparison(userHash, userInput) {
-  //retrieve hash from DB
-  //hash the one they gave
-  //compare the two
-  if (userHash === userInput) {
-    return true;
-  }
-  return false;
+function passCompare(password, userpassword, callback) {
+  console.log("comparing pass");
+
+  bcrypt.compare(password, userpassword, function(error, result) {
+    if (error) throw error;
+    callback(null, result);
+  });
 }
 
 module.exports = router;
