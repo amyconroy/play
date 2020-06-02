@@ -6,6 +6,7 @@ router.get('/', function(req, res){
     res.render('comments', {layout : 'comments_head'});
 });
 
+
 /// CREATE NEW COMMENT ////
 router.post('/submit_comment', function(req, res){
   var newComment = {
@@ -14,7 +15,7 @@ router.post('/submit_comment', function(req, res){
     content: req.body.content
   }
   commentsDB.newComment(newComment);
-  //req.flash("inserting comment");
+  req.flash("inserting comment");
 });
 
 /// DELETE COMMENT ////

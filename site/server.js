@@ -19,7 +19,7 @@ var session = require('express-session');
 /////////////////
 var app = express();
 var router = express.Router(); //our router for requests
-
+//hell on earth
 //////////////////////////////
 /// CERTIFICATES and HTTPS ///
 //////////////////////////////
@@ -47,7 +47,7 @@ console.log("Visit http(s)://localhost:8080/");
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'handlebars');
 
-app.use(session({secret: "343ji43j4n3jn4jk3n"}));
+
 // static delivery of public folder
 app.use(logger('dev'));
 
