@@ -10,6 +10,7 @@ let db = new sqlite3.Database('Play.db', sqlite3.OPEN_READWRITE, (err) => {
 
 const user = require('./routes/login_db.js');
 const products = require('./routes/products_db.js');
+const comments = require('./routes/comments_db.js');
 
 exports.createTables = function(){
   try{
@@ -23,6 +24,7 @@ exports.createTables = function(){
     products.createProductTable();
       console.log("order deets creating fill");
   products.createOrderDetailsTable();
+  comments.createCommentsTable();
     db.close();
   } catch(error){
     console.log("catching this errror in create tables?");
