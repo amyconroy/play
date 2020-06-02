@@ -6,6 +6,7 @@ var port = 8080; //443 is https defaul port
 /// OTHER PACKAGES ///
 /////////////////////
 var cookieParser = require('cookie-parser');
+var uuid = require('uuid/v4');
 var session = require('express-session');
 var logger = require('morgan');
 var handlebars = require('express-handlebars');
@@ -59,10 +60,10 @@ app.use(bodyParser.json()); // supporting JSON-econded bodies
 //cookies for session storage
 app.use(cookieParser());
 app.use(session({
-        genid: (req) => {
-        console.log('Inside the session middlware');
-        return uuid();
+    genid: function(req) {
+      return uuid() // use UUIDs for session IDs
     },
+    secure:true,
     secret: "343ji43j4n3jn4jk3n",
     resave: true,
     saveUninitialized: true

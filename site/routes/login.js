@@ -37,8 +37,7 @@ if (confirm_password === password) { //check password validity
   console.log("adding new user "+newUser);
   loginDB.newUser(newUser); //try to add new user to DB
 
-  req.session.username = username; //test session works
-  console.log(req.session.username+"this is user");
+  //req.session.username = username; //test session works
   res.send("request recieved, registering with info: "+username+password+confirm_password+email);
 
 } else {
@@ -87,7 +86,6 @@ router.post('/auth', function(req, res){
         passCompare(password, rows.userPassword, (error, result)=> {
           if (result) {
             console.log("passmatch");
-            req.session.user = rows;
 
           } else {
             console.log("incorrect message");
