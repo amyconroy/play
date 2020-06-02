@@ -92,3 +92,15 @@ exports.getTenRecentComments = function(callback){
      });
   });
 }
+
+exports.deleteComment(commentId, callback){
+  var query = "DELETE FROM Comments WHERE commentId = ?;";
+  db.serialize(() => {
+    // use each as all returns everything from db, each runs query first
+    db.each(query, commentId, (err, rows) =>{
+      if(err){
+        console.log(err);
+      }
+   });
+  });
+}
