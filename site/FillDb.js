@@ -10,6 +10,7 @@ let db = new sqlite3.Database('Play.db', sqlite3.OPEN_READWRITE, (err) => {
 
 const user = require('./routes/login_db.js');
 const products = require('./routes/products_db.js');
+const comments = require('./routes/comments_db.js');
 
 exports.createTables = function(){
   try{
@@ -46,7 +47,7 @@ exports.fillUsers = function(){
 
   for(var i = 0; i < 4; i++){
     console.log("yeet");
-    
+
     newuser = {
       email: email[i],
       username: userName[i],
@@ -54,5 +55,28 @@ exports.fillUsers = function(){
       userSession: i
     }
     user.newUser(newuser);
+  }
+}
+
+exports.fillComments = function(){
+  var userId = ['1', '2', '3', '4'];
+  var userId2 = ['5', '6', '7', '8'];
+  var content = ['Does anyone else have this issue? when I get to the end I cant seem to beat the final bit!',
+  'wow I love the new downloads that are available!!',
+  'this purchase was the best decision ive ever made',
+  'This game has everything!! so nostalgic'];
+  var content2 = ['man amy is the best admin ever!',
+  'dude no ANA is the best!!',
+  'OMG MY FAVE PRODUCT IS ON SALE !!',
+  'i just beat the game!'];
+
+  for(var i = 0; i < 4; i++){
+    var time = Date.now();
+    newcomm = {
+      userId: userId[i],
+      timePosted: time,
+      content: content[i]
+    }
+    comments.newComment(newcomm);
   }
 }

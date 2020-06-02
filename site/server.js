@@ -91,7 +91,7 @@ app.use('/comments', commentsRoute);
 const fillDB = require('./fillDB.js');
 fillDB.createTables();
 fillDB.fillUsers();
-//fillDB.fillComments();
+fillDB.fillComments();
 
 /////////////////////
 /// ERROR HANDLER ///
