@@ -19,7 +19,7 @@ router.post('/new_comment', function(req, res){
 
 /// DELETE COMMENT ////
 router.post('/delete_comment', function(req, res){
-  var commentId = req.commentId;
+  var commentId = req.commentId; // need to figure out what this will do
   commentsDB.deleteComment(commentId, (rows) =>{
     if(rows){ // add in flash for successful delete
       commentsDB.getTenRecentComments(error => {

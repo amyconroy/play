@@ -29,12 +29,7 @@ exports.createUserTable = function(){
 //////////////////////
 
 // CHANGE THE SESSION ID
-/// PARAM: user variable (JSON AS PER BELOW)
-/// JSON:
-// var user = {'email': req.body.email,
-            // 'username': req.body.username,
-            // 'password' : hashedPassword };
-
+/// PARAM: user variable 
 exports.newUser = function(newUser){
   var query = "INSERT INTO User";
   query += " (userName, userEmail, userPassword, userSession) VALUES (?, ?, ?, ?);";

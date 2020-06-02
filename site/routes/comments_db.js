@@ -44,12 +44,6 @@ exports.newUser = function(newUser){
   });
 }
 
-// time posted - calculate at client side
-/*comment{
-  userId: x,
-  timePosted: now(),
-  content: x
-} */
 exports.newComment = function(commentDetails){
   var query = "INSERT INTO Comments";
   query += "(userId, timePosted, content) VALUES (?, ?, ?);";
