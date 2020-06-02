@@ -65,7 +65,7 @@ app.use(session({
     },
     secure:true,
     secret: "343ji43j4n3jn4jk3n",
-    resave: true,
+    resave: false,
     saveUninitialized: true
     }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -100,7 +100,7 @@ app.use('/comments', commentsRoute);
 const fillDB = require('./fillDB.js');
 fillDB.createTables();
 fillDB.fillUsers();
-fillDB.fillComments();
+//fillDB.fillComments();
 
 /////////////////////
 /// ERROR HANDLER ///

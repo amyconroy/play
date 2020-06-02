@@ -31,13 +31,14 @@ if (confirm_password === password) { //check password validity
     email: email,
     username: username,
     password: hashedPassword,
-    userSession: 123123
+    userSession: req.sessionID
   }
 
   console.log("adding new user "+newUser);
   loginDB.newUser(newUser); //try to add new user to DB
 
   //req.session.username = username; //test session works
+  console.log(req.sessionID);
   res.send("request recieved, registering with info: "+username+password+confirm_password+email);
 
 } else {
