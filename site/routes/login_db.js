@@ -1,5 +1,6 @@
 ///// init database /////
 var sqlite3 = require('sqlite3').verbose();
+
 let db = new sqlite3.Database('Play.db', sqlite3.OPEN_READWRITE, (err) => {
   if(err) {
     console.error(err.message);
@@ -41,19 +42,17 @@ exports.newUser = function(newUser){
 
   console.log("called newUser");
   //  db.serialize(() => {
-      db.run(query, [newUser['username'], newUser['email'], newUser['password'], newUser['userSession']], function(error) {
-        if(error){
-          console.log("test");
-          console.log(error);
-        }
-        else{
-          console.log("successfully inserted user");
-        }
-    });
+
+  db.run(query, [newUser['username'], newUser['email'], newUser['password'], newUser['userSession']], function(error) {
+    if(error){
+      console.log("test");
+      console.log(error);
+    } else {
+      console.log("successfully inserted user");
+    }
+  });
     console.log("after run");
 }
-
-
 ////////////////
 /// GET USER ///
 ////////////////
@@ -61,12 +60,16 @@ exports.newUser = function(newUser){
 exports.getUserByUserName = function(username, callback){
   var query = "SELECT * FROM User WHERE userName = ?;";
 //  db.serialize(() => {
+    console.log("HIT SELECT FUNCTION");
+
     // use each as all returns everything from db, each runs query first
     db.each(query, username, (err, rows) =>{
       if(rows){
+        console.log("found user fine");
         // return error as null as got data back
         callback(null, rows);
       } else{
+        console.log("big nope");
         callback(error, null);
       }
   //  });

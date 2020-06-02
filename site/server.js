@@ -13,7 +13,8 @@ var router = express.Router(); //our router for requests
 
 var sqlite3 = require('sqlite3').verbose();
 var port = 8080; //443 is https defaul port
-var sha1 = require('sha1'); // use for creating a hash for passwords, need to change to SHA-1
+ // use for creating a hash for passwords
+
 var bodyParser = require('body-parser');
 
 //https and openSSL setup, self signed certificates so browser will have a 'do you want to accept risk' page
@@ -52,6 +53,7 @@ app.use(bodyParser.json());
 //cookies for session storage
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({secret: "343ji43j4n3jn4jk3n"}));
 
 const fillDB = require('./fillDB.js');
 fillDB.createTables();
@@ -86,5 +88,9 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+function urlValidation() {
+
+}
 
 module.exports = app;
