@@ -1,0 +1,7 @@
+var user = {'email': req.body.email,
+            'username': req.body.username,
+            'password' : hashedPassword };
+            
+var comment = {'userId': x,
+              'timePosted': now(),
+              'content': x }; 
