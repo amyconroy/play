@@ -2,7 +2,6 @@
 var sqlite3 = require('sqlite3').verbose();
 let db = new sqlite3.Database('Play.db', sqlite3.OPEN_READWRITE, (err) => {
   if(err) {
-      console.log("catching this errror in fill db?");
     console.error(err.message);
   }
   console.log('Connected to the PLAY database in fill db.');
@@ -59,9 +58,9 @@ exports.fillComments = function(){
   for(var i = 0; i < 4; i++){
     var time = Date.now();
     newcomm = {
-      userId: userId2[i],
+      userId: userId[i],
       timePosted: time,
-      content: content2[i]
+      content: content[i]
     }
     comments.newComment(newcomm);
   }

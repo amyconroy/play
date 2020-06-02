@@ -12,7 +12,6 @@ let db = new sqlite3.Database('Play.db', sqlite3.OPEN_READWRITE, (err) => {
 /////////////////////////////////////////
 exports.createCommentsTable = function(){
   db.serialize(() => {
-    console.log("comment creating");
     db.run("CREATE TABLE IF NOT EXISTS Comments("+
       "commentId	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE," +
       "userId	INTEGER NOT NULL," +
@@ -20,7 +19,6 @@ exports.createCommentsTable = function(){
       "content	TEXT NOT NULL," +
       "FOREIGN KEY(userId) REFERENCES User(userId)" +
       ");")
-        console.log("comment created");
   });
 }
 
