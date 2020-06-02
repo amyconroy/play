@@ -58,7 +58,15 @@ app.use(bodyParser.json()); // supporting JSON-econded bodies
 
 //cookies for session storage
 app.use(cookieParser());
-app.use(session({secret: "343ji43j4n3jn4jk3n"}));
+app.use(session({
+        genid: (req) => {
+        console.log('Inside the session middlware');
+        return uuid();
+    },
+    secret: "343ji43j4n3jn4jk3n",
+    resave: true,
+    saveUninitialized: true
+    }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 //////////////

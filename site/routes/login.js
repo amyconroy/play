@@ -37,11 +37,12 @@ if (confirm_password === password) { //check password validity
   console.log("adding new user "+newUser);
   loginDB.newUser(newUser); //try to add new user to DB
 
-  req.session.name = username; //test session works
+  req.session.username = username; //test session works
+  console.log(req.session.username+"this is user");
   res.send("request recieved, registering with info: "+username+password+confirm_password+email);
 
 } else {
-  console.log("pass not confirmed");
+  console.log("pass wrong");
   res.status("401");
   res.redirect('/login');
 
@@ -86,6 +87,7 @@ router.post('/auth', function(req, res){
         passCompare(password, rows.userPassword, (error, result)=> {
           if (result) {
             console.log("passmatch");
+            req.session.user = rows;
 
           } else {
             console.log("incorrect message");
@@ -96,7 +98,7 @@ router.post('/auth', function(req, res){
 
   });
 
-  req.session.name = username;
+  //req.session.name = username;
   res.send("request recieved cap'n, with: "+username+" "+password);
 
 });
