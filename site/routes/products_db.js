@@ -135,3 +135,37 @@ exports.getProductLowtoHigh = function(callback){
       }
   });
 }
+
+//// NEW ORDER
+/// get details of order when selecting view order
+exports.getOrder = function(orderId, callback){
+  var query = "SELECT Product.name AS name, Product.price AS price," +
+    "Product.image AS image" +
+    "FROM OrderDetails"
+    "INNER JOIN UserOrder ON UserOrder.orderId = OrderDetails.orderId" +
+    "INNER JOIN Product ON Product.productId = OrderDetails.productId" +
+    "WHERE UserOrder.orderId = ?" +
+    ";";
+    // use each as all returns everything from db, each runs query first
+    db.all(query, orderId, (err, rows) =>{
+      if(rows){
+        callback(null, rows);
+      } else{
+        callback(error, null); // unable to get products
+      }
+  });
+}
+
+//// GET ALL PRODUCTS
+/// 'view all products'
+exports.viewProduct = function(productId, callback){
+  var query = "SELECT * FROM Product WHERE productId = ?;";
+    // use each as all returns everything from db, each runs query first
+    db.all(query, productId, (err, rows) =>{
+      if(rows){
+        callback(null, rows);
+      } else{
+        callback(error, null); // unable to get products
+      }
+  });
+}

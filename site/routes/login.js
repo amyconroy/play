@@ -13,11 +13,19 @@ router.post('/register', function(req, res){
   var confirm_password = req.body.conf_password;
   var email = req.body.register_email;
 
+//  isEmail.validate(email, 'Please input a valid email address');
   if (confirm_password === password) { //check password validity
     if (!validPass(password)) {
       res.redirect('/login'); //this is hack, not sure how else to deal apart from maybe a clientside callback? or render
     }
-
+    // password check / valid email etc
+    var newUser = {
+      email: email,
+      username: username,
+      password: password,
+      userSession: 1
+    }
+    loginDB.newUser(newUser);
     res.send("request recieved, registering with info: "+username+password+confirm_password+email);
   } else {
     res.redirect('/login');
