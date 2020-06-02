@@ -47,7 +47,6 @@ console.log("Visit http(s)://localhost:8080/");
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'handlebars');
 
-
 // static delivery of public folder
 app.use(logger('dev'));
 
@@ -59,6 +58,7 @@ app.use(bodyParser.json()); // supporting JSON-econded bodies
 
 //cookies for session storage
 app.use(cookieParser());
+app.use(session({secret: "343ji43j4n3jn4jk3n"}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 //////////////
