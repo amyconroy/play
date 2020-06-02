@@ -76,9 +76,19 @@ exports.getAllComments = function(callback){
           callback(error, null); // unable to get products
         }
      });
-    });
+  });
 }
 
-exports.getRecentTenComments = function(callback){
-
+exports.getTenRecentComments = function(callback){
+    var query = "SELECT * FROM Comments ORDER BY timePosted DESC;";
+    db.serialize(() => {
+      // use each as all returns everything from db, each runs query first
+      db.each(query, (err, rows) =>{
+        if(rows){
+          callback(null, rows);
+        } else{
+          callback(error, null); // unable to get products
+        }
+     });
+  });
 }
