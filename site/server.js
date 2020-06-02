@@ -1,4 +1,4 @@
-var flash = require('flash');
+//var flash = require('flash');
 var createError = require('http-errors'); //change these to constants so cant be changed?
 var express = require('express');
 var path = require('path');
@@ -67,10 +67,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 //////////////
 /// FLASH ///
 /////////////
-/*
-app.use(express.cookieParser('keyboard cat'));
-app.use(express.session({ cookie: { maxAge: 60000 }}));
-app.use(flash()); */
+/*app.use(cookieParser('keyboard cat'));
+app.use(session({ cookie: { maxAge: 60000 }}));
+app.use(flash());*/
 
 ///////////////
 /// ROUTING ///
