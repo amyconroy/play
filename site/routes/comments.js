@@ -43,7 +43,7 @@ router.post('/all_comments', function(req, rest){
       // res.render() here
     }
     else{
-      // diff ress render? null results for what comments to display
+      // diff ress render? null results for what comments to s
     }
   }
 })
