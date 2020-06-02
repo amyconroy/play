@@ -1,3 +1,4 @@
+//var flash = require('flash');
 var createError = require('http-errors'); //change these to constants so cant be changed?
 var express = require('express');
 var path = require('path');
@@ -13,8 +14,6 @@ var handlebars = require('express-handlebars');
 var bodyParser = require('body-parser'); //for post requests
 var md5 = require('md5'); // use for creating a hash for passwords, need to change to SHA-1
 var bodyParser = require('body-parser');
-var flash = require('express-flash');
-var session = require('express-session');
 //////////////////
 /// EXPRESS /////
 /////////////////
@@ -75,8 +74,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 //////////////
 /// FLASH ///
 /////////////
-/* app.use(express.cookieParser('keyboard cat'));
-app.use(express.session({ cookie: { maxAge: 60000 }}));
+/*app.use(cookieParser('keyboard cat'));
+app.use(session({ cookie: { maxAge: 60000 }}));
 app.use(flash());*/
 
 ///////////////
@@ -95,7 +94,6 @@ app.use('/login', loginRoute);
 app.use('/downloads', downloadsRoute);
 app.use('/comments', commentsRoute);
 
-
 ///////////////////////////////
 /// FILL DB WITH DUMMY DATA ///
 ///////////////////////////////
@@ -107,13 +105,22 @@ fillDB.fillUsers();
 /////////////////////
 /// ERROR HANDLER ///
 ////////////////////
-app.use(function(err, req, res, next) {
+
+/*app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
-});
+  res.send('error.handlebars');
+}); */
 
+app.use(function (req, res, next) {
+  res.status(404).render('404', {layout : 'index_head'});
+})
+
+app.use(function (err, req, res, next) {
+  console.error(err.stack)
+  res.status(500).render('500', {layout : 'index_head'})
+})
 module.exports = app;
