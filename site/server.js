@@ -12,7 +12,8 @@ var handlebars = require('express-handlebars');
 var bodyParser = require('body-parser'); //for post requests
 var md5 = require('md5'); // use for creating a hash for passwords, need to change to SHA-1
 var bodyParser = require('body-parser');
-
+var flash = require('express-flash');
+var session = require('express-session');
 //////////////////
 /// EXPRESS /////
 /////////////////
@@ -46,6 +47,7 @@ console.log("Visit http(s)://localhost:8080/");
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'handlebars');
 
+
 // static delivery of public folder
 app.use(logger('dev'));
 
@@ -59,13 +61,13 @@ app.use(bodyParser.json()); // supporting JSON-econded bodies
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-///////////////////////////////
-/// FILL DB WITH DUMMY DATA ///
-///////////////////////////////
-const fillDB = require('./fillDB.js');
-fillDB.createTables();
-fillDB.fillUsers();
-fillDB.fillComments();
+//////////////
+/// FLASH ///
+/////////////
+/* app.use(express.cookieParser('keyboard cat'));
+app.use(express.session({ cookie: { maxAge: 60000 }}));
+app.use(flash());*/
+
 ///////////////
 /// ROUTING ///
 //////////////
@@ -81,6 +83,15 @@ app.use('/products', productsRoute);
 app.use('/login', loginRoute);
 app.use('/downloads', downloadsRoute);
 app.use('/comments', commentsRoute);
+
+
+///////////////////////////////
+/// FILL DB WITH DUMMY DATA ///
+///////////////////////////////
+const fillDB = require('./fillDB.js');
+fillDB.createTables();
+fillDB.fillUsers();
+fillDB.fillComments();
 
 /////////////////////
 /// ERROR HANDLER ///
