@@ -19,7 +19,7 @@ var session = require('express-session');
 /////////////////
 var app = express();
 var router = express.Router(); //our router for requests
-//hell on earth
+
 //////////////////////////////
 /// CERTIFICATES and HTTPS ///
 //////////////////////////////
