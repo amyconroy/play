@@ -9,12 +9,12 @@
 <div class="content-box">
   <h4 class="title-content title-content-main">Leave Your Thoughts</h4>
   <div>
-    <form action="comments/submit_comment" class="login-form">
+    <form action="comments/submit_comment" class="login-form" method="POST">
       <label>TITLE</label><br />
       <input type = "text" value="title default">
 
-      <label>COMMENT</label><br />
-      <input type = "text" value="comment default">
+      <label for="content" class="form-label">COMMENT</label><br />
+      <input type = "text" name = "content" value="comment default" class = "form-input" required></input>
 
       <input type = "submit" value = "submit" class="form-submit"></input>
     </form>

@@ -8,10 +8,10 @@ router.get('/', function(req, res){
 
 
 /// CREATE NEW COMMENT ////
-router.post('/new_comment', function(req, res){
+router.post('/submit_comment', function(req, res){
   var newComment = {
-    userId: req.body.userId,
-    timePosted: now(),
+    userId: 130,
+    timePosted: Date.now(),
     content: req.body.content
   }
   commentsDB.newComment(newComment);
@@ -19,7 +19,7 @@ router.post('/new_comment', function(req, res){
 
 /// DELETE COMMENT ////
 router.post('/delete_comment', function(req, res){
-  var commentId = req.commentId; // need to figure out what this will do
+  var commentId = req.commentId; // HOW TO DO COMMENT ID
   commentsDB.deleteComment(commentId, (rows) =>{
     if(rows){ // add in flash for successful delete
       commentsDB.getTenRecentComments(error => {

@@ -10,7 +10,6 @@ var session = require('express-session');
 var logger = require('morgan');
 var handlebars = require('express-handlebars');
 var bodyParser = require('body-parser'); //for post requests
-var sqlite3 = require('sqlite3').verbose();
 var md5 = require('md5'); // use for creating a hash for passwords, need to change to SHA-1
 var bodyParser = require('body-parser');
 
@@ -66,7 +65,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 const fillDB = require('./fillDB.js');
 fillDB.createTables();
 fillDB.fillUsers();
-
+fillDB.fillComments();
 ///////////////
 /// ROUTING ///
 //////////////
