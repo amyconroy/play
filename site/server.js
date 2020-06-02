@@ -6,6 +6,7 @@ var port = 8080; //443 is https defaul port
 /// OTHER PACKAGES ///
 /////////////////////
 var cookieParser = require('cookie-parser');
+var uuid = require('uuid/v4');
 var session = require('express-session');
 var logger = require('morgan');
 var handlebars = require('express-handlebars');
@@ -58,7 +59,17 @@ app.use(bodyParser.json()); // supporting JSON-econded bodies
 
 //cookies for session storage
 app.use(cookieParser());
-app.use(session({secret: "343ji43j4n3jn4jk3n"}));
+app.use(session({
+    genid: function(req) {
+      return uuid() // use UUIDs for session IDs
+    },
+    secure:true,
+    secret: "343ji43j4n3jn4jk3n",
+    resave: false,
+    saveUninitialized: false,
+    unset: 'destroy',
+    cookie: {maxAge:10} //higher in production, this was to test uuid
+    }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 //////////////
@@ -91,7 +102,7 @@ app.use('/comments', commentsRoute);
 const fillDB = require('./fillDB.js');
 fillDB.createTables();
 fillDB.fillUsers();
-fillDB.fillComments();
+//fillDB.fillComments();
 
 /////////////////////
 /// ERROR HANDLER ///
