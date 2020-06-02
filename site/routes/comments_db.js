@@ -28,27 +28,11 @@ exports.createCommentsTable = function(){
 ///////////// SQL QUERIES ///////////////
 /////////////////////////////////////////
 
-exports.newUser = function(newUser){
-  var query = "INSERT INTO User";
-  query += " (userName, userEmail, userPassword, userSession) VALUES (?, ?, ?, ?);";
-    db.serialize(() => {
-      db.run(query, [newUser['username'], newUser['email'], newUser['password'], newUser['userSession']], function(error) {
-        if(error){
-          console.log("test");
-          console.log(error);
-        }
-        else{
-          console.log("successfully inserted user");
-        }
-    });
-  });
-}
-
 exports.newComment = function(commentDetails){
   var query = "INSERT INTO Comments";
-  query += "(userId, timePosted, content) VALUES (?, ?, ?);";
-  db.seralize(() => {
-    db.run(query, [commentDetails['userId'], timePosted['timePosted'], content['content']], function(error){
+  query += " (userId, timePosted, content) VALUES (?, ?, ?);";
+  db.serialize(() => {
+    db.run(query, [commentDetails['userId'], commentDetails['timePosted'], commentDetails['content']], function(error){
       if(error){
         console.log(error);
       }

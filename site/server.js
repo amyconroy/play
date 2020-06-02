@@ -66,7 +66,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 const fillDB = require('./fillDB.js');
 fillDB.createTables();
 fillDB.fillUsers();
-
+fillDB.fillComments();
 ///////////////
 /// ROUTING ///
 //////////////

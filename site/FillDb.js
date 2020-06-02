@@ -14,17 +14,12 @@ const comments = require('./routes/comments_db.js');
 
 exports.createTables = function(){
   try{
-      console.log("users creating fill");
     user.createUserTable();
-      console.log("category creating fill");
     products.createCategoryTable();
-      console.log("order creating fill");
-   products.createOrderTable();
-      console.log("product creating fill");
+    products.createOrderTable();
     products.createProductTable();
-      console.log("order deets creating fill");
-  products.createOrderDetailsTable();
-  comments.createCommentsTable();
+    products.createOrderDetailsTable();
+    comments.createCommentsTable();
     db.close();
   } catch(error){
     console.log(error);
@@ -39,7 +34,6 @@ exports.fillUsers = function(){
   var password = ['admin', 'anarocks', 'amyrocks', 'summer'];
 
   for(var i = 0; i < 4; i++){
-    console.log("yeet");
     newuser = {
       email: email[i],
       username: userName[i],
@@ -52,9 +46,23 @@ exports.fillUsers = function(){
 
 exports.fillComments = function(){
   var userId = ['1', '2', '3', '4'];
+  var userId2 = ['5', '6', '7', '8'];
   var content = ['Does anyone else have this issue? when I get to the end I cant seem to beat the final bit!',
   'wow I love the new downloads that are available!!',
   'this purchase was the best decision ive ever made',
   'This game has everything!! so nostalgic'];
+  var content2 = ['man amy is the best admin ever!',
+  'dude no ANA is the best!!',
+  'OMG MY FAVE PRODUCT IS ON SALE !!',
+  'i just beat the game!'];
 
+  for(var i = 0; i < 4; i++){
+    var time = Date.now();
+    newcomm = {
+      userId: userId2[i],
+      timePosted: time,
+      content: content2[i]
+    }
+    comments.newComment(newcomm);
+  }
 }

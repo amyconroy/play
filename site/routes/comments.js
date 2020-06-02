@@ -11,7 +11,7 @@ router.get('/', function(req, res){
 router.post('/new_comment', function(req, res){
   var newComment = {
     userId: req.body.userId,
-    timePosted: now(),
+    timePosted: Date.now(),
     content: req.body.content
   }
   commentsDB.newComment(newComment);
