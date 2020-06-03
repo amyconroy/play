@@ -21,4 +21,18 @@
 {{/each}}
 
 
+{{#each downloads}}
+  <div class="downloads-box">
+    <div class="comments-box-inner">
+      <p class="downloads-name">  {{ this.productName }}</p></br>
+      <p class="downloads-description">{{ this.productDescription }}</p></br>
+      <p class="downloads-category">{{ this.productCategory }}</p></br>
+      <p class="downloads-price">{{ this.productPrice }}</p></br>
+      <p class="downloads-image">{{ this.productImage }}</p></br>
+      <p class="downloads-productId">{{ this.productId }}</p></br>
+    </div>
+  </div>
+{{/each}}
+
+
 {{> footer }}

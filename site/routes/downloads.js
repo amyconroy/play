@@ -42,18 +42,49 @@ var getAllCategories = function getAllCategories(callback){
     callback(categoriesArray);
 }
 
-/*
-router.get('/category', function(req, res){
-  productsDB.getProductsByCategory(req.body.categoryId, (err, rows) =>{
-    if(rows){
-      console.log("got all products by category");
-      // res.render() here
-    }
-    else{
-      console.log("did not get all products by category");
-      // diff ress render?
+
+router.get('/:categoryid', function(req, res){
+  console.log(req.session.user);
+  console.log(req.sessionID);
+
+// downloads by category
+  var byCatArr = [];
+
+  getAllCategories(function(byCatArr) {
+    if(byCatArr){
+      res.render('downloads', {
+        layout: 'download_head',
+        downloads: byCatArr
+      });
     }
   });
-}); */
+});
+
+var getDownloadsByCategory = function getDownloadsByCategory(callback){
+  var downloadsArray = [];
+
+  downloadsDB.getProductsByCategory((error, rows) => {
+      if (error) {
+        console.log(error);
+      }
+      if(rows){
+        var product = {
+          productCategory: rows.productCategory,
+          productName: rows.name,
+          productDescription: rows.description,
+          productPrice: rows.price,
+          productImage: rows.image,
+          productId: rows.productId
+        };
+        console.log(product);
+        categoriesArray.push(product);
+      }
+      else{
+        console.log("shit from downloads");
+      }
+    });
+    callback(downloadsArray);
+}
+
 
 module.exports = router;
