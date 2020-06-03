@@ -11,6 +11,13 @@
     0 0 2rem blue;
 }
 
+.comment-time {
+  position:absolute;
+  margin-top:-3rem;
+  margin-left: 325px;
+  float:left;
+}
+
 .comment-username {
   border:2px solid purple;
   border-radius: 10px;
