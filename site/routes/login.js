@@ -4,7 +4,10 @@ var loginDB = require('./login_db.js');
 var bcrypt = require('bcrypt');
 
 router.get('/', function(req, res){
-    res.render('login', {layout : 'login_head'});
+    res.render('login', {
+        layout : 'login_head'
+    });
+
 });
 
 router.get('/logout', function(req, res) {
@@ -14,6 +17,7 @@ router.get('/logout', function(req, res) {
 
     res.redirect('/login');
 });
+
 //the post request for url validation would go here
 router.post('/register', function(req, res){
   var username = req.body.register_user;
@@ -58,8 +62,15 @@ router.post('/register', function(req, res){
 
 } else {
   console.log("pass wrong");
-  res.status("401");
-  res.redirect('/login');
+  console.log("SOMETHING WENT WRONG");
+
+  res.render('login', {
+      layout : 'login_head',
+      error: 'true',
+      errormessage:'yeet'
+  });
+
+  //res.redirect('/login');
 
 }
 

@@ -54,7 +54,6 @@ router.post('/submit_comment', function(req, res){ //comments/submit_comment
     content: req.body.content
   }
   commentsDB.newComment(newComment);
-//  req.flash("inserting comment");
 });
 
 /// DELETE COMMENT ////
