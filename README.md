@@ -28,7 +28,7 @@ We have written a large amount of script ourselves. The slider script was self w
 
 TO MOVE TO A+ = ESPECIALLY A+ with creative game application 
 high confidence, whole game written in js for client side, 
-ANA - CSS animation done here!! we can add this in
+ANA - CSS animation done here!! we can add this in. Titles animated, parameter bars animated in css. 
 
 <b> PNG : B </b>
 

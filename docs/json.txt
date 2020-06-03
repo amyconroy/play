@@ -5,3 +5,6 @@ var user = {'email': req.body.email,
 var comment = {'userId': x,
               'timePosted': now(),
               'content': x }; 
+              
+ returning comment to html: 
+ { results : rows || null }
