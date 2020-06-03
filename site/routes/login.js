@@ -47,8 +47,6 @@ if (confirm_password === password) { //check password validity
 
   console.log("deleting session id");
 
-  delete req.session.user;
-  delete req.sessionID;
   console.log(req.session.user);
   console.log(req.sessionID);
 
@@ -100,6 +98,12 @@ router.post('/auth', function(req, res){
         passCompare(password, rows.userPassword, (error, result)=> {
           if (result) {
             console.log("passmatch");
+
+            req.session.user = {
+              email: email,
+              name: username
+            }
+
 
           } else {
             console.log("incorrect message");
