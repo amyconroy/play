@@ -21,13 +21,12 @@ router.post('/register', function(req, res){
   var confirm_password = req.body.conf_password;
   var email = req.body.register_email;
 
-//  isEmail.validate(email, 'Please input a valid email address');
-if (confirm_password === password) { //check password validity
-  if (!validPass(password)) {
-    console.log("reg failed message");
-    res.status("401");
-    res.redirect('/login'); //this is hack, not sure how else to deal apart from maybe a clientside callback? or render
-  }
+  if (confirm_password === password) { //check password validity
+    if (!validPass(password)) {
+      console.log("reg failed message");
+      res.status("401");
+      res.redirect('/login'); //this is hack, not sure how else to deal apart from maybe a clientside callback? or render
+    }
 
   var salt = bcrypt.genSaltSync(10); //make salt for password hash
   var hashedPassword = bcrypt.hashSync(password, salt); //make hashed password
@@ -95,7 +94,6 @@ router.post('/auth', function(req, res){
     }
 
     if (rows) {
-        //req.session.name = username;
         console.log("checking password");
         console.log(rows.userPassword);
 
@@ -122,8 +120,6 @@ router.post('/auth', function(req, res){
 
   });
 
-
-  //res.send("request recieved cap'n, with: "+username+" "+password);
   res.redirect('/index');
 });
 

@@ -6,39 +6,45 @@ router.get('/', function(req, res){
   console.log(req.session.user);
   console.log(req.sessionID);
 
-  /*var tenMostRecent = (
-  commentsDB.getTenRecentComments(err, rows => {
-      if(rows){
-          var commentsArray = [];
+  var commentsArray = [];
 
-          for(i = 0; i < rows.length()-1; i++) {
-              var currentCommentInfo = {
-                commentId: rows[i].commentId,
-                username: rows[i].userId
-              };
-
-              commentsArray.push(currentCommentInfo);
-              console.log("from comments with love "+currentCommentInfo);
-            }
-
-            console.log(commentsArray);
-        } else {
-        console.log("well shit...");
-        });
-  });*/
-
-
-// so for username (req.username - need in html?)
-  res.render('comments', {
-    layout : 'comments_head',
-    comments: [{comment:"bruh", username:"meee"},
-              {comment:"bruh", username:"meee"},
-              {comment:"bruh", username:"meee"},
-              {comment:"bruh", username:"meee"}] //amy is a cock
-      //names:testArrayComments
+  getAllComments(function(commentsArray) {
+    if (commentsArray) {
+      res.render('comments', {
+        layout : 'comments_head',
+        comments: commentsArray
+      });
+    }
   });
 
 });
+
+var getAllComments = function getAllComments(callback) {
+  var anotherArray = [];
+
+  commentsDB.getTenRecentComments((error, rows) => {
+    if (error) {
+      console.log(error);
+    }
+
+    if(rows){
+        //var commentsArray = [];
+        var currentCommentInfo = {
+          comment: rows.commentId,
+          username: rows.userId
+        };
+
+        console.log(currentCommentInfo);
+        anotherArray.push(currentCommentInfo);
+
+    } else {
+      console.log("well shit...");
+    }
+  });
+
+
+  callback(anotherArray);
+}
 
 /// CREATE NEW COMMENT ////
 router.post('/submit_comment', function(req, res){ //comments/submit_comment
