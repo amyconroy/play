@@ -78,7 +78,7 @@ for(var i = 0; i < 4; i++){
       categoryName: categoryName[i],
       categoryDescription: categoryDescription[i]
     }
-    products.newCategory(newCat);
+    products.newCategory(newcat);
   }
 }
 

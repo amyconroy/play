@@ -67,8 +67,8 @@ exports.createOrderDetailsTable = function(){
 
 //// GET ALL PRODUCTS
 /// 'view all products'
-exports.getAllProducts = function(callback){
-  var query = "SELECT * FROM Product;";
+exports.getAllLicenseProducts = function(callback){
+  var query = "SELECT * FROM Product WHERE productCategory = 1;";
     // use each as all returns everything from db, each runs query first
     db.all(query, (err, rows) =>{
       if(rows){

@@ -16,11 +16,9 @@ router.get('/', function(req, res){
       });
     }
   });
-
 });
 
-//render 10 most recent comments
-var getAllComments = function getAllComments(callback) {
+var getAllComments = function getAllComments(callback){
   var anotherArray = [];
 
   commentsDB.getTenRecentComments((error, rows) => {
@@ -45,8 +43,6 @@ var getAllComments = function getAllComments(callback) {
       console.log("error occured, couldnt retrieve comments");
     }
   });
-
-
   callback(anotherArray);
 }
 
