@@ -38,8 +38,7 @@ var getAllCategories = function getAllCategories(callback){
         console.log("shit from products");
       }
     });
-
-    callback(categoriesArray);
+  callback(categoriesArray);
 }
 
 
