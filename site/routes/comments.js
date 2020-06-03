@@ -18,7 +18,7 @@ router.post('/submit_comment', function(req, res){
     content: req.body.content
   }
   commentsDB.newComment(newComment);
-  req.flash("inserting comment");
+//  req.flash("inserting comment");
 });
 
 /// DELETE COMMENT ////
@@ -41,13 +41,17 @@ router.post('/delete_comment', function(req, res){
   });
 });
 
-router.post('/all_comments', function(req, rest){
+router.post('/all_comments', function(req, res){
   commentsDB.getAllComments(err, rows => {
     if(rows){
       console.log("got all comments");
-      // res.render() here
-    }
-    else{
+      res.render('comments', {
+        results: rows
+      });
+    } else{
+      res.render('comments', {
+        results: null
+      });
       console.log("did not get all comments");
       // diff ress render?
     }
