@@ -45,26 +45,33 @@ var getAllCategories = function getAllCategories(callback){
 router.get('/:categoryid', function(req, res){
   console.log(req.session.user);
   console.log(req.sessionID);
-// downloads by category
-  var byCatArr = [];
-  var catId = req.params.categoryid;
-  console.log("YEET category");
-  console.log(catId);
+  //downloads by category
 
-  getDownloadsByCategory(function(catId, byCatArr) {
-    if(byCatArr){
-      res.render('downloads', {
+  var categoryProducts = [];
+  var categoryId = req.params.categoryid;
+  console.log("YEET category");
+  console.log(categoryId);
+
+   //auxFunctions.myArrayFunc(req.params.ID ,function(myRenderArray){
+
+  getDownloadsByCategory(req.params.categoryid, function(categoryProducts) {
+    console.log("death comes to us all");
+    if(categoryProducts){
+      /*res.render('downloads', {
         layout: 'download_head',
-        downloads: byCatArr
-      });
+        downloads: categoryProducts
+      });*/
+      console.log(categoryProducts+" inside callback");
     }
   });
 });
 
-var getDownloadsByCategory = function getDownloadsByCategory(catId, callback){
-  var downloadsArray = [];
+//module.exports.myArrayFunc = function myArrayFunc(ID ,callback
 
-  downloadsDB.getProductsByCategory(catId, (err, rows) => {
+var getDownloadsByCategory = function getDownloadsByCategory(categoryid, callback) {
+  var downloadsArray = [];
+  console.log("FUCKING KILL ME");
+  /*downloadsDB.getProductsByCategory(catId, (err, rows) => {
       if (error) {
         console.log(err);
       }
@@ -83,9 +90,19 @@ var getDownloadsByCategory = function getDownloadsByCategory(catId, callback){
       else{
         console.log("shit from downloads");
       }
-    });
+    });*/
+  downloadsArray.push({
+    productCategory:"wefwef",
+    productName: "wefwef",
+    productDescription: "wefwef",
+    productPrice: "wefwef",
+    productImage: "wefwef",
+    productId: "wefwef"
+  });
+
   callback(downloadsArray);
 }
+
 
 router.get('/allDownloads', function(req, res){
   console.log(req.session.user);
