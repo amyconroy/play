@@ -56,7 +56,7 @@ exports.getAllComments = function(callback){
 }
 
 exports.getTenRecentComments = function(callback){
-    var query = "SELECT * FROM Comments ORDER BY timePosted DESC LIMIT 10;";
+    var query = "SELECT User.userName, Comments.content, Comments.timePosted FROM Comments JOIN User ON Comments.userId = User.userId ORDER BY timePosted DESC LIMIT 10;";
     db.serialize(() => {
       // use each as all returns everything from db, each runs query first
       db.each(query, (err, rows) =>{

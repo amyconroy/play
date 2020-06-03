@@ -23,17 +23,12 @@
 
 <div class="content-box">
   <h4 class="title-content title-content-main">Look at Reviews</h4>
-  <p>reviews here lol</p>
-  <p>select 10 most recent comments and display maybes?</p>
-
-
 
   {{#each comments}}
   <div class="comments-box">
-    <div class="comments-box-inner">
-      <p class="comment-username">USER: {{ this.username }}</p></br>
+      <p class="comment-username">{{ this.username }}</p>
+      <p class="comment-time"> {{ this.postTime }}</p></br>
       <p class="comment-content">{{ this.comment }}</p></br>
-    </div>
   </div>
   {{/each}}
 </div>

@@ -27,16 +27,20 @@ var getAllComments = function getAllComments(callback){
     }
 
     if(rows){
+        var date = new Date(parseInt(rows.timePosted)).toLocaleString();
+        console.log(date.toString());
+
         var currentCommentInfo = { //change this to be the username and comment content
-          comment: rows.commentId,
-          username: rows.userId
+          comment: rows.content,
+          username: rows.userName,
+          postTime: date
         };
 
         console.log(currentCommentInfo);
         anotherArray.push(currentCommentInfo);
 
     } else {
-      console.log("well shit...");
+      console.log("error occured, couldnt retrieve comments");
     }
   });
   callback(anotherArray);
