@@ -10,14 +10,14 @@ router.get('/', function(req, res){
   var commentsArray = [];
   var thing;
 
-  getAllComments(thing, function(commentsArray) {
+  getAllComments(function(commentsArray) {
     if (commentsArray) {
       res.render('comments', {
         layout : 'comments_head',
         comments: commentsArray
       });
     }
-  }
+  });
 
 
   //so for username (req.username - need in html?)
@@ -31,11 +31,17 @@ router.get('/', function(req, res){
 
 });
 
-getAllComments = function getAllComments(callback) {
+var getAllComments = function getAllComments(callback) {
   var anotherArray = [];
   var comm1 = {comment:"bruh", username:"meee"};
   var comm2 = {comment:"bruh", username:"meee"};
   var comm3 = {comment:"bruh", username:"meee"};
+
+  anotherArray.push(comm1);
+  anotherArray.push(comm2);
+  anotherArray.push(comm3);
+
+  callback(anotherArray);
 }
 //function getAllComments(commentsArray, callback) {
     /*console.log("inside get all comments");
