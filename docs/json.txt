@@ -13,3 +13,10 @@ var comment = {'userId': x,
                 'categoryName':
                 'categoryDescription':
                 }
+
+var product = {
+'productCategory' : 
+'description': 
+'name': 
+'price':
+'image'}
