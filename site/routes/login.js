@@ -95,21 +95,20 @@ router.post('/auth', function(req, res){
     }
 
     if (rows) {
-        req.session.name = username;
+        //req.session.name = username;
         console.log("checking password");
-
         console.log(rows.userPassword);
 
         passCompare(password, rows.userPassword, (error, result)=> {
           if (result) {
             console.log("passmatch");
 
+            req.sessionID = rows.userSession;
+
             req.session.user = {
               email: rows.userEmail,
               name: username
             }
-
-            req.sessionID = rows.userSession;
 
             console.log(req.session.user);
             console.log(req.sessionID);
