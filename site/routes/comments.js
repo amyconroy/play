@@ -6,39 +6,61 @@ router.get('/', function(req, res){
   console.log(req.session.user);
   console.log(req.sessionID);
 
-  /*var tenMostRecent = (
-  commentsDB.getTenRecentComments(err, rows => {
-      if(rows){
-          var commentsArray = [];
 
-          for(i = 0; i < rows.length()-1; i++) {
-              var currentCommentInfo = {
-                commentId: rows[i].commentId,
-                username: rows[i].userId
-              };
+  var commentsArray = [];
+  var thing;
 
-              commentsArray.push(currentCommentInfo);
-              console.log("from comments with love "+currentCommentInfo);
-            }
-
-            console.log(commentsArray);
-        } else {
-        console.log("well shit...");
-        });
-  });*/
+  getAllComments(thing, function(commentsArray) {
+    if (commentsArray) {
+      res.render('comments', {
+        layout : 'comments_head',
+        comments: commentsArray
+      });
+    }
+  }
 
 
-// so for username (req.username - need in html?)
-  res.render('comments', {
+  //so for username (req.username - need in html?)
+  /*res.render('comments', {
     layout : 'comments_head',
     comments: [{comment:"bruh", username:"meee"},
               {comment:"bruh", username:"meee"},
               {comment:"bruh", username:"meee"},
-              {comment:"bruh", username:"meee"}] //amy is a cock
-      //names:testArrayComments
-  });
+              {comment:"bruh", username:"meee"}]
+  });*/
 
 });
+
+getAllComments = function getAllComments(callback) {
+  var anotherArray = [];
+  var comm1 = {comment:"bruh", username:"meee"};
+  var comm2 = {comment:"bruh", username:"meee"};
+  var comm3 = {comment:"bruh", username:"meee"};
+}
+//function getAllComments(commentsArray, callback) {
+    /*console.log("inside get all comments");
+    commentsDB.getTenRecentComments((error, rows) => {
+      if (error) {
+        console.log(error);
+      }
+
+      if(rows){
+          //var commentsArray = [];
+          var currentCommentInfo = {
+            commentId: rows.commentId,
+            username: rows.userId
+          };
+
+          console.log(currentCommentInfo);
+          commentsArray.push(currentCommentInfo);
+          callback(commentsArray, null);
+
+      } else {
+        console.log("well shit...");
+      }
+    });*/
+
+//}
 
 /// CREATE NEW COMMENT ////
 router.post('/submit_comment', function(req, res){ //comments/submit_comment

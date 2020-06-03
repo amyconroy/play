@@ -94,7 +94,6 @@ router.post('/auth', function(req, res){
     }
 
     if (rows) {
-        //req.session.name = username;
         console.log("checking password");
         console.log(rows.userPassword);
 
