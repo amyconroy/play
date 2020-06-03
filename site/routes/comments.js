@@ -28,8 +28,7 @@ var getAllComments = function getAllComments(callback) {
     }
 
     if(rows){
-        //var commentsArray = [];
-        var currentCommentInfo = {
+        var currentCommentInfo = { //change this to be the username and comment content
           comment: rows.commentId,
           username: rows.userId
         };

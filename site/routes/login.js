@@ -43,12 +43,12 @@ router.post('/register', function(req, res){
         email: email,
         username: username,
         password: hashedPassword,
-        userSession: req.sessionID
+        userSession: req.sessionID //recording their unique sessionID
       }
 
       loginDB.newUser(newUser); //try to add new user to DB
 
-      req.session.user = {
+      req.session.user = { //initialise a session for our user
         email: email,
         name: username
       }
@@ -73,7 +73,7 @@ router.post('/register', function(req, res){
 
 });
 
-function validPass(password) {
+function validPass(password) { //make sure password is strong
   if (password.length < 5) {
     return false;
   }
@@ -95,40 +95,47 @@ router.post('/auth', function(req, res){
 
   var userAuth = loginDB.getUserByUserName(username, (error, rows) => {
     if (error) {
-      console.log("cant get thing"); //flash user does not exist
-    }
+      console.log("user does not exist");
 
-    if (rows) {
-        console.log("checking password");
-        console.log(rows.userPassword);
+      res.render('login', { //user does not exist render error
+        layout : 'login_head',
+        error: 'true',
+        errormessage:'User does not exist'
+      });
 
-        passCompare(password, rows.userPassword, (error, result)=> {
-          if (result) {
-            console.log("passmatch");
+    } else {
 
-            req.sessionID = rows.userSession;
+      if (rows) {
+          console.log("checking password");
+          console.log(rows.userPassword);
 
-            req.session.user = {
-              email: rows.userEmail,
-              name: username
-            }
+          passCompare(password, rows.userPassword, (error, result)=> {
+            if (result) {
+              req.sessionID = rows.userSession;
 
-            console.log(req.session.user);
-            console.log(req.sessionID);
+              req.session.user = {
+                email: rows.userEmail,
+                name: username
+              }
 
-            res.redirect('/index'); //SUCCESSFUL LOGIN
+              console.log(req.session.user);
+              console.log(req.sessionID);
+
+              res.redirect('/index'); //SUCCESSFUL LOGIN
 
           } else {
+
             res.render('login', {
               layout : 'login_head',
               error: 'true',
-              errormessage:'WRONG PASSWORD'
+              errormessage:'Wrong password'
             });
+
           }
 
         });
     }
-
+  }
   });
 
 });
