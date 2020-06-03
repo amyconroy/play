@@ -8,3 +8,8 @@ var comment = {'userId': x,
               
  returning comment to html: 
  { results : rows || null }
+ 
+ var category = {
+                'categoryName':
+                'categoryDescription':
+                }
