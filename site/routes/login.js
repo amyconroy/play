@@ -109,6 +109,8 @@ router.post('/auth', function(req, res){
               name: username
             }
 
+            req.sessionID = rows.userSession;
+
             console.log(req.session.user);
             console.log(req.sessionID);
 
