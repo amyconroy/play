@@ -100,7 +100,8 @@ app.use('/policy', policyRoute);
 app.use('/terms', termsRoute);
 
 app.use(express.static(path.join(__dirname, '/public')));
-app.use('/login', express.static(__dirname + '/public'));
+app.use('/login', express.static(__dirname + '/public')); //for error message rendering
+app.use('/comments', express.static(__dirname + '/public')); 
 
 ///////////////////////////////
 /// FILL DB WITH DUMMY DATA ///

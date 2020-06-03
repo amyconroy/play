@@ -7,7 +7,6 @@ router.get('/', function(req, res){
     res.render('login', {
         layout : 'login_head'
     });
-
 });
 
 router.get('/logout', function(req, res) {
@@ -60,19 +59,17 @@ router.post('/register', function(req, res){
   //res.send("request recieved, registering with info: "+username+password+confirm_password+email);
   res.redirect('/index');
 
-} else {
-  console.log("pass wrong");
-  console.log("SOMETHING WENT WRONG");
+  } else {
+    console.log("pass wrong");
+    console.log("SOMETHING WENT WRONG");
 
-  res.render('login', {
+    res.render('login', {
       layout : 'login_head',
       error: 'true',
-      errormessage:'yeet'
-  });
+      errormessage:'SOMETHING WRONG WITH PASSWORD, TRY AGAIN'
+    });
 
-  //res.redirect('/login');
-
-}
+  }
 
 });
 
@@ -122,8 +119,14 @@ router.post('/auth', function(req, res){
             console.log(req.session.user);
             console.log(req.sessionID);
 
+            res.redirect('/index'); //SUCCESSFUL LOGIN
+
           } else {
-            console.log("incorrect message");
+            res.render('login', {
+              layout : 'login_head',
+              error: 'true',
+              errormessage:'WRONG PASSWORD'
+            });
           }
 
         });
@@ -131,7 +134,6 @@ router.post('/auth', function(req, res){
 
   });
 
-  res.redirect('/index');
 });
 
 function passCompare(password, userpassword, callback) {
