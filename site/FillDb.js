@@ -65,3 +65,15 @@ exports.fillComments = function(){
     comments.newComment(newcomm);
   }
 }
+
+exports.fillCategories = function(){
+  
+}
+
+exports.fillProducts = function(){
+Personal Edition
+Community Edition [BETA]
+Pro Edition
+Student Edition
+Assets Pack
+}
