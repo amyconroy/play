@@ -4,6 +4,9 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res) {
+  console.log(req.session.user);
+  console.log(req.sessionID);
+
   res.render('main', {layout : 'index_head'});
 });
 

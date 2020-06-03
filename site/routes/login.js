@@ -7,6 +7,13 @@ router.get('/', function(req, res){
     res.render('login', {layout : 'login_head'});
 });
 
+router.get('/logout', function(req, res) {
+    req.session.destroy(function(){
+      console.log("user logged out.");
+    });
+
+    res.redirect('/login');
+});
 //the post request for url validation would go here
 router.post('/register', function(req, res){
   var username = req.body.register_user;
@@ -37,7 +44,6 @@ if (confirm_password === password) { //check password validity
   console.log("adding new user "+newUser);
   loginDB.newUser(newUser); //try to add new user to DB
 
-  //req.session.username = username; //test session works
   console.log(req.sessionID+" unique sesh id");
 
   req.session.user = {
@@ -45,14 +51,11 @@ if (confirm_password === password) { //check password validity
     name: username
   }
 
-  console.log("deleting session id");
-
-  delete req.session.user;
-  delete req.sessionID;
   console.log(req.session.user);
   console.log(req.sessionID);
 
-  res.send("request recieved, registering with info: "+username+password+confirm_password+email);
+  //res.send("request recieved, registering with info: "+username+password+confirm_password+email);
+  res.redirect('/index');
 
 } else {
   console.log("pass wrong");
@@ -92,14 +95,23 @@ router.post('/auth', function(req, res){
     }
 
     if (rows) {
-        req.session.name = username;
+        //req.session.name = username;
         console.log("checking password");
-
         console.log(rows.userPassword);
 
         passCompare(password, rows.userPassword, (error, result)=> {
           if (result) {
             console.log("passmatch");
+
+            req.sessionID = rows.userSession;
+
+            req.session.user = {
+              email: rows.userEmail,
+              name: username
+            }
+
+            console.log(req.session.user);
+            console.log(req.sessionID);
 
           } else {
             console.log("incorrect message");
@@ -110,9 +122,9 @@ router.post('/auth', function(req, res){
 
   });
 
-  //req.session.name = username;
-  res.send("request recieved cap'n, with: "+username+" "+password);
 
+  //res.send("request recieved cap'n, with: "+username+" "+password);
+  res.redirect('/index');
 });
 
 function passCompare(password, userpassword, callback) {

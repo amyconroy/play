@@ -3,6 +3,10 @@ var router = express.Router();
 var productsDB = require('./products_db.js');
 
 router.get('/', function(req, res){
+
+  console.log(req.session.user);
+  console.log(req.sessionID);
+
   productsDB.getAllCategories(err, rows =>{
       if(rows){
         console.log("got all categories");
@@ -13,6 +17,7 @@ router.get('/', function(req, res){
         // diff ress render?
       }
     });
+
   res.render('products', {layout : 'product_head'});
 });
 
