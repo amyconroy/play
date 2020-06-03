@@ -62,7 +62,7 @@ app.use(session({
     genid: function(req) {
       return uuid() // use UUIDs for session IDs
     },
-    secure:true,
+    secure:false,
     secret: "343ji43j4n3jn4jk3n",
     resave: false,
     saveUninitialized: false,
