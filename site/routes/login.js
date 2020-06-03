@@ -39,8 +39,6 @@ router.post('/register', function(req, res){
       var salt = bcrypt.genSaltSync(10); //make salt for password hash
       var hashedPassword = bcrypt.hashSync(password, salt); //make hashed password
 
-      console.log(hashedPassword);
-
       var newUser = {
         email: email,
         username: username,
@@ -48,10 +46,7 @@ router.post('/register', function(req, res){
         userSession: req.sessionID
       }
 
-      console.log("adding new user "+newUser);
       loginDB.newUser(newUser); //try to add new user to DB
-
-      console.log(req.sessionID+" unique sesh id");
 
       req.session.user = {
         email: email,
@@ -80,17 +75,14 @@ router.post('/register', function(req, res){
 
 function validPass(password) {
   if (password.length < 5) {
-    console.log("pass too short");
     return false;
   }
 
   if (!password.match(/[0-9]/)) {
-    console.log("pass needs number");
     return false;
   }
 
   if (!password.match(/[!@#$%\^&*]/)) {
-    console.log("pass needs special character");
     return false;
   }
 
