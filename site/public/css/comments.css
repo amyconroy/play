@@ -1,6 +1,10 @@
 .comments-box {
-  border:3px red solid;
+  border: solid 5px #ff2bf1;
+  border-radius: 5px;
   margin:5%;
+  width:50%;
+  height:300px;
+  float:left;
 }
 
 .comments-box-inner {
@@ -8,10 +12,16 @@
 }
 
 .comment-username {
-  
+  border:2px solid red;
+  padding:10px;
+  margin:2%;
 }
 
 .comment-content {
+  border:2px solid blue;
+  margin:2%;
+  padding:10px;
+  height:100%;
 
 }
 

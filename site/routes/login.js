@@ -4,7 +4,9 @@ var loginDB = require('./login_db.js');
 var bcrypt = require('bcrypt');
 
 router.get('/', function(req, res){
-    res.render('login', {layout : 'login_head'});
+    res.render('login', {
+        layout : 'login_head'
+    });
 });
 
 router.get('/logout', function(req, res) {
@@ -24,61 +26,63 @@ router.post('/register', function(req, res){
 
   if (confirm_password === password) { //check password validity
     if (!validPass(password)) {
-      console.log("reg failed message");
-      res.status("401");
-      res.redirect('/login'); //this is hack, not sure how else to deal apart from maybe a clientside callback? or render
+      console.log("registration failed");
+
+      res.render('login', {
+        layout : 'login_head',
+        error: 'true',
+        errormessage:'Your password should contain a capital, special character, and a number'
+      });
+
+    } else {
+
+      var salt = bcrypt.genSaltSync(10); //make salt for password hash
+      var hashedPassword = bcrypt.hashSync(password, salt); //make hashed password
+
+      var newUser = {
+        email: email,
+        username: username,
+        password: hashedPassword,
+        userSession: req.sessionID //recording their unique sessionID
+      }
+
+      loginDB.newUser(newUser); //try to add new user to DB
+
+      req.session.user = { //initialise a session for our user
+        email: email,
+        name: username
+      }
+
+      console.log(req.session.user);
+      console.log(req.sessionID);
+
+      res.redirect('/index');
     }
 
-  var salt = bcrypt.genSaltSync(10); //make salt for password hash
-  var hashedPassword = bcrypt.hashSync(password, salt); //make hashed password
+  } else {
+    console.log("pass wrong");
+    console.log("Password doesn't match");
 
-  console.log(hashedPassword);
+    res.render('login', {
+      layout : 'login_head',
+      error: 'true',
+      errormessage:'Your confirmed password should match'
+    });
 
-  var newUser = {
-    email: email,
-    username: username,
-    password: hashedPassword,
-    userSession: req.sessionID
   }
-
-  console.log("adding new user "+newUser);
-  loginDB.newUser(newUser); //try to add new user to DB
-
-  console.log(req.sessionID+" unique sesh id");
-
-  req.session.user = {
-    email: email,
-    name: username
-  }
-
-  console.log(req.session.user);
-  console.log(req.sessionID);
-
-  //res.send("request recieved, registering with info: "+username+password+confirm_password+email);
-  res.redirect('/index');
-
-} else {
-  console.log("pass wrong");
-  res.status("401");
-  res.redirect('/login');
-
-}
 
 });
 
-function validPass(password) {
+function validPass(password) { //make sure password is strong
   if (password.length < 5) {
-    console.log("pass too short");
     return false;
   }
 
   if (!password.match(/[0-9]/)) {
-    console.log("pass needs number");
     return false;
   }
 
   if (!password.match(/[!@#$%\^&*]/)) {
-    console.log("pass needs special character");
     return false;
   }
 
@@ -91,37 +95,49 @@ router.post('/auth', function(req, res){
 
   var userAuth = loginDB.getUserByUserName(username, (error, rows) => {
     if (error) {
-      console.log("cant get thing"); //flash user does not exist
-    }
+      console.log("user does not exist");
 
-    if (rows) {
-        console.log("checking password");
-        console.log(rows.userPassword);
+      res.render('login', { //user does not exist render error
+        layout : 'login_head',
+        error: 'true',
+        errormessage:'User does not exist'
+      });
 
-        passCompare(password, rows.userPassword, (error, result)=> {
-          if (result) {
-            console.log("passmatch");
+    } else {
 
-            req.sessionID = rows.userSession;
+      if (rows) {
+          console.log("checking password");
+          console.log(rows.userPassword);
 
-            req.session.user = {
-              email: rows.userEmail,
-              name: username
-            }
+          passCompare(password, rows.userPassword, (error, result)=> {
+            if (result) {
+              req.sessionID = rows.userSession;
 
-            console.log(req.session.user);
-            console.log(req.sessionID);
+              req.session.user = {
+                email: rows.userEmail,
+                name: username
+              }
+
+              console.log(req.session.user);
+              console.log(req.sessionID);
+
+              res.redirect('/index'); //SUCCESSFUL LOGIN
 
           } else {
-            console.log("incorrect message");
+
+            res.render('login', {
+              layout : 'login_head',
+              error: 'true',
+              errormessage:'Wrong password'
+            });
+
           }
 
         });
     }
-
+  }
   });
 
-  res.redirect('/index');
 });
 
 function passCompare(password, userpassword, callback) {

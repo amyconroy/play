@@ -3,8 +3,8 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  console.log(req.session.user);
-  console.log(req.sessionID);
+  console.log(req.session.user+" from index");
+  console.log(req.sessionID + " from index");
 
   res.render('main', {layout : 'index_head'});
 });

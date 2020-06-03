@@ -28,8 +28,7 @@ var getAllComments = function getAllComments(callback) {
     }
 
     if(rows){
-        //var commentsArray = [];
-        var currentCommentInfo = {
+        var currentCommentInfo = { //change this to be the username and comment content
           comment: rows.commentId,
           username: rows.userId
         };
@@ -54,7 +53,6 @@ router.post('/submit_comment', function(req, res){ //comments/submit_comment
     content: req.body.content
   }
   commentsDB.newComment(newComment);
-//  req.flash("inserting comment");
 });
 
 /// DELETE COMMENT ////
