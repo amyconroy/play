@@ -14,6 +14,7 @@ router.get('/logout', function(req, res) {
 
     res.redirect('/login');
 });
+
 //the post request for url validation would go here
 router.post('/register', function(req, res){
   var username = req.body.register_user;

@@ -12,7 +12,6 @@ let db = new sqlite3.Database('Play.db', sqlite3.OPEN_READWRITE, (err) => {
 /////////////////////////////////////////
 exports.createCategoryTable = function(){
   db.serialize(() => {
-    console.log("category creating");
     db.run("CREATE TABLE IF NOT EXISTS Category ("+
       "categoryId	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE," +
       "categoryName	TEXT NOT NULL UNIQUE," +
@@ -24,7 +23,6 @@ exports.createCategoryTable = function(){
 
 exports.createProductTable = function(){
  db.serialize(() => {
-  console.log("product creating");
     db.run("CREATE TABLE IF NOT EXISTS Product ("+
       "productId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE," +
       "productCategory INTEGER NOT NULL," +
@@ -167,5 +165,54 @@ exports.viewProduct = function(productId, callback){
       } else{
         callback(error, null); // unable to get products
       }
+  });
+}
+
+
+
+
+///////////////////////////
+//// TESTING FUNCTIONS ////
+/////// to fill db ////////
+///////////////////////////
+exports.newCategory = function(categoryDetails){
+  var query = "INSERT INTO Category";
+  query += " (categoryName, categoryDescription) VALUES (?, ?);";
+  db.serialize(() => {
+    db.run(query, [categoryDetails['categoryName'], categoryDetails['categoryDescription']], function(error){
+      if(error){
+        console.log(error);
+      }
+      else{
+        console.log("new category added");
+      }
+    });
+  });
+}
+
+// get most recent categoryId to insert into product
+exports.getCategoryId = function(err, rows){
+  var query = "Select id FROM Category ORDER BY id DESC LIMIT 1"
+    db.run(query, [categoryDetails['categoryName'], categoryDetails['categoryDescription']], function(error){
+      if(rows){
+        callback(null, rows);
+      } else{
+        callback(err, null); // unable to get products
+      }
+    });
+}
+
+exports.newProduct = function(productDetails){
+  var query = "INSERT INTO Product";
+  query += " (productCategory, description, name, price, image) VALUES (?, ?, ?, ?, ?);";
+  db.serialize(() => {
+    db.run(query, [productDetails['productCategory'], productDetails['description'], productDetails['name'],  productDetails['price'], productDetails['image']], function(error){
+      if(error){
+        console.log(error);
+      }
+      else{
+        console.log("new category added");
+      }
+    });
   });
 }

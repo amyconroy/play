@@ -105,6 +105,10 @@ const fillDB = require('./fillDB.js');
 fillDB.createTables();
 fillDB.fillUsers();
 //fillDB.fillComments();
+fillDB.fillCategories();
+fillDB.fillGameProducts();
+fillDB.fillAnimationsProducts();
+fillDB.fillBackgroundProducts();
 
 /////////////////////
 /// ERROR HANDLER ///
