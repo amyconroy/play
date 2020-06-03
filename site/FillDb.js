@@ -108,7 +108,7 @@ exports.fillBackgroundProducts = function(){
   var name = ['Amys Face', 'Anas Face',
  'Galaxy', 'Surprise Meme'];
   var description = ['Have the judgmental face of one of our co-founders staring back at you as you play.',
-  'Have the beautiful face of one of our co-founders staring back at you as you play.'',
+  'Have the beautiful face of one of our co-founders staring back at you as you play.',
  'Stick to the theme and stare at the stars.',
  'Get a random meme as your background, garaunteed good quality.']
   var price = ['$10.00', '$10.00', '$5.00', '$10.00'];
@@ -130,7 +130,7 @@ exports.fillAnimationsProducts = function(){
   var name = ['Dab', 'Yeet',
  'Twirl', 'High Five'];
   var description = ['A dab animation just for you!',
-  'A yeet animation just for you!'',
+  'A yeet animation just for you!',
  'A twirl animation just for you!',
  'A high five animation just for you!']
   var price = ['$5.00', '$5.00', '$5.00', '$10.00'];
