@@ -67,13 +67,83 @@ exports.fillComments = function(){
 }
 
 exports.fillCategories = function(){
-  
+  var categoryName = ['Game', 'Backgrounds', 'Animations', 'Models'];
+  var categoryDescription = ['Experience PLAY for yourself! Get the game today.',
+'Spice up your experience by buying your own background!',
+'Add animations to the game to make it your own!',
+'All the models you can imagine to make the game more realistic!'];
+
+for(var i = 0; i < 4; i++){
+    newcat = {
+      categoryName: categoryName[i],
+      categoryDescription: categoryDescription[i]
+    }
+    products.newCategory(newCat);
+  }
 }
 
-exports.fillProducts = function(){
-Personal Edition
-Community Edition [BETA]
-Pro Edition
-Student Edition
-Assets Pack
+exports.fillGameProducts = function(){
+  var name = ['Personal Edition', 'Community Edition[BETA]',
+ 'Pro Edition', 'Student Edition'];
+  var description = ['For single/small team developers this plan provides a compromise between the outstanding technical support provided by the PLAY team, and coming at a reasonable pricetag.',
+  'We wanted to provide the creative open source community with the same powerful tools, and now we have!',
+ 'For teams larger than 5 people or those earning over 5 billion per year from use of our license.',
+ 'For Students all over the world. You will be required to sign up with a valid institution email, and will gain all of the excellent features of the PRO VERSION, for a quarter of the price.']
+  var price = ['$5.00', '$0.00', '$50.00', '$10.00'];
+  var image = ['Personal.png', 'Community.png', 'Pro.png', 'Student.png'];
+
+  for(var i = 0; i < 4; i++){
+      gameProd = {
+        productCategory: 1,
+        description: description[i],
+        name: name[i],
+        price: price[i],
+        image: image[i]
+      }
+      products.newProduct(gameProd);
+    }
+}
+
+exports.fillBackgroundProducts = function(){
+  var name = ['Amys Face', 'Anas Face',
+ 'Galaxy', 'Surprise Meme'];
+  var description = ['Have the judgmental face of one of our co-founders staring back at you as you play.',
+  'Have the beautiful face of one of our co-founders staring back at you as you play.'',
+ 'Stick to the theme and stare at the stars.',
+ 'Get a random meme as your background, garaunteed good quality.']
+  var price = ['$10.00', '$10.00', '$5.00', '$10.00'];
+  var image = ['Amy.png', 'Ana.png', 'Galaxy.png', 'Meme.png'];
+
+  for(var i = 0; i < 4; i++){
+      backProd = {
+        productCategory: 2,
+        description: description[i],
+        name: name[i],
+        price: price[i],
+        image: image[i]
+      }
+      products.newProduct(backProd);
+    }
+}
+
+exports.fillAnimationsProducts = function(){
+  var name = ['Dab', 'Yeet',
+ 'Twirl', 'High Five'];
+  var description = ['A dab animation just for you!',
+  'A yeet animation just for you!'',
+ 'A twirl animation just for you!',
+ 'A high five animation just for you!']
+  var price = ['$5.00', '$5.00', '$5.00', '$10.00'];
+  var image = ['Dab.png', 'Yeet.png', 'Twirl.png', 'HighFive.png'];
+
+  for(var i = 0; i < 4; i++){
+      animationProd = {
+        productCategory: 3,
+        description: description[i],
+        name: name[i],
+        price: price[i],
+        image: image[i]
+      }
+      products.newProduct(animationProd);
+    }
 }
