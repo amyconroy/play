@@ -86,6 +86,7 @@ var loginRoute = require('./routes/login.js');
 var commentsRoute = require('./routes/comments.js');
 var productsRoute = require('./routes/products.js');
 var downloadsRoute = require('./routes/downloads.js');
+var policyRoute = require('./routes/policy.js');
 app.use('/', indexRoute);
 app.use('/index', indexRoute);
 app.use('/demo', demoRoute);
@@ -93,6 +94,7 @@ app.use('/products', productsRoute);
 app.use('/login', loginRoute);
 app.use('/downloads', downloadsRoute);
 app.use('/comments', commentsRoute);
+app.use('/policy', policyRoute);
 
 ///////////////////////////////
 /// FILL DB WITH DUMMY DATA ///
