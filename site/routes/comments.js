@@ -6,7 +6,17 @@ router.get('/', function(req, res){
   console.log(req.session.user);
   console.log(req.sessionID);
 
-    res.render('comments', {layout : 'comments_head'});
+  var testArrayComments = ["lol", "meep", "death", "fucking murder me ian"];
+  var testArrayNames = ["ana", "amy", "rip", "meep"];
+// so for username (req.username - need in html?)
+    res.render('comments', {
+      layout : 'comments_head',
+      comments: [{comment:"bruh", username:"meee"},
+                 {comment:"bruh", username:"meee"},
+                 {comment:"bruh", username:"meee"},
+                 {comment:"bruh", username:"meee"}] //amy is a cock
+      //names:testArrayComments
+    });
 });
 
 
@@ -46,11 +56,13 @@ router.post('/all_comments', function(req, res){
     if(rows){
       console.log("got all comments");
       res.render('comments', {
-        results: rows
+        results: rows,
+        user: 1
       });
-    } else{
+    } else{ //no comments available
       res.render('comments', {
-        results: null
+        results: null,
+        user: 1
       });
       console.log("did not get all comments");
       // diff ress render?

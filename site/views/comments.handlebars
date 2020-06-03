@@ -25,6 +25,15 @@
   <h4 class="title-content title-content-main">Look at Reviews</h4>
   <p>reviews here lol</p>
   <p>select 10 most recent comments and display maybes?</p>
+
+
+
+  {{#each comments}}
+  <div>
+    <p>{{ this.comment }}</p></br>
+    <p>{{ this.username }}</p></br>
+  </div>
+  {{/each}}
 </div>
 
 
