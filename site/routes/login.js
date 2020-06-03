@@ -13,7 +13,7 @@ router.get('/logout', function(req, res) {
     });
 
     res.redirect('/login');
-}
+});
 //the post request for url validation would go here
 router.post('/register', function(req, res){
   var username = req.body.register_user;
@@ -44,7 +44,6 @@ if (confirm_password === password) { //check password validity
   console.log("adding new user "+newUser);
   loginDB.newUser(newUser); //try to add new user to DB
 
-  //req.session.username = username; //test session works
   console.log(req.sessionID+" unique sesh id");
 
   req.session.user = {
@@ -106,7 +105,7 @@ router.post('/auth', function(req, res){
             console.log("passmatch");
 
             req.session.user = {
-              email: email,
+              email: rows.userEmail,
               name: username
             }
 

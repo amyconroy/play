@@ -67,7 +67,6 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     unset: 'destroy',
-    cookie: {maxAge:10} //higher in production, this was to test uuid
     }));
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -88,6 +87,7 @@ var commentsRoute = require('./routes/comments.js');
 var productsRoute = require('./routes/products.js');
 var downloadsRoute = require('./routes/downloads.js');
 app.use('/', indexRoute);
+app.use('/index', indexRoute);
 app.use('/demo', demoRoute);
 app.use('/products', productsRoute);
 app.use('/login', loginRoute);
