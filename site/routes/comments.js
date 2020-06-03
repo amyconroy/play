@@ -6,8 +6,7 @@ router.get('/', function(req, res){
   console.log(req.session.user);
   console.log(req.sessionID);
 
-  var testArrayComments = ["lol", "meep", "death", "fucking murder me ian"];
-  var testArrayNames = ["ana", "amy", "rip", "meep"];
+  var tenMostRecent
 // so for username (req.username - need in html?)
     res.render('comments', {
       layout : 'comments_head',
@@ -19,9 +18,8 @@ router.get('/', function(req, res){
     });
 });
 
-
 /// CREATE NEW COMMENT ////
-router.post('/submit_comment', function(req, res){
+router.post('/submit_comment', function(req, res){ //comments/submit_comment
   var newComment = {
     userId: 130,
     timePosted: Date.now(),

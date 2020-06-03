@@ -29,9 +29,11 @@
 
 
   {{#each comments}}
-  <div>
-    <p>{{ this.comment }}</p></br>
-    <p>{{ this.username }}</p></br>
+  <div class="comments-box">
+    <div class="comments-box-inner">
+      <p >{{ this.username }}</p></br>
+      <p>{{ this.comment }}</p></br>
+    </div>
   </div>
   {{/each}}
 </div>
