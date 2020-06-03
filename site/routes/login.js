@@ -7,6 +7,13 @@ router.get('/', function(req, res){
     res.render('login', {layout : 'login_head'});
 });
 
+router.get('/logout', function(req, res) {
+    req.session.destroy(function(){
+      console.log("user logged out.");
+    });
+
+    res.redirect('/login');
+}
 //the post request for url validation would go here
 router.post('/register', function(req, res){
   var username = req.body.register_user;
@@ -45,12 +52,11 @@ if (confirm_password === password) { //check password validity
     name: username
   }
 
-  console.log("deleting session id");
-
   console.log(req.session.user);
   console.log(req.sessionID);
 
-  res.send("request recieved, registering with info: "+username+password+confirm_password+email);
+  //res.send("request recieved, registering with info: "+username+password+confirm_password+email);
+  res.redirect('/index');
 
 } else {
   console.log("pass wrong");
@@ -104,6 +110,8 @@ router.post('/auth', function(req, res){
               name: username
             }
 
+            console.log(req.session.user);
+            console.log(req.sessionID);
 
           } else {
             console.log("incorrect message");
@@ -114,9 +122,9 @@ router.post('/auth', function(req, res){
 
   });
 
-  //req.session.name = username;
-  res.send("request recieved cap'n, with: "+username+" "+password);
 
+  //res.send("request recieved cap'n, with: "+username+" "+password);
+  res.redirect('/index');
 });
 
 function passCompare(password, userpassword, callback) {
