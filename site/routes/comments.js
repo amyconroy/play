@@ -16,10 +16,9 @@ router.get('/', function(req, res){
       });
     }
   });
-
 });
 
-var getAllComments = function getAllComments(callback) {
+var getAllComments = function getAllComments(callback){
   var anotherArray = [];
 
   commentsDB.getTenRecentComments((error, rows) => {
@@ -40,8 +39,6 @@ var getAllComments = function getAllComments(callback) {
       console.log("well shit...");
     }
   });
-
-
   callback(anotherArray);
 }
 
