@@ -90,6 +90,52 @@ var getLowDownloads = function getLowDownloads(callback){
   callback(downloadsArray);
 }
 
+////// VIEW ALL DOWNLOADS BY PRICE LOW TO HIGH
+router.get('/hightolow', function(req, res){
+  console.log(req.session.user);
+  console.log(req.sessionID);
+  console.log("HIGH TO LOW");
+
+// downloads by category
+  var priceHighDownloads = [];
+
+  getHighDownloads(function(priceHighDownloads) {
+    if(priceHighDownloads){
+      res.render('downloads', {
+        layout: 'download_head',
+        downloads: priceHighDownloads
+      });
+    }
+  });
+  console.log("prepare to render");
+});
+
+var getHighDownloads = function getHighDownloads(callback){
+  var downloadsArray = [];
+
+  downloadsDB.getDownloadsHightoLow((err, rows) => {
+      if (err) {
+        console.log(err);
+      }
+      if(rows){
+        var product = {
+          productCategory: rows.productCategory,
+          productName: rows.name,
+          productDescription: rows.description,
+          productPrice: rows.price,
+          productImage: rows.image,
+          productId: rows.productId
+        };
+        console.log(product);
+        downloadsArray.push(product);
+      }
+      else{
+        console.log("shit from downloads");
+      }
+    });
+  callback(downloadsArray);
+}
+
 ////// VIEW ALL DOWNLOADS
 router.get('/all', function(req, res){
   console.log("ALL DOWNLOADS");
