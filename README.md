@@ -104,4 +104,20 @@ TO MOVE TO A+
 
 We have delivered dynamic pages by inserting data into templates on the server side, and have currently created a simple dynamic delivery system. We are using the handlebars templating engine to dynamically serve our HTML pages. We plan to do more of our own programming to organise it better and remove the redundancy of the headers, additionally dynamically rendering a logged in user's name depending on session id. As we have spent a lot of time researching this we expect this will bring our grade up to an A.
 
-TO MOVE TO A need to just show that we're fluent, etc etc, errors handled dynamically  
+TO MOVE TO A need to just show that we're fluent, etc etc, errors handled dynamically 
+
+
+
+**example issues to highlight** 
+- login issues from db
+- error handling from database
+- parameters from the db 
+
+
+**depth considerations**
+- game
+- product page
+- basket system set up 
+- log in across pages
+- user sessions and cookies
+- using req parameters 
