@@ -236,5 +236,113 @@ var getDownloadsByCategory = function getDownloadsByCategory(categoryid, callbac
   callback(downloadsArray);
 }
 
+/// VIEW CATEGORY BY DOWNLOADS low to high
+router.get('/:categoryid/lowtohigh', function(req, res){
+  console.log(req.session.user);
+  console.log(req.sessionID);
+  //downloads by category
+  var lowPriceProducts = [];
+  var categoryId = req.params.categoryid;
+  console.log("cat id");
+  console.log(categoryId);
+
+   //auxFunctions.myArrayFunc(req.params.ID ,function(myRenderArray){
+
+  getPriceLowByCategory(req.params.categoryid, function(categoryProducts) {
+
+    console.log("death comes to us all");
+    console.log(req.params.categoryid);
+    if(lowPriceProducts){
+      res.render('downloads', {
+        layout: 'download_head',
+        downloads: lowPriceProducts,
+      });
+      console.log(lowPriceProduct +" inside callback");
+    }
+  });
+});
+
+//module.exports.myArrayFunc = function myArrayFunc(ID ,callback
+
+var getPriceLowByCategory = function getPriceLowByCategory(categoryid, callback) {
+  var downloadsArray = [];
+
+  downloadsDB.getDownloadsLowtoHighCategory(categoryid, (err, rows) => {
+      if (err) {
+        console.log(err);
+      }
+      if (rows) {
+        console.log("new row");
+        var product = {
+          productCategory: rows.productCategory,
+          productName: rows.name,
+          productDescription: rows.description,
+          productPrice: rows.price,
+          productImage: "images/download_text.png", //CHANGE THIS BACK!
+          productId: rows.productId
+        };
+        console.log(product);
+        downloadsArray.push(product);
+      }
+      else{
+        console.log("shit from downloads");
+      }
+    });
+  callback(downloadsArray);
+}
+
+/// VIEW CATEGORY BY DOWNLOADS low to high
+router.get('/:categoryid/hightolow', function(req, res){
+  console.log(req.session.user);
+  console.log(req.sessionID);
+  //downloads by category
+  var highPriceProducts = [];
+  var categoryId = req.params.categoryid;
+  console.log("cat id");
+  console.log(categoryId);
+
+  getPriceHighByCategory(req.params.categoryid, function(categoryProducts) {
+
+    if(highPriceProducts){
+      res.render('downloads', {
+        layout: 'download_head',
+        downloads: highPriceProducts,
+      });
+    }
+  });
+});
+
+//module.exports.myArrayFunc = function myArrayFunc(ID ,callback
+
+var getPriceHighByCategory = function getPriceHighByCategory(categoryid, callback) {
+  var downloadsArray = [];
+
+  downloadsDB.getDownloadsHightoLowCategory(categoryid, (err, rows) => {
+      if (err) {
+        console.log(err);
+      }
+      if (rows) {
+        console.log("new row");
+        var product = {
+          productCategory: rows.productCategory,
+          productName: rows.name,
+          productDescription: rows.description,
+          productPrice: rows.price,
+          productImage: "images/download_text.png", //CHANGE THIS BACK!
+          productId: rows.productId
+        };
+        console.log(product);
+        downloadsArray.push(product);
+        console.log("yeet");
+        console.log(downloadsArray);
+      }
+      else{
+        console.log("shit from downloads");
+      }
+    });
+
+  callback(downloadsArray);
+}
+
 
 module.exports = router;
