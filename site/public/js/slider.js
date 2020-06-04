@@ -1,4 +1,3 @@
-
 //polyfills for old browsers, remove the frigging copy pasting
 
 var current_slide = 0;
