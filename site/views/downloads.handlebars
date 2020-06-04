@@ -16,6 +16,32 @@
 </div>
 {{/each}}
 
+{{#each downloadsAll}}
+<div class="downloads-box">
+
+    <p class="downloads-name title-content">  {{ this.productName }}</p></br>
+    <p class="downloads-description">{{ this.productDescription }}</p></br>
+    <p class="downloads-category">{{ this.productCategory }}</p></br>
+    <p class="downloads-price">{{ this.productPrice }}</p></br>
+    <img class="downloads-image" src = {{ this.productImage }} alt=" " /></br>
+    <p class="downloads-productId">{{ this.productId }}</p></br>
+
+</div>
+{{/each}}
+
+{{#each priceLowDownloads}}
+<div class="downloads-box">
+
+    <p class="downloads-name title-content">  {{ this.productName }}</p></br>
+    <p class="downloads-description">{{ this.productDescription }}</p></br>
+    <p class="downloads-category">{{ this.productCategory }}</p></br>
+    <p class="downloads-price">{{ this.productPrice }}</p></br>
+    <img class="downloads-image" src = {{ this.productImage }} alt=" " /></br>
+    <p class="downloads-productId">{{ this.productId }}</p></br>
+
+</div>
+{{/each}}
+
 
 {{#each downloads}}
   <div class="downloads-box">
@@ -28,19 +54,6 @@
       <p class="downloads-productId">{{ this.productId }}</p></br>
 
   </div>
-{{/each}}
-
-{{#each downloadsAll}}
-<div class="downloads-box">
-
-    <p class="downloads-name title-content">  {{ this.productName }}</p></br>
-    <p class="downloads-description">{{ this.productDescription }}</p></br>
-    <p class="downloads-category">{{ this.productCategory }}</p></br>
-    <p class="downloads-price">{{ this.productPrice }}</p></br>
-    <img class="downloads-image" src = {{ this.productImage }} alt=" " /></br>
-    <p class="downloads-productId">{{ this.productId }}</p></br>
-
-</div>
 {{/each}}
 
 

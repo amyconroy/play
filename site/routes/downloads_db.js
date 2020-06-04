@@ -52,7 +52,7 @@ exports.getDownloadsByCategory = function(categoryId, callback){
 
 /// GET PRODUCTS BY PRICE HIGH to LOW
 exports.getDownloadsHightoLow = function(callback){
-  var query = "SELECT * FROM Product ORDER BY price DESC;";
+  var query = "SELECT * FROM Product WHERE productCategory != 1 ORDER BY price ASC;";
     // use each as all returns everything from db, each runs query first
     db.all(query, (err, rows) =>{
       if(rows){
@@ -65,10 +65,11 @@ exports.getDownloadsHightoLow = function(callback){
 
 /// GET PRODUCTS BY PRICE LOW to HIGH
 exports.getDownloadsLowtoHigh = function(callback){
-  var query = "SELECT * FROM Product ORDER BY price ASC;";
+  var query = "SELECT * FROM Product WHERE productCategory != 1 ORDER BY price DESC;";
     // use each as all returns everything from db, each runs query first
     db.all(query, (err, rows) =>{
       if(rows){
+        console.log(rows);
         callback(null, rows);
       } else{
         callback(error, null); // unable to get products
