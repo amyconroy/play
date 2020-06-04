@@ -1,0 +1,22 @@
+var user = {'email': req.body.email,
+            'username': req.body.username,
+            'password' : hashedPassword };
+            
+var comment = {'userId': x,
+              'timePosted': now(),
+              'content': x }; 
+              
+ returning comment to html: 
+ { results : rows || null }
+ 
+ var category = {
+                'categoryName':
+                'categoryDescription':
+                }
+
+var product = {
+'productCategory' : 
+'description': 
+'name': 
+'price':
+'image'}

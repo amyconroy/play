@@ -1,9 +1,20 @@
 var express = require('express');
 var router = express.Router();
 var loginDB = require('./login_db.js');
+var bcrypt = require('bcrypt');
 
 router.get('/', function(req, res){
-    res.render('login', {layout : 'login_head'});
+    res.render('login', {
+        layout : 'login_head'
+    });
+});
+
+router.get('/logout', function(req, res) {
+    req.session.destroy(function(){
+      console.log("user logged out.");
+    });
+
+    res.redirect('/login');
 });
 
 //the post request for url validation would go here
@@ -15,31 +26,63 @@ router.post('/register', function(req, res){
 
   if (confirm_password === password) { //check password validity
     if (!validPass(password)) {
-      res.redirect('/login'); //this is hack, not sure how else to deal apart from maybe a clientside callback? or render
+      console.log("registration failed");
+
+      res.render('login', {
+        layout : 'login_head',
+        error: 'true',
+        errormessage:'Your password should contain a capital, special character, and a number'
+      });
+
+    } else {
+
+      var salt = bcrypt.genSaltSync(10); //make salt for password hash
+      var hashedPassword = bcrypt.hashSync(password, salt); //make hashed password
+
+      var newUser = {
+        email: email,
+        username: username,
+        password: hashedPassword,
+        userSession: req.sessionID //recording their unique sessionID
+      }
+
+      loginDB.newUser(newUser); //try to add new user to DB
+
+      req.session.user = { //initialise a session for our user
+        email: email,
+        name: username
+      }
+
+      console.log(req.session.user);
+      console.log(req.sessionID);
+
+      res.redirect('/index');
     }
 
-    res.send("request recieved, registering with info: "+username+password+confirm_password+email);
   } else {
-    res.redirect('/login');
+    console.log("pass wrong");
+    console.log("Password doesn't match");
+
+    res.render('login', {
+      layout : 'login_head',
+      error: 'true',
+      errormessage:'Your confirmed password should match'
+    });
+
   }
 
-  //run a select on the username, if it exists say we need a diff USERNAME
-  //insert new user into our shiny db
 });
 
-function validPass(password) {
+function validPass(password) { //make sure password is strong
   if (password.length < 5) {
-    console.log("pass too short");
     return false;
   }
 
   if (!password.match(/[0-9]/)) {
-    console.log("pass needs number");
     return false;
   }
 
   if (!password.match(/[!@#$%\^&*]/)) {
-    console.log("pass needs special character");
     return false;
   }
 
@@ -47,12 +90,66 @@ function validPass(password) {
 }
 
 router.post('/auth', function(req, res){
-    var username = req.body.username;
-	  var password = req.body.password;
-    res.send("request recieved cap'n, with: "+username+" "+password);
+  var username = req.body.username;
+  var password = req.body.password;
 
-    //should be a basic normal select here
+  var userAuth = loginDB.getUserByUserName(username, (error, rows) => {
+    if (error || rows.length == 0) {
+      console.log("user does not exist");
+
+      res.render('login', { //user does not exist render error
+        layout : 'login_head',
+        error: 'true',
+        errormessage:'User does not exist'
+      });
+
+    } else {
+
+      if (rows.length > 0) {
+          console.log("checking password");
+          console.log(rows[0].userPassword);
+
+          passCompare(password, rows[0].userPassword, (error, result) => {
+            if (result) {
+              req.sessionID = rows.userSession;
+
+              req.session.user = {
+                email: rows.userEmail,
+                name: username
+              }
+
+              console.log(req.session.user);
+              console.log(req.sessionID);
+
+              res.redirect('/index'); //SUCCESSFUL LOGIN
+
+          } else {
+
+            res.render('login', {
+              layout : 'login_head',
+              error: 'true',
+              errormessage:'Wrong password'
+            });
+
+          }
+
+        });
+    }
+  }
+  });
 
 });
+
+function passCompare(password, userpassword, callback) {
+  console.log("comparing pass "+password+" and "+userpassword);
+
+  bcrypt.compare(password, userpassword, function(error, result) {
+    if (error) {
+      callback(error,null);
+    } else {
+      callback(null, result);
+    }
+  });
+}
 
 module.exports = router;

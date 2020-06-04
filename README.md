@@ -2,20 +2,33 @@
 
 Website for PLAY text adventure game engine, in the style of retro 80's nerds.
 
-<center><b> Grades estimated based on current work. </center></b>
+<center><b> Grades estimated based on current work PRIOR TO FORMATIVE SUBMISSION. FOLLOWING INFO OUT OF DATE. </center></b>
 
-<b> HTML : C </b>
+<b> HTML : A </b>
 
 We tried to include the XHTML tag, however after using Handlebars it does not seem to be validating. We also have experienced a number of issues (we are planning to convert to more semantic tags as opposed to divs) and are highly confident in the structure of HTML pages. 
      In order to move our HTML grade to an A, we will investigate the issues with the XHTML delivery. 
+     
+ : fixed XHTML delivery 
+ : example issues that we've faced (ana)
+ : nb no framework all done manyall
+ 
+ TO MOVE TO A+
 
 <b> CSS : B </b> 
 
 We have ensured that there are no style tags and attributes in our HTML pages, and have gained a high level of experience with stylesheets. There are some bad relative measurements, currently in px measurements, which will be changed to make it responsive.  By doing so, as we are confident with CSS style, we expect this to bring our grade to an A. 
 
+high confidence, all manually
+TO MOVE TO A+
+
 <b> JS : B </b>
 
 We have written a large amount of script ourselves. The slider script was self written, main issue with that was timing as javascript does not have native sleep() function. For our random quote generator (used to insert quotes under the PNG header, different upon each reload), we added a text file to pull quotes from, and we currently changing it from HTMLinner method which is unsafe. We are also planning on creating a demo for our game, written ourselves in javascript. We expect this will bring us to an A. 
+
+TO MOVE TO A+ = ESPECIALLY A+ with creative game application 
+high confidence, whole game written in js for client side, 
+ANA - CSS animation done here!! we can add this in. Titles animated, parameter bars animated in css. 
 
 <b> PNG : B </b>
 
@@ -49,6 +62,10 @@ Neon effect on border, add another metallic gradient layer and set to multiply.
 Over top of everything add layer with wide radial black->transparent gradient.
 This creates a soft vignette and adds more focus into the centre. 
 
+
+TO MOVE TO A+ 
+ana is an expert
+
 <b> SVG : A </b>
 
 All SVG images created from scratch using various features such as shape tools, freehand drawing, simplification, grouping, gradients. Each logo required significant effort to create. 
@@ -61,12 +78,20 @@ Create a rectangle shape using shape tools. Draw the 'roof' using freehand drawi
 
 Our server has currently been set up by following a tutorial to set up express. We have been looking in to https self signed certificates, cookie session management, and will also deal with port numbers/URL validation/content negotiation and redirections to bring our grade up to an A. 
 
-<b> DATABASE : C </b> 
+
+SERVER : A, https and certificates dealt with, utf-8, urls validated, content nogtiation, cookies
+     errors faced - so very many
+
+<b> DATABASE : A </b> 
 
 We have currently written some of the callbacks for inserting and updating the data in our database, and have manually created our database as well. We update user details when they create an account, and update data based on the products that they buy, have an orders system for buying products. We also plan to organise our database access in to a separate server-side module to bring our grade up to an A. To prevent constructing an explicit SQL string and making vulnerable to SQL injection, we parametised the way we insert data.
      
 normalised to 3NF: multiple tables may not seem efficient, but done to allow for scalability of our website and ensure  no contradicitions. 
 
-<b> DYNAMIC PAGES : C </b>
+TO MOVE TO A lots of data inserted, high experiences, normalised data, complex queries, complex schema, id numbers sorted with database, 
+
+<b> DYNAMIC PAGES : A </b>
 
 We have delivered dynamic pages by inserting data into templates on the server side, and have currently created a simple dynamic delivery system. We are using the handlebars templating engine to dynamically serve our HTML pages. We plan to do more of our own programming to organise it better and remove the redundancy of the headers, additionally dynamically rendering a logged in user's name depending on session id. As we have spent a lot of time researching this we expect this will bring our grade up to an A.
+
+TO MOVE TO A need to just show that we're fluent, etc etc, errors handled dynamically  
