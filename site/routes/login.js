@@ -94,7 +94,7 @@ router.post('/auth', function(req, res){
   var password = req.body.password;
 
   var userAuth = loginDB.getUserByUserName(username, (error, rows) => {
-    if (error) {
+    if (error || rows.length == 0) {
       console.log("user does not exist");
 
       res.render('login', { //user does not exist render error
@@ -105,11 +105,11 @@ router.post('/auth', function(req, res){
 
     } else {
 
-      if (rows) {
+      if (rows.length > 0) {
           console.log("checking password");
-          console.log(rows.userPassword);
+          console.log(rows[0].userPassword);
 
-          passCompare(password, rows.userPassword, (error, result)=> {
+          passCompare(password, rows[0].userPassword, (error, result) => {
             if (result) {
               req.sessionID = rows.userSession;
 
@@ -141,11 +141,14 @@ router.post('/auth', function(req, res){
 });
 
 function passCompare(password, userpassword, callback) {
-  console.log("comparing pass");
+  console.log("comparing pass "+password+" and "+userpassword);
 
   bcrypt.compare(password, userpassword, function(error, result) {
-    if (error) throw error;
-    callback(null, result);
+    if (error) {
+      callback(error,null);
+    } else {
+      callback(null, result);
+    }
   });
 }
 
