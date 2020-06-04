@@ -35,3 +35,18 @@ exports.getAllCategories = function(callback){
     });
   });
 }
+
+
+exports.getProductsByCategory = function(categoryId, callback){
+    var query = "SELECT * FROM Product WHERE productCategory = ?;";
+      // use each as all returns everything from db, each runs query first
+      db.serialize(() => {
+      db.each(query, categoryId, (err, rows) =>{
+        if(rows){
+          callback(null, rows);
+        } else{
+          callback(error, null); // unable to get products
+        }
+      });
+    });
+}

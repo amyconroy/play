@@ -71,11 +71,13 @@ router.get('/:categoryid', function(req, res){
 var getDownloadsByCategory = function getDownloadsByCategory(categoryid, callback) {
   var downloadsArray = [];
   console.log("FUCKING KILL ME");
-  /*downloadsDB.getProductsByCategory(catId, (err, rows) => {
-      if (error) {
+
+  downloadsDB.getProductsByCategory(categoryid, (err, rows) => {
+      if (err) {
         console.log(err);
       }
-      if(rows){
+      if (rows) {
+        console.log("new row");
         var product = {
           productCategory: rows.productCategory,
           productName: rows.name,
@@ -85,21 +87,14 @@ var getDownloadsByCategory = function getDownloadsByCategory(categoryid, callbac
           productId: rows.productId
         };
         console.log(product);
-        categoriesArray.push(product);
+        downloadsArray.push(product);
       }
       else{
         console.log("shit from downloads");
       }
-    });*/
-  downloadsArray.push({
-    productCategory:"wefwef",
-    productName: "wefwef",
-    productDescription: "wefwef",
-    productPrice: "wefwef",
-    productImage: "wefwef",
-    productId: "wefwef"
-  });
-  callback(downloadsArray);
+    });
+
+    callback(downloadsArray);
 }
 
 
