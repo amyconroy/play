@@ -108,7 +108,7 @@ app.use('/downloads', express.static(__dirname + '/public'));
 ///////////////////////////////
 const fillDB = require('./fillDB.js');
 fillDB.createTables();
-fillDB.fillUsers();
+// fillDB.fillUsers();
 //fillDB.fillComments();
 //fillDB.fillCategories();
 //fillDB.fillGameProducts();
