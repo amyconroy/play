@@ -121,3 +121,4 @@ TO MOVE TO A need to just show that we're fluent, etc etc, errors handled dynami
 - log in across pages
 - user sessions and cookies
 - using req parameters 
+- security audit for vulnerabilities in express
