@@ -43,12 +43,55 @@ var getAllCategories = function getAllCategories(callback){
   callback(categoriesArray);
 }
 
+////// VIEW ALL DOWNLOADS BY PRICE LOW TO HIGH
+router.get('/lowtohigh', function(req, res){
+  console.log(req.session.user);
+  console.log(req.sessionID);
+  console.log("LOW TO HIGH");
+
+// downloads by category
+  var priceLowDownloads = [];
+
+  getLowDownloads(function(priceLowDownloads) {
+    if(priceLowDownloads){
+      res.render('downloads', {
+        layout: 'download_head',
+        downloads: priceLowDownloads
+      });
+    }
+  });
+  console.log("prepare to render");
+});
+
+var getLowDownloads = function getLowDownloads(callback){
+  var downloadsArray = [];
+
+  downloadsDB.getDownloadsLowtoHigh((err, rows) => {
+      if (err) {
+        console.log(err);
+      }
+      if(rows){
+        var product = {
+          productCategory: rows.productCategory,
+          productName: rows.name,
+          productDescription: rows.description,
+          productPrice: rows.price,
+          productImage: rows.image,
+          productId: rows.productId
+        };
+        console.log("prod");
+        console.log(product);
+        downloadsArray.push(product);
+      }
+      else{
+        console.log("shit from downloads");
+      }
+    });
+  callback(downloadsArray);
+}
 
 ////// VIEW ALL DOWNLOADS
 router.get('/all', function(req, res){
-  console.log(req.session.user);
-  console.log(req.sessionID);
-
   console.log("ALL DOWNLOADS");
 // downloads by category
   var allDownloads = [];
@@ -57,7 +100,7 @@ router.get('/all', function(req, res){
     if(allDownloads){
       res.render('downloads', {
         layout: 'download_head',
-        downloadsAll: allDownloads
+        downloads: allDownloads
       });
     }
   });
@@ -80,54 +123,7 @@ var getAllDownloads = function getAllDownloads(callback){
           productImage: rows.image,
           productId: rows.productId
         };
-          console.log("all downloads");
-        console.log(product);
-        downloadsArray.push(product);
-      }
-      else{
-        console.log("shit from downloads");
-      }
-    });
-
-    callback(downloadsArray);
-}
-
-////// VIEW ALL DOWNLOADS BY PRICE LOW TO HIGH
-router.get('/lowtohigh', function(req, res){
-  console.log(req.session.user);
-  console.log(req.sessionID);
-
-  console.log("LOW TO HIGH");
-
-// downloads by category
-  var priceLowDownloads = [];
-
-  getLowDownloads(function(priceLowDownloads) {
-    if(priceLowDownloads){
-      res.render('downloads', {
-        layout: 'download_head',
-        priceLowDownloads: priceLowDownloads
-      });
-    }
-  });
-});
-
-var getLowDownloads = function getLowDownloads(callback){
-  var downloadsArray = [];
-
-  downloadsDB.getDownloadsLowtoHigh((err, rows) => {
-      if (err) {
-        console.log(err);
-      }
-      if(rows){
-        var product = {
-          productCategory: rows.productCategory,
-          productName: rows.name,
-          productDescription: rows.description,
-          productPrice: rows.price,
-          productImage: rows.image,
-          productId: rows.productId
-        };
+        console.log("all downloads");
         console.log(product);
         downloadsArray.push(product);
       }
@@ -137,14 +133,12 @@ var getLowDownloads = function getLowDownloads(callback){
     });
     callback(downloadsArray);
 }
-
 
 /// VIEW DOWNLOADS BY CATEGORY ID
 router.get('/:categoryid', function(req, res){
   console.log(req.session.user);
   console.log(req.sessionID);
   //downloads by category
-
   var categoryProducts = [];
   var categoryId = req.params.categoryid;
   console.log("cat id");
@@ -155,6 +149,7 @@ router.get('/:categoryid', function(req, res){
   getDownloadsByCategory(req.params.categoryid, function(categoryProducts) {
 
     console.log("death comes to us all");
+    console.log(req.params.categoryid);
     if(categoryProducts){
       res.render('downloads', {
         layout: 'download_head',
@@ -192,8 +187,7 @@ var getDownloadsByCategory = function getDownloadsByCategory(categoryid, callbac
         console.log("shit from downloads");
       }
     });
-
-    callback(downloadsArray);
+  callback(downloadsArray);
 }
 
 

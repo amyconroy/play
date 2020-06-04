@@ -54,7 +54,8 @@ exports.getDownloadsByCategory = function(categoryId, callback){
 exports.getDownloadsHightoLow = function(callback){
   var query = "SELECT * FROM Product WHERE productCategory != 1 ORDER BY price ASC;";
     // use each as all returns everything from db, each runs query first
-    db.all(query, (err, rows) =>{
+
+    db.each(query, (err, rows) =>{
       if(rows){
         callback(null, rows);
       } else{
@@ -67,12 +68,14 @@ exports.getDownloadsHightoLow = function(callback){
 exports.getDownloadsLowtoHigh = function(callback){
   var query = "SELECT * FROM Product WHERE productCategory != 1 ORDER BY price DESC;";
     // use each as all returns everything from db, each runs query first
-    db.all(query, (err, rows) =>{
-      if(rows){
-        console.log(rows);
-        callback(null, rows);
-      } else{
-        callback(error, null); // unable to get products
-      }
+    db.serialize(() =>{
+      db.each(query, (err, rows) =>{
+        if(rows){
+          console.log(rows);
+          callback(null, rows);
+        } else{
+          callback(error, null); // unable to get products
+        }
+      });
   });
 }
