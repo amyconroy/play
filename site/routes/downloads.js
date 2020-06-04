@@ -29,7 +29,7 @@ var getAllCategories = function getAllCategories(callback){
         var category = {
           category: rows.categoryId,
           categoryName: rows.categoryName,
-          categoryDescription: rows.categoryDescription
+          categoryDescription: rows.categoryDescription,
         };
         console.log(category);
         categoriesArray.push(category);
@@ -59,7 +59,7 @@ router.get('/:categoryid', function(req, res){
     if(categoryProducts){
       res.render('downloads', {
         layout: 'download_head',
-        downloads: categoryProducts
+        downloads: categoryProducts,
       });
       console.log(categoryProducts+" inside callback");
     }
@@ -70,7 +70,6 @@ router.get('/:categoryid', function(req, res){
 
 var getDownloadsByCategory = function getDownloadsByCategory(categoryid, callback) {
   var downloadsArray = [];
-  console.log("FUCKING KILL ME");
 
   downloadsDB.getProductsByCategory(categoryid, (err, rows) => {
       if (err) {
@@ -84,7 +83,7 @@ var getDownloadsByCategory = function getDownloadsByCategory(categoryid, callbac
           productName: rows.name,
           productDescription: rows.description,
           productPrice: rows.price,
-          productImage: rows.image,
+          productImage: "images/download_text.png", //CHANGE THIS BACK!
           productId: rows.productId
         };
         console.log(product);
