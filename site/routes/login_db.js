@@ -58,7 +58,7 @@ exports.getUserByUserName = function(username, callback){
   var query = "SELECT * FROM User WHERE userName = ?;";
   db.serialize(() => {
     // use each as all returns everything from db, each runs query first
-    db.each(query, username, (err, rows) =>{
+    db.all(query, username, (err, rows) =>{
       if(rows){
         // return error as null as got data back
         callback(null, rows);
