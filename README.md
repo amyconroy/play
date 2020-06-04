@@ -11,7 +11,7 @@ We tried to include the XHTML tag, however after using Handlebars it does not se
      
  : fixed XHTML delivery 
  : example issues that we've faced (ana)
- : nb no framework all done manyall
+ : nb no framework all done manually 
  
  TO MOVE TO A+
 
@@ -19,7 +19,8 @@ We tried to include the XHTML tag, however after using Handlebars it does not se
 
 We have ensured that there are no style tags and attributes in our HTML pages, and have gained a high level of experience with stylesheets. There are some bad relative measurements, currently in px measurements, which will be changed to make it responsive.  By doing so, as we are confident with CSS style, we expect this to bring our grade to an A. 
 
-high confidence, all manually
+: high confidence, all manually
+: examples o the CSS 
 TO MOVE TO A+
 
 <b> JS : B </b>
@@ -88,7 +89,16 @@ We have currently written some of the callbacks for inserting and updating the d
      
 normalised to 3NF: multiple tables may not seem efficient, but done to allow for scalability of our website and ensure  no contradicitions. 
 
-TO MOVE TO A lots of data inserted, high experiences, normalised data, complex queries, complex schema, id numbers sorted with database, 
+TO MOVE TO A+ 
+: lots of data inserted, 
+: high experiences,
+: normalised data, 
+: complex queries, 
+: complex schema, 
+: id numbers sorted with database, 
+: insert and pull a lot of data
+: experience with serialization 
+: effective error handling in the db (no rows etc handled well server side) 
 
 <b> DYNAMIC PAGES : A </b>
 
