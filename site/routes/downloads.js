@@ -42,18 +42,110 @@ var getAllCategories = function getAllCategories(callback){
     callback(categoriesArray);
 }
 
-/*
-router.get('/category', function(req, res){
-  productsDB.getProductsByCategory(req.body.categoryId, (err, rows) =>{
-    if(rows){
-      console.log("got all products by category");
-      // res.render() here
-    }
-    else{
-      console.log("did not get all products by category");
-      // diff ress render?
+router.get('/:categoryid', function(req, res){
+  console.log(req.session.user);
+  console.log(req.sessionID);
+  //downloads by category
+
+  var categoryProducts = [];
+  var categoryId = req.params.categoryid;
+  console.log("YEET category");
+  console.log(categoryId);
+
+   //auxFunctions.myArrayFunc(req.params.ID ,function(myRenderArray){
+
+  getDownloadsByCategory(req.params.categoryid, function(categoryProducts) {
+    console.log("death comes to us all");
+    if(categoryProducts){
+      /*res.render('downloads', {
+        layout: 'download_head',
+        downloads: categoryProducts
+      });*/
+      console.log(categoryProducts+" inside callback");
     }
   });
-}); */
+});
+
+//module.exports.myArrayFunc = function myArrayFunc(ID ,callback
+
+var getDownloadsByCategory = function getDownloadsByCategory(categoryid, callback) {
+  var downloadsArray = [];
+  console.log("FUCKING KILL ME");
+  /*downloadsDB.getProductsByCategory(catId, (err, rows) => {
+      if (error) {
+        console.log(err);
+      }
+      if(rows){
+        var product = {
+          productCategory: rows.productCategory,
+          productName: rows.name,
+          productDescription: rows.description,
+          productPrice: rows.price,
+          productImage: rows.image,
+          productId: rows.productId
+        };
+        console.log(product);
+        categoriesArray.push(product);
+      }
+      else{
+        console.log("shit from downloads");
+      }
+    });*/
+  downloadsArray.push({
+    productCategory:"wefwef",
+    productName: "wefwef",
+    productDescription: "wefwef",
+    productPrice: "wefwef",
+    productImage: "wefwef",
+    productId: "wefwef"
+  });
+
+  callback(downloadsArray);
+}
+
+
+router.get('/allDownloads', function(req, res){
+  console.log(req.session.user);
+  console.log(req.sessionID);
+
+// downloads by category
+  var allDownloads = [];
+
+  getAllDownloads(function(allDownloads) {
+    if(allDownloads){
+      res.render('downloads', {
+        layout: 'download_head',
+        downloadsAll: allDownloads
+      });
+    }
+  });
+});
+
+var getAllDownloads = function getAllDownloads(callback){
+  var downloadsArray = [];
+
+  downloadsDB.getAllProducts((err, rows) => {
+      if (err) {
+        console.log(err);
+      }
+      if(rows){
+        var product = {
+          productCategory: rows.productCategory,
+          productName: rows.name,
+          productDescription: rows.description,
+          productPrice: rows.price,
+          productImage: rows.image,
+          productId: rows.productId
+        };
+        console.log(product);
+        categoriesArray.push(product);
+      }
+      else{
+        console.log("shit from downloads");
+      }
+    });
+    callback(downloadsArray);
+}
+
 
 module.exports = router;
