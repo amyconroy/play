@@ -54,13 +54,13 @@ router.get('/:categoryid', function(req, res){
 
    //auxFunctions.myArrayFunc(req.params.ID ,function(myRenderArray){
 
-  getDownloadsByCategory(req.params.categoryid, function(categoryProducts) {
+   getDownloadsByCategory(req.params.categoryid, function(categoryProducts) {
     console.log("death comes to us all");
     if(categoryProducts){
-      /*res.render('downloads', {
+      res.render('downloads', {
         layout: 'download_head',
         downloads: categoryProducts
-      });*/
+      });
       console.log(categoryProducts+" inside callback");
     }
   });
@@ -71,7 +71,7 @@ router.get('/:categoryid', function(req, res){
 var getDownloadsByCategory = function getDownloadsByCategory(categoryid, callback) {
   var downloadsArray = [];
   console.log("FUCKING KILL ME");
-  /*downloadsDB.getProductsByCategory(catId, (err, rows) => {
+  downloadsDB.getProductsByCategory(categoryId, (err, rows) => {
       if (error) {
         console.log(err);
       }
@@ -89,8 +89,8 @@ var getDownloadsByCategory = function getDownloadsByCategory(categoryid, callbac
       }
       else{
         console.log("shit from downloads");
-      }
-    });*/
+     }
+  });
   downloadsArray.push({
     productCategory:"wefwef",
     productName: "wefwef",
@@ -99,7 +99,6 @@ var getDownloadsByCategory = function getDownloadsByCategory(categoryid, callbac
     productImage: "wefwef",
     productId: "wefwef"
   });
-
   callback(downloadsArray);
 }
 
