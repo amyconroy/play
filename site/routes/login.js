@@ -107,9 +107,9 @@ router.post('/auth', function(req, res){
 
       if (rows.length > 0) {
           console.log("checking password");
-          console.log(rows.userPassword);
+          console.log(rows[0].userPassword);
 
-          passCompare(password, rows.userPassword, (error, result) => {
+          passCompare(password, rows[0].userPassword, (error, result) => {
             if (result) {
               req.sessionID = rows.userSession;
 
