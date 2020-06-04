@@ -57,10 +57,10 @@ router.get('/:categoryid', function(req, res){
   getDownloadsByCategory(req.params.categoryid, function(categoryProducts) {
     console.log("death comes to us all");
     if(categoryProducts){
-      /*res.render('downloads', {
+      res.render('downloads', {
         layout: 'download_head',
         downloads: categoryProducts
-      });*/
+      });
       console.log(categoryProducts+" inside callback");
     }
   });
@@ -99,7 +99,6 @@ var getDownloadsByCategory = function getDownloadsByCategory(categoryid, callbac
     productImage: "wefwef",
     productId: "wefwef"
   });
-
   callback(downloadsArray);
 }
 
