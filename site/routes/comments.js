@@ -49,11 +49,12 @@ var getAllComments = function getAllComments(callback){
 /// CREATE NEW COMMENT ////
 router.post('/submit_comment', function(req, res){ //comments/submit_comment
   var newComment = {
-    userId: 130,
+    userId: 2,
     timePosted: Date.now(),
     content: req.body.content
   }
   commentsDB.newComment(newComment);
+  res.redirect("/index");
 });
 
 /// DELETE COMMENT ////
