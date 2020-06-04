@@ -166,6 +166,17 @@ a {
 	margin-left:20px;
 }
 
+.title-content-center {
+	position:relative;
+	margin-top:50px;
+	font-family: 'Aldrich';
+	color:#e854ff;
+	text-align:center;
+	font-size:5em;
+	text-shadow: 0 0 5px purple, 0 0 10px purple, 0 0 15px purple, 0 0 40px #ff00aa, 0 0 70px #ff00aa;
+	margin-left:20px;
+}
+
 .title-content-main {
 	font-size:8em;
 	text-align:center;

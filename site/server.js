@@ -129,11 +129,10 @@ app.use(function(req, res, next){
   let err = new Error('Page Not Found');
   err.statusCode = 404;
   err.shouldRedirect = true;
-  next(err);
 });
 
 // ensure that stack trace is not leaked to the user but for dev purposes
-if (app.get('env') === 'development') {
+/* if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
         res.render('error', {
@@ -141,21 +140,20 @@ if (app.get('env') === 'development') {
             error: err
         });
     });
-}
+} */
 
 app.use(function (err, req, res, next) {
   console.error(err.message); // log error message to the server console
   if(!err.statusCode) err.statusCode = 500;
-  if(err.shouldRedirect){
+  // if(err.shouldRedirect){
     res.render('error', {
       errorMessage: err.message,
       error: err
-    });
-  }
-  else{
-    // unclear if should redirect - then send error message
-      res.status(err.statusCode).send(err.message);
-  }
+//    });
+});
+  /* else {
+    res.status(err.statusCode).send(err.message);
+  } */
 });
 
 module.exports = app;
