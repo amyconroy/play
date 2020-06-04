@@ -1,6 +1,6 @@
-init();
+initbox();
 
-function init() {
+function initbox() {
   document.getElementById("myDropdown").classList.toggle("show");
 }
 
