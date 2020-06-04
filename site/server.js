@@ -14,11 +14,17 @@ var handlebars = require('express-handlebars');
 var bodyParser = require('body-parser'); //for post requests
 var md5 = require('md5'); // use for creating a hash for passwords, need to change to SHA-1
 var bodyParser = require('body-parser');
+var helmet = require('helmet'); // for security
 //////////////////
 /// EXPRESS /////
 /////////////////
 var app = express();
 var router = express.Router(); //our router for requests
+
+/////////////////////
+///// SECURITY //////
+/////////////////////
+app.use(helmet()); // protects against attacks on express
 
 //////////////////////////////
 /// CERTIFICATES and HTTPS ///
@@ -118,22 +124,38 @@ fillDB.createTables();
 /////////////////////
 /// ERROR HANDLER ///
 ////////////////////
+// set error to be 404 if the page isnt found
+app.use(function(req, res, next){
+  let err = new Error('Page Not Found');
+  err.statusCode = 404;
+  err.shouldRedirect = true;
+  next(err);
+});
 
-/*app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-  // render the error page
-  res.status(err.status || 500);
-  res.send('error.handlebars');
-}); */
-
-app.use(function (req, res, next) {
-  res.status(404).render('404', {layout : 'index_head'});
-})
+// ensure that stack trace is not leaked to the user but for dev purposes
+if (app.get('env') === 'development') {
+    app.use(function(err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            errorMessage: err.message,
+            error: err
+        });
+    });
+}
 
 app.use(function (err, req, res, next) {
-  console.error(err.stack)
-  res.status(500).render('500', {layout : 'index_head'})
-})
+  console.error(err.message); // log error message to the server console
+  if(!err.statusCode) err.statusCode = 500;
+  if(err.shouldRedirect){
+    res.render('error', {
+      errorMessage: err.message,
+      error: err
+    });
+  }
+  else{
+    // unclear if should redirect - then send error message
+      res.status(err.statusCode).send(err.message);
+  }
+});
+
 module.exports = app;

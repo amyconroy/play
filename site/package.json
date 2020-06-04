@@ -16,6 +16,7 @@
     "express-handlebars": "",
     "express-session": "^1.17.1",
     "flash": "^1.1.0",
+    "helmet": "^3.22.0",
     "http-errors": "~1.6.3",
     "https": "^1.0.0",
     "isemail": "^3.2.0",
