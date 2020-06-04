@@ -38,8 +38,7 @@ var getAllCategories = function getAllCategories(callback){
         console.log("shit from products");
       }
     });
-
-    callback(categoriesArray);
+  callback(categoriesArray);
 }
 
 router.get('/:categoryid', function(req, res){
@@ -55,6 +54,7 @@ router.get('/:categoryid', function(req, res){
    //auxFunctions.myArrayFunc(req.params.ID ,function(myRenderArray){
 
   getDownloadsByCategory(req.params.categoryid, function(categoryProducts) {
+
     console.log("death comes to us all");
     if(categoryProducts){
       res.render('downloads', {
@@ -78,6 +78,7 @@ var getDownloadsByCategory = function getDownloadsByCategory(categoryid, callbac
       }
       if (rows) {
         console.log("new row");
+
         var product = {
           productCategory: rows.productCategory,
           productName: rows.name,

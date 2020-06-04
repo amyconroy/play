@@ -11,7 +11,7 @@ let db = new sqlite3.Database('Play.db', sqlite3.OPEN_READWRITE, (err) => {
 exports.getAllProducts = function(callback){
   var query = "SELECT * FROM Product WHERE productCategory != 1;";
     // use each as all returns everything from db, each runs query first
-    db.all(query, (err, rows) =>{
+    db.each(query, (err, rows) =>{ //???
       if(rows){
         callback(null, rows);
       } else{
@@ -35,7 +35,6 @@ exports.getAllCategories = function(callback){
     });
   });
 }
-
 
 exports.getProductsByCategory = function(categoryId, callback){
     var query = "SELECT * FROM Product WHERE productCategory = ?;";
