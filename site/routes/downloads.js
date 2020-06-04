@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var downloadsDB = require('./downloads_db.js');
 
+
+/// PAGE LOADS UP WITH ALL CATEGORIES - view all categories
 router.get('/', function(req, res){
   console.log(req.session.user);
   console.log(req.sessionID);
@@ -41,6 +43,53 @@ var getAllCategories = function getAllCategories(callback){
   callback(categoriesArray);
 }
 
+
+////// VIEW ALL DOWNLOADS
+router.get('/all', function(req, res){
+  console.log(req.session.user);
+  console.log(req.sessionID);
+
+// downloads by category
+  var allDownloads = [];
+
+  getAllDownloads(function(allDownloads) {
+    if(allDownloads){
+      res.render('downloads', {
+        layout: 'download_head',
+        downloadsAll: allDownloads
+      });
+    }
+  });
+});
+
+var getAllDownloads = function getAllDownloads(callback){
+  var downloadsArray = [];
+
+  downloadsDB.getAllDownloads((err, rows) => {
+      if (err) {
+        console.log(err);
+      }
+      if(rows){
+        var product = {
+          productCategory: rows.productCategory,
+          productName: rows.name,
+          productDescription: rows.description,
+          productPrice: rows.price,
+          productImage: rows.image,
+          productId: rows.productId
+        };
+        console.log(product);
+        downloadsArray.push(product);
+      }
+      else{
+        console.log("shit from downloads");
+      }
+    });
+    callback(downloadsArray);
+}
+
+
+/// VIEW DOWNLOADS BY CATEGORY ID
 router.get('/:categoryid', function(req, res){
   console.log(req.session.user);
   console.log(req.sessionID);
@@ -71,7 +120,7 @@ router.get('/:categoryid', function(req, res){
 var getDownloadsByCategory = function getDownloadsByCategory(categoryid, callback) {
   var downloadsArray = [];
 
-  downloadsDB.getProductsByCategory(categoryid, (err, rows) => {
+  downloadsDB.getDownloadsByCategory(categoryid, (err, rows) => {
       if (err) {
         console.log(err);
       }
@@ -94,50 +143,6 @@ var getDownloadsByCategory = function getDownloadsByCategory(categoryid, callbac
       }
     });
 
-    callback(downloadsArray);
-}
-
-
-router.get('/allDownloads', function(req, res){
-  console.log(req.session.user);
-  console.log(req.sessionID);
-
-// downloads by category
-  var allDownloads = [];
-
-  getAllDownloads(function(allDownloads) {
-    if(allDownloads){
-      res.render('downloads', {
-        layout: 'download_head',
-        downloadsAll: allDownloads
-      });
-    }
-  });
-});
-
-var getAllDownloads = function getAllDownloads(callback){
-  var downloadsArray = [];
-
-  downloadsDB.getAllProducts((err, rows) => {
-      if (err) {
-        console.log(err);
-      }
-      if(rows){
-        var product = {
-          productCategory: rows.productCategory,
-          productName: rows.name,
-          productDescription: rows.description,
-          productPrice: rows.price,
-          productImage: rows.image,
-          productId: rows.productId
-        };
-        console.log(product);
-        categoriesArray.push(product);
-      }
-      else{
-        console.log("shit from downloads");
-      }
-    });
     callback(downloadsArray);
 }
 
