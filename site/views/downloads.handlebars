@@ -6,6 +6,24 @@
 
 {{> navbar }}
 
+<html>
+<head>
+<script type="text/javascript" src="/js/dropdown.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/dropdown.css">
+</head>
+<body>
+
+<div class="dropdown">
+  <button class="dropbtn">SORT</button>
+  <div class="dropdown-content">
+    <a href="/lowtohigh">Price Low to High</a>
+    <a href="/hightolow">Price High to Low</a>
+    <a href="/all">View All</a>
+    <a href="/">Select Category</a>
+  </div>
+</div>
+
 {{#each category}}
 <div class="category-box">
   <div class="comments-box-inner">

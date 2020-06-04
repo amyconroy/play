@@ -9,6 +9,7 @@ router.get('/', function(req, res){
     });
 });
 
+// SET SESSION TO NULL IN DB? 
 router.get('/logout', function(req, res) {
     req.session.destroy(function(){
       console.log("user logged out.");

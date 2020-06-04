@@ -1,0 +1,73 @@
+.dropbtn {
+  border: solid 5px #ff2bf1;
+  border-radius: 5px;
+  color: #e854ff;
+  padding:25px;
+  font-size: 20px;
+  cursor: pointer;
+  background: black;
+  text-shadow: 0 0 5px purple, 0 0 10px purple,
+  0 0 15px purple, 0 0 40px #ff00aa, 0 0 70px #ff00aa;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background: black;
+  box-shadow: inset 0 0 2rem blue,
+  inset 0 0 0.5rem blue,
+  0 0 2rem blue;
+  transition: box-shadow 0.7s;
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown {
+  float: left;
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  color: #e854ff;
+  text-shadow: 0 0 5px purple, 0 0 10px purple,
+  0 0 15px purple, 0 0 40px #ff00aa, 0 0 70px #ff00aa;
+  display: none;
+  position: absolute;
+  background-color: black;
+	box-shadow: inset 0 0 5rem black,
+    inset 0 0 2rem black,
+    0 0 5rem black;
+  min-width: 160px;
+  overflow: auto;
+  color:black;
+  transition: background-color 1s;
+  left: 0;
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: #e854ff;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {
+  box-shadow: inset 0 0 2rem blue,
+  inset 0 0 0.5rem blue,
+  0 0 2rem blue;
+  transition: box-shadow 0.7s;
+}
+
+.dropdown:hover .dropdown-content {
+  text-shadow: 0 0 5px purple, 0 0 10px purple,
+  0 0 15px purple, 0 0 40px #ff00aa, 0 0 70px #ff00aa;
+  display: block;
+  box-shadow: inset 0 0 2rem blue,
+  inset 0 0 0.5rem blue,
+  0 0 2rem blue;
+  transition: box-shadow 0.7s;
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
