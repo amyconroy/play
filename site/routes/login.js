@@ -77,6 +77,7 @@ router.post('/register', function(req, res){
             password: hashedPassword,
             userSession: req.sessionID //recording their unique sessionID
           }
+          req.session.loggedIn = true;
 
           loginDB.newUser(newUser); //try to add new user to DB
 
@@ -100,7 +101,6 @@ router.post('/register', function(req, res){
           });
         }
       });
-    } //END OF USER REGISTRATION
 
   } else { //PASSWORD DOESNT MATCH
     console.log("pass wrong");
