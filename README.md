@@ -115,6 +115,7 @@ TO MOVE TO A need to just show that we're fluent, etc etc, errors handled dynami
 - getting the footer to stay at the bottom (used flex display; growing in height to ensure it stays at the end) using vh unit
 - dealt with all / each returning rows (ie with username and email already existing) : know more about databases and js
 - dealt with category rendering that we don't have
+- redirect from log in (get an error did /login/login) 
 
 **depth considerations**
 - game
