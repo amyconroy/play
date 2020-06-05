@@ -6,10 +6,13 @@ router.get('/', function(req, res) {
   console.log(req.session.user+" from index");
   console.log(req.sessionID + " from index");
 
-  res.render('main', {
-    layout : 'index_head'
-
-  });
+  if (req.session.loggedIn) {
+    res.send("user is logged in!");
+  } else {
+    res.render('main', {
+      layout : 'index_head'
+    });
+  }
 });
 
 //export the module to use in index.js

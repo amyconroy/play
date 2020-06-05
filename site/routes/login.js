@@ -52,8 +52,9 @@ router.post('/register', function(req, res){
       req.session.user = { //initialise a session for our user
         email: email,
         name: username,
-        loggedIn:true
       }
+
+      req.session.loggedIn = true;
 
       console.log(req.session.user);
       console.log(req.sessionID);
@@ -120,13 +121,14 @@ router.post('/auth', function(req, res){
               req.session.user = {
                 email: rows[0].userEmail,
                 name: username,
-                loggedIn: true
               }
+
+              req.session.loggedIn = true;
 
               console.log(req.session.user);
               console.log(req.sessionID);
 
-              res.send('/index'); //SUCCESSFUL LOGIN
+              res.redirect('/index'); //SUCCESSFUL LOGIN
 
           } else {
 
