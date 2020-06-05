@@ -3,6 +3,7 @@ var createError = require('http-errors'); //change these to constants so cant be
 var express = require('express');
 var path = require('path');
 var port = 8080; //443 is https defaul port
+var fs = require("fs");
 //////////////////////
 /// OTHER PACKAGES ///
 /////////////////////
@@ -27,8 +28,10 @@ var router = express.Router(); //our router for requests
 /////////////////////
 var banned = [];
 banUpperCase("./public/", "");
+
 app.use(lower); // put to lower case
 app.use(ban); // forbid access to the urls in the banned list
+
 app.use(helmet()); // protects against attacks on express
 
 //////////////////////////////
@@ -76,8 +79,8 @@ app.use(session({
     },
     secure:false,
     secret: "343ji43j4n3jn4jk3n",
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
     unset: 'destroy',
   }));
 

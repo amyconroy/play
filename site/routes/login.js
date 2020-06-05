@@ -9,7 +9,7 @@ router.get('/', function(req, res){
     });
 });
 
-// SET SESSION TO NULL IN DB? 
+// SET SESSION TO NULL IN DB?
 router.get('/logout', function(req, res) {
     req.session.destroy(function(){
       console.log("user logged out.");
@@ -51,8 +51,10 @@ router.post('/register', function(req, res){
 
       req.session.user = { //initialise a session for our user
         email: email,
-        name: username
+        name: username,
       }
+
+      req.session.loggedIn = true;
 
       console.log(req.session.user);
       console.log(req.sessionID);
@@ -112,12 +114,16 @@ router.post('/auth', function(req, res){
 
           passCompare(password, rows[0].userPassword, (error, result) => {
             if (result) {
-              req.sessionID = rows.userSession;
+              console.log("SETTING SESSION");
+
+              //req.sessionID = rows[0].userSession; //setting the session?
 
               req.session.user = {
-                email: rows.userEmail,
-                name: username
+                email: rows[0].userEmail,
+                name: username,
               }
+
+              req.session.loggedIn = true;
 
               console.log(req.session.user);
               console.log(req.sessionID);

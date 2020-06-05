@@ -12,7 +12,7 @@ router.get('/', function(req, res){
     if (commentsArray) {
       res.render('comments', {
         layout : 'comments_head',
-        comments: commentsArray
+        comments: commentsArray //passes array of JSON objects made of comment data
       });
     }
   });
