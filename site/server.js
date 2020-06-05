@@ -24,8 +24,12 @@ var router = express.Router(); //our router for requests
 /////////////////////
 ///// SECURITY //////
 /////////////////////
-app.use(helmet()); // protects against attacks on express
+var banned = [];
+banUpperCase("./public/", "");
 app.use(lower); // put to lower case
+app.use(ban);
+app.use(helmet()); // protects against attacks on express
+
 //////////////////////////////
 /// CERTIFICATES and HTTPS ///
 //////////////////////////////
@@ -120,18 +124,42 @@ app.use('/downloads', express.static(__dirname + '/public'));
 ///////////////////////////////
 /// FILL DB WITH DUMMY DATA ///
 ///////////////////////////////
-const fillDB = require('./fillDB.js');
+const fillDB = require('./filldb.js');
 fillDB.createTables();
-// fillDB.fillUsers();
-//fillDB.fillComments();
-//fillDB.fillCategories();
-//fillDB.fillGameProducts();
-//fillDB.fillAnimationsProducts();
-//fillDB.fillBackgroundProducts();
+/* fillDB.fillUsers();
+fillDB.fillComments();
+fillDB.fillCategories();
+fillDB.fillGameProducts();
+fillDB.fillAnimationsProducts();
+fillDB.fillBackgroundProducts();*/
+
+/////////////////////////////
+////// BAN UPPER FILES //////
+////////////////////////////
+// Check a folder for files/subfolders with non-lowercase names.  Add them to
+// the banned list so they don't get delivered, making the site case sensitive,
+// so that it can be moved from Windows to Linux, for example. Synchronous I/O
+// is used because this function is only called during startup.  This avoids
+// expensive file system operations during normal execution.  A file with a
+// non-lowercase name added while the server is running will get delivered, but
+// it will be detected and banned when the server is next restarted.
+function banUpperCase(root, folder) {
+    var folderBit = 1 << 14;
+    var names = fs.readdirSync(root + folder);
+    for (var i=0; i<names.length; i++) {
+        var name = names[i];
+        var file = folder + "/" + name;
+        if (name != name.toLowerCase()) banned.push(file.toLowerCase());
+        var mode = fs.statSync(root + file).mode;
+        if ((mode & folderBit) == 0) continue;
+        banUpperCase(root, file);
+    }
+}
 
 /////////////////////
 /// ERROR HANDLER ///
 ////////////////////
+
 // set error to be 404 if the page isnt found
 app.use(function(req, res, next){
   let err = new Error('Page Not Found');
