@@ -35,8 +35,7 @@ router.post('/register', function(req, res){
         error: 'true',
         errormessage:'Your password should contain a capital, special character, and a number'
       });
-
-    } else {
+    }else {
 
       var salt = bcrypt.genSaltSync(10); //make salt for password hash
       var hashedPassword = bcrypt.hashSync(password, salt); //make hashed password
@@ -54,7 +53,6 @@ router.post('/register', function(req, res){
         email: email,
         name: username,
       }
-
       req.session.loggedIn = true;
 
       console.log(req.session.user);
@@ -106,10 +104,8 @@ router.post('/auth', function(req, res){
         error: 'true',
         errormessage:'User does not exist'
       });
-
     } else {
-
-      if (rows.length > 0) {
+      if(rows.length > 0){
           console.log("checking password");
           console.log(rows[0].userPassword);
 
@@ -123,13 +119,12 @@ router.post('/auth', function(req, res){
                 email: rows[0].userEmail,
                 name: username,
               }
-
               req.session.loggedIn = true;
 
               console.log(req.session.user);
               console.log(req.sessionID);
 
-              res.redirect('/products'); //SUCCESSFUL LOGIN
+              res.redirect('/index'); //SUCCESSFUL LOGIN
 
           } else {
 
@@ -138,14 +133,11 @@ router.post('/auth', function(req, res){
               error: 'true',
               errormessage:'Wrong password'
             });
-
           }
-
         });
+      }
     }
-  }
   });
-
 });
 
 function passCompare(password, userpassword, callback) {
