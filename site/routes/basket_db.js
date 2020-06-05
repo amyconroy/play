@@ -80,6 +80,20 @@ exports.addOrderDetails = function(orderDetails){
   });
 }
 
+// GET PRODUCTS PAGE TO CREATE THE BASKET //
+// params = product Id
+exports.getProductDetails = function(callback){
+  var query = "SELECT * FROM Product WHERE productId = ?;";
+  // use each as all returns everything from db, each runs query first
+  db.each(query, (err, rows) =>{
+    if(rows){
+      callback(null, rows);
+    } else{
+      callback(error, null); // unable to get products
+    }
+  });
+}
+
 /// SELECT DETAILS FOR THE RECEIPT ///
 // receipt Params : orderId
 exports.getReceipt = function(orderId, callback){
