@@ -64,7 +64,6 @@ app.set('view engine', 'handlebars');
 // static delivery of public folder
 app.use(logger('dev'));
 
-
 ///////////////////
 /// BODY-PARSER ///
 ///////////////////

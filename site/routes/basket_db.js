@@ -23,7 +23,7 @@ exports.getProductPrice = function(productId, callback){
         } else{
           callback(error, null); // unable to get product price
         }
-    )};
+    });
   });
 }
 
@@ -95,6 +95,8 @@ exports.getProductDetails = function(productId, callback){
 }
 
 /// SELECT DETAILS FOR THE RECEIPT ///
+// may have to split in two .. .one that gets the order details, one
+// that gets all the products
 // receipt Params : orderId
 exports.getReceipt = function(orderId, callback){
   var query = "SELECT Product.name AS name, Product.price AS price";

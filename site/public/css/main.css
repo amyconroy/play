@@ -188,34 +188,34 @@ a:hover {
 }
 
 .title-error {
-	position:relative;
-	margin-top:50px;
-	font-family: 'Aldrich';
-	color: red;
-	text-align:center;
-	font-size:5em;
-	text-shadow: 0 0 5px purple, 0 0 10px purple, 0 0 15px purple, 0 0 40px #ff00aa, 0 0 70px #ff00aa;
-	margin-left:20px;
-}
+     position:relative;
+     margin-top:50px;
+     font-family: 'Aldrich';
+     color: red;
+     text-align:center;
+     font-size:5em;
+     text-shadow: 0 0 5px purple, 0 0 10px purple, 0 0 15px purple, 0 0 40px #ff00aa, 0 0 70px #ff00aa;
+     margin-left:20px;
+ }
 
-.error-type {
-	position: relative;
-	margin-top:0px;
-	font-family: 'Aldrich';
-	text-align:center;
-	color: red;
-	font-size:3em;
-	margin-left:20px;
-}
+ .error-type {
+     position: relative;
+     margin-top:0px;
+     font-family: 'Aldrich';
+     text-align:center;
+     color: red;
+     font-size:3em;
+     margin-left:20px;
+ }
 
-.error-content {
-	position: relative;
-	text-align:center;
-	margin-top:-20px;
-	font-family: 'Aldrich';
-	font-size:2em;
-	margin-left:20px;
-}
+ .error-content {
+     position: relative;
+     text-align:center;
+     margin-top:-20px;
+     font-family: 'Aldrich';
+     font-size:2em;
+     margin-left:20px;
+ }
 
 .title-content-main {
 	font-size:8em;
