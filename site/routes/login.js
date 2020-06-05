@@ -70,12 +70,14 @@ router.post('/register', function(req, res){
 
           var salt = bcrypt.genSaltSync(10); //make salt for password hash
           var hashedPassword = bcrypt.hashSync(password, salt); //make hashed password
+          var basket = [];
 
           var newUser = {
             email: email,
             username: username,
             password: hashedPassword,
-            userSession: req.sessionID //recording their unique sessionID
+            userSession: req.sessionID, //recording their unique sessionID
+            userBasket: basket
           }
 
           loginDB.newUser(newUser); //try to add new user to DB
@@ -152,12 +154,14 @@ router.post('/auth', function(req, res){
             if (result) {
               console.log("SETTING SESSION");
 
+              var basket = [];
               //req.sessionID = rows[0].userSession; //setting the session?
 
               req.session.user = {
                 email: rows[0].userEmail,
                 name: username,
-                userid: rows[0].userId
+                userid: rows[0].userId,
+                userBasket: basket
               }
               req.session.loggedIn = true;
 
