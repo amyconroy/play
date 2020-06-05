@@ -19,8 +19,9 @@ d. basketDb. getReceipt (pass in orderId to get all necessary info) */
 // this will be /basket
 router.get('/', function(req, res) {
   // CHANGE THIS
+  // to render page will need total price and all product details
 
-
+  // call getTotal, getProducts to render the basket page
 
   res.render('main', {
       layout : 'index_head',
@@ -29,7 +30,28 @@ router.get('/', function(req, res) {
 });
 
 var getProducts = function getProducts(orderDetails, callback){
-  
+  var orderProductArray = [];
+
+  for(var i = 0, i < orderDetails.length; i++){
+    var product = orderDetails[i];
+    var productId = product.id;
+    basketDB.getProductDetails(productId, (err, rows) =>{
+      if(err || rows.length > 0){
+        console.log("CAN'T GET PRODUCT DETAILS");
+      }
+      else if(rows.length > 0){
+        var product = {
+          description: rows.description,
+          name: rows.name,
+          price: rows.price,
+          image: rows.image,
+          qty: product.qty
+        }
+        orderProductArray.push(product);
+      }
+    });
+  }
+  callback(orderProductArray);
 }
 
 // productIds will be a JSON array of product Ids and qty
