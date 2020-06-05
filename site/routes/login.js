@@ -4,10 +4,18 @@ var loginDB = require('./login_db.js');
 var bcrypt = require('bcrypt');
 
 router.get('/', function(req, res){
-    res.render('login', {
-        layout : 'login_head'
+    if (req.session.user) {
+      res.render('login', {
+          layout : 'login_head',
+          userLoggedIn: req.session.user
+      });
 
-    });
+    } else {
+      res.render('login', {
+          layout : 'login_head'
+
+      });
+    }
 });
 
 // SET SESSION TO NULL IN DB?

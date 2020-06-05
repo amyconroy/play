@@ -6,10 +6,14 @@
 
 {{> navbar user=userLoggedIn.name }}
 
+{{#if error }}
+  <h1 class = "error-message">{{this.errormessage}}</h1>
+{{/if}}
+
 <div class="content-box">
   <h4 class="title-content title-content-main" id="comments-title">Leave Your Thoughts</h4>
   <div class="comments-form-box">
-    <form action="comments/submit_comment" class="comments-form" method="POST">
+    <form action="/comments/submit_comment" class="comments-form" method="POST">
 
       <label for="content" class="form-label">COMMENT</label><br />
       <input type = "text" name = "content" value="comment default" class="comments-form-input" required></input>

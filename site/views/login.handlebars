@@ -4,12 +4,21 @@
   </div>
 </div>
 
-{{> navbar }}
+{{> navbar user=userLoggedIn.name }}
 
 {{#if error }}
   <h1 class = "error-message">{{this.errormessage}}</h1>
 {{/if}}
 
+{{#if userLoggedIn }}
+<div class="content-box">
+    <h4 class="title-content title-content-main" id="login-title">You are logged in as {{ userLoggedIn.name }}</h4>
+    <br>
+    <a href="/login/logout"><h4 class="title-content">SIGN OUT?</h4></a>
+
+</div>
+
+{{else}}
 <div class="content-box" id="sign_in">
   <h4 class="title-content title-content-main" id="login-title">Enter The Game</h4>
 
@@ -47,5 +56,7 @@
     </div>
   </form>
 </div>
+
+{{/if}}
 
 {{> footer }}
