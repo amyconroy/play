@@ -39,25 +39,27 @@ router.post('/register', function(req, res){
     } else { //PASSWORD IS FINE, THEY CAN register
 
       loginDB.getUserByParameter(username, email, (err, rows) => {
+        if (rows.length != 0) {
+        console.log("we have a row");
+        //CHECK SPECIFIC CASE WHICH MATCHES
+          if(rows.userEmail == email){
+            res.render('login', {
+              layout : 'login_head',
+              error: 'true',
+              errormessage:'An account with this email already exists.'
+            });
 
-        if(rows.userEmail == email){
-          res.render('login', {
-            layout : 'login_head',
-            error: 'true',
-            errormessage:'An account with this email already exists.'
-          });
+          } else if(rows.userName == username){
 
-        } else if(rows.userName == username){
-
-          res.render('login', {
-            layout : 'login_head',
-            error: 'true',
-            errormessage:'An account with this username already exists'
-          });
+            res.render('login', {
+              layout : 'login_head',
+              error: 'true',
+              errormessage:'An account with this username already exists'
+            });
+          }
         } else {
-          console.log("we good G");
+          console.log("WE GOOD");
         }
-
       }); //END OF CHECKING USER EXISTS
 
       //ADDING HASHED PASSWORD AND USER DETAILS TO DB
