@@ -145,7 +145,6 @@ a {
 	width:auto;
 	height:50%;
 	position:relative;
-
 }
 
 .content-box {
@@ -174,7 +173,7 @@ a {
 
 .title-content-center {
 	position:relative;
-	margin-top:50px;
+	margin-top:0px;
 	font-family: 'Aldrich';
 	color:#e854ff;
 	text-align:center;
