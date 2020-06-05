@@ -1,4 +1,5 @@
 .category-box {
+    float: left;
   border: solid 5px #ff2bf1;
   border-radius: 5px;
   padding:4%;
@@ -7,7 +8,6 @@
   width:20%;
   max-width:250px;
   min-width:250px;
-  float: left;
   box-shadow: inset 0 0 2rem purple,
       inset 0 0 1rem purple,
       0 0 2rem black;
@@ -32,11 +32,24 @@
 }
 
 .downloads-box {
-
+  float: left;
+  border: solid 5px #ff2bf1;
+  border-radius: 5px;
+  margin:5%;
+  width:50%;
+  max-width: 300px;
+  height:50%;
+  box-shadow: inset 0 0 2rem purple,
+      inset 0 0 1rem purple,
+      0 0 2rem black;
+  transition:height 2s, width 2s, box-shadow 0.5s;
 }
 
 .downloads-name {
-
+  padding: 15px;
+  font-size: 2rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .downloads-description {
