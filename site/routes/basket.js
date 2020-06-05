@@ -102,13 +102,20 @@ router.get('/order', function(req, res){
   basketDB.getReceipt(orderId, (err, rows) => {
     if(rows.length > 0){
       var receipt = {
-
+        orderid: rows.orderid,
+        orderprice: rows.totalPrice
+      }
+      var product = {
+        name: rows.name,
+        price: rows.price,
+        image: rows.image
       }
     }
     else{
       console.log("ERROR can't get receipt");
     }
   });
+  // res.render with receipt, product
 });
 
 var createOrder = function createOrder(newOrder, callback){
