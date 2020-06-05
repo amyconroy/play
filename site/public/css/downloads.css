@@ -81,7 +81,7 @@
 }
 
 .dropbtn:hover, .dropbtn:focus {
-  background: black;
+  background-color: black;
   box-shadow: inset 0 0 2rem blue,
   inset 0 0 0.5rem blue,
   0 0 2rem blue;
@@ -136,4 +136,7 @@
   transition: box-shadow 0.7s;
 }
 
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
+.dropdown:hover .dropbtn {
+  background-color: black;
+
+}

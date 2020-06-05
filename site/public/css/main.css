@@ -150,9 +150,9 @@ a {
 .content-box {
 	color:white;
 	width:100%;
-	height:750px;
+	min-height:750px;
+	max-height: 50%; 
 	padding-bottom:400px;
-	/*border: solid red 5px;*/
 }
 
 .content-inner { /*styling for things inside content box*/
