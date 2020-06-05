@@ -8,7 +8,6 @@ router.get('/', function(req, res) {
 
   res.render('main', {
     layout : 'index_head'
-
   });
 });
 

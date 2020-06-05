@@ -65,7 +65,7 @@ app.use(logger('dev'));
 ///////////////////
 /// BODY-PARSER ///
 ///////////////////
-app.use(express.urlencoded({ extended: true })); /// supporting URL-encoded bodies
+app.use(express.urlencoded({ extended: true })); /// supporting URL-encoded bodies (utf-8)
 app.use(bodyParser.json()); // supporting JSON-econded bodies
 
 //cookies for session storage
@@ -170,14 +170,29 @@ function banUpperCase(root, folder) {
 }
 
 /////////////////////
+//////// 404 ////////
+/////////////////////
+// set error to be 404 if the page isnt found
+app.use(function(req, res, next) {
+  console.error("page not found");
+  res.status(404).render('error', {
+    layout: 'index_head',
+    errorMessage: "Page not found!",
+    error: "Error 404!"
+  });
+});
+
+/////////////////////
 /// ERROR HANDLER ///
 ////////////////////
-
-// set error to be 404 if the page isnt found
-app.use(function(req, res, next){
-  let err = new Error('Page Not Found');
-  err.statusCode = 404;
-  err.shouldRedirect = true;
+app.use(function (err, req, res, next) {
+  console.error(err.stack);
+  console.error(err.message);
+  res.status(500).render('error', {
+    layout: 'index_head',
+    errorMessage: "Something went wrong!",
+    error: err
+  });
 });
 
 // ensure that stack trace is not leaked to the user but for dev purposes
@@ -190,19 +205,5 @@ app.use(function(req, res, next){
         });
     });
 } */
-
-app.use(function (err, req, res, next) {
-  console.error(err.message); // log error message to the server console
-  if(!err.statusCode) err.statusCode = 500;
-  // if(err.shouldRedirect){
-    res.render('error', {
-      errorMessage: err.message,
-      error: err
-//    });
-});
-  /* else {
-    res.status(err.statusCode).send(err.message);
-  } */
-});
 
 module.exports = app;
