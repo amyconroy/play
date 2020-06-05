@@ -11,7 +11,6 @@ router.get('/', function(req, res) {
       layout : 'index_head',
       userLoggedIn: req.session.user
   });
-
 });
 
 //export the module to use in index.js

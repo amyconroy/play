@@ -26,7 +26,6 @@ var getAllComments = function getAllComments(callback){
     if (error) {
       console.log(error);
     }
-
     if(rows){
         var date = new Date(parseInt(rows.timePosted)).toLocaleString();
         console.log(date.toString());

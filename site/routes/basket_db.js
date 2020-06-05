@@ -82,10 +82,10 @@ exports.addOrderDetails = function(orderDetails){
 
 // GET PRODUCTS PAGE TO CREATE THE BASKET //
 // params = product Id
-exports.getProductDetails = function(callback){
+exports.getProductDetails = function(productId, callback){
   var query = "SELECT * FROM Product WHERE productId = ?;";
   // use each as all returns everything from db, each runs query first
-  db.each(query, (err, rows) =>{
+  db.each(query, productId, (err, rows) =>{
     if(rows){
       callback(null, rows);
     } else{
