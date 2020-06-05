@@ -111,6 +111,8 @@ var productsRoute = require('./routes/products.js');
 var downloadsRoute = require('./routes/downloads.js');
 var policyRoute = require('./routes/policy.js');
 var termsRoute = require('./routes/terms.js');
+var basketRoute = require('./routes/basket.js');
+
 app.use('/', indexRoute);
 app.use('/index', indexRoute);
 app.use('/demo', demoRoute);
@@ -120,6 +122,8 @@ app.use('/downloads', downloadsRoute);
 app.use('/comments', commentsRoute);
 app.use('/policy', policyRoute);
 app.use('/terms', termsRoute);
+app.use('/basket', basketRoute);
+
 
 app.use(express.static(path.join(__dirname, '/public')));
 app.use('/login', express.static(__dirname + '/public')); //for error message rendering
