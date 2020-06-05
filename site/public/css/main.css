@@ -1,4 +1,8 @@
 body {
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
 	background: black;
 	color:white;
 	font-family: 'Aldrich';
@@ -28,6 +32,7 @@ a {
 
 /*footer partial*/
 .copywrite {
+	height: 50px;
 	color:white;
 	background-color:black;
 	width:100%;
@@ -36,6 +41,7 @@ a {
 }
 
 .legal_links {
+	height: 50px;
 	list-style-type: none;
 	float: right;
 }
