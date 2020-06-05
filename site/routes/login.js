@@ -6,6 +6,7 @@ var bcrypt = require('bcrypt');
 router.get('/', function(req, res){
     res.render('login', {
         layout : 'login_head'
+        
     });
 });
 
