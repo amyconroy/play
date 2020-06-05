@@ -44,7 +44,7 @@ var getAllComments = function getAllComments(callback){
 }
 
 /// CREATE NEW COMMENT ////
-router.post('/submit_comment', function(req, res){ 
+router.post('/submit_comment', function(req, res){
   if (req.session.user) {
     console.log("USER LOGGED IN");
 
@@ -59,10 +59,17 @@ router.post('/submit_comment', function(req, res){
 
   } else {
     console.log("USER NOT LOGGED IN"); //REQUIRE LOGIN TO SUBMIT A COMMENT
-    res.render('comments', {
-      layout : 'comments_head',
-      error: true,
-      errormessage: "You must be logged in to comment"
+
+    getAllComments(function(commentsArray) {
+      if (commentsArray) {
+        res.render('comments', {
+          layout : 'comments_head',
+          error: true,
+          errormessage: "You must be logged in to comment",
+          userLoggedIn: req.session.user,
+          comments: commentsArray //passes array of JSON objects made of comment data
+        });
+      }
     });
 
   }
