@@ -37,7 +37,7 @@ var getProducts = function getProducts(orderDetails, callback){
     var productId = product.id;
     basketDB.getProductDetails(productId, (err, rows) =>{
       if(err || rows.length > 0){
-        console.log("CAN'T GET PRODUCT DETAILS");
+        console.log("CAN'T GET PRODUCT DETAILS / no products in basket?");
       }
       else if(rows.length > 0){
         var product = {
@@ -74,9 +74,41 @@ var getTotal = function getTotal(orderDetails, callback){
   callback(total);
 }
 
+/*
+a. basketDb.createNewOrder (pass in userId, orderPrice, orderDate)
+b. basketDb.getOrderId - to get the orderId generated
+c. basketDb.addOrderDetails - orderId and productId for each productId */
+// need to get the order price from session?
+// a. basketDb.createNewOrder (pass in userId, orderPrice, orderDate)
 router.get('/order', function(req, res){
+  var newOrder = {
+    userId: 2,
+    orderPrice: 19.99,
+    orderDate: Date.now()
+  }
+  createOrder(newOrder, function(orderId){
+    if(orderId){
+      // for each productId, add OrderDetails
+      
+    }
+    else{
 
-
+    }
+  }
 });
+
+var createOrder = function createOrder(newOrder, callback){
+  basketDB.createNewOrder(newOrder);
+  basketDB.getOrderId((err, rows) => {
+    if(err){
+      console.log(err);
+    }
+    else{
+      var orderId = rows.id;
+      callback(orderId);
+    }
+  });
+  callback(null);
+}
 
 module.exports = router;
