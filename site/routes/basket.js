@@ -101,7 +101,9 @@ router.get('/order', function(req, res){
   }
   basketDB.getReceipt(orderId, (err, rows) => {
     if(rows.length > 0){
+      var receipt = {
 
+      }
     }
     else{
       console.log("ERROR can't get receipt");
