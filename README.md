@@ -113,7 +113,8 @@ TO MOVE TO A need to just show that we're fluent, etc etc, errors handled dynami
 - error handling from database
 - parameters from the db 
 - getting the footer to stay at the bottom (used flex display; growing in height to ensure it stays at the end) using vh unit
-
+- dealt with all / each returning rows (ie with username and email already existing) : know more about databases and js
+- dealt with category rendering that we don't have
 
 **depth considerations**
 - game
@@ -123,3 +124,4 @@ TO MOVE TO A need to just show that we're fluent, etc etc, errors handled dynami
 - user sessions and cookies
 - using req parameters 
 - security audit for vulnerabilities in express
+- user pass hashed / user email already exists / user name already exists 
