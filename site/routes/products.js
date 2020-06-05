@@ -3,6 +3,7 @@ var router = express.Router();
 var productsDB = require('./products_db.js');
 
 router.get('/', function(req, res){
+  console.log("FROM PRODUCTS");
   console.log(req.session.user);
   console.log(req.sessionID);
 
