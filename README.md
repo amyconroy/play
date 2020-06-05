@@ -112,6 +112,7 @@ TO MOVE TO A need to just show that we're fluent, etc etc, errors handled dynami
 - login issues from db
 - error handling from database
 - parameters from the db 
+- getting the footer to stay at the bottom (used flex display; growing in height to ensure it stays at the end) using vh unit
 
 
 **depth considerations**
