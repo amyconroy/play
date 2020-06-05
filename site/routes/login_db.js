@@ -7,6 +7,10 @@ let db = new sqlite3.Database('Play.db', sqlite3.OPEN_READWRITE, (err) => {
   console.log('Connected to the PLAY database in login.');
 });
 
+/////////////////////////////////////////
+///////////// SQL QUERIES ///////////////
+/////////////////////////////////////////
+
 //////////////////////////
 /// CREATE USER TABLE ////
 /////////////////////////
@@ -33,13 +37,10 @@ exports.createUserTable = function(){
 exports.newUser = function(newUser){ //NEED WAY TO ACCESS ERROR
   var query = "INSERT INTO User";
   query += " (userName, userEmail, userPassword, userSession) VALUES (?, ?, ?, ?);";
-
     db.serialize(() => {
       db.run(query, [newUser['username'], newUser['email'], newUser['password'], newUser['userSession']], function(error) {
         if(error){
-          console.log("test");
           console.log(error);
-
         }
         else{
           console.log("successfully inserted user");
@@ -52,7 +53,6 @@ exports.newUser = function(newUser){ //NEED WAY TO ACCESS ERROR
 ////////////////
 /// GET USER ///
 ////////////////
-
 /// CALLBACK : error, user - error to be set NULL if all good, user NULL if bad
 exports.getUserByUserName = function(username, callback){
   var query = "SELECT * FROM User WHERE userName = ?;";

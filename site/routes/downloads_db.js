@@ -6,6 +6,10 @@ let db = new sqlite3.Database('Play.db', sqlite3.OPEN_READWRITE, (err) => {
   console.log('Connected to the PLAY database in products.');
 });
 
+/////////////////////////////////////////
+///////////// SQL QUERIES ///////////////
+/////////////////////////////////////////
+
 //// GET ALL PRODUCTS
 /// 'view all products'
 exports.getAllDownloads = function(callback){

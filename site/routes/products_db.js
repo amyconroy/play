@@ -38,7 +38,6 @@ exports.createProductTable = function(){
 
 exports.createOrderTable = function(){
  db.serialize(() => {
-  console.log("order creating");
     db.run("CREATE TABLE IF NOT EXISTS UserOrder ( "+
       "orderId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, " +
       "orderUserId TEXT NOT NULL, " +
