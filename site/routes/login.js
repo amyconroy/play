@@ -75,14 +75,22 @@ router.post('/register', function(req, res){
 
       loginDB.newUser(newUser); //try to add new user to DB
 
-      req.session.user = { //initialise a session for our user
-        email: email,
-        name: username
-      }
-      req.session.loggedIn = true;
+      var userAuth = loginDB.getUserByUserName(username, (error, rows) => { //we need id and to add it to cookie session
+        if (rows.length > 0) {
+          req.session.user = { //initialise a session for our user
+            email: email,
+            name: username,
+            userId: rows[0].userId
+          }
+          
+          req.session.loggedIn = true;
 
-      console.log(req.session.user);
-      console.log(req.sessionID);
+          console.log(req.session.user);
+          console.log(req.sessionID);
+
+          res.redirect('/index');
+        }
+      });
 
       //res.redirect('/products');
     }
@@ -142,6 +150,7 @@ router.post('/auth', function(req, res){
               req.session.user = {
                 email: rows[0].userEmail,
                 name: username,
+                userid: rows[0].userId
               }
               req.session.loggedIn = true;
 

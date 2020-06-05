@@ -45,13 +45,25 @@ var getAllComments = function getAllComments(callback){
 
 /// CREATE NEW COMMENT ////
 router.post('/submit_comment', function(req, res){ //comments/submit_comment
-  var newComment = {
-    userId: 2,
-    timePosted: Date.now(),
-    content: req.body.content
+  if (req.session.user) {
+    console.log("USER LOGGED IN");
+
+    var newComment = {
+      userId: req.session.user["userid"],
+      timePosted: Date.now(),
+      content: req.body.content
+    }
+
+    commentsDB.newComment(newComment);
+    res.redirect("/index");
+
+  } else {
+    console.log("USER NOT LOGGED IN");
+
+
   }
-  commentsDB.newComment(newComment);
-  res.redirect("/index");
+
+
 });
 
 /// DELETE COMMENT ////
