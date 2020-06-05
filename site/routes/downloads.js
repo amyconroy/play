@@ -13,10 +13,18 @@ router.get('/', function(req, res){
   var downloadsCatArr = [];
 
   getAllCategories(function(downloadsCatArr) {
-    if(downloadsCatArr){
+    if(downloadsCatArr.length > 0){
       res.render('downloads', {
         layout: 'download_head',
         category: downloadsCatArr
+      });
+    }
+    else{
+      console.log("Can't get categories. Redirect 404");
+      res.status(404).render('error', {
+        layout: 'index_head',
+        errorMessage: "Page not found!",
+        error: "Error 404!"
       });
     }
   });
@@ -26,20 +34,16 @@ var getAllCategories = function getAllCategories(callback){
   var categoriesArray = [];
 
   downloadsDB.getAllCategories((error, rows) => {
-      if (error) {
+      if(error || rows.length == 0){
         console.log(error);
       }
-      if(rows){
+      else if(rows.length > 0){
         var category = {
           category: rows.categoryId,
           categoryName: rows.categoryName,
           categoryDescription: rows.categoryDescription,
         };
-        console.log(category);
         categoriesArray.push(category);
-      }
-      else{
-        console.log("shit from products");
       }
     });
   callback(categoriesArray);
@@ -55,24 +59,32 @@ router.get('/lowtohigh', function(req, res){
   var priceLowDownloads = [];
 
   getLowDownloads(function(priceLowDownloads) {
-    if(priceLowDownloads){
+    // in case nothing is returned
+    if(priceLowDownloads.length > 0){
       res.render('downloads', {
         layout: 'download_head',
         downloads: priceLowDownloads
       });
     }
+    else if(priceLowDownloads.length == 0){
+      console.log("Error getting low to high downloads. Redirect 404");
+      res.status(404).render('error', {
+        layout: 'index_head',
+        errorMessage: "Page not found!",
+        error: "Error 404!"
+      });
+    }
   });
-  console.log("prepare to render");
 });
 
 var getLowDownloads = function getLowDownloads(callback){
   var downloadsArray = [];
 
   downloadsDB.getDownloadsLowtoHigh((err, rows) => {
-      if (err) {
+      if(err || rows.length > 0){
         console.log(err);
       }
-      if(rows){
+      else if(rows.length > 0){
         var product = {
           productCategory: rows.productCategory,
           productName: rows.name,
@@ -85,9 +97,6 @@ var getLowDownloads = function getLowDownloads(callback){
         console.log(product);
         downloadsArray.push(product);
       }
-      else{
-        console.log("shit from downloads");
-      }
     });
   callback(downloadsArray);
 }
@@ -96,30 +105,36 @@ var getLowDownloads = function getLowDownloads(callback){
 router.get('/hightolow', function(req, res){
   console.log(req.session.user);
   console.log(req.sessionID);
-  console.log("HIGH TO LOW");
 
 // downloads by category
   var priceHighDownloads = [];
 
   getHighDownloads(function(priceHighDownloads) {
-    if(priceHighDownloads){
+    if(priceHighDownloads.length > 0){
       res.render('downloads', {
         layout: 'download_head',
         downloads: priceHighDownloads
       });
     }
+    else{
+      console.log("Can't get price high to low downloads. Redirect 404");
+      res.status(404).render('error', {
+        layout: 'index_head',
+        errorMessage: "Page not found!",
+        error: "Error 404!"
+      });
+    }
   });
-  console.log("prepare to render");
 });
 
 var getHighDownloads = function getHighDownloads(callback){
   var downloadsArray = [];
 
   downloadsDB.getDownloadsHightoLow((err, rows) => {
-      if (err) {
+      if(err || rows.length == 0){
         console.log(err);
       }
-      if(rows){
+      else if(rows.length > 0){
         var product = {
           productCategory: rows.productCategory,
           productName: rows.name,
@@ -130,9 +145,6 @@ var getHighDownloads = function getHighDownloads(callback){
         };
         console.log(product);
         downloadsArray.push(product);
-      }
-      else{
-        console.log("shit from downloads");
       }
     });
   callback(downloadsArray);
@@ -145,10 +157,18 @@ router.get('/all', function(req, res){
   var allDownloads = [];
 
   getAllDownloads(function(allDownloads) {
-    if(allDownloads){
+    if(allDownloads.length > 0){
       res.render('downloads', {
         layout: 'download_head',
         downloads: allDownloads
+      });
+    }
+    else{
+      console.log("Can't get all. Redirect 404");
+      res.status(404).render('error', {
+        layout: 'index_head',
+        errorMessage: "Page not found!",
+        error: "Error 404!"
       });
     }
   });
@@ -159,10 +179,10 @@ var getAllDownloads = function getAllDownloads(callback){
   var downloadsArray = [];
 
   downloadsDB.getAllDownloads((err, rows) => {
-      if (err) {
+      if(err || rows.length == 0){
         console.log(err);
       }
-      if(rows){
+      else if(rows.length > 0){
         var product = {
           productCategory: rows.productCategory,
           productName: rows.name,
@@ -171,12 +191,8 @@ var getAllDownloads = function getAllDownloads(callback){
           productImage: rows.image,
           productId: rows.productId
         };
-        console.log("all downloads");
         console.log(product);
         downloadsArray.push(product);
-      }
-      else{
-        console.log("shit from downloads");
       }
     });
     callback(downloadsArray);
@@ -189,21 +205,23 @@ router.get('/:categoryid', function(req, res){
   //downloads by category
   var categoryProducts = [];
   var categoryId = req.params.categoryid;
-  console.log("cat id");
-  console.log(categoryId);
-
-   //auxFunctions.myArrayFunc(req.params.ID ,function(myRenderArray){
+  //auxFunctions.myArrayFunc(req.params.ID ,function(myRenderArray){
 
   getDownloadsByCategory(req.params.categoryid, function(categoryProducts) {
-
-    console.log("death comes to us all");
-    console.log(req.params.categoryid);
-    if(categoryProducts){
+    // if what's returned has no rows / null - does not exist
+    if(categoryProducts.length == 0 || categoryProducts == null){
+      console.log("Category does not exist. Redirect 404");
+      res.status(404).render('error', {
+        layout: 'index_head',
+        errorMessage: "Page not found!",
+        error: "Error 404!"
+      });
+    }
+    else if(categoryProducts.length > 0){
       res.render('downloads', {
         layout: 'download_head',
         downloads: categoryProducts,
       });
-      console.log(categoryProducts+" inside callback");
     }
   });
 });
@@ -214,25 +232,25 @@ var getDownloadsByCategory = function getDownloadsByCategory(categoryid, callbac
   var downloadsArray = [];
 
   downloadsDB.getDownloadsByCategory(categoryid, (err, rows) => {
-      if (err) {
-        console.log(err);
+      // make sure that category id exists
+      if(err || rows.length == 0){
+        downloadsArray = null;
+        callback(donwloadsArray);
       }
-      if (rows) {
-        console.log("new row");
-
-        var product = {
-          productCategory: rows.productCategory,
-          productName: rows.name,
-          productDescription: rows.description,
-          productPrice: rows.price,
-          productImage: "images/download_text.png", //CHANGE THIS BACK!
-          productId: rows.productId
-        };
+      else if(rows){
+        // make sure that category id exists
+        if(rows.length > 0){
+          var product = {
+            productCategory: rows.productCategory,
+            productName: rows.name,
+            productDescription: rows.description,
+            productPrice: rows.price,
+            productImage: "images/download_text.png", //CHANGE THIS BACK!
+            productId: rows.productId
+          };
+        }
         console.log(product);
         downloadsArray.push(product);
-      }
-      else{
-        console.log("shit from downloads");
       }
     });
   callback(downloadsArray);
@@ -245,36 +263,34 @@ router.get('/:categoryid/lowtohigh', function(req, res){
   //downloads by category
   var lowPriceProducts = [];
   var categoryId = req.params.categoryid;
-  console.log("cat id");
-  console.log(categoryId);
-
-   //auxFunctions.myArrayFunc(req.params.ID ,function(myRenderArray){
 
   getPriceLowByCategory(req.params.categoryid, function(categoryProducts) {
 
-    console.log("death comes to us all");
-    console.log(req.params.categoryid);
-    if(lowPriceProducts){
+    if(lowPriceProducts.length > 0){
       res.render('downloads', {
         layout: 'download_head',
         downloads: lowPriceProducts,
       });
-      console.log(lowPriceProduct +" inside callback");
+    }
+    else{
+      console.log("Can't get low to high category. Redirect 404");
+      res.status(404).render('error', {
+        layout: 'index_head',
+        errorMessage: "Page not found!",
+        error: "Error 404!"
+      });
     }
   });
 });
-
-//module.exports.myArrayFunc = function myArrayFunc(ID ,callback
 
 var getPriceLowByCategory = function getPriceLowByCategory(categoryid, callback) {
   var downloadsArray = [];
 
   downloadsDB.getDownloadsLowtoHighCategory(categoryid, (err, rows) => {
-      if (err) {
+      if(err || rows.length == 0){
         console.log(err);
       }
-      if (rows) {
-        console.log("new row");
+      else if (rows.length > 0){
         var product = {
           productCategory: rows.productCategory,
           productName: rows.name,
@@ -285,9 +301,6 @@ var getPriceLowByCategory = function getPriceLowByCategory(categoryid, callback)
         };
         console.log(product);
         downloadsArray.push(product);
-      }
-      else{
-        console.log("shit from downloads");
       }
     });
   callback(downloadsArray);
@@ -300,15 +313,21 @@ router.get('/:categoryid/hightolow', function(req, res){
   //downloads by category
   var highPriceProducts = [];
   var categoryId = req.params.categoryid;
-  console.log("cat id");
-  console.log(categoryId);
 
   getPriceHighByCategory(req.params.categoryid, function(categoryProducts) {
 
-    if(highPriceProducts){
+    if(highPriceProducts.length > 0){
       res.render('downloads', {
         layout: 'download_head',
         downloads: highPriceProducts,
+      });
+    }
+    else{
+      console.log("Can't get category by price high to low. Redirect 404");
+      res.status(404).render('error', {
+        layout: 'index_head',
+        errorMessage: "Page not found!",
+        error: "Error 404!"
       });
     }
   });
@@ -320,11 +339,10 @@ var getPriceHighByCategory = function getPriceHighByCategory(categoryid, callbac
   var downloadsArray = [];
 
   downloadsDB.getDownloadsHightoLowCategory(categoryid, (err, rows) => {
-      if (err) {
+      if(err || rows.length == 0){
         console.log(err);
       }
-      if (rows) {
-        console.log("new row");
+      else if(rows.length > 0){
         var product = {
           productCategory: rows.productCategory,
           productName: rows.name,
@@ -333,16 +351,9 @@ var getPriceHighByCategory = function getPriceHighByCategory(categoryid, callbac
           productImage: "images/download_text.png", //CHANGE THIS BACK!
           productId: rows.productId
         };
-        console.log(product);
         downloadsArray.push(product);
-        console.log("yeet");
-        console.log(downloadsArray);
-      }
-      else{
-        console.log("shit from downloads");
       }
     });
-
   callback(downloadsArray);
 }
 
