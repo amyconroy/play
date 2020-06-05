@@ -16,4 +16,45 @@ c. basketDb.addOrderDetails - orderId and productId for each productId
 (call function each time in a loop)
 d. basketDb. getReceipt (pass in orderId to get all necessary info) */
 
+// this will be /basket
+router.get('/', function(req, res) {
+  // CHANGE THIS
+
+
+
+  res.render('main', {
+      layout : 'index_head',
+      userLoggedIn: req.session.user
+  });
+});
+
+var getProducts = function getProducts(orderDetails, callback){
+  
+}
+
+// productIds will be a JSON array of product Ids and qty
+var getTotal = function getTotal(orderDetails, callback){
+  var total = 0;
+
+  // iterate through qty and products to get prices
+  for(var i = 0, i < orderDetails.length; i++){
+    var product = orderDetails[i];
+    basketDB.getProductPrice(product.id, (err, rows) =>{
+      if(err || rows.length > 0){
+        console.log("CAN'T GET PRICE");
+      }
+      else if(rows.length > 0){
+        var price = rows.price;
+        total += price * product.qty;
+      }
+    });
+  }
+  callback(total);
+}
+
+router.get('/order', function(req, res){
+
+
+});
+
 module.exports = router;
