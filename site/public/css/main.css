@@ -10,6 +10,11 @@ body {
 
 a {
 	text-decoration: none;
+	color:#e854ff;
+}
+
+a:hover {
+	color:black;
 }
 
 .error-message {
@@ -95,7 +100,7 @@ a {
   margin: 0;
   padding: 0;
 	background-color:#1f0036;
-	color:#672bb7;
+	color:#e854ff;
 	padding:25px;
 	margin-top:15px;
 	text-align:center;

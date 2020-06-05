@@ -6,6 +6,7 @@ var bcrypt = require('bcrypt');
 router.get('/', function(req, res){
     res.render('login', {
         layout : 'login_head'
+
     });
 });
 
@@ -57,7 +58,7 @@ router.post('/register', function(req, res){
       console.log(req.session.user);
       console.log(req.sessionID);
 
-      res.redirect('/index');
+      res.redirect('/products');
     }
 
   } else {
@@ -124,6 +125,7 @@ router.post('/auth', function(req, res){
               console.log(req.sessionID);
 
               res.redirect('/index'); //SUCCESSFUL LOGIN
+
           } else {
 
             res.render('login', {
