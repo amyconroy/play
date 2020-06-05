@@ -5,6 +5,7 @@
 </div>
 
 {{> navbar }}
+<h4 class="title-content" id="downloads-title"></h4> <!--this needs to be empty for navbar select script to work-->
 <div class="dropdown">
   <button class="dropbtn">SORT</button>
   <div class="dropdown-content">
@@ -16,7 +17,7 @@
 </div>
 
 {{#if category}}
-<center><h4 class="title-content-center">Categories</center></h4>
+<center><h4 class="title-content-center" id="downloads-title">Categories</center></h4>
 {{/if}}
 
 {{#if downloads}}

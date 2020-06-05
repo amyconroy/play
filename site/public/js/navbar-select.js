@@ -13,6 +13,16 @@ function findPageType() {
       break;
     case "login-title":
       setNavBarSelect("login-menu");
+      break;
+    case "demo-title":
+      setNavBarSelect("demo-menu");
+      break;
+    case "downloads-title":
+      setNavBarSelect("downloads-menu");
+      break;
+    case "products-title":
+      setNavBarSelect("products-menu");
+      break;
     default:
 
   }
