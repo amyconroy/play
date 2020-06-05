@@ -35,7 +35,7 @@ router.get('/', function(req, res) {
 var getProducts = function getProducts(orderDetails, callback){
   var orderProductArray = [];
 
-  for(var i = 0, i < orderDetails.length; i++){
+  for(var i = 0; i < orderDetails.length; i++){
     var product = orderDetails[i];
     var productId = product.id;
     basketDB.getProductDetails(productId, (err, rows) =>{
@@ -62,7 +62,7 @@ var getTotal = function getTotal(orderDetails, callback){
   var total = 0;
 
   // iterate through qty and products to get prices
-  for(var i = 0, i < orderDetails.length; i++){
+  for(var i = 0; i < orderDetails.length; i++){
     var product = orderDetails[i];
     basketDB.getProductPrice(product.id, (err, rows) =>{
       if(err || rows.length > 0){
@@ -101,7 +101,7 @@ router.get('/order', function(req, res){
     else{
       console.log("ERROR cant get orderId");
     }
-  }
+  }); 
   basketDB.getReceipt(orderId, (err, rows) => {
     if(rows.length > 0){
       var receipt = {

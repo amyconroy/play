@@ -35,8 +35,32 @@ router.post('/register', function(req, res){
         error: 'true',
         errormessage:'Your password should contain a capital, special character, and a number'
       });
-    }else {
 
+    } else { //PASSWORD IS FINE, THEY CAN register
+
+      loginDB.getUserByParameter(username, email, (err, rows) => {
+
+        if(rows.userEmail == email){
+          res.render('login', {
+            layout : 'login_head',
+            error: 'true',
+            errormessage:'An account with this email already exists.'
+          });
+
+        } else if(rows.userName == username){
+
+          res.render('login', {
+            layout : 'login_head',
+            error: 'true',
+            errormessage:'An account with this username already exists'
+          });
+        } else {
+          console.log("we good G");
+        }
+
+      }); //END OF CHECKING USER EXISTS
+
+      //ADDING HASHED PASSWORD AND USER DETAILS TO DB
       var salt = bcrypt.genSaltSync(10); //make salt for password hash
       var hashedPassword = bcrypt.hashSync(password, salt); //make hashed password
 
@@ -51,18 +75,18 @@ router.post('/register', function(req, res){
 
       req.session.user = { //initialise a session for our user
         email: email,
-        name: username,
+        name: username
       }
       req.session.loggedIn = true;
 
       console.log(req.session.user);
       console.log(req.sessionID);
 
-      res.redirect('/products');
+      //res.redirect('/products');
     }
 
-  } else {
-    console.log("pass wrong");
+  } else { //PASSWORD DOESNT MATCH
+      console.log("pass wrong");
     console.log("Password doesn't match");
 
     res.render('login', {
@@ -70,9 +94,7 @@ router.post('/register', function(req, res){
       error: 'true',
       errormessage:'Your confirmed password should match'
     });
-
   }
-
 });
 
 function validPass(password) { //make sure password is strong
