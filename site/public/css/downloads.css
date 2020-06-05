@@ -78,7 +78,6 @@
 }
 
 .dropdown {
-  float: left;
   position: relative;
   display: inline-block;
 }
@@ -97,7 +96,6 @@
   overflow: auto;
   color:black;
   transition: background-color 1s;
-  left: 0;
   z-index: 1;
 }
 
@@ -123,8 +121,6 @@
   inset 0 0 0.5rem blue,
   0 0 2rem blue;
   transition: box-shadow 0.7s;
-  position: relative;
-  display: inline-block;
 }
 
 .dropdown:hover .dropbtn {background-color: #3e8e41;}
