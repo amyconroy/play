@@ -5,14 +5,14 @@ var router = express.Router();
 router.get('/', function(req, res) {
   console.log(req.session.user+" from index");
   console.log(req.sessionID + " from index");
+  console.log(req.session.loggedIn);
 
-  if (req.session.loggedIn) {
-    res.send("user is logged in!");
-  } else {
-    res.render('main', {
-      layout : 'index_head'
-    });
-  }
+
+  res.render('main', {
+      layout : 'index_head',
+      userLoggedIn: req.session.user
+  });
+
 });
 
 //export the module to use in index.js
