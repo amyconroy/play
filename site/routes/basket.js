@@ -89,12 +89,24 @@ router.get('/order', function(req, res){
   createOrder(newOrder, function(orderId){
     if(orderId){
       // for each productId, add OrderDetails
-      
+      var orderDetail = {
+        productId: prodId,
+        orderId: orderId
+      }
+      basketDB.addOrderDetails(orderDetail);
     }
     else{
-
+      console.log("ERROR cant get orderId");
     }
   }
+  basketDB.getReceipt(orderId, (err, rows) => {
+    if(rows.length > 0){
+
+    }
+    else{
+      console.log("ERROR can't get receipt");
+    }
+  });
 });
 
 var createOrder = function createOrder(newOrder, callback){
