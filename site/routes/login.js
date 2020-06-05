@@ -4,10 +4,18 @@ var loginDB = require('./login_db.js');
 var bcrypt = require('bcrypt');
 
 router.get('/', function(req, res){
-    res.render('login', {
-        layout : 'login_head'
+    if (req.session.user) {
+      res.render('login', {
+          layout : 'login_head',
+          userLoggedIn: req.session.user
+      });
 
-    });
+    } else {
+      res.render('login', {
+          layout : 'login_head'
+
+      });
+    }
 });
 
 // SET SESSION TO NULL IN DB?
@@ -40,16 +48,17 @@ router.post('/register', function(req, res){
 
       loginDB.getUserByParameter(username, email, (err, rows) => {
         if (rows.length != 0) {
-        console.log("we have a row");
+          console.log("we have a row");
         //CHECK SPECIFIC CASE WHICH MATCHES
-          if(rows.userEmail == email){
+
+          if(rows[0].userEmail == email){
             res.render('login', {
               layout : 'login_head',
               error: 'true',
               errormessage:'An account with this email already exists.'
             });
 
-          } else if(rows.userName == username){
+          } else if(rows[0].userName == username){
 
             res.render('login', {
               layout : 'login_head',
@@ -57,46 +66,44 @@ router.post('/register', function(req, res){
               errormessage:'An account with this username already exists'
             });
           }
-        } else {
-          console.log("WE GOOD");
-        }
-      }); //END OF CHECKING USER EXISTS
+        } else {  //USER DOES NOT EXIST, CREATING AND INITIALISING SESSION
 
-      //ADDING HASHED PASSWORD AND USER DETAILS TO DB
-      var salt = bcrypt.genSaltSync(10); //make salt for password hash
-      var hashedPassword = bcrypt.hashSync(password, salt); //make hashed password
+          var salt = bcrypt.genSaltSync(10); //make salt for password hash
+          var hashedPassword = bcrypt.hashSync(password, salt); //make hashed password
 
-      var newUser = {
-        email: email,
-        username: username,
-        password: hashedPassword,
-        userSession: req.sessionID //recording their unique sessionID
-      }
-
-      loginDB.newUser(newUser); //try to add new user to DB
-
-      var userAuth = loginDB.getUserByUserName(username, (error, rows) => { //we need id and to add it to cookie session
-        if (rows.length > 0) {
-          req.session.user = { //initialise a session for our user
+          var newUser = {
             email: email,
-            name: username,
-            userId: rows[0].userId
+            username: username,
+            password: hashedPassword,
+            userSession: req.sessionID //recording their unique sessionID
           }
-          
-          req.session.loggedIn = true;
 
-          console.log(req.session.user);
-          console.log(req.sessionID);
+          loginDB.newUser(newUser); //try to add new user to DB
 
-          res.redirect('/index');
+          var userAuth = loginDB.getUserByUserName(username, (error, rows) => { //we need id and to add it to cookie session
+
+            if (rows.length > 0) {
+              req.session.user = { //initialise a session for our user
+                email: email,
+                name: username,
+                userId: rows[0].userId
+              }
+
+              req.session.loggedIn = true;
+
+              console.log(req.session.user);
+              console.log(req.sessionID);
+
+              res.redirect('/index');
+
+            }
+          });
         }
       });
-
-      //res.redirect('/products');
-    }
+    } //END OF USER REGISTRATION
 
   } else { //PASSWORD DOESNT MATCH
-      console.log("pass wrong");
+    console.log("pass wrong");
     console.log("Password doesn't match");
 
     res.render('login', {
