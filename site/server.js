@@ -28,6 +28,7 @@ var router = express.Router(); //our router for requests
 var banned = [];
 banUpperCase("./public/", "");
 app.use(lower); // put to lower case
+app.use(ban); // forbid access to the urls in the banned list
 app.use(helmet()); // protects against attacks on express
 
 //////////////////////////////
@@ -136,6 +137,18 @@ fillDB.fillBackgroundProducts();*/
 /////////////////////////////
 ////// BAN UPPER FILES //////
 ////////////////////////////
+// Forbid access to the URLs in the banned list.
+function ban(req, res, next) {
+    for (var i=0; i<banned.length; i++) {
+        var b = banned[i];
+        if (req.url.startsWith(b)) {
+            res.status(404).send("Filename not lower case");
+            return;
+        }
+    }
+    next();
+}
+
 // Check a folder for files/subfolders with non-lowercase names.  Add them to
 // the banned list so they don't get delivered, making the site case sensitive,
 // so that it can be moved from Windows to Linux, for example. Synchronous I/O
