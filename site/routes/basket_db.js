@@ -11,13 +11,9 @@ let db = new sqlite3.Database('Play.db', sqlite3.OPEN_READWRITE, (err) => {
 /////////////////////////////////////////
 ///////////// SQL QUERIES ///////////////
 /////////////////////////////////////////
-
-// order calc param = {[productId, qty]}
-/////////////////////////////
 //// GET PRODUCT PRICES ////
-////////////////////////////
 // used to get price of each product - display to user, calculate total price of order
-exports.getAllDownloads = function(productId, callback){
+exports.getProductPrice = function(productId, callback){
   var query = "SELECT price FROM Product WHERE productId = ?;";
     // use each as all returns everything from db, each runs query first
     db.each(query, productId, (err, rows) =>{
@@ -29,9 +25,19 @@ exports.getAllDownloads = function(productId, callback){
   });
 }
 
-/////////////////////////
 /// CREATE NEW ORDER ///
-////////////////////////
 // this query will just create a basic ORDER for the user
 // (products stored separately)
-// order details params = {userId, orderPrice}
+// order details params = {userId, orderPrice, orderDate}
+exports.createNewOrder = function(newOrder){
+  var query = "INSERT INTO UserOrder";
+  query += " (orderUserId, orderDate, orderPrice) VALUES (?, ?, ?);";
+    // use each as all returns everything from db, each runs query first
+    db.each(query, newOrder['userId'], newOrder['orderPrice'], newOrder['orderDate'], (err, rows)=>{
+      if(rows){
+        callback(null, rows);
+      } else{
+        callback(error, null); // unable to get product price
+      }
+  });
+}

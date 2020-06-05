@@ -15,8 +15,7 @@ let db = new sqlite3.Database('Play.db', sqlite3.OPEN_READWRITE, (err) => {
 /// CREATE USER TABLE ////
 /////////////////////////
 exports.createUserTable = function(){
-  console.log("creating users");
-//  db.serialize(() => {
+  db.serialize(() => {
     db.run("CREATE TABLE IF NOT EXISTS User ("+
 	   "userName	TEXT NOT NULL UNIQUE," +
 	   "userEmail	TEXT NOT NULL UNIQUE,"+
@@ -25,7 +24,7 @@ exports.createUserTable = function(){
 	   "userId	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE" +
      ");");
        console.log("users created");
-//  });
+  });
 }
 
 ///////////////////////
@@ -34,7 +33,7 @@ exports.createUserTable = function(){
 
 // CHANGE THE SESSION ID
 /// PARAM: user variable
-exports.newUser = function(newUser){ //NEED WAY TO ACCESS ERROR
+exports.newUser = function(newUser){
   var query = "INSERT INTO User";
   query += " (userName, userEmail, userPassword, userSession) VALUES (?, ?, ?, ?);";
     db.serialize(() => {

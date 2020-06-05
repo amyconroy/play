@@ -168,8 +168,6 @@ exports.viewProduct = function(productId, callback){
 }
 
 
-
-
 ///////////////////////////
 //// TESTING FUNCTIONS ////
 /////// to fill db ////////
@@ -192,7 +190,7 @@ exports.newCategory = function(categoryDetails){
 // get most recent categoryId to insert into product
 exports.getCategoryId = function(err, rows){
   var query = "Select id FROM Category ORDER BY id DESC LIMIT 1"
-    db.run(query, [categoryDetails['categoryName'], categoryDetails['categoryDescription']], function(error){
+    db.run(query, function(error){
       if(rows){
         callback(null, rows);
       } else{
