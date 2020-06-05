@@ -9,7 +9,7 @@ router.get('/', function(req, res){
     });
 });
 
-// SET SESSION TO NULL IN DB? 
+// SET SESSION TO NULL IN DB?
 router.get('/logout', function(req, res) {
     req.session.destroy(function(){
       console.log("user logged out.");
@@ -112,10 +112,12 @@ router.post('/auth', function(req, res){
 
           passCompare(password, rows[0].userPassword, (error, result) => {
             if (result) {
-              req.sessionID = rows.userSession;
+              console.log("SETTING SESSION");
+
+              req.sessionID = rows[0].userSession;
 
               req.session.user = {
-                email: rows.userEmail,
+                email: rows[0].userEmail,
                 name: username
               }
 
