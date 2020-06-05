@@ -8,6 +8,8 @@ router.get('/', function(req, res){
   console.log(req.session.user);
   console.log(req.sessionID);
 
+  console.log("here!");
+
   var downloadsCatArr = [];
 
   getAllCategories(function(downloadsCatArr) {
