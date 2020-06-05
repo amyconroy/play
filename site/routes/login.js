@@ -82,7 +82,7 @@ router.post('/register', function(req, res){
             name: username,
             userId: rows[0].userId
           }
-          
+
           req.session.loggedIn = true;
 
           console.log(req.session.user);
@@ -91,7 +91,6 @@ router.post('/register', function(req, res){
           res.redirect('/index');
         }
       });
-
       //res.redirect('/products');
     }
 
