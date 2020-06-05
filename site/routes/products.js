@@ -6,7 +6,10 @@ router.get('/', function(req, res){
   console.log(req.session.user);
   console.log(req.sessionID);
 
-  res.render('products', {layout : 'product_head'});
+  res.render('products', {
+    layout : 'product_head',
+    userLoggedIn: req.session.user
+  });
 });
 
 

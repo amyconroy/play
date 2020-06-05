@@ -16,6 +16,7 @@ router.get('/', function(req, res){
     if(downloadsCatArr){
       res.render('downloads', {
         layout: 'download_head',
+        userLoggedIn: req.session.user,
         category: downloadsCatArr
       });
     }

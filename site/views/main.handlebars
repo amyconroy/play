@@ -8,11 +8,11 @@
 		</div>
 	</div>
 
-	{{> navbar }}
+	{{> navbar user=userLoggedIn.name }}
 
-	{{#if userLoggedIn  }}
-		{{> logged_in user=userLoggedIn.name }}
-	{{/if}}
+	<!--{{#if userLoggedIn  }}
+			{{> logged_in user=userLoggedIn.name }}
+	{{/if}}-->
 
 	<div class="posts-box">
 		<!--<div class="title-container">

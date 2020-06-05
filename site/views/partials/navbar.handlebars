@@ -14,5 +14,8 @@
 				<li class="menu_item" id="downloads-menu"><a href="/downloads">DOWNLOADS</a></li>
 				<li class="menu_item" id="login-menu"><a href="/login">SIGN-IN</a></li>
 			</ul>
+			{{#if userLoggedIn }}
+				<h4 class="title-content">hello {{ user }}</h4>
+			{{/if}}
 		</div>
 </div>
