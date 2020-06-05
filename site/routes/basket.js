@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var basketDB = require('./basket_db.js');
+//var basketDB = require('./basket_db.js');
 
 /* ORDER FOR NEW ORDER:
 1. CALC TOTAL PRICE (getProductPrice - calc on this end)
@@ -18,16 +18,19 @@ d. basketDb. getReceipt (pass in orderId to get all necessary info) */
 
 // this will be /basket
 router.get('/', function(req, res) {
-  // CHANGE THIS
-  // to render page will need total price and all product details
+  console.log(req.session.user+" from index");
+  console.log(req.sessionID + " from index");
+  console.log(req.session.loggedIn);
 
-  // call getTotal, getProducts to render the basket page
+  var basket = [];
 
-  res.render('main', {
+  res.render('basket', {
       layout : 'index_head',
-      userLoggedIn: req.session.user
+      userLoggedIn: req.session.user,
+      userBasket: basket
   });
 });
+
 
 var getProducts = function getProducts(orderDetails, callback){
   var orderProductArray = [];
