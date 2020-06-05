@@ -177,7 +177,7 @@ function banUpperCase(root, folder) {
 /////////////////////
 // set error to be 404 if the page isnt found
 app.use(function(req, res, next) {
-  console.error("page not found");
+  console.error("FROM SERVER: page not found");
   res.status(404).render('error', {
     layout: 'index_head',
     errorMessage: "Page not found!",
