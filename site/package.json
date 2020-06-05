@@ -14,6 +14,7 @@
     "express": "~4.16.1",
     "express-flash": "git://github.com/RGBboy/express-flash.git",
     "express-handlebars": "",
+    "express-lowercase-paths": "^1.0.0",
     "express-session": "^1.17.1",
     "flash": "^1.1.0",
     "helmet": "^3.22.0",

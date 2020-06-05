@@ -25,7 +25,7 @@ var router = express.Router(); //our router for requests
 ///// SECURITY //////
 /////////////////////
 app.use(helmet()); // protects against attacks on express
-
+app.use(lower); // put to lower case
 //////////////////////////////
 /// CERTIFICATES and HTTPS ///
 //////////////////////////////
@@ -76,6 +76,14 @@ app.use(session({
     unset: 'destroy',
   }));
 
+//////////////////
+/// USE LOWER ///
+/////////////////
+// Make the URL lower case.
+function lower(req, res, next) {
+    req.url = req.url.toLowerCase();
+    next();
+}
 
 //////////////
 /// FLASH ///
