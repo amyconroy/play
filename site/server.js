@@ -76,8 +76,8 @@ app.use(session({
     },
     secure:false,
     secret: "343ji43j4n3jn4jk3n",
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
     unset: 'destroy',
   }));
 
