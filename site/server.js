@@ -16,6 +16,7 @@ var bodyParser = require('body-parser'); //for post requests
 var md5 = require('md5'); // use for creating a hash for passwords, need to change to SHA-1
 var bodyParser = require('body-parser');
 var helmet = require('helmet'); // for security
+var fs = require("fs"); // ban upper case file names
 //////////////////
 /// EXPRESS /////
 /////////////////
@@ -27,8 +28,10 @@ var router = express.Router(); //our router for requests
 /////////////////////
 var banned = [];
 banUpperCase("./public/", "");
-//app.use(lower); // put to lower case
-//app.use(ban);
+
+app.use(lower); // put to lower case
+app.use(ban); // forbid access to the urls in the banned list
+
 app.use(helmet()); // protects against attacks on express
 
 //////////////////////////////
@@ -65,7 +68,7 @@ app.use(logger('dev'));
 ///////////////////
 /// BODY-PARSER ///
 ///////////////////
-app.use(express.urlencoded({ extended: true })); /// supporting URL-encoded bodies
+app.use(express.urlencoded({ extended: true })); /// supporting URL-encoded bodies (utf-8)
 app.use(bodyParser.json()); // supporting JSON-econded bodies
 
 //cookies for session storage
@@ -137,6 +140,18 @@ fillDB.fillBackgroundProducts();*/
 /////////////////////////////
 ////// BAN UPPER FILES //////
 ////////////////////////////
+// Forbid access to the URLs in the banned list.
+function ban(req, res, next) {
+    for (var i=0; i<banned.length; i++) {
+        var b = banned[i];
+        if (req.url.startsWith(b)) {
+            res.status(404).send("Filename not lower case");
+            return;
+        }
+    }
+    next();
+}
+
 // Check a folder for files/subfolders with non-lowercase names.  Add them to
 // the banned list so they don't get delivered, making the site case sensitive,
 // so that it can be moved from Windows to Linux, for example. Synchronous I/O
@@ -158,14 +173,29 @@ function banUpperCase(root, folder) {
 }
 
 /////////////////////
+//////// 404 ////////
+/////////////////////
+// set error to be 404 if the page isnt found
+app.use(function(req, res, next) {
+  console.error("page not found");
+  res.status(404).render('error', {
+    layout: 'index_head',
+    errorMessage: "Page not found!",
+    error: "Error 404!"
+  });
+});
+
+/////////////////////
 /// ERROR HANDLER ///
 ////////////////////
-
-// set error to be 404 if the page isnt found
-app.use(function(req, res, next){
-  let err = new Error('Page Not Found');
-  err.statusCode = 404;
-  err.shouldRedirect = true;
+app.use(function (err, req, res, next) {
+  console.error(err.stack);
+  console.error(err.message);
+  res.status(500).render('error', {
+    layout: 'index_head',
+    errorMessage: "Something went wrong!",
+    error: err
+  });
 });
 
 // ensure that stack trace is not leaked to the user but for dev purposes
@@ -178,19 +208,5 @@ app.use(function(req, res, next){
         });
     });
 } */
-
-app.use(function (err, req, res, next) {
-  console.error(err.message); // log error message to the server console
-  if(!err.statusCode) err.statusCode = 500;
-  // if(err.shouldRedirect){
-    res.render('error', {
-      errorMessage: err.message,
-      error: err
-//    });
-});
-  /* else {
-    res.status(err.statusCode).send(err.message);
-  } */
-});
 
 module.exports = app;

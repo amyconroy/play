@@ -7,10 +7,10 @@ router.get('/', function(req, res) {
   console.log(req.sessionID + " from index");
   console.log(req.session.loggedIn);
 
-
   res.render('main', {
       layout : 'index_head',
       userLoggedIn: req.session.user
+
   });
 
 });
