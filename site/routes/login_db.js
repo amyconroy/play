@@ -67,3 +67,18 @@ exports.getUserByUserName = function(username, callback){
    });
   });
 }
+
+exports.getUserByParameter = function(username, email, callback){
+  var query = "SELECT * FROM User WHERE userName = ? OR userEmail = ?;";
+  db.serialize(() => {
+    // use each as all returns everything from db, each runs query first
+    db.all(query, username, email, (err, rows) =>{
+      if(rows){
+        // return error as null as got data back
+        callback(null, rows);
+      } else{
+        callback(error, null);
+      }
+   });
+  });
+}
