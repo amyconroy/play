@@ -143,24 +143,55 @@
 
 .dropdown:hover .dropbtn {
   background-color: black;
-
 }
 
 .form-submit {
-  border:none;
-  font-family: "Aldrich";
-  background-color:#ff2bf1;
-	color:black;
-	text-shadow: none;
-	box-shadow: inset 0 0 5rem black,
-    inset 0 0 2rem black,
-    0 0 5rem black;
-  font-size:2em;
-  width:240px;
-  height:50px;
+  border: solid 5px #ff2bf1;
+  border-radius: 5px;
+  color: #e854ff;
+  padding:25px;
+  font-size: 20px;
+  cursor: pointer;
+  background: black;
+  text-shadow: 0 0 5px purple, 0 0 10px purple,
+  0 0 15px purple, 0 0 40px #ff00aa, 0 0 70px #ff00aa;
+  position: relative;
+  display: inline-block;
+  padding:25px;
 }
 
 .form-submit:hover {
-  border:solid 1px hotpink;
-  /*transition:border 0.5s;*/
+  background-color: black;
+  box-shadow: inset 0 0 2rem blue,
+  inset 0 0 0.5rem blue,
+  0 0 2rem blue;
+  transition: box-shadow 0.7s;
+  position: relative;
+  display: inline-block;
+}
+
+.basketbtn {
+  border: solid 5px #ff2bf1;
+  border-radius: 5px;
+  color: #e854ff;
+  padding:25px;
+  font-size: 20px;
+  cursor: pointer;
+  background: black;
+  text-shadow: 0 0 5px purple, 0 0 10px purple,
+  0 0 15px purple, 0 0 40px #ff00aa, 0 0 70px #ff00aa;
+  position: relative;
+  display: inline-block;
+  right:10%;
+  padding:25px;
+}
+
+.basketbtn:hover {
+  background-color: black;
+  box-shadow: inset 0 0 2rem blue,
+  inset 0 0 0.5rem blue,
+  0 0 2rem blue;
+  transition: box-shadow 0.7s;
+  position: relative;
+  display: inline-block;
 }
