@@ -280,7 +280,40 @@ router.get('*/:base/add_product/:productid', function(req, res) {
 
   console.log(req.session.userBasket);
   res.redirect("/downloads/"+baseurl);
-
 });
+
+router.get('*/:base/remove_product/:productid', function(req, res) {
+
+  var baseurl = req.params.base;
+  var productId = req.params.productid;
+
+  console.log("WE CAME FROM HERE: "+baseurl);
+
+  var products = req.session.userBasket;
+  var index = products.indexOf(productId);
+  if(index !== -1) products.splice(index, 1);
+  req.session.userBasket = products;
+
+  console.log(productId);
+  console.log("REMOVED THE ITEM: ");
+
+  console.log(req.session.userBasket);
+  res.redirect("/downloads/"+baseurl);
+});
+
+router.get('*/:base/clearbasket', function(req, res) {
+  var baseurl = req.params.base;
+
+  console.log("WE CAME FROM HERE: "+baseurl);
+
+  req.session.userBasket = [];
+
+  console.log(productId);
+  console.log("EMPTIED BASKET");
+
+  console.log(req.session.userBasket);
+  res.redirect("/downloads/"+baseurl);
+});
+
 
 module.exports = router;

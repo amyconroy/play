@@ -47,6 +47,7 @@
       <img class="downloads-image" src = {{ this.productImage }} alt=" " /></br>
       <p class="downloads-productId">{{ this.productId }}</p></br>
       <a  href="/downloads{{ this.url }}/add_product/{{ this.productId }}"><button type="submit" class="form-submit">Add to Basket</button></a>
+      <a  href="/downloads{{ this.url }}/remove_product/{{ this.productId }}"><button type="submit" class="form-submit">Remove from Basket</button></a>
   </div>
 {{/each}}
 
