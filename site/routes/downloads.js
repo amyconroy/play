@@ -127,7 +127,7 @@ router.get('/all', function(req, res){
         url: "/all"
       });
   });
-  console.log("leaving ALL DOWNLOADS");
+
 });
 
 var getAllDownloads = function getAllDownloads(callback){
@@ -194,7 +194,7 @@ router.get('/:categoryid/lowtohigh', function(req, res){
   var lowPriceProducts = [];
   var categoryId = req.params.categoryid;
 
-  getPriceLowByCategory(req.params.categoryid, function(categoryProducts) {
+  getPriceLowByCategory(req.params.categoryid, function(lowPriceProducts) {
       res.render('downloads', {
         layout: 'download_head',
         downloads: lowPriceProducts,
@@ -230,7 +230,7 @@ router.get('/:categoryid/hightolow', function(req, res){
   var highPriceProducts = [];
   var categoryId = req.params.categoryid;
 
-  getPriceHighByCategory(req.params.categoryid, function(categoryProducts) {
+  getPriceHighByCategory(req.params.categoryid, function(highPriceProducts) {
       res.render('downloads', {
         layout: 'download_head',
         downloads: highPriceProducts,
@@ -238,7 +238,7 @@ router.get('/:categoryid/hightolow', function(req, res){
   });
 });
 
-//module.exports.myArrayFunc = function myArrayFunc(ID ,callback
+
 
 var getPriceHighByCategory = function getPriceHighByCategory(categoryid, callback) {
   var downloadsArray = [];
@@ -265,9 +265,9 @@ router.get('/:base/add_product/:productid', function(req, res) {
   var productId = req.params.productid;
 
   console.log("WE CAME FROM HERE: "+baseurl);
-  
+
   req.session.userBasket.push({
-    productId:productid
+    productId:productId
   });
 
   console.log(req.session.userBasket);
