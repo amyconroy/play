@@ -79,6 +79,7 @@ router.post('/register', function(req, res){
             userSession: req.sessionID, //recording their unique sessionID
             userBasket: basket
           }
+          req.session.loggedIn = true;
 
           loginDB.newUser(newUser); //try to add new user to DB
 
@@ -88,7 +89,8 @@ router.post('/register', function(req, res){
               req.session.user = { //initialise a session for our user
                 email: email,
                 name: username,
-                userId: rows[0].userId
+                userId: rows[0].userId,
+                userBasket: basket
               }
 
               req.session.loggedIn = true;
@@ -102,7 +104,7 @@ router.post('/register', function(req, res){
           });
         }
       });
-    } //END OF USER REGISTRATION
+    }
 
   } else { //PASSWORD DOESNT MATCH
     console.log("pass wrong");
@@ -113,6 +115,7 @@ router.post('/register', function(req, res){
       error: 'true',
       errormessage:'Your confirmed password should match'
     });
+
   }
 });
 
