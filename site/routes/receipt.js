@@ -18,7 +18,7 @@ router.get('/', function(req, res) {
       var basket = req.session.userBasket;
         for(let i = 0; i < basket.length; i++){
       // for each productId, add OrderDetails
-          var newId = products[i].productId;
+          var newId = basket[i].productId;
           var orderDetail = {
             productId: newId,
             orderId: orderId

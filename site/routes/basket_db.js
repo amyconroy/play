@@ -69,7 +69,7 @@ exports.addOrderDetails = function(orderDetails){
     // use each as all returns everything from db, each runs query first
   db.serialize(() => {
     db.run(query, orderDetails['orderId'], orderDetails['productId'], (err, rows)=>{
-      if(error){
+      if(err){
         console.log(error);
       }
       else{
