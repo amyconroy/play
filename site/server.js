@@ -130,6 +130,8 @@ app.use('/comments', express.static(__dirname + '/public'));
 app.use('/downloads', express.static(__dirname + '/public'));
 app.use('/downloads/lowtohigh', express.static(__dirname + '/public'));
 app.use('/downloads/hightolow', express.static(__dirname + '/public'));
+app.use('/basket', express.static(__dirname + '/public'));
+app.use('/products', express.static(__dirname + '/public'));
 ///////////////////////////////
 /// FILL DB WITH DUMMY DATA ///
 ///////////////////////////////
