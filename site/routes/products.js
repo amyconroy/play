@@ -49,14 +49,27 @@ router.get('/add_product/:productid', function(req, res) {
 
   console.log("WE CAME FROM HERE: "+baseurl);
 
-  req.session.userBasket.push({
-    productId: productId,
-    qnt:5
-  });
+  if (req.session.user) {
 
-  console.log(req.session.userBasket);
-  res.redirect("/products");
+    console.log("LOGGED IN");
+    req.session.userBasket.push({
+      productId: productId,
+      qnt:5
+    });
 
+    console.log(req.session.userBasket);
+    res.redirect("/products");
+
+  } else {
+
+    console.log("NOT LOGGED IN");
+    res.render('products', {
+      layout: 'product_head',
+      error: true,
+      errormessage: "You must be logged in to purchase products FROM PRODUCTS"
+    });
+
+  }
 });
 
 module.exports = router;
