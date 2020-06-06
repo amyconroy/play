@@ -42,4 +42,21 @@ router.get('/viewProduct', function(req, res){
   });
 });
 
+router.get('/add_product/:productid', function(req, res) {
+
+  var baseurl = req.params.base;
+  var productId = req.params.productid;
+
+  console.log("WE CAME FROM HERE: "+baseurl);
+
+  req.session.userBasket.push({
+    productId: productId,
+    qnt:5
+  });
+
+  console.log(req.session.userBasket);
+  res.redirect("/products");
+
+});
+
 module.exports = router;
