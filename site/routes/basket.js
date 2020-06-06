@@ -26,25 +26,16 @@ router.get('*/', function(req, res) {
   console.log(req.session.loggedIn);
 
   var basket = req.session.userBasket;
-  var productId = basket[0].productId;
-  console.log(productId);
   var products = [];
-  var total;
-
-  getTotal(basket, function(total) {
-    console.log(total);
-    console.log("got toals");
-  });
 
   getProducts(basket, function(products) {
-      console.log("got products");
-  });
-
-  res.render('basket', {
-      layout : 'index_head',
-      userLoggedIn: req.session.user,
-      product: products,
-      total: total
+    if(products){
+      res.render('basket', {
+          layout : 'index_head',
+          userLoggedIn: req.session.user,
+          products: products
+      });
+    }
   });
 });
 
@@ -68,19 +59,17 @@ var getProducts = function getProducts(orderDetails, callback){
           image: rows.image
         }
         orderProductArray.push(product);
-        console.log("TEST PRODUCT");
-        console.log(product);
       }
       console.log("TEST PRODUCT ARRAY");
       console.log(orderProductArray);
-      callback(orderProductArray);
     });
   }
+  callback(orderProductArray);
 }
 
 // productIds will be a JSON array of product Ids and qty
 var getTotal = function getTotal(orderDetails, callback){
-  var total;
+  var total = 0;
   // iterate through qty and products to get prices
   for(var i = 0; i < orderDetails.length; i++){
     var product = orderDetails[i].productId;
@@ -92,13 +81,20 @@ var getTotal = function getTotal(orderDetails, callback){
         var price = rows.price;
         console.log("PRICE");
         console.log(price);
-        total += price;
+        var newprice = price.substr(1);
+        console.log("NEW PRICE");
+        console.log(newprice);
+        var intprice = parseInt(newprice);
+        console.log("int price");
+        console.log(intprice);
+        total += intprice;
+        console.log("total here:");
+        console.log(total);
       }
     });
+    console.log("TOTAL");
+    console.log(total);
   }
-  console.log("TOTAL");
-  console.log(total);
-  callback(total);
 }
 
 /*
