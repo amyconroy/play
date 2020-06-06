@@ -283,21 +283,29 @@ router.get('*/:base/add_product/:productid', function(req, res) {
 });
 
 router.get('*/:base/remove_product/:productid', function(req, res) {
-
   var baseurl = req.params.base;
   var productId = req.params.productid;
 
   console.log("WE CAME FROM HERE: "+baseurl);
 
   var products = req.session.userBasket;
-  var index = products.indexOf(productId);
-  if(index !== -1) products.splice(index, 1);
+
+  console.log("BEFORE REMOVING");
+  console.log(req.session.userBasket);
+
+  console.log(products.length);
+
+  for(let i = 0; i < products.length; i++){
+    var item = products[i].productId;
+    if(item === productId){
+      products.splice(i, 1);
+    }
+  }
+  console.log("REMOVED ITEMS");
+  console.log(req.session.userBasket);
+
   req.session.userBasket = products;
 
-  console.log(productId);
-  console.log("REMOVED THE ITEM: ");
-
-  console.log(req.session.userBasket);
   res.redirect("/downloads/"+baseurl);
 });
 
