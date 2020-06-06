@@ -16,7 +16,7 @@ let db = new sqlite3.Database('Play.db', sqlite3.OPEN_READWRITE, (err) => {
 exports.getProductPrice = function(productId, callback){
   var query = "SELECT price FROM Product WHERE productId = ?;";
     // use each as all returns everything from db, each runs query first
-    db.serialize(() =>
+    db.serialize(() => {
       db.each(query, productId, (err, rows) =>{
         if(rows){
           callback(null, rows);
@@ -51,7 +51,7 @@ exports.createNewOrder = function(newOrder){
 // get most recent categoryId to insert into product
 exports.getOrderId = function(err, rows){
   var query = "Select id FROM UserOrder ORDER BY id DESC LIMIT 1"
-  db.serialize(() =>
+  db.serialize(() => {
     db.each(query, function(error){
       if(rows){
         callback(null, rows);
@@ -68,7 +68,7 @@ exports.addOrderDetails = function(orderDetails){
   var query = "INSERT INTO OrderDetails";
   query += " (orderId, productId) VALUES (?, ?);";
     // use each as all returns everything from db, each runs query first
-  db.serialize(() =>
+  db.serialize(() => {
     db.run(query, orderDetails['orderId'], orderDetails['productId'], (err, rows)=>{
       if(error){
         console.log(error);
@@ -107,7 +107,7 @@ exports.getReceipt = function(orderId, callback){
   query += "INNER JOIN Product ON Product.productId = OrderDetails.productId";
   query += "WHERE UserOrder.orderId = ?;";
     // use each as all returns everything from db, each runs query first
-  db.serialize(() =>
+  db.serialize(() => {
     db.each(query, orderId, (err, rows)=>{
       if(rows){
         callback(null, rows);

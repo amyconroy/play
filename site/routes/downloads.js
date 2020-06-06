@@ -275,7 +275,7 @@ router.get('*/:base/add_product/:productid', function(req, res) {
   console.log("WE CAME FROM HERE: "+baseurl);
 
   req.session.userBasket.push({
-    productId:productId
+    productId: productId
   });
 
   console.log(req.session.userBasket);
