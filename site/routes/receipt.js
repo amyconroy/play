@@ -3,6 +3,8 @@ var router = express.Router();
 var basketDB = require('./basket_db.js');
 
 router.get('/', function(req, res) {
+  var products = [];
+  var receiptdetails = [];
   var newOrder = {
     userId: req.session.user['userid'],
     orderPrice: 19.99,
@@ -32,8 +34,6 @@ router.get('/', function(req, res) {
     console.log("prior to getting query");
     console.log(orderId);
     basketDB.getReceipt(orderId, (err, rows) => {
-      var products = [];
-      var receiptdetails = [];
       if(rows){
         // remains the same
         var receipt = {
@@ -52,21 +52,15 @@ router.get('/', function(req, res) {
       }
       // ONLY WANT TO DO THIS ONCE !!!
       receiptdetails.push(receipt);
-      if(receiptdetails){
-        res.render('receipt', {
-            layout : 'index_head',
-            receipt: receiptdetails,
-            product: products,
-            userLoggedIn: req.session.user
-        });
-      }
     });
   });
+  res.render('receipt', {
+      layout : 'index_head',
+      receipt: receiptdetails,
+      product: products,
+      userLoggedIn: req.session.user
+  });
 });
-
-var getReceipt = function getReceipt(orderId, callback){
-
-}
 
 var createOrder = function createOrder(newOrder, callback){
   basketDB.createNewOrder(newOrder); // create new orderId
