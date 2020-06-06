@@ -276,6 +276,11 @@ router.get('*/:base/add_product/:productid', function(req, res) {
     var baseurl = req.params.base;
     var productId = req.params.productid;
 
+    var basket = {
+      products: [],
+      total_price:1
+    }
+
     req.session.userBasket.push({
       productId: productId
     });

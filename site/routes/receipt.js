@@ -5,18 +5,25 @@ var basketDB = require('./basket_db.js');
 router.get('/', function(req, res) {
   var products = [];
   var receiptdetails = [];
+
   var newOrder = {
     userId: req.session.user['userid'],
     orderPrice: 19.99,
     orderDate: Date.now()
   }
-  console.log("USER ID");
-  console.log(req.session.user['userid']);
+
+  //LOG USER STUFF
+  console.log("USER ID INSIDE RECIEPT");
   console.log(req.session.user);
-  createOrder(newOrder, function(orderId){
-    if(orderId){
+
+  createOrder(newOrder, function(orderId) {
+    console.log("MAKING NEW ORDER");
+    //for every product
+
+    if (orderId) {
       console.log("GOT ORDER ID");
       console.log(orderId);
+
       var basket = req.session.userBasket;
         for(let i = 0; i < basket.length; i++){
       // for each productId, add OrderDetails
@@ -27,44 +34,72 @@ router.get('/', function(req, res) {
           }
           basketDB.addOrderDetails(orderDetail);
         }
+
+        console.log("prior to getting query");
+        console.log(orderId);
+
+        basketDB.getReceipt(orderId, (err, rows) => {
+          if (rows) {
+          // remains the same
+            var receipt = {
+              orderid: rows.orderid,
+              orderprice: rows.totalPrice
+            }
+            var product = {
+              name: rows.name,
+              price: rows.price,
+              image: rows.image
+            }
+              console.log("PRODUCT FOR RECEIPT");
+              console.log(product);
+              products.push(product);
+          } else {
+            console.log("ERROR: can't get receipt");
+          }
+
+          console.log("RECEIPT DETAILS");
+          console.log(receipt);
+
+          receiptdetails.push(receipt);
+      });
+
+    } else {
+      console.log("ERROR: can't get orderId.");
     }
-    else{
-      console.log("ERROR cant get orderId");
-    }
-    console.log("prior to getting query");
-    console.log(orderId);
-    basketDB.getReceipt(orderId, (err, rows) => {
-      if(rows){
-        // remains the same
-        var receipt = {
-          orderid: rows.orderid,
-          orderprice: rows.totalPrice
-        }
-        var product = {
-          name: rows.name,
-          price: rows.price,
-          image: rows.image
-        }
-        console.log("PRODUCT FOR RECEIPT");
-        console.log(product);
-        products.push(product);
-      }
-      else{
-        console.log("ERROR: can't get receipt");
-      }
-      console.log("RECEIPT DETAILS");
-      console.log(receipt);
-      // ONLY WANT TO DO THIS ONCE !!!
-      receiptdetails.push(receipt);
-    });
+
+// These are null !!!
+    console.log("STUFF NOIW:");
+    console.log(products);
+    console.log(receiptdetails);
+
+
   });
-  res.render('receipt', {
+
+  console.log("AFTER CALLBACK");
+  console.log(receiptdetails);
+
+  res.send("dw");
+  /*console.log("RECIEPT DETAILS");
+  console.log(receiptdetails);
+  if (receiptdetails.length == 0 ) {
+    console.log("LENGTH OF RECIEPT "+receiptdetails.length);
+
+    res.render('receipt', {
       layout : 'index_head',
       receipt: receiptdetails,
       product: products,
       userLoggedIn: req.session.user
-  });
+    });
+  } else {
+    console.log("LENGTH OF RECIEPT "+receiptdetails.length)
+    res.send("all good");
+  }*/
+  //res.send("RIP");
 });
+
+var renderInfo = function renderInfo(res, receiptdetails, products){
+
+}
 
 var createOrder = function createOrder(newOrder, callback){
   basketDB.createNewOrder(newOrder); // create new orderId

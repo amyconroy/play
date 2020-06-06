@@ -83,9 +83,11 @@ router.post('/register', function(req, res){
           loginDB.newUser(newUser); //try to add new user to DB
 
           var userAuth = loginDB.getUserByUserName(username, (error, rows) => { //we need id and to add it to cookie session
+            var totalPrice = 0;
+
             var basket = {
               products: [], // PRODUCT OBJECTE IS { product_id:ID, qnt:NUMBER}
-              total_price
+              total_price: totalPrice
             }
 
             if (rows.length > 0) {
@@ -160,10 +162,9 @@ router.post('/auth', function(req, res){
             if (result) {
               console.log("SETTING SESSION");
 
-              var basket = {
-                products: [], // PRODUCT OBJECTE IS { product_id:ID, qnt:NUMBER}
-                total_price
-              }
+              var price = 0;
+
+              var basket = [];
 
               req.session.user = {
                 email: rows[0].userEmail,
