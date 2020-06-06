@@ -26,37 +26,9 @@ router.get('*/', function(req, res) {
   console.log(req.session.loggedIn);
 
   var basket = req.session.userBasket;
-  var productId = basket[0].productId;
-  console.log(productId);
   var products = [];
 
   getProducts(basket, function(products) {
-  //  var total = 0;
-    // iterate through qty and products to get prices
-  /*  for(var i = 0; i < basket.length; i++){
-      var product = basket[i].productId;
-      basketDB.getProductPrice(product, (err, rows) =>{
-        if(err){
-          console.log("Can't get price");
-        }
-        else{
-          var price = rows.price;
-          console.log("PRICE");
-          console.log(price);
-          var newprice = price.substr(1);
-          console.log("NEW PRICE");
-          console.log(newprice);
-          var intprice = parseInt(newprice);
-          console.log("int price");
-          console.log(intprice);
-          total += intprice;
-          console.log("total here:");
-          console.log(total);
-        }
-      });
-      console.log("TOTAL");
-      console.log(total);
-    } */
     if(products){
       res.render('basket', {
           layout : 'index_head',
@@ -64,8 +36,6 @@ router.get('*/', function(req, res) {
           products: products
       });
     }
-    console.log("got products");
-    console.log(products);
   });
 });
 
@@ -89,14 +59,12 @@ var getProducts = function getProducts(orderDetails, callback){
           image: rows.image
         }
         orderProductArray.push(product);
-        console.log("TEST PRODUCT");
-        console.log(product);
       }
       console.log("TEST PRODUCT ARRAY");
       console.log(orderProductArray);
-      callback(orderProductArray);
     });
   }
+  callback(orderProductArray);
 }
 
 // productIds will be a JSON array of product Ids and qty
