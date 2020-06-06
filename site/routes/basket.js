@@ -31,7 +31,6 @@ router.get('/', function(req, res) {
   });
 });
 
-
 var getProducts = function getProducts(orderDetails, callback){
   var orderProductArray = [];
 
@@ -65,12 +64,12 @@ var getTotal = function getTotal(orderDetails, callback){
   for(var i = 0; i < orderDetails.length; i++){
     var product = orderDetails[i];
     basketDB.getProductPrice(product.id, (err, rows) =>{
-      if(err || rows.length > 0){
+      if(err){
         console.log("CAN'T GET PRICE");
       }
-      else if(rows.length > 0){
+      else{
         var price = rows.price;
-        total += price * product.qty;
+        total += price;
       }
     });
   }
@@ -101,9 +100,12 @@ router.get('/order', function(req, res){
     else{
       console.log("ERROR cant get orderId");
     }
-  }); 
+  });
   basketDB.getReceipt(orderId, (err, rows) => {
+    var products = [];
+    var receiptdetails = [];
     if(rows.length > 0){
+      // remains the same
       var receipt = {
         orderid: rows.orderid,
         orderprice: rows.totalPrice
@@ -113,16 +115,20 @@ router.get('/order', function(req, res){
         price: rows.price,
         image: rows.image
       }
+      products.push(product);
     }
     else{
       console.log("ERROR can't get receipt");
     }
+    // ONLY WANT TO DO THIS ONCE !!!
+    receiptdetails.push(receipt);
   });
   // res.render with receipt, product
 });
 
 var createOrder = function createOrder(newOrder, callback){
-  basketDB.createNewOrder(newOrder);
+  basketDB.createNewOrder(newOrder); // create new orderId
+  // get order based on newest orderId (hacky, not good in terms of larger user base)
   basketDB.getOrderId((err, rows) => {
     if(err){
       console.log(err);

@@ -70,28 +70,30 @@ router.post('/register', function(req, res){
 
           var salt = bcrypt.genSaltSync(10); //make salt for password hash
           var hashedPassword = bcrypt.hashSync(password, salt); //make hashed password
-          var basket = [];
+
 
           var newUser = {
             email: email,
             username: username,
             password: hashedPassword,
             userSession: req.sessionID, //recording their unique sessionID
-            userBasket: basket
           }
+          req.session.loggedIn = true;
 
           loginDB.newUser(newUser); //try to add new user to DB
 
           var userAuth = loginDB.getUserByUserName(username, (error, rows) => { //we need id and to add it to cookie session
+            var basket = [];
 
             if (rows.length > 0) {
               req.session.user = { //initialise a session for our user
                 email: email,
                 name: username,
-                userId: rows[0].userId
+                userId: rows[0].userId,
               }
 
               req.session.loggedIn = true;
+              req.session.userBasket = basket;
 
               console.log(req.session.user);
               console.log(req.sessionID);
@@ -102,7 +104,7 @@ router.post('/register', function(req, res){
           });
         }
       });
-    } //END OF USER REGISTRATION
+    }
 
   } else { //PASSWORD DOESNT MATCH
     console.log("pass wrong");
@@ -113,6 +115,7 @@ router.post('/register', function(req, res){
       error: 'true',
       errormessage:'Your confirmed password should match'
     });
+
   }
 });
 
@@ -161,9 +164,10 @@ router.post('/auth', function(req, res){
                 email: rows[0].userEmail,
                 name: username,
                 userid: rows[0].userId,
-                userBasket: basket
+
               }
               req.session.loggedIn = true;
+              req.session.userBasket = basket;
 
               console.log(req.session.user);
               console.log(req.sessionID);

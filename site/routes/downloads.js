@@ -123,7 +123,8 @@ router.get('/all', function(req, res){
 
       res.render('downloads', {
         layout: 'download_head',
-        downloads: allDownloads
+        downloads: allDownloads,
+        url: "/all"
       });
   });
   console.log("leaving ALL DOWNLOADS");
@@ -139,7 +140,8 @@ var getAllDownloads = function getAllDownloads(callback){
           productDescription: rows.description,
           productPrice: rows.price,
           productImage: rows.image,
-          productId: rows.productId
+          productId: rows.productId,
+          url:"/all"
         };
         console.log(product);
         downloadsArray.push(product);
@@ -257,5 +259,20 @@ var getPriceHighByCategory = function getPriceHighByCategory(categoryid, callbac
   callback(downloadsArray);
 }
 
+router.get('/:base/add_product/:productid', function(req, res) {
+
+  var baseurl = req.params.base;
+  var productId = req.params.productid;
+
+  console.log("WE CAME FROM HERE: "+baseurl);
+  
+  req.session.userBasket.push({
+    productId:productid
+  });
+
+  console.log(req.session.userBasket);
+  res.redirect("/downloads/"+baseurl);
+
+});
 
 module.exports = router;
