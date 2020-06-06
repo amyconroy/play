@@ -98,7 +98,7 @@ var getTotal = function getTotal(orderDetails, callback){
   }
 }
 
-router.get('*/remove_product/:productid', function(req, res) {
+router.get('/remove_product/:productid', function(req, res) {
   console.log("HELP");
   var baseurl = req.params.base;
   var productId = req.params.productid;
