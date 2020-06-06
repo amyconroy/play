@@ -125,7 +125,7 @@ router.get('/remove_product/:productid', function(req, res) {
   res.redirect('/basket');
 });
 
-router.get('*/:base/clearbasket', function(req, res) {
+router.get('/clearbasket', function(req, res) {
   var baseurl = req.params.base;
 
   console.log("WE CAME FROM HERE: "+baseurl);
