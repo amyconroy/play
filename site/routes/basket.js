@@ -29,49 +29,43 @@ router.get('*/', function(req, res) {
   var productId = basket[0].productId;
   console.log(productId);
   var products = [];
-  var total = 0;
-  // iterate through qty and products to get prices
-  for(var i = 0; i < basket.length; i++){
-    var product = basket[i].productId;
-    basketDB.getProductPrice(product, (err, rows) =>{
-      if(err){
-        console.log("Can't get price");
-      }
-      else{
-        var price = rows.price;
-        console.log("PRICE");
-        console.log(price);
-        var newprice = price.substr(1);
-        console.log("NEW PRICE");
-        console.log(newprice);
-        var intprice = parseInt(newprice);
-        console.log("int price");
-        console.log(intprice);
-        total += intprice;
-        console.log("total here:");
-        console.log(total);
-      }
-    });
-    console.log("TOTAL");
-    console.log(total);
-  }
-
-  console.log("total!!!!");
-  console.log(total);
 
   getProducts(basket, function(products) {
-      console.log("got products");
-      console.log(products);
-  });
-
-  console.log("got products yeet");
-  console.log(products);
-
-  res.render('basket', {
-      layout : 'index_head',
-      userLoggedIn: req.session.user,
-      products: products,
-      total: total
+  //  var total = 0;
+    // iterate through qty and products to get prices
+  /*  for(var i = 0; i < basket.length; i++){
+      var product = basket[i].productId;
+      basketDB.getProductPrice(product, (err, rows) =>{
+        if(err){
+          console.log("Can't get price");
+        }
+        else{
+          var price = rows.price;
+          console.log("PRICE");
+          console.log(price);
+          var newprice = price.substr(1);
+          console.log("NEW PRICE");
+          console.log(newprice);
+          var intprice = parseInt(newprice);
+          console.log("int price");
+          console.log(intprice);
+          total += intprice;
+          console.log("total here:");
+          console.log(total);
+        }
+      });
+      console.log("TOTAL");
+      console.log(total);
+    } */
+    if(products){
+      res.render('basket', {
+          layout : 'index_head',
+          userLoggedIn: req.session.user,
+          products: products
+      });
+    }
+    console.log("got products");
+    console.log(products);
   });
 });
 
