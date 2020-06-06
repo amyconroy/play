@@ -4,12 +4,17 @@ var basketDB = require('./basket_db.js');
 
 router.get('/', function(req, res) {
   var newOrder = {
-    userId: req.session.user,
+    userId: req.session.user['userid'],
     orderPrice: 19.99,
     orderDate: Date.now()
   }
-  createOrder(newOrder, function(orderId) => {
+  console.log("USER ID");
+  console.log(req.session.user['userid']);
+  console.log(req.session.user);
+  createOrder(newOrder, function(orderId){
     if(orderId){
+      console.log("GOT ORDER ID");
+      console.log(orderId);
       var basket = req.session.userBasket;
         for(let i = 0; i < basket.length; i++){
       // for each productId, add OrderDetails
@@ -27,7 +32,7 @@ router.get('/', function(req, res) {
     basketDB.getReceipt(orderId, (err, rows) => {
       var products = [];
       var receiptdetails = [];
-      if(rows.length > 0){
+      if(rows){
         // remains the same
         var receipt = {
           orderid: rows.orderid,
@@ -65,7 +70,9 @@ var createOrder = function createOrder(newOrder, callback){
       console.log(err);
     }
     else{
-      var orderId = rows.id;
+      var orderId = rows.orderId;
+      console.log("ORDER ID");
+      console.log(orderId);
       callback(orderId);
     }
   });

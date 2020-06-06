@@ -34,9 +34,10 @@ exports.createNewOrder = function(newOrder){
   query += " (orderUserId, orderDate, orderPrice) VALUES (?, ?, ?);";
     // use each as all returns everything from db, each runs query first
   db.serialize(() => {
-    db.run(query, newOrder['userId'], newOrder['orderPrice'], newOrder['orderDate'], (err, rows)=>{
-      if(error){
-        console.log(error);
+    db.run(query, [newOrder['userId'], newOrder['orderPrice'], newOrder['orderDate']], (err, rows)=>{
+      if(err){
+        console.log("can't create new order");
+        console.log(err);
       }
       else{
         console.log("New order created.");
@@ -47,10 +48,10 @@ exports.createNewOrder = function(newOrder){
 
 /// GET USER ORDER ID ///
 // get most recent categoryId to insert into product
-exports.getOrderId = function(err, rows){
-  var query = "Select id FROM UserOrder ORDER BY id DESC LIMIT 1"
+exports.getOrderId = function(callback){
+  var query = "Select orderId FROM UserOrder ORDER BY orderId DESC LIMIT 1;"
   db.serialize(() => {
-    db.each(query, function(error){
+    db.each(query, (err, rows) =>{
       if(rows){
         callback(null, rows);
       } else{
@@ -110,7 +111,7 @@ exports.getReceipt = function(orderId, callback){
       if(rows){
         callback(null, rows);
       } else{
-        callback(error, null); // unable to find the user order
+        callback(err, null); // unable to find the user order
       }
     });
   });
