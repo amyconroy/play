@@ -34,7 +34,7 @@ exports.createNewOrder = function(newOrder){
   query += " (orderUserId, orderDate, orderPrice) VALUES (?, ?, ?);";
     // use each as all returns everything from db, each runs query first
   db.serialize(() => {
-    db.run(query, [newOrder['userId'], newOrder['orderPrice'], newOrder['orderDate']], (err, rows)=>{
+    db.run(query, [newOrder['userId'], newOrder['orderDate'], newOrder['orderPrice']], (err, rows)=>{
       if(err){
         console.log("can't create new order");
         console.log(err);
@@ -98,19 +98,22 @@ exports.getProductDetails = function(productId, callback){
 // that gets all the products
 // receipt Params : orderId
 exports.getReceipt = function(orderId, callback){
-  var query = "SELECT Product.name AS name, Product.price AS price";
+  var query = "SELECT Product.name AS name, Product.price AS price,";
   query += "Product.image AS image, UserOrder.orderId AS orderid,";
-  query += "UserOrder.orderDate AS date, UserOrder.orderPrice AS totalPrice";
-  query += "FROM OrderDetails";
-  query += "INNER JOIN UserOrder ON UserOrder.orderId = OrderDetails.orderId";
-  query += "INNER JOIN Product ON Product.productId = OrderDetails.productId";
+  query += "UserOrder.orderDate AS date, UserOrder.orderPrice AS totalPrice ";
+  query += "FROM OrderDetails ";
+  query += "INNER JOIN UserOrder ON UserOrder.orderId = OrderDetails.orderId ";
+  query += "INNER JOIN Product ON Product.productId = OrderDetails.productId ";
   query += "WHERE UserOrder.orderId = ?;";
     // use each as all returns everything from db, each runs query first
   db.serialize(() => {
     db.each(query, orderId, (err, rows)=>{
       if(rows){
+        console.log("rows for receipt");
         callback(null, rows);
       } else{
+        console.log("err for receipt");
+        console.log(err);
         callback(err, null); // unable to find the user order
       }
     });

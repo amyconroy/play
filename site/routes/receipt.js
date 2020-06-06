@@ -29,6 +29,8 @@ router.get('/', function(req, res) {
     else{
       console.log("ERROR cant get orderId");
     }
+    console.log("prior to getting query");
+    console.log(orderId);
     basketDB.getReceipt(orderId, (err, rows) => {
       var products = [];
       var receiptdetails = [];
@@ -46,7 +48,7 @@ router.get('/', function(req, res) {
         products.push(product);
       }
       else{
-        console.log("ERROR can't get receipt");
+        console.log("ERROR: can't get receipt");
       }
       // ONLY WANT TO DO THIS ONCE !!!
       receiptdetails.push(receipt);
@@ -61,6 +63,10 @@ router.get('/', function(req, res) {
     });
   });
 });
+
+var getReceipt = function getReceipt(orderId, callback){
+
+}
 
 var createOrder = function createOrder(newOrder, callback){
   basketDB.createNewOrder(newOrder); // create new orderId
