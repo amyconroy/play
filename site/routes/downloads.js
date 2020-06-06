@@ -123,7 +123,8 @@ router.get('/all', function(req, res){
 
       res.render('downloads', {
         layout: 'download_head',
-        downloads: allDownloads
+        downloads: allDownloads,
+        url: "/all"
       });
   });
   console.log("leaving ALL DOWNLOADS");
@@ -139,7 +140,8 @@ var getAllDownloads = function getAllDownloads(callback){
           productDescription: rows.description,
           productPrice: rows.price,
           productImage: rows.image,
-          productId: rows.productId
+          productId: rows.productId,
+          url:"/all"
         };
         console.log(product);
         downloadsArray.push(product);
@@ -257,11 +259,14 @@ var getPriceHighByCategory = function getPriceHighByCategory(categoryid, callbac
   callback(downloadsArray);
 }
 
-router.get('/add_product/:productid', function(req, res) {
+router.get('*/add_product/:productid', function(req, res) {
   console.log(req.url);
+  //console.log(fromHere);
 
   console.log("adding product to basket");
-  res.redirect("/")
+  req.session.userBasket.push({productId:"1", qnt:54});
+  console.log(req.session.userBasket);
+  res.redirect("/downloads");
 
 });
 

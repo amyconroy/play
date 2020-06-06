@@ -90,10 +90,10 @@ router.post('/register', function(req, res){
                 email: email,
                 name: username,
                 userId: rows[0].userId,
-                userBasket: basket
               }
 
               req.session.loggedIn = true;
+              req.session.userBasket = basket;
 
               console.log(req.session.user);
               console.log(req.sessionID);
@@ -164,9 +164,10 @@ router.post('/auth', function(req, res){
                 email: rows[0].userEmail,
                 name: username,
                 userid: rows[0].userId,
-                userBasket: basket
+
               }
               req.session.loggedIn = true;
+              req.session.userBasket = basket;
 
               console.log(req.session.user);
               console.log(req.sessionID);
