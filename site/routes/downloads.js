@@ -193,14 +193,14 @@ var getDownloadsByCategory = function getDownloadsByCategory(categoryid, callbac
 }
 
 /// VIEW CATEGORY BY DOWNLOADS low to high
-router.get('/:categoryid/lowtohigh', function(req, res){
+router.get('/lowtohigh/:categoryid', function(req, res){
   console.log(req.session.user);
   console.log(req.sessionID);
   //downloads by category
   var lowPriceProducts = [];
   var categoryId = req.params.categoryid;
 
-  getPriceLowByCategory(req.params.categoryid, function(categoryProducts) {
+  getPriceLowByCategory(req.params.categoryid, function(lowPriceProducts) {
       res.render('downloads', {
         layout: 'download_head',
         downloads: lowPriceProducts,
@@ -220,7 +220,7 @@ var getPriceLowByCategory = function getPriceLowByCategory(categoryid, callback)
           productPrice: rows.price,
           productImage: "images/download_text.png", //CHANGE THIS BACK!
           productId: rows.productId,
-          url:"/"+categoryid+"/lowtohigh"
+          url:"/lowtohigh/"+categoryid
         };
         console.log(product);
         downloadsArray.push(product);
@@ -230,14 +230,14 @@ var getPriceLowByCategory = function getPriceLowByCategory(categoryid, callback)
 }
 
 /// VIEW CATEGORY BY DOWNLOADS low to high
-router.get('/:categoryid/hightolow', function(req, res){
+router.get('/hightolow/:categoryid', function(req, res){
   console.log(req.session.user);
   console.log(req.sessionID);
   //downloads by category
   var highPriceProducts = [];
   var categoryId = req.params.categoryid;
 
-  getPriceHighByCategory(req.params.categoryid, function(categoryProducts) {
+  getPriceHighByCategory(req.params.categoryid, function(highPriceProducts) {
       res.render('downloads', {
         layout: 'download_head',
         downloads: highPriceProducts,
@@ -259,7 +259,7 @@ var getPriceHighByCategory = function getPriceHighByCategory(categoryid, callbac
           productPrice: rows.price,
           productImage: "images/download_text.png", //CHANGE THIS BACK!
           productId: rows.productId,
-          url:"/"+categoryid+"/hightolow"
+          url:"/hightolow/"+categoryid
         };
         downloadsArray.push(product);
       }
@@ -267,7 +267,7 @@ var getPriceHighByCategory = function getPriceHighByCategory(categoryid, callbac
   callback(downloadsArray);
 }
 
-router.get('/:base/add_product/:productid', function(req, res) {
+router.get('*/:base/add_product/:productid', function(req, res) {
 
   var baseurl = req.params.base;
   var productId = req.params.productid;
