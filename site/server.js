@@ -128,6 +128,7 @@ app.use(express.static(path.join(__dirname, '/public')));
 app.use('/login', express.static(__dirname + '/public')); //for error message rendering
 app.use('/comments', express.static(__dirname + '/public'));
 app.use('/downloads', express.static(__dirname + '/public'));
+app.use('/products',express.static(__dirname + '/public'));
 app.use('/downloads/lowtohigh', express.static(__dirname + '/public'));
 app.use('/downloads/hightolow', express.static(__dirname + '/public'));
 ///////////////////////////////
