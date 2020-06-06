@@ -34,9 +34,10 @@ exports.createNewOrder = function(newOrder){
   query += " (orderUserId, orderDate, orderPrice) VALUES (?, ?, ?);";
     // use each as all returns everything from db, each runs query first
   db.serialize(() => {
-    db.run(query, newOrder['userId'], newOrder['orderPrice'], newOrder['orderDate'], (err, rows)=>{
-      if(error){
-        console.log(error);
+    db.run(query, [newOrder['userId'], newOrder['orderDate'], newOrder['orderPrice']], (err, rows)=>{
+      if(err){
+        console.log("can't create new order");
+        console.log(err);
       }
       else{
         console.log("New order created.");
@@ -47,10 +48,10 @@ exports.createNewOrder = function(newOrder){
 
 /// GET USER ORDER ID ///
 // get most recent categoryId to insert into product
-exports.getOrderId = function(err, rows){
-  var query = "Select id FROM UserOrder ORDER BY id DESC LIMIT 1"
+exports.getOrderId = function(callback){
+  var query = "Select orderId FROM UserOrder ORDER BY orderId DESC LIMIT 1;"
   db.serialize(() => {
-    db.each(query, function(error){
+    db.each(query, (err, rows) =>{
       if(rows){
         callback(null, rows);
       } else{
@@ -68,8 +69,8 @@ exports.addOrderDetails = function(orderDetails){
     // use each as all returns everything from db, each runs query first
   db.serialize(() => {
     db.run(query, orderDetails['orderId'], orderDetails['productId'], (err, rows)=>{
-      if(error){
-        console.log(error);
+      if(err){
+        console.log(err);
       }
       else{
         console.log("New order details added.");
@@ -87,7 +88,7 @@ exports.getProductDetails = function(productId, callback){
     if(rows){
       callback(null, rows);
     } else{
-      callback(error, null); // unable to get products
+      callback(err, null); // unable to get products
     }
   });
 }
@@ -97,20 +98,23 @@ exports.getProductDetails = function(productId, callback){
 // that gets all the products
 // receipt Params : orderId
 exports.getReceipt = function(orderId, callback){
-  var query = "SELECT Product.name AS name, Product.price AS price";
+  var query = "SELECT Product.name AS name, Product.price AS price,";
   query += "Product.image AS image, UserOrder.orderId AS orderid,";
-  query += "UserOrder.orderDate AS date, UserOrder.orderPrice AS totalPrice";
-  query += "FROM OrderDetails";
-  query += "INNER JOIN UserOrder ON UserOrder.orderId = OrderDetails.orderId";
-  query += "INNER JOIN Product ON Product.productId = OrderDetails.productId";
+  query += "UserOrder.orderDate AS date, UserOrder.orderPrice AS totalPrice ";
+  query += "FROM OrderDetails ";
+  query += "INNER JOIN UserOrder ON UserOrder.orderId = OrderDetails.orderId ";
+  query += "INNER JOIN Product ON Product.productId = OrderDetails.productId ";
   query += "WHERE UserOrder.orderId = ?;";
     // use each as all returns everything from db, each runs query first
   db.serialize(() => {
     db.each(query, orderId, (err, rows)=>{
       if(rows){
+        console.log("rows for receipt");
         callback(null, rows);
       } else{
-        callback(error, null); // unable to find the user order
+        console.log("err for receipt");
+        console.log(err);
+        callback(err, null); // unable to find the user order
       }
     });
   });

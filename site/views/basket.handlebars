@@ -10,6 +10,8 @@
   <h4 class="title-content">Basket</h4>
 </div>
 
+<a href="/basket/clearbasket"><button type="submit" class="form-submit">Empty Basket</button></a>
+
 {{#each products}}
   <div class="downloads-box">
       <p class="downloads-name title-content">  {{ this.name }}</p></br>
@@ -21,5 +23,9 @@
       <a href="/basket/remove_product/{{ this.id }}"><button type="submit" class="form-submit">Remove from Basket</button></a>
   </div>
 {{/each}}
+
+{{#if products}}
+<a href="/payment"><button type="submit" class="form-submit">Checkout</button></a>
+{{/if}}
 
 {{> footer }}
