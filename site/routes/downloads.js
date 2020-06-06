@@ -289,9 +289,13 @@ router.get('*/:base/remove_product/:productid', function(req, res) {
 
   console.log("WE CAME FROM HERE: "+baseurl);
 
-  req.session.userBasket.push({
-    productId: productId
-  });
+  var products = req.session.userBasket;
+  var index = products.indexOf(productId);
+  if(index !== -1) products.splice(index, 1);
+  req.session.userBasket = products;
+
+  console.log(productId);
+  console.log("REMOVED THE ITEM: ");
 
   console.log(req.session.userBasket);
   res.redirect("/downloads/"+baseurl);
