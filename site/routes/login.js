@@ -70,20 +70,20 @@ router.post('/register', function(req, res){
 
           var salt = bcrypt.genSaltSync(10); //make salt for password hash
           var hashedPassword = bcrypt.hashSync(password, salt); //make hashed password
-          var basket = [];
+
 
           var newUser = {
             email: email,
             username: username,
             password: hashedPassword,
             userSession: req.sessionID, //recording their unique sessionID
-            userBasket: basket
           }
           req.session.loggedIn = true;
 
           loginDB.newUser(newUser); //try to add new user to DB
 
           var userAuth = loginDB.getUserByUserName(username, (error, rows) => { //we need id and to add it to cookie session
+            var basket = [];
 
             if (rows.length > 0) {
               req.session.user = { //initialise a session for our user

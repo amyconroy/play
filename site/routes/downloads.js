@@ -257,5 +257,12 @@ var getPriceHighByCategory = function getPriceHighByCategory(categoryid, callbac
   callback(downloadsArray);
 }
 
+router.get('/add_product/:productid', function(req, res) {
+  console.log(req.url);
+
+  console.log("adding product to basket");
+  res.redirect("/")
+
+});
 
 module.exports = router;

@@ -32,6 +32,7 @@ router.get('/', function(req, res) {
 });
 
 
+
 var getProducts = function getProducts(orderDetails, callback){
   var orderProductArray = [];
 
@@ -101,7 +102,7 @@ router.get('/order', function(req, res){
     else{
       console.log("ERROR cant get orderId");
     }
-  }); 
+  });
   basketDB.getReceipt(orderId, (err, rows) => {
     if(rows.length > 0){
       var receipt = {
