@@ -5,6 +5,16 @@
   background-attachment:fixed;
 }
 
+.box-text-styling {
+  background-color:rgba(0, 0, 0, 0.7);
+  margin:5%;
+  padding:5%;
+}
+
+#community-edition-text {
+  opacity:1;
+}
+
 #product2 {
 
 }
@@ -17,7 +27,7 @@
 }
 
 #product4 {
-
+  
 }
 
 #product5 {
