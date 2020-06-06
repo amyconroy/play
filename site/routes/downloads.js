@@ -53,7 +53,8 @@ router.get('/lowtohigh', function(req, res){
   getLowDownloads(function(priceLowDownloads) {
       res.render('downloads', {
         layout: 'download_head',
-        downloads: priceLowDownloads
+        downloads: priceLowDownloads,
+        url:"/lowtohigh"
       });
   });
 });
@@ -71,7 +72,8 @@ var getLowDownloads = function getLowDownloads(callback){
           productDescription: rows.description,
           productPrice: rows.price,
           productImage: rows.image,
-          productId: rows.productId
+          productId: rows.productId,
+          url:"/lowtohigh"
         };
 
         console.log("prod");
@@ -91,7 +93,8 @@ router.get('/hightolow', function(req, res){
   getHighDownloads(function(priceHighDownloads) {
       res.render('downloads', {
         layout: 'download_head',
-        downloads: priceHighDownloads
+        downloads: priceHighDownloads,
+        url:"/hightolow"
       });
   });
 });
@@ -106,7 +109,8 @@ var getHighDownloads = function getHighDownloads(callback){
           productDescription: rows.description,
           productPrice: rows.price,
           productImage: rows.image,
-          productId: rows.productId
+          productId: rows.productId,
+          url:"/hightolow"
         };
         console.log(product);
         downloadsArray.push(product);
@@ -161,6 +165,7 @@ router.get('/:categoryid', function(req, res){
       res.render('downloads', {
         layout: 'download_head',
         downloads: categoryProducts,
+        url:categoryId
       });
   });
 });
@@ -176,7 +181,8 @@ var getDownloadsByCategory = function getDownloadsByCategory(categoryid, callbac
             productDescription: rows.description,
             productPrice: rows.price,
             productImage: "images/download_text.png", //CHANGE THIS BACK!
-            productId: rows.productId
+            productId: rows.productId,
+            url:"/"+categoryid
           };
         }
         console.log(product);
@@ -213,7 +219,8 @@ var getPriceLowByCategory = function getPriceLowByCategory(categoryid, callback)
           productDescription: rows.description,
           productPrice: rows.price,
           productImage: "images/download_text.png", //CHANGE THIS BACK!
-          productId: rows.productId
+          productId: rows.productId,
+          url:"/"+categoryid+"/lowtohigh"
         };
         console.log(product);
         downloadsArray.push(product);
@@ -251,7 +258,8 @@ var getPriceHighByCategory = function getPriceHighByCategory(categoryid, callbac
           productDescription: rows.description,
           productPrice: rows.price,
           productImage: "images/download_text.png", //CHANGE THIS BACK!
-          productId: rows.productId
+          productId: rows.productId,
+          url:"/"+categoryid+"/hightolow"
         };
         downloadsArray.push(product);
       }
