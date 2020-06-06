@@ -64,10 +64,13 @@ router.get('*/', function(req, res) {
       console.log(products);
   });
 
+  console.log("got products yeet");
+  console.log(products);
+
   res.render('basket', {
       layout : 'index_head',
       userLoggedIn: req.session.user,
-      product: products,
+      products: products,
       total: total
   });
 });

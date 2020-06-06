@@ -11,5 +11,4 @@ function randomNum() {
 function writeQuote() {
   quote=document.getElementsByClassName("quote")[0]; //will change as ian doesnt like this, but for now
   quote.innerHTML = quotes[randomNum()]; //find a way to include into page/innerText maybes?
-
 }
