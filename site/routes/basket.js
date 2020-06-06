@@ -132,11 +132,10 @@ router.get('/clearbasket', function(req, res) {
 
   req.session.userBasket = [];
 
-  console.log(productId);
   console.log("EMPTIED BASKET");
 
   console.log(req.session.userBasket);
-  res.redirect("/downloads/"+baseurl);
+  res.redirect('/basket');
 });
 
 /*
