@@ -165,7 +165,7 @@ router.get('/:categoryid', function(req, res){
       res.render('downloads', {
         layout: 'download_head',
         downloads: categoryProducts,
-        url:categoryId
+        url: categoryId
       });
   });
 });

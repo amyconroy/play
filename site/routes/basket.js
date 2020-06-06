@@ -38,6 +38,7 @@ router.get('*/', function(req, res) {
 
   getProducts(basket, function(products) {
       console.log("got products");
+      console.log(products);
   });
 
   res.render('basket', {
@@ -80,7 +81,7 @@ var getProducts = function getProducts(orderDetails, callback){
 
 // productIds will be a JSON array of product Ids and qty
 var getTotal = function getTotal(orderDetails, callback){
-  var total;
+  var total = 0;
   // iterate through qty and products to get prices
   for(var i = 0; i < orderDetails.length; i++){
     var product = orderDetails[i].productId;
@@ -92,13 +93,21 @@ var getTotal = function getTotal(orderDetails, callback){
         var price = rows.price;
         console.log("PRICE");
         console.log(price);
-        total += price;
+        var newprice = price.substr(1);
+        console.log("NEW PRICE");
+        console.log(newprice);
+        var intprice = parseInt(newprice);
+        console.log("int price");
+        console.log(intprice);
+        total += intprice;
+        console.log("total here:");
+        console.log(total);
       }
     });
+    console.log("TOTAL");
+    console.log(total);
+    callback(total);
   }
-  console.log("TOTAL");
-  console.log(total);
-  callback(total);
 }
 
 /*
