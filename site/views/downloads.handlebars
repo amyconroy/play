@@ -36,7 +36,7 @@
 {{#each category}}
 <div class="category-box">
   <div class="comments-box-inner">
-    <p class="category-name title-content">  {{ this.categoryName }}</p></br>
+    <a href="/downloads{{this.url}}" ><p class="category-name title-content">  {{ this.categoryName }}</p></br></a>
     <p class="category-description">{{ this.categoryDescription }}</p></br>
     <p class="category-description">{{ this.categoryId }}</p></br>
   </div>

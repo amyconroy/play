@@ -32,6 +32,7 @@ var getAllCategories = function getAllCategories(callback){
           category: rows.categoryId,
           categoryName: rows.categoryName,
           categoryDescription: rows.categoryDescription,
+          url: "/"+rows.categoryId
         };
         categoriesArray.push(category);
 
