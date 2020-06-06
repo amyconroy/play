@@ -301,5 +301,19 @@ router.get('*/:base/remove_product/:productid', function(req, res) {
   res.redirect("/downloads/"+baseurl);
 });
 
+router.get('*/:base/clearbasket', function(req, res) {
+  var baseurl = req.params.base;
+
+  console.log("WE CAME FROM HERE: "+baseurl);
+
+  req.session.userBasket = [];
+
+  console.log(productId);
+  console.log("EMPTIED BASKET");
+
+  console.log(req.session.userBasket);
+  res.redirect("/downloads/"+baseurl);
+});
+
 
 module.exports = router;
