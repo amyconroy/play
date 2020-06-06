@@ -11,12 +11,18 @@
 </div>
 
 {{#each receipt}}
-
+<div class="downloads-box">
+    <p class="downloads-name title-content">  {{ this.orderid }}</p></br>
+    <p class="downloads-price">{{ this.orderprice }}</p></br>
+</div>
 {{/each}}
 
 
 {{#each product}}
-
-
+<div class="downloads-box">
+    <p class="downloads-name title-content">  {{ this.name }}</p></br>
+    <p class="downloads-price">{{ this.price }}</p></br>
+    <img class="downloads-image" src = {{ this.image }} alt=" " /></br>
+</div>
 {{/each}}
 {{> footer }}

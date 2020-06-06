@@ -45,11 +45,15 @@ router.get('/', function(req, res) {
           price: rows.price,
           image: rows.image
         }
+        console.log("PRODUCT FOR RECEIPT");
+        console.log(product);
         products.push(product);
       }
       else{
         console.log("ERROR: can't get receipt");
       }
+      console.log("RECEIPT DETAILS");
+      console.log(receipt);
       // ONLY WANT TO DO THIS ONCE !!!
       receiptdetails.push(receipt);
     });

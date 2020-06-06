@@ -70,7 +70,7 @@ exports.addOrderDetails = function(orderDetails){
   db.serialize(() => {
     db.run(query, orderDetails['orderId'], orderDetails['productId'], (err, rows)=>{
       if(err){
-        console.log(error);
+        console.log(err);
       }
       else{
         console.log("New order details added.");
@@ -88,7 +88,7 @@ exports.getProductDetails = function(productId, callback){
     if(rows){
       callback(null, rows);
     } else{
-      callback(error, null); // unable to get products
+      callback(err, null); // unable to get products
     }
   });
 }
