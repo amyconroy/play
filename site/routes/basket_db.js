@@ -16,7 +16,6 @@ let db = new sqlite3.Database('Play.db', sqlite3.OPEN_READWRITE, (err) => {
 exports.getProductPrice = function(productId, callback){
   var query = "SELECT price FROM Product WHERE productId = ?;";
     // use each as all returns everything from db, each runs query first
-    db.serialize(() => {
       db.each(query, productId, (err, rows) =>{
         if(rows){
           callback(null, rows);
@@ -24,7 +23,6 @@ exports.getProductPrice = function(productId, callback){
           callback(error, null); // unable to get product price
         }
     });
-  });
 }
 
 /// CREATE NEW ORDER ///
