@@ -20,7 +20,7 @@ d. basketDb. getReceipt (pass in orderId to get all necessary info) */
 // basket[i].productId
 
 // this will be /basket
-router.get('*/', function(req, res) {
+router.get('/', function(req, res) {
   console.log(req.session.user+" from index");
   console.log(req.sessionID + " from index");
   console.log(req.session.loggedIn);
@@ -120,11 +120,9 @@ router.get('/remove_product/:productid', function(req, res) {
   console.log("REMOVED ITEMS");
   console.log(req.session.userBasket);
 
-  res.render('basket', {
-      layout : 'index_head',
-      userLoggedIn: req.session.user,
-      products: products
-  });
+  req.session.userBasket = products;
+
+  res.redirect('/basket');
 });
 
 router.get('*/:base/clearbasket', function(req, res) {
