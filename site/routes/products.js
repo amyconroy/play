@@ -52,7 +52,7 @@ router.get('/add_product/:productid', function(req, res) {
   if (req.session.user) {
 
     console.log("LOGGED IN");
-    req.session.userBasket.push({
+    req.session.userBasket["products"].push({
       productId: productId,
       qnt:5
     });
