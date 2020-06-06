@@ -32,6 +32,7 @@ var getAllCategories = function getAllCategories(callback){
           category: rows.categoryId,
           categoryName: rows.categoryName,
           categoryDescription: rows.categoryDescription,
+          url: "/"+rows.categoryId
         };
         categoriesArray.push(category);
 
@@ -268,18 +269,30 @@ var getPriceHighByCategory = function getPriceHighByCategory(categoryid, callbac
 }
 
 router.get('*/:base/add_product/:productid', function(req, res) {
+  //CHECK IF USER LOGGED IN
 
-  var baseurl = req.params.base;
-  var productId = req.params.productid;
+  if (req.session.user) {
+    console.log("LOGGED IN");
+    var baseurl = req.params.base;
+    var productId = req.params.productid;
 
-  console.log("WE CAME FROM HERE: "+baseurl);
+    req.session.userBasket.push({
+      productId: productId
+    });
 
-  req.session.userBasket.push({
-    productId: productId
-  });
+    console.log(req.session.userBasket);
+    res.redirect("/downloads/"+baseurl);
 
-  console.log(req.session.userBasket);
-  res.redirect("/downloads/"+baseurl);
+  } else {
+    console.log("NOT LOGGED IN");
+
+    res.render('downloads', {
+      layout: 'download_head',
+      error: true,
+      errormessage: "You must be logged in to purchase products"
+    });
+  }
+
 });
 
 router.get('*/:base/remove_product/:productid', function(req, res) {
