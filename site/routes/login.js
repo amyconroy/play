@@ -89,7 +89,7 @@ router.post('/register', function(req, res){
               req.session.user = { //initialise a session for our user
                 email: email,
                 name: username,
-                userId: rows[0].userId,
+                userid: rows[0].userId,
               }
 
               req.session.loggedIn = true;
