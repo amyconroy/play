@@ -20,7 +20,7 @@ d. basketDb. getReceipt (pass in orderId to get all necessary info) */
 // basket[i].productId
 
 // this will be /basket
-router.get('*/', function(req, res) {
+router.get('/', function(req, res) {
   console.log(req.session.user+" from index");
   console.log(req.sessionID + " from index");
   console.log(req.session.loggedIn);
@@ -98,7 +98,7 @@ var getTotal = function getTotal(orderDetails, callback){
   }
 }
 
-router.get('*/remove_product/:productid', function(req, res) {
+router.get('/remove_product/:productid', function(req, res) {
   console.log("HELP");
   var baseurl = req.params.base;
   var productId = req.params.productid;
