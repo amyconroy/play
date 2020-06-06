@@ -120,11 +120,9 @@ router.get('/remove_product/:productid', function(req, res) {
   console.log("REMOVED ITEMS");
   console.log(req.session.userBasket);
 
-  res.render('basket', {
-      layout : 'index_head',
-      userLoggedIn: req.session.user,
-      products: products
-  });
+  req.session.userBasket = products;
+
+  res.redirect('/basket');
 });
 
 router.get('*/:base/clearbasket', function(req, res) {
