@@ -194,7 +194,7 @@ router.get('/:categoryid/lowtohigh', function(req, res){
   var lowPriceProducts = [];
   var categoryId = req.params.categoryid;
 
-  getPriceLowByCategory(req.params.categoryid, function(lowPriceProducts) {
+  getPriceLowByCategory(req.params.categoryid, function(categoryProducts) {
       res.render('downloads', {
         layout: 'download_head',
         downloads: lowPriceProducts,
@@ -230,7 +230,7 @@ router.get('/:categoryid/hightolow', function(req, res){
   var highPriceProducts = [];
   var categoryId = req.params.categoryid;
 
-  getPriceHighByCategory(req.params.categoryid, function(highPriceProducts) {
+  getPriceHighByCategory(req.params.categoryid, function(categoryProducts) {
       res.render('downloads', {
         layout: 'download_head',
         downloads: highPriceProducts,
