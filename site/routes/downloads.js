@@ -260,21 +260,17 @@ var getPriceHighByCategory = function getPriceHighByCategory(categoryid, callbac
 }
 
 router.get('/:base/add_product/:productid', function(req, res) {
-  /*console.log("url "+req.url);
-  console.log("original " +req.originalUrl);
-  console.log("base "+req.baseUrl);
-  console.log("path "+req.path);*/
 
   var baseurl = req.params.base;
-  console.log("WE CAME FROM HERE: "+baseurl);
+  var productId = req.params.productid;
 
-  req.session.userBasket.push({productId:});
+  console.log("WE CAME FROM HERE: "+baseurl);
+  
+  req.session.userBasket.push({
+    productId:productid
+  });
 
   console.log(req.session.userBasket);
-
-  console.log("GOING TO: /downloads/"+baseurl);
-
-  //res.redirect("/downloads");
   res.redirect("/downloads/"+baseurl);
 
 });
