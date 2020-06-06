@@ -259,14 +259,23 @@ var getPriceHighByCategory = function getPriceHighByCategory(categoryid, callbac
   callback(downloadsArray);
 }
 
-router.get('*/add_product/:productid', function(req, res) {
-  console.log(req.url);
-  //console.log(fromHere);
+router.get('/:base/add_product/:productid', function(req, res) {
+  /*console.log("url "+req.url);
+  console.log("original " +req.originalUrl);
+  console.log("base "+req.baseUrl);
+  console.log("path "+req.path);*/
 
-  console.log("adding product to basket");
-  req.session.userBasket.push({productId:"1", qnt:54});
+  var baseurl = req.params.base;
+  console.log("WE CAME FROM HERE: "+baseurl);
+
+  req.session.userBasket.push({productId:});
+
   console.log(req.session.userBasket);
-  res.redirect("/downloads");
+
+  console.log("GOING TO: /downloads/"+baseurl);
+
+  //res.redirect("/downloads");
+  res.redirect("/downloads/"+baseurl);
 
 });
 
