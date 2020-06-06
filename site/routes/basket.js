@@ -56,7 +56,8 @@ var getProducts = function getProducts(orderDetails, callback){
           description: rows.description,
           name: rows.name,
           price: rows.price,
-          image: rows.image
+          image: rows.image,
+          id: rows.productId
         }
         orderProductArray.push(product);
       }
@@ -96,6 +97,49 @@ var getTotal = function getTotal(orderDetails, callback){
     console.log(total);
   }
 }
+
+router.get('*/remove_product/:productid', function(req, res) {
+  console.log("HELP");
+  var baseurl = req.params.base;
+  var productId = req.params.productid;
+
+  console.log("WE CAME FROM HERE: "+baseurl);
+
+  var products = req.session.userBasket;
+
+  console.log("BEFORE REMOVING");
+  console.log(req.session.userBasket);
+  console.log(products.length);
+
+  for(let i = 0; i < products.length; i++){
+    var item = products[i].productId;
+    if(item === productId){
+      products.splice(i, 1);
+    }
+  }
+  console.log("REMOVED ITEMS");
+  console.log(req.session.userBasket);
+
+  res.render('basket', {
+      layout : 'index_head',
+      userLoggedIn: req.session.user,
+      products: products
+  });
+});
+
+router.get('*/:base/clearbasket', function(req, res) {
+  var baseurl = req.params.base;
+
+  console.log("WE CAME FROM HERE: "+baseurl);
+
+  req.session.userBasket = [];
+
+  console.log(productId);
+  console.log("EMPTIED BASKET");
+
+  console.log(req.session.userBasket);
+  res.redirect("/downloads/"+baseurl);
+});
 
 /*
 a. basketDb.createNewOrder (pass in userId, orderPrice, orderDate)
