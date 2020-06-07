@@ -128,6 +128,16 @@ a:hover {
 	text-shadow: 0 0 5px purple, 0 0 10px purple, 0 0 15px purple, 0 0 40px #ff00aa, 0 0 70px #ff00aa;
 }
 
+.greeting {
+	color:#e854ff;
+	font-size: 20px;
+	display:inline;
+	padding:25px;
+	margin:-2px;
+	margin-left:-7px;
+	text-shadow: 0 0 5px purple, 0 0 10px purple, 0 0 15px purple, 0 0 40px #ff00aa, 0 0 70px #ff00aa;
+}
+
 .menu_item_selected {
 	background-color:#ff2bf1;
 	color:black;
@@ -292,7 +302,7 @@ a:hover {
   position: relative;
   display: inline-block;
   padding:25px;
-	float: right; 
+	float: right;
 }
 
 .form:hover {
