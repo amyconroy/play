@@ -19,7 +19,8 @@
 {{#if products}}
 <a href="/basket/clearbasket"><button type="submit" class="form-submit">Empty Basket</button></a>
 {{else}}
-<a href="/downloads"><button type="submit" class="form-submit">Basket is Empty: Back to Downloads</button></a>
+<p class="downloads-description">Your Basket is Empty!</p>
+<a href="/downloads"><button type="submit" class="form-submit">Go to Downloads</button></a>
 {{/if}}
 
 {{#each products}}
