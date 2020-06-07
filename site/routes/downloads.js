@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var downloadsDB = require('./downloads_db.js');
+var basketDB = require('./basket_db.js');
 
 
 /// PAGE LOADS UP WITH ALL CATEGORIES - view all categories
@@ -276,8 +277,18 @@ router.get('*/:base/add_product/:productid', function(req, res) {
     var baseurl = req.params.base;
     var productId = req.params.productid;
 
-    req.session.userBasket.push({
-      productId: productId
+    var product = productId;
+    basketDB.getProductPrice(product, (err, rows) =>{
+      if (err) {
+        console.log("cant get price");
+      } else {
+        console.log("can get price");
+        console.log(rows.productPrice);
+      }
+    });
+
+    req.session.userBasket["products"].push({
+      productid: productId,
     });
 
     console.log(req.session.userBasket);
