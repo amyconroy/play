@@ -6,6 +6,10 @@
 
 {{> navbar user=userLoggedIn.name }}
 
+{{#if error }}
+  <h1 class = "error-message">{{this.errormessage}}</h1>
+{{/if}}
+
 <div class="context-box">
   <h4 class="title-content">Basket</h4>
 </div>

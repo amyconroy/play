@@ -8,20 +8,32 @@ router.get('/', function(req, res) {
   console.log(req.sessionID + " from basket");
   console.log(req.session.loggedIn);
 
-  var basket = req.session.userBasket["products"];
-  var total_price = req.session.userBasket["total_price"];
-  var products = [];
+  if (req.session.user) {
 
-  getProducts(basket, function(products) {
-    if(products){
-      res.render('basket', {
-          layout : 'index_head',
-          userLoggedIn: req.session.user,
-          products: products,
-          price: total_price
-      });
-    }
-  });
+    var basket = req.session.userBasket["products"];
+    var total_price = req.session.userBasket["total_price"];
+    var products = [];
+
+    getProducts(basket, function(products) {
+      if(products){
+        res.render('basket', {
+            layout : 'index_head',
+            userLoggedIn: req.session.user,
+            products: products,
+            price: total_price
+        });
+      }
+    });
+
+  } else {
+
+    res.render('basket', {
+      layout : 'index_head',
+      error: true,
+      errormessage: "You must be logged in to view basket"
+    });
+
+  }
 });
 
 var getProducts = function getProducts(orderDetails, callback){
