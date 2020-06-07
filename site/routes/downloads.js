@@ -271,8 +271,8 @@ var getPriceHighByCategory = function getPriceHighByCategory(categoryid, callbac
 
 router.get('*/:base/add_product/:productid', function(req, res) {
   //CHECK IF USER LOGGED IN
-
   if (req.session.user) {
+
     console.log("LOGGED IN");
     var baseurl = req.params.base;
     var productId = req.params.productid;
@@ -283,16 +283,23 @@ router.get('*/:base/add_product/:productid', function(req, res) {
         console.log("cant get price");
       } else {
         console.log("can get price");
-        console.log(rows.productPrice);
+
+        //PARSING THE INT
+        var price = rows.price;
+        var newprice = price.substr(1);
+        var intprice = parseInt(newprice);
+
+        req.session.userBasket["products"].push({
+          productid: productId,
+        });
+
+        req.session.userBasket["total_price"] += intprice;
+
+        console.log(req.session.userBasket);
+        res.redirect("/downloads/"+baseurl);
+
       }
     });
-
-    req.session.userBasket["products"].push({
-      productid: productId,
-    });
-
-    console.log(req.session.userBasket);
-    res.redirect("/downloads/"+baseurl);
 
   } else {
     console.log("NOT LOGGED IN");
