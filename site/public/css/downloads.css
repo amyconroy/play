@@ -219,7 +219,7 @@
 }
 
 .animate {
-  border-right: solid 3px rgba(0,255,0,.75);
+  border-right: solid 3px pink;
   white-space: nowrap;
   overflow: hidden;
   font-size: 100px;
