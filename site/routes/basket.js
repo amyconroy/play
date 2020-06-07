@@ -17,7 +17,7 @@ router.get('/', function(req, res) {
     getProducts(basket, function(products) {
       if(products){
         res.render('basket', {
-            layout : 'index_head',
+            layout : 'download_head',
             userLoggedIn: req.session.user,
             products: products,
             price: total_price
@@ -28,7 +28,7 @@ router.get('/', function(req, res) {
   } else {
 
     res.render('basket', {
-      layout : 'index_head',
+      layout : 'download_head',
       error: true,
       errormessage: "You must be logged in to view basket"
     });
@@ -64,36 +64,6 @@ var getProducts = function getProducts(orderDetails, callback){
   }
   callback(orderProductArray);
 }
-
-// productIds will be a JSON array of product Ids and qty
-/*var getTotal = function getTotal(orderDetails, callback){
-  var total = 0;
-  // iterate through qty and products to get prices
-  for(var i = 0; i < orderDetails.length; i++){
-    var product = orderDetails[i].productId;
-    basketDB.getProductPrice(product, (err, rows) =>{
-      if(err){
-        console.log("Can't get price");
-      }
-      else{
-        var price = rows.price;
-        console.log("PRICE");
-        console.log(price);
-        var newprice = price.substr(1);
-        console.log("NEW PRICE");
-        console.log(newprice);
-        var intprice = parseInt(newprice);
-        console.log("int price");
-        console.log(intprice);
-        total += intprice;
-        console.log("total here:");
-        console.log(total);
-      }
-    });
-    console.log("TOTAL");
-    console.log(total);
-  }
-}*/
 
 router.get('/remove_product/:productid', function(req, res) {
   console.log("HELP");
