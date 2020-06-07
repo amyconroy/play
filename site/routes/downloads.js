@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var downloadsDB = require('./downloads_db.js');
+var basketDB = require('./basket_db.js');
 
 
 /// PAGE LOADS UP WITH ALL CATEGORIES - view all categories
@@ -270,18 +271,35 @@ var getPriceHighByCategory = function getPriceHighByCategory(categoryid, callbac
 
 router.get('*/:base/add_product/:productid', function(req, res) {
   //CHECK IF USER LOGGED IN
-
   if (req.session.user) {
+
     console.log("LOGGED IN");
     var baseurl = req.params.base;
     var productId = req.params.productid;
 
-    req.session.userBasket.push({
-      productId: productId
-    });
+    var product = productId;
+    basketDB.getProductPrice(product, (err, rows) =>{
+      if (err) {
+        console.log("cant get price");
+      } else {
+        console.log("can get price");
 
-    console.log(req.session.userBasket);
-    res.redirect("/downloads/"+baseurl);
+        //PARSING THE INT
+        var price = rows.price;
+        var newprice = price.substr(1);
+        var intprice = parseInt(newprice);
+
+        req.session.userBasket["products"].push({
+          productid: productId,
+        });
+
+        req.session.userBasket["total_price"] += intprice;
+
+        console.log(req.session.userBasket);
+        res.redirect("/downloads/"+baseurl);
+
+      }
+    });
 
   } else {
     console.log("NOT LOGGED IN");

@@ -8,7 +8,7 @@ router.get('/', function(req, res) {
   console.log(req.sessionID + " from index");
   console.log(req.session.loggedIn);
 
-  var basket = req.session.userBasket;
+  var basket = req.session.userBasket["products"];
   var products = [];
 
   getProducts(basket, function(products) {
