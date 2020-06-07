@@ -102,6 +102,8 @@ app.use(flash());*/
 ///////////////
 /// ROUTING ///
 //////////////
+
+//change here
 var indexRoute = require('./routes/index.js');
 var demoRoute = require('./routes/demo.js');
 var loginRoute = require('./routes/login.js');
