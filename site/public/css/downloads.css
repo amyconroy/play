@@ -37,6 +37,8 @@
 }
 
 .downloads-box {
+  display: flex;
+  flex-wrap: wrap;
   border: solid 5px #ff2bf1;
   border-radius: 5px;
   width:50%;
@@ -54,6 +56,31 @@
   font-size: 2rem;
   margin-left: auto;
   margin-right: auto;
+}
+
+.downloads-submit {
+  border: solid 5px #ff2bf1;
+  border-radius: 5px;
+  color: #e854ff;
+  padding:25px;
+  font-size: 20px;
+  cursor: pointer;
+  background: black;
+  text-shadow: 0 0 5px purple, 0 0 10px purple,
+  0 0 15px purple, 0 0 40px #ff00aa, 0 0 70px #ff00aa;
+  position: relative;
+  display: inline-block;
+  padding: 5px 10px;
+}
+
+.downloads-submit:hover {
+  background-color: black;
+  box-shadow: inset 0 0 2rem blue,
+  inset 0 0 0.5rem blue,
+  0 0 2rem blue;
+  transition: box-shadow 0.7s;
+  position: relative;
+  display: inline-block;
 }
 
 .downloads-container {
@@ -189,4 +216,28 @@
   transition: box-shadow 0.7s;
   position: relative;
   display: inline-block;
+}
+
+.animate {
+  border-right: solid 3px rgba(0,255,0,.75);
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 100px;
+  color: rgba(255,255,255,.70);
+  animation: animated-text 4s steps(29,end) 1s 1 normal both,
+             animated-cursor 600ms steps(29,end) infinite;
+}
+
+/* text animation */
+
+@keyframes animated-text{
+  from{width: 0;}
+  to{width: 472px;}
+}
+
+/* cursor animations */
+
+@keyframes animated-cursor{
+  from{border-right-color: rgba(0,255,0,.75);}
+  to{border-right-color: transparent;}
 }
