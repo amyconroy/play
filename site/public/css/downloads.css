@@ -89,15 +89,17 @@
 }
 
 .downloads-description {
-
+  text-align: center;
 }
 
 .downloads-category {
-
+  text-align: center;
 }
 
 .downloads-image {
-
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .downloads-box:hover {

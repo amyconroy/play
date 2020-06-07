@@ -33,38 +33,52 @@ router.get('/', function(req, res) {
     }
     console.log("prior to getting query");
     console.log(orderId);
-    basketDB.getReceipt(orderId, (err, rows) => {
-      if(rows){
-        // remains the same
-        var receipt = {
-          orderid: rows.orderid,
-          orderprice: rows.totalPrice
-        }
-        var product = {
-          name: rows.name,
-          price: rows.price,
-          image: rows.image
-        }
-        console.log("PRODUCT FOR RECEIPT");
-        console.log(product);
-        products.push(product);
+    var receiptDetails = [];
+    generateReceipt(orderId, function(receiptDetails){
+      if(receiptDetails){
+        res.render('receipt', {
+            layout : 'index_head',
+            receipt: receiptdetails,
+            userLoggedIn: req.session.user
+        });
       }
       else{
-        console.log("ERROR: can't get receipt");
+        console.log("can't get receipt details.");
       }
-      console.log("RECEIPT DETAILS");
-      console.log(receipt);
-      // ONLY WANT TO DO THIS ONCE !!!
-      receiptdetails.push(receipt);
     });
   });
-  res.render('receipt', {
-      layout : 'index_head',
-      receipt: receiptdetails,
-      product: products,
-      userLoggedIn: req.session.user
-  });
 });
+
+
+var generateReceipt = function generateReceipt(orderId, callback){
+  console.log("entering!!");
+  basketDB.getReceipt(orderId, (err, rows) => {
+    console.log("huh");
+    console.log(rows);
+    if(rows){
+      // remains the same
+      var receiptdetails = {
+        orderid: rows.orderid,
+        orderprice: rows.totalPrice,
+        name: rows.name,
+        price: rows.price,
+        image: rows.image
+      }
+      console.log("PRODUCT FOR RECEIPT");
+      console.log(product);
+      products.push(product);
+    }
+    else{
+      console.log("ERROR: can't get receipt");
+    }
+    console.log("RECEIPT DETAILS");
+    console.log(receipt);
+    // ONLY WANT TO DO THIS ONCE !!!
+    callback(receiptdetails);
+  });
+}
+
+
 
 var createOrder = function createOrder(newOrder, callback){
   basketDB.createNewOrder(newOrder); // create new orderId
