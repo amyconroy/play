@@ -12,11 +12,17 @@
 					<img src="images/icons/shoppingcart.svg" alt="shopping icon" class="icons"><a href="/products">PRODUCTS</a>
 				</li>
 				<li class="menu_item" id="downloads-menu"><a href="/downloads">DOWNLOADS</a></li>
+				{{#if userLoggedIn }}
+				<li class="menu_item" id="login-menu"><a href="/login">SIGN-OUT</a></li>
+				{{else}}
 				<li class="menu_item" id="login-menu"><a href="/login">SIGN-IN</a></li>
+				{{/if}}
+				{{#if userLoggedIn }}
+				<li class="menu_item" id="basket"><a href="/basket"> BASKET</a><li>
+				{{/if}}
 			</ul>
-			{{#if userLoggedIn }}
+				{{#if userLoggedIn }}
 				<h4 class="title-content">hello {{ user }}</h4>
-				<a href="/basket"><h4>BASKET HERE</h4></a>
-			{{/if}}
+				{{/if}}
 		</div>
 </div>
