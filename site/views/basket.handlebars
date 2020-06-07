@@ -10,7 +10,9 @@
   <h4 class="title-content">Basket</h4>
 </div>
 
+{{#if products}}
 <a href="/basket/clearbasket"><button type="submit" class="form-submit">Empty Basket</button></a>
+{{/if}}
 
 {{#each products}}
   <div class="downloads-box">
