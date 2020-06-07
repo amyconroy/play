@@ -19,10 +19,14 @@
       <p class="downloads-category">{{ this.category }}</p></br>
       <p class="downloads-price">{{ this.price }}</p></br>
       <p class="downloads-id">{{ this.id}}</p></br>
-      <img class="downloads-image" src = {{ this.image }} alt=" " /></br>
+      <img class="downloads-image" src={{ this.image }} alt="image" /></br>
       <a href="/basket/remove_product/{{ this.id }}"><button type="submit" class="form-submit">Remove from Basket</button></a>
   </div>
 {{/each}}
+
+{{#if products}}
+  <h4 class="title-content">TOTAL PRICE: ${{ price }}</h4>
+{{/if}}
 
 {{#if products}}
 <a href="/payment"><button type="submit" class="form-submit">Checkout</button></a>

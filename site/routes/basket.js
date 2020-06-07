@@ -4,11 +4,12 @@ var basketDB = require('./basket_db.js');
 
 
 router.get('/', function(req, res) {
-  console.log(req.session.user+" from index");
-  console.log(req.sessionID + " from index");
+  console.log(req.session.user+" from basket");
+  console.log(req.sessionID + " from basket");
   console.log(req.session.loggedIn);
 
   var basket = req.session.userBasket["products"];
+  var total_price = req.session.userBasket["total_price"];
   var products = [];
 
   getProducts(basket, function(products) {
@@ -16,7 +17,8 @@ router.get('/', function(req, res) {
       res.render('basket', {
           layout : 'index_head',
           userLoggedIn: req.session.user,
-          products: products
+          products: products,
+          price: total_price
       });
     }
   });
@@ -26,7 +28,7 @@ var getProducts = function getProducts(orderDetails, callback){
   var orderProductArray = [];
 
   for(var i = 0; i < orderDetails.length; i++){
-    var productId = orderDetails[i].productId;
+    var productId = orderDetails[i].productid;
 
     console.log("ORDER DETAILS");
 
@@ -52,7 +54,7 @@ var getProducts = function getProducts(orderDetails, callback){
 }
 
 // productIds will be a JSON array of product Ids and qty
-var getTotal = function getTotal(orderDetails, callback){
+/*var getTotal = function getTotal(orderDetails, callback){
   var total = 0;
   // iterate through qty and products to get prices
   for(var i = 0; i < orderDetails.length; i++){
@@ -79,7 +81,7 @@ var getTotal = function getTotal(orderDetails, callback){
     console.log("TOTAL");
     console.log(total);
   }
-}
+}*/
 
 router.get('/remove_product/:productid', function(req, res) {
   console.log("HELP");
