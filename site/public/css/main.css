@@ -200,6 +200,17 @@ a:hover {
 	margin-left:20px;
 }
 
+.title-content-float {
+	position:relative;
+	margin-top:-75px;
+	font-family: 'Aldrich';
+	color:#e854ff;
+	text-align:center;
+	font-size:5em;
+	text-shadow: 0 0 5px purple, 0 0 10px purple, 0 0 15px purple, 0 0 40px #ff00aa, 0 0 70px #ff00aa;
+	margin-left:20px;
+}
+
 .title-error {
      position:relative;
      margin-top:50px;
@@ -316,15 +327,15 @@ a:hover {
 
 
 .arrow {
-    font: italic bold 200px Georgia, serif;
-    color: white;
+    font: italic bold 150px Georgia, serif;
+    color:#e854ff;
     text-shadow: 0 0 5px purple, 0 0 10px purple,
 	  0 0 15px purple, 0 0 40px #ff00aa, 0 0 70px #ff00aa;
 }
 
 .dash {
-    font: italic bold 200px Georgia, serif;
-    color: white;
+    font: italic bold 150px Georgia, serif;
+    color:#e854ff;
     text-shadow: 0 0 5px purple, 0 0 10px purple,
 	  0 0 15px purple, 0 0 40px #ff00aa, 0 0 70px #ff00aa;
     blink: blink;
