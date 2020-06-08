@@ -485,6 +485,11 @@ a:hover {
   text-align: center;
 }
 
+canvas{
+  align-self:center;
+  cursor:move;
+}
+
 @media only screen and (max-width: 828px) {
 	.navbar {
 
