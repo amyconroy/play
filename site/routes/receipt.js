@@ -9,7 +9,7 @@ router.get('/', function(req, res) {
 
   var newOrder = {
     userId: req.session.user['userid'],
-    orderPrice: req.session.user['total_price'],
+    orderPrice: req.session.userBasket["total_price"],
     orderDate: Date.now()
   }
 
@@ -44,8 +44,6 @@ router.get('/', function(req, res) {
                 price: rows[i].price,
                 image: rows[i].image
               };
-              console.log("TOTAL PRICE");
-              console.log(rows[1].totalPrice);
               console.log("RECEIPT DETAILS");
               console.log(receiptDetails);
               receiptDetails.push(receiptdeet);
