@@ -55,6 +55,7 @@ router.get('/lowtohigh', function(req, res){
   getLowDownloads(function(priceLowDownloads) {
       res.render('downloads', {
         layout: 'download_head',
+        userLoggedIn: req.session.user,
         downloads: priceLowDownloads,
         url:"/lowtohigh"
       });
@@ -95,6 +96,7 @@ router.get('/hightolow', function(req, res){
   getHighDownloads(function(priceHighDownloads) {
       res.render('downloads', {
         layout: 'download_head',
+        userLoggedIn: req.session.user,
         downloads: priceHighDownloads,
         url:"/hightolow"
       });
@@ -130,6 +132,7 @@ router.get('/all', function(req, res){
       res.render('downloads', {
         layout: 'download_head',
         downloads: allDownloads,
+        userLoggedIn: req.session.user,
         url: "/all"
       });
   });
@@ -167,6 +170,7 @@ router.get('/:categoryid', function(req, res){
       res.render('downloads', {
         layout: 'download_head',
         downloads: categoryProducts,
+        userLoggedIn: req.session.user,
         url: categoryId
       });
   });
@@ -206,6 +210,7 @@ router.get('/lowtohigh/:categoryid', function(req, res){
       res.render('downloads', {
         layout: 'download_head',
         downloads: lowPriceProducts,
+        userLoggedIn: req.session.user
       });
   });
 });
@@ -243,6 +248,7 @@ router.get('/hightolow/:categoryid', function(req, res){
       res.render('downloads', {
         layout: 'download_head',
         downloads: highPriceProducts,
+        userLoggedIn: req.session.user
       });
   });
 });
@@ -291,6 +297,7 @@ router.get('*/:base/add_product/:productid', function(req, res) {
 
         req.session.userBasket["products"].push({
           productid: productId,
+          productprice: intprice
         });
 
         req.session.userBasket["total_price"] += intprice;
@@ -306,6 +313,7 @@ router.get('*/:base/add_product/:productid', function(req, res) {
 
     res.render('downloads', {
       layout: 'download_head',
+      userLoggedIn: req.session.user,
       error: true,
       errormessage: "You must be logged in to purchase products"
     });
@@ -319,7 +327,7 @@ router.get('*/:base/remove_product/:productid', function(req, res) {
 
   console.log("WE CAME FROM HERE: "+baseurl);
 
-  var products = req.session.userBasket;
+  var products = req.session.userBasket['products'];
 
   console.log("BEFORE REMOVING");
   console.log(req.session.userBasket);
@@ -330,12 +338,11 @@ router.get('*/:base/remove_product/:productid', function(req, res) {
     var item = products[i].productId;
     if(item === productId){
       products.splice(i, 1);
+      req.session.userBasket['total_price'] -= products.productprice;
     }
   }
-  console.log("REMOVED ITEMS");
-  console.log(req.session.userBasket);
 
-  req.session.userBasket = products;
+  req.session.userBasket['products'] = products; //come back to this
 
   res.redirect("/downloads/"+baseurl);
 });
@@ -345,10 +352,7 @@ router.get('*/:base/clearbasket', function(req, res) {
 
   console.log("WE CAME FROM HERE: "+baseurl);
 
-  req.session.userBasket = [];
-
-  console.log(productId);
-  console.log("EMPTIED BASKET");
+  req.session.userBasket['product'] = [];
 
   console.log(req.session.userBasket);
   res.redirect("/downloads/"+baseurl);

@@ -32,20 +32,22 @@
 
 }
 
-.downloads-box-box{
-  float: left;
+.downloads-box-box{ /*parent container for float-left to work*/
+  padding:2%;
 }
 
 .downloads-box {
-  display: flex;
-  flex-wrap: wrap;
+  position:relative;
+  display: block;
+  margin:20px;
   border: solid 5px #ff2bf1;
   border-radius: 5px;
+  height:550px;
   width:50%;
   float: left;
-  padding:4%;
+  padding:50px;
   max-width: 300px;
-  height:50%;
+  max-height: 600px;
   text-align: center;
   box-shadow: inset 0 0 2rem purple,
       inset 0 0 1rem purple,
@@ -63,25 +65,27 @@
   border: solid 5px #ff2bf1;
   border-radius: 5px;
   color: #e854ff;
-  padding:25px;
   font-size: 20px;
   cursor: pointer;
   background: black;
   text-shadow: 0 0 5px purple, 0 0 10px purple,
   0 0 15px purple, 0 0 40px #ff00aa, 0 0 70px #ff00aa;
-  position: relative;
-  display: inline-block;
-  padding: 5px 10px;
+  position: absolute;
+  display: inline;
+  bottom:10px;
+  left:5%;
+  width:90%;
+  padding: 10px 10px;
+  z-index: 99;
 }
 
 .downloads-submit:hover {
+  border: solid 5px blue;
   background-color: black;
   box-shadow: inset 0 0 2rem blue,
   inset 0 0 0.5rem blue,
   0 0 2rem blue;
   transition: box-shadow 0.7s;
-  position: relative;
-  display: inline-block;
 }
 
 .downloads-container {

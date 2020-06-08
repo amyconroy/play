@@ -2,10 +2,31 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res) {
-  res.render('payment', {
+  if (req.session.user) {
+
+    if (req.session.userBasket['products'].length == 0) {
+
+      res.render('payment', {
+        layout : 'index_head',
+        error: true,
+        errormessage: "Your basket is empty, please add products to basket"
+      });
+
+    } else {
+      res.render('payment', {
+        layout : 'index_head',
+        userLoggedIn: req.session.user
+      });
+    }
+
+  } else {
+    
+    res.render('payment', {
       layout : 'index_head',
-      userLoggedIn: req.session.user
-  });
+      error: true,
+      errormessage: "You must be logged in to access payment"
+    });
+  }
 });
 
 module.exports = router;

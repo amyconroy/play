@@ -4,8 +4,13 @@
   </div>
 </div>
 
-{{> navbar }}
+{{> navbar user=userLoggedIn.name }}
 
+{{#if error }}
+  <h1 class = "error-message">{{this.errormessage}}</h1>
+{{/if}}
+
+{{#unless error}}
 <div>
 
 </div>
@@ -28,5 +33,6 @@
   are currently available for purchase, and you will not receive the products despite being given a receipt after clicking
   'Buy Now'. This is purely for testing purposes and does not constitute a binding sales contract.</p>
 </div>
+{{/unless}}
 
 {{> footer }}
