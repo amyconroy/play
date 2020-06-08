@@ -17,7 +17,7 @@ router.get('/', function(req, res) {
     getProducts(basket, function(products) {
       if(products){
         res.render('basket', {
-            layout : 'index_head',
+            layout : 'downloads_head',
             userLoggedIn: req.session.user,
             products: products,
             price: total_price
@@ -28,7 +28,7 @@ router.get('/', function(req, res) {
   } else {
 
     res.render('basket', {
-      layout : 'index_head',
+      layout : 'downloads_head',
       error: true,
       errormessage: "You must be logged in to view basket"
     });
