@@ -21,7 +21,7 @@ var fs = require("fs"); // ban upper case file names
 /////////////////
 var app = express();
 var router = express.Router(); //our router for requests
-
+const host = '0.0.0.0';
 /////////////////////
 ///// SECURITY //////
 /////////////////////
@@ -45,7 +45,7 @@ var options = {
   cert: cert
 };
 var httpsServer = https.createServer(options, app); //create http server on correct port
-httpsServer.listen(port, "localhost");
+httpsServer.listen(port, host);
 
 //////////////////////////////
 /// HANDLEBARS VIEW ENGINE ///
