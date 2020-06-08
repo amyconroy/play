@@ -116,10 +116,12 @@ a:hover {
 }
 
 .menu_item {
+	position:relative;
 	color:#e854ff;
 	font-size: 20px;
 	display:inline;
 	padding:25px;
+	padding-left:50px;
 	margin:-2px;
 	margin-left:-7px;
 	border-right:5px solid black;
@@ -160,9 +162,10 @@ a:hover {
 
 /*icons in navbar partial*/
 .icons {
-	width:auto;
-	height:50%;
-	position:relative;
+	height:2rem;
+	position:absolute;
+	left:10px;
+	top:20px;
 }
 
 .content-box {
@@ -216,7 +219,7 @@ a:hover {
 	color:white;
 	font-size:2em;
 	text-align: center;
-	position: relative; 
+	position: relative;
 }
 
 .title-error {
