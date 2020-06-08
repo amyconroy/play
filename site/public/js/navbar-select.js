@@ -1,3 +1,5 @@
+"user strict"
+
 findPageType();
 
 function findPageType() {

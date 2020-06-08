@@ -14,33 +14,6 @@ router.get('/', function(req, res){
   });
 });
 
-
-/*router.get('/allProducts', function(req, res){
-  productsDB.getAllLicenseProducts(err, rows =>{
-      if(rows){
-        console.log("got all products");
-        // res.render() here
-      }
-      else{
-        console.log("did not get all products");
-        // diff ress render?
-      }
-    });
-  res.render('products', {layout : 'product_head'});
-});*/
-
-
-/*router.get('/viewProduct', function(req, res){
-    productsDB.getProductsByCategory(req.body.productId, (err, rows) =>{
-    if(rows){
-      console.log("got product");
-    }
-    else{
-      console.log("did not get product");
-    }
-  });
-});*/
-
 router.get('/add_product/:productid', function(req, res) {
 
   var baseurl = req.params.base;
