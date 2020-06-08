@@ -106,10 +106,14 @@ exports.getReceipt = function(orderId, callback){
   query += "INNER JOIN Product ON Product.productId = OrderDetails.productId ";
   query += "WHERE UserOrder.orderId = ?;";
     // use each as all returns everything from db, each runs query first
-  db.serialize(() => {
-    db.each(query, orderId, (err, rows)=>{
+  console.log("INSIDE GET RECIEPT");
+
+
+    console.log("inside serialize");
+    db.all(query, orderId, (err, rows)=>{
       if(rows){
         console.log("rows for receipt");
+        console.log(rows);
         callback(null, rows);
       } else{
         console.log("err for receipt");
@@ -117,5 +121,5 @@ exports.getReceipt = function(orderId, callback){
         callback(err, null); // unable to find the user order
       }
     });
-  });
+
 }

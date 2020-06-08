@@ -10,15 +10,16 @@
   <h4 class="title-content">Your Receipt</h4>
 </div>
 
-{{#each receipt}}
+{{#if receipt}}
 <div class="downloads-box">
+    <h4>WE HAVE A GO!!!</h4>
     <p class="downloads-name title-content">  {{ this.orderid }}</p></br>
     <p class="downloads-price">{{ this.orderprice }}</p></br>
 </div>
-{{/each}}
+{{/if}}
 
 
-{{#each product}}
+{{#each receipt}}
 <div class="downloads-box">
     <p class="downloads-name title-content">  {{ this.name }}</p></br>
     <p class="downloads-price">{{ this.price }}</p></br>
