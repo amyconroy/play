@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var productsDB = require('./products_db.js');
+var basketDB = require('./basket_db.js');
 
 router.get('/', function(req, res){
   console.log("FROM PRODUCTS");
@@ -51,14 +52,38 @@ router.get('/add_product/:productid', function(req, res) {
 
   if (req.session.user) {
 
-    console.log("LOGGED IN");
+    /*console.log("LOGGED IN");
     req.session.userBasket["products"].push({
-      productId: productId,
-      qnt:5
+      productid: productId,
+      productprice:5
     });
 
     console.log(req.session.userBasket);
-    res.redirect("/products");
+    res.redirect("/products");*/
+
+    basketDB.getProductPrice(productId, (err, rows) =>{
+      if (err) {
+        console.log("cant get price");
+      } else {
+        console.log("can get price");
+
+        //PARSING THE INT
+        var price = rows.price;
+        var newprice = price.substr(1);
+        var intprice = parseInt(newprice);
+
+        req.session.userBasket["products"].push({
+          productid: productId,
+          productprice: intprice
+        });
+
+        req.session.userBasket["total_price"] += intprice;
+
+        console.log(req.session.userBasket);
+        res.redirect("/products");
+
+      }
+    });
 
   } else {
 

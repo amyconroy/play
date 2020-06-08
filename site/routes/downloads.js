@@ -284,6 +284,7 @@ router.get('*/:base/add_product/:productid', function(req, res) {
     var productId = req.params.productid;
 
     var product = productId;
+    
     basketDB.getProductPrice(product, (err, rows) =>{
       if (err) {
         console.log("cant get price");
