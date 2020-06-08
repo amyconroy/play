@@ -1,3 +1,5 @@
+"use strict";
+
 var express = require('express');
 var router = express.Router();
 
@@ -20,7 +22,7 @@ router.get('/', function(req, res) {
     }
 
   } else {
-    
+
     res.render('payment', {
       layout : 'index_head',
       error: true,
