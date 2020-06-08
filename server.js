@@ -49,7 +49,7 @@ var httpsServer = https.createServer(options, app); //create http server on corr
 
 //const http = require('http');
 //var httpServer = http.createServer(options, app);
-app.listen(port, host);
+app.listen(PORT, host);
 
 //////////////////////////////
 /// HANDLEBARS VIEW ENGINE ///
