@@ -1,4 +1,3 @@
-//var flash = require('flash');
 var createError = require('http-errors'); //change these to constants so cant be changed?
 var express = require('express');
 var path = require('path');
@@ -22,6 +21,7 @@ var fs = require("fs"); // ban upper case file names
 /////////////////
 var app = express();
 var router = express.Router(); //our router for requests
+app.set('port', ( process.env.PORT || 8080 ));
 
 /////////////////////
 ///// SECURITY //////
@@ -46,7 +46,9 @@ var options = {
   cert: cert
 };
 var httpsServer = https.createServer(options, app); //create http server on correct port
-httpsServer.listen(port, "localhost");
+httpsServer.listen(app.get('port'), function() {
+  console.log( 'Node server is running on port ' + app.get( 'port' ));
+});
 
 //////////////////////////////
 /// HANDLEBARS VIEW ENGINE ///
