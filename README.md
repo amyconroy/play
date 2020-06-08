@@ -23,13 +23,15 @@ We have ensured that there are no style tags and attributes in our HTML pages, a
 : examples o the CSS 
 TO MOVE TO A+
 
-<b> JS : B </b>
+<b> JS : A+ </b>
 
 We have written a large amount of script ourselves. The slider script was self written, main issue with that was timing as javascript does not have native sleep() function. For our random quote generator (used to insert quotes under the PNG header, different upon each reload), we added a text file to pull quotes from, and we currently changing it from HTMLinner method which is unsafe. We are also planning on creating a demo for our game, written ourselves in javascript. We expect this will bring us to an A. 
 
 TO MOVE TO A+ = ESPECIALLY A+ with creative game application 
 high confidence, whole game written in js for client side, 
 ANA - CSS animation done here!! we can add this in. Titles animated, parameter bars animated in css. 
+
+using ES5, ie using var not let, all JS pages have "use strict" 
 
 <b> PNG : B </b>
 
