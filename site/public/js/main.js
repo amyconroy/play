@@ -1,3 +1,5 @@
+"use strict";
+
 // image changing code
 let myImage = document.querySelector('img');
 

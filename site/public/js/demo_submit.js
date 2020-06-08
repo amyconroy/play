@@ -1,3 +1,5 @@
+"use strict";
+
 var userInput = document.getElementById("user-input");
 mainDemo();
 
