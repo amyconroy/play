@@ -65,36 +65,6 @@ var getProducts = function getProducts(orderDetails, callback){
   callback(orderProductArray);
 }
 
-// productIds will be a JSON array of product Ids and qty
-/*var getTotal = function getTotal(orderDetails, callback){
-  var total = 0;
-  // iterate through qty and products to get prices
-  for(var i = 0; i < orderDetails.length; i++){
-    var product = orderDetails[i].productId;
-    basketDB.getProductPrice(product, (err, rows) =>{
-      if(err){
-        console.log("Can't get price");
-      }
-      else{
-        var price = rows.price;
-        console.log("PRICE");
-        console.log(price);
-        var newprice = price.substr(1);
-        console.log("NEW PRICE");
-        console.log(newprice);
-        var intprice = parseInt(newprice);
-        console.log("int price");
-        console.log(intprice);
-        total += intprice;
-        console.log("total here:");
-        console.log(total);
-      }
-    });
-    console.log("TOTAL");
-    console.log(total);
-  }
-}*/
-
 router.get('/remove_product/:productid', function(req, res) {
   console.log("HELP");
   var baseurl = req.params.base;
@@ -102,7 +72,7 @@ router.get('/remove_product/:productid', function(req, res) {
 
   console.log("WE CAME FROM HERE: "+baseurl);
 
-  var products = req.session.userBasket;
+  var products = req.session.userBasket['products'];
 
   console.log("BEFORE REMOVING");
   console.log(req.session.userBasket);
@@ -112,12 +82,13 @@ router.get('/remove_product/:productid', function(req, res) {
     var item = products[i].productId;
     if(item === productId){
       products.splice(i, 1);
+      req.session.userBasket['total_price'] -= products.productprice;
     }
   }
   console.log("REMOVED ITEMS");
   console.log(req.session.userBasket);
 
-  req.session.userBasket = products;
+  req.session.userBasket['products'] = products;
 
   res.redirect('/basket');
 });
@@ -127,11 +98,12 @@ router.get('/clearbasket', function(req, res) {
 
   console.log("WE CAME FROM HERE: "+baseurl);
 
-  req.session.userBasket = [];
+  req.session.userBasket['products'] = [];
+  req.session.userBasket['total_price'] = 0;
 
   console.log("EMPTIED BASKET");
-
   console.log(req.session.userBasket);
+
   res.redirect('/basket');
 });
 

@@ -297,6 +297,7 @@ router.get('*/:base/add_product/:productid', function(req, res) {
 
         req.session.userBasket["products"].push({
           productid: productId,
+          productprice: intprice
         });
 
         req.session.userBasket["total_price"] += intprice;
@@ -326,7 +327,7 @@ router.get('*/:base/remove_product/:productid', function(req, res) {
 
   console.log("WE CAME FROM HERE: "+baseurl);
 
-  var products = req.session.userBasket;
+  var products = req.session.userBasket['products'];
 
   console.log("BEFORE REMOVING");
   console.log(req.session.userBasket);
@@ -337,12 +338,11 @@ router.get('*/:base/remove_product/:productid', function(req, res) {
     var item = products[i].productId;
     if(item === productId){
       products.splice(i, 1);
+      req.session.userBasket['total_price'] -= products.productprice;
     }
   }
-  console.log("REMOVED ITEMS");
-  console.log(req.session.userBasket);
 
-  req.session.userBasket = products;
+  req.session.userBasket['products'] = products; //come back to this
 
   res.redirect("/downloads/"+baseurl);
 });
@@ -352,10 +352,7 @@ router.get('*/:base/clearbasket', function(req, res) {
 
   console.log("WE CAME FROM HERE: "+baseurl);
 
-  req.session.userBasket = [];
-
-  console.log(productId);
-  console.log("EMPTIED BASKET");
+  req.session.userBasket['product'] = [];
 
   console.log(req.session.userBasket);
   res.redirect("/downloads/"+baseurl);
