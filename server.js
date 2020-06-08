@@ -45,11 +45,11 @@ var options = {
   cert: cert
 };
 var httpsServer = https.createServer(options, app); //create http server on correct port
-httpsServer.listen(PORT, host); */
+// httpsServer.listen(PORT, host); */
 
-const http = require('http');
-var httpServer = http.createServer(options, app);
-httpServer.listen(port, host);
+//const http = require('http');
+//var httpServer = http.createServer(options, app);
+app.listen(port, host);
 
 //////////////////////////////
 /// HANDLEBARS VIEW ENGINE ///
