@@ -18,7 +18,7 @@ router.get('/', function(req, res) {
   createOrder(newOrder, function(orderId){
     if(orderId){
       var basket = req.session.userBasket['products'];
-        for(let i = 0; i < basket.length; i++){
+        for(var i = 0; i < basket.length; i++){
           var newId = basket[i].productid;
           var orderDetail = {
             productId: newId,
@@ -31,7 +31,7 @@ router.get('/', function(req, res) {
         var totalPrice;
         basketDB.getReceipt(orderId, (err, rows) => {
             // remains the same
-            for(let i=0; i < rows.length; i++) {
+            for(var i=0; i < rows.length; i++) {
               var receiptdeet = {
                 orderid: rows[i].orderid,
                 orderprice: rows[i].totalPrice,
