@@ -1,3 +1,4 @@
+"use strict";
 var express = require('express');
 var router = express.Router();
 var productsDB = require('./products_db.js');
@@ -14,48 +15,38 @@ router.get('/', function(req, res){
   });
 });
 
+// add product to db based on product id
 router.get('/add_product/:productid', function(req, res) {
-
   var baseurl = req.params.base;
   var productId = req.params.productid;
-
-  console.log("WE CAME FROM HERE: "+baseurl);
 
   if (req.session.user) {
 
     basketDB.getProductPrice(productId, (err, rows) =>{
       if (err) {
-        console.log("cant get price");
+        console.log("Unable to get price.");
       } else {
-        console.log("can get price");
-
         //PARSING THE INT
         var price = rows.price;
         var newprice = price.substr(1);
         var intprice = parseInt(newprice);
-
+        // push product they bought to their basket in session
         req.session.userBasket["products"].push({
           productid: productId,
           productprice: intprice
         });
-
+        // increase the price in their session based on what they add to basket
         req.session.userBasket["total_price"] += intprice;
-
-        console.log(req.session.userBasket);
         res.redirect("/products");
-
       }
     });
-
   } else {
-
     console.log("NOT LOGGED IN");
     res.render('products', {
       layout: 'product_head',
       error: true,
       errormessage: "You must be logged in to purchase products FROM PRODUCTS"
     });
-
   }
 });
 

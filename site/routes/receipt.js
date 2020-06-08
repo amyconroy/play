@@ -1,3 +1,4 @@
+"use strict";
 var express = require('express');
 var router = express.Router();
 var basketDB = require('./basket_db.js');
@@ -12,7 +13,7 @@ router.get('/', function(req, res) {
     orderPrice: req.session.userBasket["total_price"],
     orderDate: Date.now()
   }
-
+  // creates a new order in the database
   createOrder(newOrder, function(orderId){
     if(orderId){
       var basket = req.session.userBasket['products'];
@@ -22,12 +23,14 @@ router.get('/', function(req, res) {
             productId: newId,
             orderId: orderId
           }
+          // adds the product details to the database
           basketDB.addOrderDetails(orderDetail);
           req.session.userBasket['products'] = [];
           req.session.userBasket['total_price'] = 0;
         }
         var receiptDetails = [];
         var totalPrice;
+        // renders the receipt on the database
         basketDB.getReceipt(orderId, (err, rows) => {
             // remains the same
             for(let i=0; i < rows.length; i++) {
@@ -38,6 +41,7 @@ router.get('/', function(req, res) {
                 price: rows[i].price,
                 image: rows[i].image
               };
+              // for each row (product in order) push to the array
               receiptDetails.push(receiptdeet);
               totalPrice = rows[i].totalPrice;
             }
@@ -49,7 +53,6 @@ router.get('/', function(req, res) {
                 userLoggedIn: req.session.user
             });
         });
-
     }
     else{
       console.log("ERROR: can't get orderId or render receipt.");
@@ -57,7 +60,7 @@ router.get('/', function(req, res) {
   });
 });
 
-
+// gets details to generate the receip
 var generateReceipt = function generateReceipt(orderId, callback){
   var receiptDetails = [];
   basketDB.getReceipt(orderId, (err, rows) => {
@@ -74,9 +77,10 @@ var generateReceipt = function generateReceipt(orderId, callback){
   });
 }
 
+// creates an order in the database
 var createOrder = function createOrder(newOrder, callback){
   basketDB.createNewOrder(newOrder); // create new orderId
-  basketDB.getOrderId((err, rows) => {
+  basketDB.getOrderId((err, rows) => { // gets the orderId that we just created
     if(err){
       console.log(err);
     }

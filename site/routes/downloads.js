@@ -1,16 +1,11 @@
+"use strict";
 var express = require('express');
 var router = express.Router();
 var downloadsDB = require('./downloads_db.js');
 var basketDB = require('./basket_db.js');
 
-
 /// PAGE LOADS UP WITH ALL CATEGORIES - view all categories
 router.get('/', function(req, res){
-  console.log(req.session.user);
-  console.log(req.sessionID);
-
-  console.log("inside downloads!");
-
   var downloadsCatArr = [];
 
   getAllCategories(function(downloadsCatArr) {
@@ -36,20 +31,12 @@ var getAllCategories = function getAllCategories(callback){
           url: "/"+rows.categoryId
         };
         categoriesArray.push(category);
-
       }
     });
-
-
-
   callback(categoriesArray);
 }
 
 router.get('/lowtohigh', function(req, res){
-  console.log(req.session.user);
-  console.log(req.sessionID);
-  console.log("LOW TO HIGH");
-
   var priceLowDownloads = [];
 
   getLowDownloads(function(priceLowDownloads) {
@@ -66,9 +53,6 @@ var getLowDownloads = function getLowDownloads(callback){
   var downloadsArray = [];
 
   downloadsDB.getDownloadsLowtoHigh((err, rows) => {
-        console.log(rows);
-        console.log("row length!!!");
-
         var product = {
           productCategory: rows.productCategory,
           productName: rows.name,
@@ -78,19 +62,12 @@ var getLowDownloads = function getLowDownloads(callback){
           productId: rows.productId,
           url:"/lowtohigh"
         };
-
-        console.log("prod");
-        console.log(product);
         downloadsArray.push(product);
-
     });
   callback(downloadsArray);
 }
 
 router.get('/hightolow', function(req, res){
-  console.log(req.session.user);
-  console.log(req.sessionID);
-
   var priceHighDownloads = [];
 
   getHighDownloads(function(priceHighDownloads) {
@@ -116,19 +93,15 @@ var getHighDownloads = function getHighDownloads(callback){
           productId: rows.productId,
           url:"/hightolow"
         };
-        console.log(product);
         downloadsArray.push(product);
     });
   callback(downloadsArray);
 }
 
 router.get('/all', function(req, res){
-  console.log("ALL DOWNLOADS");
-
   var allDownloads = [];
 
   getAllDownloads(function(allDownloads) {
-
       res.render('downloads', {
         layout: 'download_head',
         downloads: allDownloads,
@@ -152,7 +125,6 @@ var getAllDownloads = function getAllDownloads(callback){
           productId: rows.productId,
           url:"/all"
         };
-        console.log(product);
         downloadsArray.push(product);
     });
     callback(downloadsArray);
@@ -160,8 +132,6 @@ var getAllDownloads = function getAllDownloads(callback){
 
 /// VIEW DOWNLOADS BY CATEGORY ID
 router.get('/:categoryid', function(req, res){
-  console.log(req.session.user);
-  console.log(req.sessionID);
   //downloads by category
   var categoryProducts = [];
   var categoryId = req.params.categoryid;
@@ -191,7 +161,6 @@ var getDownloadsByCategory = function getDownloadsByCategory(categoryid, callbac
             url:"/"+categoryid
           };
         }
-        console.log(product);
         downloadsArray.push(product);
       //}
     });
@@ -200,8 +169,6 @@ var getDownloadsByCategory = function getDownloadsByCategory(categoryid, callbac
 
 /// VIEW CATEGORY BY DOWNLOADS low to high
 router.get('/lowtohigh/:categoryid', function(req, res){
-  console.log(req.session.user);
-  console.log(req.sessionID);
   //downloads by category
   var lowPriceProducts = [];
   var categoryId = req.params.categoryid;
@@ -229,7 +196,6 @@ var getPriceLowByCategory = function getPriceLowByCategory(categoryid, callback)
           productId: rows.productId,
           url:"/lowtohigh/"+categoryid
         };
-        console.log(product);
         downloadsArray.push(product);
       }
     });
@@ -238,8 +204,6 @@ var getPriceLowByCategory = function getPriceLowByCategory(categoryid, callback)
 
 /// VIEW CATEGORY BY DOWNLOADS low to high
 router.get('/hightolow/:categoryid', function(req, res){
-  console.log(req.session.user);
-  console.log(req.sessionID);
   //downloads by category
   var highPriceProducts = [];
   var categoryId = req.params.categoryid;
@@ -278,18 +242,15 @@ var getPriceHighByCategory = function getPriceHighByCategory(categoryid, callbac
 router.get('*/:base/add_product/:productid', function(req, res) {
   //CHECK IF USER LOGGED IN
   if (req.session.user) {
-
-    console.log("LOGGED IN");
     var baseurl = req.params.base;
     var productId = req.params.productid;
 
     var product = productId;
-    
+
     basketDB.getProductPrice(product, (err, rows) =>{
       if (err) {
-        console.log("cant get price");
+        console.log("Can't get price.");
       } else {
-        console.log("can get price");
 
         //PARSING THE INT
         var price = rows.price;
@@ -302,16 +263,10 @@ router.get('*/:base/add_product/:productid', function(req, res) {
         });
 
         req.session.userBasket["total_price"] += intprice;
-
-        console.log(req.session.userBasket);
         res.redirect("/downloads/"+baseurl);
-
       }
     });
-
   } else {
-    console.log("NOT LOGGED IN");
-
     res.render('downloads', {
       layout: 'download_head',
       userLoggedIn: req.session.user,
@@ -319,21 +274,13 @@ router.get('*/:base/add_product/:productid', function(req, res) {
       errormessage: "You must be logged in to purchase products"
     });
   }
-
 });
 
 router.get('*/:base/remove_product/:productid', function(req, res) {
   var baseurl = req.params.base;
   var productId = req.params.productid;
 
-  console.log("WE CAME FROM HERE: "+baseurl);
-
   var products = req.session.userBasket['products'];
-
-  console.log("BEFORE REMOVING");
-  console.log(req.session.userBasket);
-
-  console.log(products.length);
 
   for(let i = 0; i < products.length; i++){
     var item = products[i].productId;
@@ -342,20 +289,14 @@ router.get('*/:base/remove_product/:productid', function(req, res) {
       req.session.userBasket['total_price'] -= products.productprice;
     }
   }
-
-  req.session.userBasket['products'] = products; //come back to this
-
+  req.session.userBasket['products'] = products;
   res.redirect("/downloads/"+baseurl);
 });
 
 router.get('*/:base/clearbasket', function(req, res) {
   var baseurl = req.params.base;
 
-  console.log("WE CAME FROM HERE: "+baseurl);
-
   req.session.userBasket['product'] = [];
-
-  console.log(req.session.userBasket);
   res.redirect("/downloads/"+baseurl);
 });
 

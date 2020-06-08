@@ -3,7 +3,9 @@
 document.ready(function(){
   var c = document.getElementById('canv');
   var $ = c.getContext('2d');
+
   c.width = 800; c.height = 500;
+
   var ms = false;
   var w = 0, h = 0;
 

@@ -1,3 +1,4 @@
+"use strict";
 ///// init database /////
 var sqlite3 = require('sqlite3').verbose();
 let db = new sqlite3.Database('Play.db', sqlite3.OPEN_READWRITE, (err) => {
@@ -206,9 +207,6 @@ exports.newProduct = function(productDetails){
     db.run(query, [productDetails['productCategory'], productDetails['description'], productDetails['name'],  productDetails['price'], productDetails['image']], function(error){
       if(error){
         console.log(error);
-      }
-      else{
-        console.log("new category added");
       }
     });
   });

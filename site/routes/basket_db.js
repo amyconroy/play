@@ -1,3 +1,4 @@
+"use strict";
 ///// init database /////
 var sqlite3 = require('sqlite3').verbose();
 let db = new sqlite3.Database('Play.db', sqlite3.OPEN_READWRITE, (err) => {
@@ -36,11 +37,7 @@ exports.createNewOrder = function(newOrder){
   db.serialize(() => {
     db.run(query, [newOrder['userId'], newOrder['orderDate'], newOrder['orderPrice']], (err, rows)=>{
       if(err){
-        console.log("can't create new order");
         console.log(err);
-      }
-      else{
-        console.log("New order created.");
       }
     });
   });
@@ -109,11 +106,8 @@ exports.getReceipt = function(orderId, callback){
   db.serialize(() => {
     db.all(query, orderId, (err, rows)=>{
       if(rows){
-        console.log("rows for receipt");
         callback(null, rows);
       } else{
-        console.log("err for receipt");
-        console.log(err);
         callback(err, null); // unable to find the user order
       }
     });

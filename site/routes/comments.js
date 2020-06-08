@@ -1,3 +1,4 @@
+"use strict";
 var express = require('express');
 var router = express.Router();
 var commentsDB = require('./comments_db.js');
@@ -28,16 +29,14 @@ var getAllComments = function getAllComments(callback){
     }
     if(rows){
         var date = new Date(parseInt(rows.timePosted)).toLocaleString();
-        console.log(date.toString());
         var currentCommentInfo = { //change this to be the username and comment content
           comment: rows.content,
           username: rows.userName,
           postTime: date
         };
-        console.log(currentCommentInfo);
         anotherArray.push(currentCommentInfo);
     } else {
-      console.log("error occured, couldnt retrieve comments");
+      console.log("Error occured, couldnt retrieve comments");
     }
   });
   callback(anotherArray);
@@ -46,17 +45,13 @@ var getAllComments = function getAllComments(callback){
 /// CREATE NEW COMMENT ////
 router.post('/submit_comment', function(req, res){
   if (req.session.user) {
-    console.log("USER LOGGED IN");
-
     var newComment = {
       userId: req.session.user["userid"],
       timePosted: Date.now(),
       content: req.body.content
     }
-
     commentsDB.newComment(newComment);
     res.redirect("/index");
-
   } else {
     console.log("USER NOT LOGGED IN"); //REQUIRE LOGIN TO SUBMIT A COMMENT
 
@@ -84,15 +79,12 @@ router.post('/delete_comment', function(req, res){
     if(rows){ // add in flash for successful delete
       commentsDB.getTenRecentComments(error => {
         if(error){
-          console.log("can't display 10 most recent comments");
-        }
-        else{
-          console.log("10 most recent comments displayed");
+          console.log(error);
         }
       });
     }
     else{
-      console.log("comment has not been sucessfully deleted");
+      console.log("Comment has not been sucessfully deleted.");
     }
   });
 });
@@ -100,7 +92,6 @@ router.post('/delete_comment', function(req, res){
 router.post('/all_comments', function(req, res){
   commentsDB.getAllComments(err, rows => {
     if(rows){
-      console.log("got all comments");
       res.render('comments', {
         results: rows,
         user: 1
@@ -110,7 +101,7 @@ router.post('/all_comments', function(req, res){
         results: null,
         user: 1
       });
-      console.log("did not get all comments");
+      console.log("Did not get all comments.");
       // diff ress render?
     }
   });
