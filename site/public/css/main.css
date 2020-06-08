@@ -489,7 +489,11 @@ a:hover {
 	body {
 		background-color:black;
 	}
-
+  
+  canvas{
+    align-self:center;
+    cursor:move;
+  }
 	.navbar {
 		padding:10px;
 	}

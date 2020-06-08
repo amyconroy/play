@@ -4,11 +4,11 @@
   </div>
 </div>
 
-{{> navbar }}
+{{> navbar user=userLoggedIn.name}}
 
  <div class="open">
    <div id='blink' class='blink'>
-     <p id='blinkText'>YOU'RE IN</p>
+     <p id='blinkText'>{{this.userLoggedIn.name}}, YOU'RE IN</p>
    </div>
  </div>
 
