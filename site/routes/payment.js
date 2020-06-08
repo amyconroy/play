@@ -20,7 +20,7 @@ router.get('/', function(req, res) {
     }
 
   } else {
-    console.log("NOT LOGGED IN");
+    
     res.render('payment', {
       layout : 'index_head',
       error: true,
