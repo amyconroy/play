@@ -15,8 +15,8 @@ router.get('/', function(req, res){
   });
 });
 
+// add product to db based on product id
 router.get('/add_product/:productid', function(req, res) {
-
   var baseurl = req.params.base;
   var productId = req.params.productid;
 
@@ -30,16 +30,14 @@ router.get('/add_product/:productid', function(req, res) {
         var price = rows.price;
         var newprice = price.substr(1);
         var intprice = parseInt(newprice);
-
+        // push product they bought to their basket in session
         req.session.userBasket["products"].push({
           productid: productId,
           productprice: intprice
         });
-
+        // increase the price in their session based on what they add to basket
         req.session.userBasket["total_price"] += intprice;
-
         res.redirect("/products");
-
       }
     });
   } else {
@@ -49,7 +47,6 @@ router.get('/add_product/:productid', function(req, res) {
       error: true,
       errormessage: "You must be logged in to purchase products FROM PRODUCTS"
     });
-
   }
 });
 

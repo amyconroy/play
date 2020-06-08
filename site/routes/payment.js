@@ -2,6 +2,7 @@
 var express = require('express');
 var router = express.Router();
 
+// page asking users to confirm payment
 router.get('/', function(req, res) {
   if (req.session.user) {
 
