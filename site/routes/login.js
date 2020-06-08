@@ -18,12 +18,10 @@ router.get('/', function(req, res){
     }
 });
 
-// SET SESSION TO NULL IN DB?
 router.get('/logout', function(req, res) {
     req.session.destroy(function(){
       console.log("User logged out.");
     });
-
     res.redirect('/login');
 });
 
@@ -75,7 +73,7 @@ router.post('/register', function(req, res){
 
           var userAuth = loginDB.getUserByUserName(username, (error, rows) => { //we need id and to add it to cookie session
             var basket = {
-              products: [], // PRODUCT OBJECTE IS { product_id:ID, qnt:NUMBER}
+              products: [], // PRODUCT OBJECT IS { product_id:ID, qnt:NUMBER }
               total_price: 0
             }
 
@@ -88,15 +86,12 @@ router.post('/register', function(req, res){
 
               req.session.loggedIn = true;
               req.session.userBasket = basket;
-
               res.redirect('/index');
-
             }
           });
         }
       });
     }
-
   } else { //PASSWORD DOESNT MATCH
     console.log("Password doesn't match");
     res.render('login', {
@@ -104,11 +99,11 @@ router.post('/register', function(req, res){
       error: 'true',
       errormessage:'Your confirmed password should match'
     });
-
   }
 });
 
-function validPass(password) { //make sure password is strong
+//make sure password is strong
+function validPass(password) {
   if (password.length < 5) {
     return false;
   }
