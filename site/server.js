@@ -202,7 +202,8 @@ app.use(function(req, res, next) {
   res.status(404).render('error', {
     layout: 'index_head',
     errorMessage: "Page not found!",
-    error: "Error 404!"
+    error: "Error 404!",
+    errorType: "404"
   });
 });
 
@@ -215,7 +216,8 @@ app.use(function (err, req, res, next) {
   res.status(500).render('error', {
     layout: 'index_head',
     errorMessage: "Something went wrong!",
-    error: err
+    error: err,
+    errorType: "500"
   });
 });
 

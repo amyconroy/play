@@ -8,6 +8,9 @@ function mainDemo() {
 
 function inputHandler(e) {
   if (e.key == 'Enter') {
+    var userInput = document.getElementById("user-input");
+
+    alert(userInput.value);
     alert("keypresswords");
   }
 }

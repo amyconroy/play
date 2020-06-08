@@ -12,6 +12,11 @@ mark {
 	background: red;
 }
 
+canvas{
+  align-self:center;
+  cursor:move;
+}
+
 a {
 	text-decoration: none;
 	color:#e854ff;
@@ -486,14 +491,11 @@ a:hover {
 }
 
 @media only screen and (max-width: 500px) {
+
 	body {
 		background-color:black;
 	}
-  
-  canvas{
-    align-self:center;
-    cursor:move;
-  }
+
 	.navbar {
 		padding:10px;
 	}
@@ -510,6 +512,5 @@ a:hover {
 		margin-top:10px;
 		background-color:#1f0036;
 	}
-
 
 }
