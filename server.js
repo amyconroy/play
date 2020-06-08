@@ -1,7 +1,7 @@
 var createError = require('http-errors'); //change these to constants so cant be changed?
 var express = require('express');
 var path = require('path');
-var port = 8080; //443 is https defaul port
+var port = process.env.PORT || 8080; //443 is https defaul port
 var fs = require("fs");
 //////////////////////
 /// OTHER PACKAGES ///
@@ -21,7 +21,6 @@ var fs = require("fs"); // ban upper case file names
 /////////////////
 var app = express();
 var router = express.Router(); //our router for requests
-app.set('port', ( process.env.PORT || 8080 ));
 
 /////////////////////
 ///// SECURITY //////
@@ -46,9 +45,7 @@ var options = {
   cert: cert
 };
 var httpsServer = https.createServer(options, app); //create http server on correct port
-httpsServer.listen(app.get('port'), function() {
-  console.log( 'Node server is running on port ' + app.get( 'port' ));
-});
+httpsServer.listen(port, "localhost");
 
 //////////////////////////////
 /// HANDLEBARS VIEW ENGINE ///
@@ -125,7 +122,6 @@ app.use('/payment', paymentRoute);
 app.use('/receipt', receiptRoute);
 app.use('/faq', faqRoute);
 
-
 app.use(express.static(path.join(__dirname, '/public')));
 app.use('/login', express.static(__dirname + '/public')); //for error message rendering
 app.use('/comments', express.static(__dirname + '/public'));
@@ -138,8 +134,6 @@ app.use('/basket', express.static(__dirname + '/public'));
 app.use('/products', express.static(__dirname + '/public'));
 app.use('/products/add_product', express.static(__dirname + '/public'));
 
-
-///downloads/all/add_product/1
 
 ///////////////////////////////
 /// FILL DB WITH DUMMY DATA ///
