@@ -138,9 +138,10 @@ app.use('/downloads', express.static(__dirname + '/public'));
 app.use('/products',express.static(__dirname + '/public'));
 app.use('/downloads/lowtohigh', express.static(__dirname + '/public'));
 app.use('/downloads/hightolow', express.static(__dirname + '/public'));
-app.use('/downloads/all/add_product', express.static(__dirname + '/public'));
+/*app.use('/downloads/all/add_product', express.static(__dirname + '/public'));
 app.use('/downloads/hightolow/add_product', express.static(__dirname + '/public'));
-app.use('/downloads/lowtohight/add_product', express.static(__dirname + '/public'));
+app.use('/downloads/lowtohight/add_product', express.static(__dirname + '/public'));*/
+app.use('/downloads/*/add_product', express.static(__dirname + '/public'));
 app.use('/basket', express.static(__dirname + '/public'));
 app.use('/products', express.static(__dirname + '/public'));
 app.use('/products/add_product', express.static(__dirname + '/public'));

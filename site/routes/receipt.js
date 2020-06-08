@@ -23,7 +23,8 @@ router.get('/', function(req, res) {
             orderId: orderId
           }
           basketDB.addOrderDetails(orderDetail);
-          req.session.userBasket = [];
+          req.session.userBasket['products'] = [];
+          req.session.userBasket['total_price'] = 0;
         }
         var receiptDetails = [];
         var totalPrice;
