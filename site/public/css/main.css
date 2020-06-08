@@ -216,7 +216,7 @@ a:hover {
 	color:white;
 	font-size:2em;
 	text-align: center;
-	position: relative; 
+	position: relative;
 }
 
 .title-error {
@@ -486,4 +486,9 @@ a:hover {
 	.navbar {
 
 	}
+}
+
+canvas{
+  align-self:center;
+  cursor:move;
 }
