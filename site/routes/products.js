@@ -15,7 +15,7 @@ router.get('/', function(req, res){
 });
 
 
-router.get('/allProducts', function(req, res){
+/*router.get('/allProducts', function(req, res){
   productsDB.getAllLicenseProducts(err, rows =>{
       if(rows){
         console.log("got all products");
@@ -27,21 +27,19 @@ router.get('/allProducts', function(req, res){
       }
     });
   res.render('products', {layout : 'product_head'});
-});
+});*/
 
 
-router.get('/viewProduct', function(req, res){
+/*router.get('/viewProduct', function(req, res){
     productsDB.getProductsByCategory(req.body.productId, (err, rows) =>{
     if(rows){
       console.log("got product");
-    // res.render() here
     }
     else{
       console.log("did not get product");
-    // diff ress render?
     }
   });
-});
+});*/
 
 router.get('/add_product/:productid', function(req, res) {
 
@@ -51,15 +49,6 @@ router.get('/add_product/:productid', function(req, res) {
   console.log("WE CAME FROM HERE: "+baseurl);
 
   if (req.session.user) {
-
-    /*console.log("LOGGED IN");
-    req.session.userBasket["products"].push({
-      productid: productId,
-      productprice:5
-    });
-
-    console.log(req.session.userBasket);
-    res.redirect("/products");*/
 
     basketDB.getProductPrice(productId, (err, rows) =>{
       if (err) {
