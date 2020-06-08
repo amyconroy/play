@@ -1,3 +1,4 @@
+"use strict";
 ///// init database /////
 var sqlite3 = require('sqlite3').verbose();
 let db = new sqlite3.Database('Play.db', sqlite3.OPEN_READWRITE, (err) => {
@@ -23,7 +24,6 @@ exports.createUserTable = function(){
 	   "userSession	TEXT," +
 	   "userId	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE" +
      ");");
-       console.log("users created");
   });
 }
 
@@ -40,9 +40,6 @@ exports.newUser = function(newUser){
       db.run(query, [newUser['username'], newUser['email'], newUser['password'], newUser['userSession']], function(error) {
         if(error){
           console.log(error);
-        }
-        else{
-          console.log("successfully inserted user");
         }
     });
   });

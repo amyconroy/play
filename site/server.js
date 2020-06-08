@@ -92,13 +92,6 @@ function lower(req, res, next) {
     next();
 }
 
-//////////////
-/// FLASH ///
-/////////////
-/*app.use(cookieParser('keyboard cat'));
-app.use(session({ cookie: { maxAge: 60000 }}));
-app.use(flash());*/
-
 ///////////////
 /// ROUTING ///
 //////////////
@@ -209,6 +202,7 @@ app.use(function(req, res, next) {
 /////////////////////
 /// ERROR HANDLER ///
 ////////////////////
+// handles all other errors but 404 (page not found)
 app.use(function (err, req, res, next) {
   console.error(err.stack);
   console.error(err.message);
@@ -218,16 +212,5 @@ app.use(function (err, req, res, next) {
     error: err
   });
 });
-
-// ensure that stack trace is not leaked to the user but for dev purposes
-/* if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
-        res.status(err.status || 500);
-        res.render('error', {
-            errorMessage: err.message,
-            error: err
-        });
-    });
-} */
 
 module.exports = app;

@@ -1,3 +1,4 @@
+"use strict";
 var express = require('express');
 var router = express.Router();
 
@@ -5,7 +6,6 @@ router.get('/', function(req, res) {
   if (req.session.user) {
 
     if (req.session.userBasket['products'].length == 0) {
-
       res.render('payment', {
         layout : 'index_head',
         error: true,
@@ -20,7 +20,6 @@ router.get('/', function(req, res) {
     }
 
   } else {
-    
     res.render('payment', {
       layout : 'index_head',
       error: true,
