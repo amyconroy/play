@@ -13,7 +13,7 @@
 {{#if orderId}}
 <div class="downloads-box">
     <p class="downloads-name title-content">  {{ this.orderId }}</p></br>
-  
+        <p class="downloads-name title-content">  {{ this.orderprice }}</p></br>
 </div>
 {{/if}}
 
@@ -25,4 +25,5 @@
     <img class="downloads-image" src = {{ this.image }} alt=" " /></br>
 </div>
 {{/each}}
+
 {{> footer }}

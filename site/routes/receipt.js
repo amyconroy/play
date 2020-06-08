@@ -9,7 +9,7 @@ router.get('/', function(req, res) {
 
   var newOrder = {
     userId: req.session.user['userid'],
-    orderPrice: 19.99,
+    orderPrice: req.session.user['total_price'],
     orderDate: Date.now()
   }
 
@@ -29,6 +29,7 @@ router.get('/', function(req, res) {
             orderId: orderId
           }
           basketDB.addOrderDetails(orderDetail);
+          req.session.userBasket = [];
         }
         var receiptDetails = [];
         basketDB.getReceipt(orderId, (err, rows) => {
@@ -43,8 +44,8 @@ router.get('/', function(req, res) {
                 price: rows[i].price,
                 image: rows[i].image
               };
-              console.log("PRODUCT FOR RECEIPT");
-              console.log(receiptdeet);
+              console.log("TOTAL PRICE");
+              console.log(rows[1].totalPrice);
               console.log("RECEIPT DETAILS");
               console.log(receiptDetails);
               receiptDetails.push(receiptdeet);
@@ -64,27 +65,6 @@ router.get('/', function(req, res) {
   });
   console.log(orderId);
   console.log("before rendering");
-
-/*  console.log("prior to getting query");
-  console.log(orderId);
-  console.log("SOS HELP ");
-  console.log(orderId);
-  var receiptDetails = [];
-
-  generateReceipt(orderId, function(receiptDetails){
-    console.log("DUCK ME");
-    console.log(receiptDetails);
-    if(receiptDetails){
-      res.render('receipt', {
-          layout : 'index_head',
-          receipt: receiptDetails,
-          userLoggedIn: req.session.user
-      });
-    }
-    else{
-      console.log("can't get receipt details.");
-    }
-  }); */
 });
 
 
