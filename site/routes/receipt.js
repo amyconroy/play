@@ -32,9 +32,8 @@ router.get('/', function(req, res) {
           req.session.userBasket = [];
         }
         var receiptDetails = [];
+        var totalPrice;
         basketDB.getReceipt(orderId, (err, rows) => {
-          console.log("huh");
-          console.log(rows);
             // remains the same
             for(let i=0; i < rows.length; i++) {
               var receiptdeet = {
@@ -44,13 +43,17 @@ router.get('/', function(req, res) {
                 price: rows[i].price,
                 image: rows[i].image
               };
+              console.log("TOTAL PRICE");
+              console.log(rows[i].totalPrice);
               console.log("RECEIPT DETAILS");
               console.log(receiptDetails);
               receiptDetails.push(receiptdeet);
+              totalPrice = rows[i].totalPrice;
             }
             res.render('receipt', {
                 layout : 'index_head',
                 orderId: orderId,
+                totalPrice: totalPrice,
                 receiptDetails: receiptDetails,
                 userLoggedIn: req.session.user
             });
@@ -67,11 +70,8 @@ router.get('/', function(req, res) {
 
 
 var generateReceipt = function generateReceipt(orderId, callback){
-  console.log("entering!!");
   var receiptDetails = [];
   basketDB.getReceipt(orderId, (err, rows) => {
-    console.log("huh");
-    console.log(rows);
       // remains the same
       var receiptdeet = {
         orderid: rows.orderid,
@@ -80,13 +80,8 @@ var generateReceipt = function generateReceipt(orderId, callback){
         price: rows.price,
         image: rows.image
       };
-      console.log("PRODUCT FOR RECEIPT");
-    console.log(receiptdeet);
-    console.log("RECEIPT DETAILS");
-    console.log(receiptDetails);
     receiptDetails.push(receiptdeet);
     callback(receiptDetails);
-    // ONLY WANT TO DO THIS ONCE !!!
   });
 }
 
