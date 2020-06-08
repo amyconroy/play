@@ -23,9 +23,9 @@
 </div>
 {{/each}}
 
-{{#if receiptDetails}}
+{{#if totalPrice}}
 <div class="downloads-box">
-    <p class="downloads-name title-content"> $ {{ this.orderprice }}</p></br>
+    <p class="downloads-name title-content"> ${{ this.totalPrice }}</p></br>
 {{/if}}
 {{#if orderId}}
     <p class="downloads-name title-content">  {{ this.orderId }}</p></br>
