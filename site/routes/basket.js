@@ -20,26 +20,23 @@ router.get('/', function(req, res) {
         });
       }
     });
-
   } else {
-
     res.render('basket', {
       layout : 'download_head',
       error: true,
       errormessage: "You must be logged in to view basket"
     });
-
   }
 });
 
+// get products in the basket from the session
 var getProducts = function getProducts(orderDetails, callback){
   var orderProductArray = [];
 
   for(var i = 0; i < orderDetails.length; i++){
     var productId = orderDetails[i].productid;
 
-    console.log("ORDER DETAILS");
-
+// get all the details of the products to render basket
     basketDB.getProductDetails(productId, (err, rows) =>{
       if(err){
         console.log("CAN'T GET PRODUCT DETAILS / no products in basket?");
@@ -54,56 +51,38 @@ var getProducts = function getProducts(orderDetails, callback){
         }
         orderProductArray.push(product);
       }
-      console.log("TEST PRODUCT ARRAY");
-      console.log(orderProductArray);
     });
   }
   callback(orderProductArray);
 }
 
+
 router.get('/remove_product/:productid', function(req, res) {
-  console.log("HELP");
   var baseurl = req.params.base;
   var productId = req.params.productid;
 
-  console.log("WE CAME FROM HERE: "+baseurl);
-
   var products = req.session.userBasket['products'];
 
-  console.log("BEFORE REMOVING");
-  console.log(req.session.userBasket['products']);
-  console.log(products.length);
-
-  console.log("PRODUCT ID");
-  console.log(productId);
-
+// find matching productId in the users basket
   for(let i = 0; i < products.length; i++){
     var item = products[i].productid;
-    console.log("ITEM");
-    console.log(item);
     if(item === productId){
       products.splice(i, 1);
-      req.session.userBasket['total_price'] -= products.productprice;
+      // remove price of item from the total price in session
+      req.session.userBasket['total_price'] -= products[i].productprice;
     }
   }
-  console.log("REMOVED ITEMS");
-  console.log(req.session.userBasket);
-
   req.session.userBasket['products'] = products;
 
   res.redirect('/basket');
 });
 
+// completely set basket in session to be empty
 router.get('/clearbasket', function(req, res) {
   var baseurl = req.params.base;
 
-  console.log("WE CAME FROM HERE: "+baseurl);
-
   req.session.userBasket['products'] = [];
   req.session.userBasket['total_price'] = 0;
-
-  console.log("EMPTIED BASKET");
-  console.log(req.session.userBasket);
 
   res.redirect('/basket');
 });
