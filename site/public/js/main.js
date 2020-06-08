@@ -1,4 +1,6 @@
 // image changing code
+"use strict";
+
 let myImage = document.querySelector('img');
 
 // this is in text java script
