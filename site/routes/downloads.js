@@ -55,6 +55,7 @@ router.get('/lowtohigh', function(req, res){
   getLowDownloads(function(priceLowDownloads) {
       res.render('downloads', {
         layout: 'download_head',
+        userLoggedIn: req.session.user,
         downloads: priceLowDownloads,
         url:"/lowtohigh"
       });
@@ -95,6 +96,7 @@ router.get('/hightolow', function(req, res){
   getHighDownloads(function(priceHighDownloads) {
       res.render('downloads', {
         layout: 'download_head',
+        userLoggedIn: req.session.user,
         downloads: priceHighDownloads,
         url:"/hightolow"
       });
@@ -130,6 +132,7 @@ router.get('/all', function(req, res){
       res.render('downloads', {
         layout: 'download_head',
         downloads: allDownloads,
+        userLoggedIn: req.session.user,
         url: "/all"
       });
   });
@@ -167,6 +170,7 @@ router.get('/:categoryid', function(req, res){
       res.render('downloads', {
         layout: 'download_head',
         downloads: categoryProducts,
+        userLoggedIn: req.session.user,
         url: categoryId
       });
   });
@@ -206,6 +210,7 @@ router.get('/lowtohigh/:categoryid', function(req, res){
       res.render('downloads', {
         layout: 'download_head',
         downloads: lowPriceProducts,
+        userLoggedIn: req.session.user
       });
   });
 });
@@ -243,6 +248,7 @@ router.get('/hightolow/:categoryid', function(req, res){
       res.render('downloads', {
         layout: 'download_head',
         downloads: highPriceProducts,
+        userLoggedIn: req.session.user
       });
   });
 });
@@ -306,6 +312,7 @@ router.get('*/:base/add_product/:productid', function(req, res) {
 
     res.render('downloads', {
       layout: 'download_head',
+      userLoggedIn: req.session.user,
       error: true,
       errormessage: "You must be logged in to purchase products"
     });
