@@ -6,31 +6,23 @@
 
 {{> navbar }}
 
-<div>
-      <span class="arrow">></span>
-      <span class="dash">_</span>
+ <div class="open">
+   <div id='blink' class='blink'>
+     <p id='blinkText'>YOU'RE IN</p>
+   </div>
  </div>
 
- {{#if orderId}}
- <h4 class="title-flash">Your Receipt : Order #{{this.orderId}}</h4>
- {{/if}}
+<div class="receipt">
+  {{#if orderId}}
+  <h4 class="receipt-order">Order #{{this.orderId}}</h4>
+  {{/if}}
+  {{#each receiptDetails}}
+    <p class="receipt-content">  {{ this.name }} .......... {{this.price}}</p></br>
+  {{/each}}
 
-{{#each receiptDetails}}
-<div class="downloads-box">
-    <p class="downloads-name title-content">  {{ this.name }}</p></br>
-    <p class="downloads-price">{{ this.price }}</p></br>
-    <img class="downloads-image" src = {{ this.image }} alt=" " /></br>
+  {{#if totalPrice}}
+    <p class="receipt-total">TOTAL: ${{ this.totalPrice }}</p></br>
+  {{/if}}
 </div>
-{{/each}}
-
-{{#if totalPrice}}
-<div class="downloads-box">
-    <p class="downloads-name title-content"> ${{ this.totalPrice }}</p></br>
-{{/if}}
-{{#if orderId}}
-    <p class="downloads-name title-content">  {{ this.orderId }}</p></br>
-</div>
-{{/if}}
-
 
 {{> footer }}

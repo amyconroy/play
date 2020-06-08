@@ -13,14 +13,8 @@ router.get('/', function(req, res) {
     orderDate: Date.now()
   }
 
-  console.log("USER ID");
-  console.log(req.session.user['userid']);
-  console.log(req.session.user);
-
   createOrder(newOrder, function(orderId){
     if(orderId){
-      console.log("GOT ORDER ID");
-      console.log(orderId);
       var basket = req.session.userBasket['products'];
         for(let i = 0; i < basket.length; i++){
           var newId = basket[i].productid;
@@ -43,10 +37,6 @@ router.get('/', function(req, res) {
                 price: rows[i].price,
                 image: rows[i].image
               };
-              console.log("TOTAL PRICE");
-              console.log(rows[i].totalPrice);
-              console.log("RECEIPT DETAILS");
-              console.log(receiptDetails);
               receiptDetails.push(receiptdeet);
               totalPrice = rows[i].totalPrice;
             }
@@ -61,11 +51,9 @@ router.get('/', function(req, res) {
 
     }
     else{
-      console.log("ERROR cant get orderId");
+      console.log("ERROR: can't get orderId or render receipt.");
     }
   });
-  console.log(orderId);
-  console.log("before rendering");
 });
 
 
@@ -87,15 +75,12 @@ var generateReceipt = function generateReceipt(orderId, callback){
 
 var createOrder = function createOrder(newOrder, callback){
   basketDB.createNewOrder(newOrder); // create new orderId
-  // get order based on newest orderId (hacky, not good in terms of larger user base)
   basketDB.getOrderId((err, rows) => {
     if(err){
       console.log(err);
     }
     else{
       var orderId = rows.orderId;
-      console.log("ORDER ID");
-      console.log(orderId);
       callback(orderId);
     }
   });

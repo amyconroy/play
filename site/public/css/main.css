@@ -68,7 +68,6 @@ a:hover {
 	font-size: 300px;
 	margin: auto;
 	text-align:center;
-
 }
 
 .image_frame {
@@ -313,6 +312,118 @@ a:hover {
   transition: box-shadow 0.7s;
   position: relative;
   display: inline-block;
+}
+
+
+.arrow {
+    font: italic bold 200px Georgia, serif;
+    color: white;
+    text-shadow: 0 0 5px purple, 0 0 10px purple,
+	  0 0 15px purple, 0 0 40px #ff00aa, 0 0 70px #ff00aa;
+}
+
+.dash {
+    font: italic bold 200px Georgia, serif;
+    color: white;
+    text-shadow: 0 0 5px purple, 0 0 10px purple,
+	  0 0 15px purple, 0 0 40px #ff00aa, 0 0 70px #ff00aa;
+    blink: blink;
+    blink: 1s;
+    blink: infinite;
+
+     animation-name: blink;
+     animation-duration: 1s;
+     animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes blink {
+    to {
+        opacity: 0.0;
+    }
+}
+
+@-moz-keyframes blink {
+    to {
+        opacity: 0.0;
+    }
+}
+
+@-ms-keyframes blink {
+    to {
+        opacity: 0.0;
+    }
+}
+
+@-o-keyframes blink {
+    to {
+        opacity: 0.0;
+    }
+}
+@keyframes blink {
+    to {
+        opacity: 0.0;
+    }
+}
+
+.blinkText {
+  font-size: 200px;
+}
+
+.blink {
+  -webkit-animation-name: blinker;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-duration: 2s;
+  text-align: center;
+}
+
+@-webkit-keyframes blinker {
+    0% { color: slateblue;
+          text-shadow: darkslateblue 0px 0px 20px;
+          font-size: 500%}
+    50% { color: cyan;
+           text-shadow: aqua 0px 0px 20px;
+            font-size: 500%;}
+
+    100% { color: magenta;
+           text-shadow: fuchsia 0px 0px 20px;
+            font-size: 500%;}
+}
+
+.receipt {
+	  border: 7px solid cyan;
+		color: cyan;
+}
+
+.receipt-order {
+	position:relative;
+	margin-top: 30px;
+	font-family: 'Aldrich';
+	color: white;
+	text-align:center;
+	font-size:4em;
+	text-shadow: 0 0 5px #38a8a5, 0 0 10px #38a8a5, 0 0 15px #38a8a5, 0 0 40px #00fff7, 0 0 70px #00fff7;
+	margin-left:20px;
+}
+
+.receipt-content {
+	position:relative;
+	margin-top:0px;
+	font-family: 'Aldrich';
+	color: white;
+	text-align:left;
+	font-size:4em;
+	margin-left:20px;
+}
+
+.receipt-total {
+	position:relative;
+	margin-top:0px;
+	font-family: 'Aldrich';
+	color: white;
+	text-align:center;
+	font-size:5em;
+	text-shadow:  0 0 5px #38a8a5, 0 0 10px #38a8a5, 0 0 15px #38a8a5, 0 0 40px #00fff7, 0 0 70px #00fff7;
+	margin-left:20px;
 }
 
 @media only screen and (max-width: 828px) {
