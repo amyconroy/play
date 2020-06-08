@@ -13,7 +13,7 @@
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "express-flash": "git://github.com/RGBboy/express-flash.git",
-    "express-handlebars": "",
+    "express-handlebars": "4.0.4",
     "express-lowercase-paths": "^1.0.0",
     "express-session": "^1.17.1",
     "flash": "^1.1.0",
