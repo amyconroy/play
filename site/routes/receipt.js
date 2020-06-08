@@ -9,7 +9,7 @@ router.get('/', function(req, res) {
 
   var newOrder = {
     userId: req.session.user['userid'],
-    orderPrice: req.session.user['total_price'],
+    orderPrice: req.session.userBasket["total_price"],
     orderDate: Date.now()
   }
 
