@@ -5,22 +5,25 @@ var basketDB = require('./basket_db.js');
 router.get('/', function(req, res) {
   var products = [];
   var receiptdetails = [];
+  var orderId;
+
   var newOrder = {
     userId: req.session.user['userid'],
     orderPrice: 19.99,
     orderDate: Date.now()
   }
+
   console.log("USER ID");
   console.log(req.session.user['userid']);
   console.log(req.session.user);
+
   createOrder(newOrder, function(orderId){
     if(orderId){
       console.log("GOT ORDER ID");
       console.log(orderId);
-      var basket = req.session.userBasket;
+      var basket = req.session.userBasket['products'];
         for(let i = 0; i < basket.length; i++){
-      // for each productId, add OrderDetails
-          var newId = basket[i].productId;
+          var newId = basket[i].productid;
           var orderDetail = {
             productId: newId,
             orderId: orderId
@@ -33,12 +36,17 @@ router.get('/', function(req, res) {
     }
     console.log("prior to getting query");
     console.log(orderId);
+    console.log("SOS HELP ");
+    console.log(orderId);
     var receiptDetails = [];
+
     generateReceipt(orderId, function(receiptDetails){
+      console.log("DUCK ME");
+      console.log(receiptDetails);
       if(receiptDetails){
         res.render('receipt', {
             layout : 'index_head',
-            receipt: receiptdetails,
+            receipt: receiptDetails,
             userLoggedIn: req.session.user
         });
       }
@@ -52,33 +60,27 @@ router.get('/', function(req, res) {
 
 var generateReceipt = function generateReceipt(orderId, callback){
   console.log("entering!!");
+  var receiptDetails = [];
   basketDB.getReceipt(orderId, (err, rows) => {
     console.log("huh");
     console.log(rows);
-    if(rows){
       // remains the same
-      var receiptdetails = {
+      var receiptdeet = {
         orderid: rows.orderid,
         orderprice: rows.totalPrice,
         name: rows.name,
         price: rows.price,
         image: rows.image
-      }
+      };
       console.log("PRODUCT FOR RECEIPT");
-      console.log(product);
-      products.push(product);
-    }
-    else{
-      console.log("ERROR: can't get receipt");
-    }
+    console.log(receiptdeet);
     console.log("RECEIPT DETAILS");
-    console.log(receipt);
+    console.log(receiptDetails);
+    receiptDetails.push(receiptdeet);
+    callback(receiptDetails);
     // ONLY WANT TO DO THIS ONCE !!!
-    callback(receiptdetails);
   });
 }
-
-
 
 var createOrder = function createOrder(newOrder, callback){
   basketDB.createNewOrder(newOrder); // create new orderId
@@ -96,5 +98,6 @@ var createOrder = function createOrder(newOrder, callback){
   });
   callback(null);
 }
+
 
 module.exports = router;
