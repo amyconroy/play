@@ -68,7 +68,6 @@ a:hover {
 	font-size: 300px;
 	margin: auto;
 	text-align:center;
-
 }
 
 .image_frame {
@@ -388,6 +387,43 @@ a:hover {
     100% { color: magenta;
            text-shadow: fuchsia 0px 0px 20px;
             font-size: 500%;}
+}
+
+.receipt {
+	  border: 7px solid cyan;
+		color: cyan;
+}
+
+.receipt-order {
+	position:relative;
+	margin-top: 30px;
+	font-family: 'Aldrich';
+	color: white;
+	text-align:center;
+	font-size:4em;
+	text-shadow: 0 0 5px #38a8a5, 0 0 10px #38a8a5, 0 0 15px #38a8a5, 0 0 40px #00fff7, 0 0 70px #00fff7;
+	margin-left:20px;
+}
+
+.receipt-content {
+	position:relative;
+	margin-top:0px;
+	font-family: 'Aldrich';
+	color: white;
+	text-align:left;
+	font-size:4em;
+	margin-left:20px;
+}
+
+.receipt-total {
+	position:relative;
+	margin-top:0px;
+	font-family: 'Aldrich';
+	color: white;
+	text-align:center;
+	font-size:5em;
+	text-shadow:  0 0 5px #38a8a5, 0 0 10px #38a8a5, 0 0 15px #38a8a5, 0 0 40px #00fff7, 0 0 70px #00fff7;
+	margin-left:20px;
 }
 
 @media only screen and (max-width: 828px) {
