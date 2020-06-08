@@ -4,10 +4,6 @@ var basketDB = require('./basket_db.js');
 
 
 router.get('/', function(req, res) {
-  console.log(req.session.user+" from basket");
-  console.log(req.sessionID + " from basket");
-  console.log(req.session.loggedIn);
-
   if (req.session.user) {
 
     var basket = req.session.userBasket["products"];
@@ -75,11 +71,16 @@ router.get('/remove_product/:productid', function(req, res) {
   var products = req.session.userBasket['products'];
 
   console.log("BEFORE REMOVING");
-  console.log(req.session.userBasket);
+  console.log(req.session.userBasket['products']);
   console.log(products.length);
 
+  console.log("PRODUCT ID");
+  console.log(productId);
+
   for(let i = 0; i < products.length; i++){
-    var item = products[i].productId;
+    var item = products[i].productid;
+    console.log("ITEM");
+    console.log(item);
     if(item === productId){
       products.splice(i, 1);
       req.session.userBasket['total_price'] -= products.productprice;
