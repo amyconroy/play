@@ -6,24 +6,31 @@
 
 {{> navbar }}
 
-<div class="context-box">
-  <h4 class="title-content">Your Receipt</h4>
-</div>
+<div>
+      <span class="arrow">></span>
+      <span class="dash">_</span>
+ </div>
 
-{{#if orderId}}
-<div class="downloads-box">
-    <p class="downloads-name title-content">  {{ this.orderId }}</p></br>
-</div>
-{{/if}}
-
+ {{#if orderId}}
+ <h4 class="title-flash">Your Receipt : Order #{{this.orderId}}</h4>
+ {{/if}}
 
 {{#each receiptDetails}}
 <div class="downloads-box">
-          <p class="downloads-name title-content">  {{ this.orderprice }}</p></br>
     <p class="downloads-name title-content">  {{ this.name }}</p></br>
     <p class="downloads-price">{{ this.price }}</p></br>
     <img class="downloads-image" src = {{ this.image }} alt=" " /></br>
 </div>
 {{/each}}
+
+{{#if receiptDetails}}
+<div class="downloads-box">
+    <p class="downloads-name title-content"> $ {{ this.orderprice }}</p></br>
+{{/if}}
+{{#if orderId}}
+    <p class="downloads-name title-content">  {{ this.orderId }}</p></br>
+</div>
+{{/if}}
+
 
 {{> footer }}
