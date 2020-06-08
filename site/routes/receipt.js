@@ -30,31 +30,61 @@ router.get('/', function(req, res) {
           }
           basketDB.addOrderDetails(orderDetail);
         }
+        var receiptDetails = [];
+        basketDB.getReceipt(orderId, (err, rows) => {
+          console.log("huh");
+          console.log(rows);
+            // remains the same
+            for(let i=0; i < rows.length; i++) {
+              var receiptdeet = {
+                orderid: rows[i].orderid,
+                orderprice: rows[i].totalPrice,
+                name: rows[i].name,
+                price: rows[i].price,
+                image: rows[i].image
+              };
+              console.log("PRODUCT FOR RECEIPT");
+              console.log(receiptdeet);
+              console.log("RECEIPT DETAILS");
+              console.log(receiptDetails);
+              receiptDetails.push(receiptdeet);
+            }
+            res.render('receipt', {
+                layout : 'index_head',
+                orderId: orderId,
+                receiptDetails: receiptDetails,
+                userLoggedIn: req.session.user
+            });
+        });
+
     }
     else{
       console.log("ERROR cant get orderId");
     }
-    console.log("prior to getting query");
-    console.log(orderId);
-    console.log("SOS HELP ");
-    console.log(orderId);
-    var receiptDetails = [];
-
-    generateReceipt(orderId, function(receiptDetails){
-      console.log("DUCK ME");
-      console.log(receiptDetails);
-      if(receiptDetails){
-        res.render('receipt', {
-            layout : 'index_head',
-            receipt: receiptDetails,
-            userLoggedIn: req.session.user
-        });
-      }
-      else{
-        console.log("can't get receipt details.");
-      }
-    });
   });
+  console.log(orderId);
+  console.log("before rendering");
+
+/*  console.log("prior to getting query");
+  console.log(orderId);
+  console.log("SOS HELP ");
+  console.log(orderId);
+  var receiptDetails = [];
+
+  generateReceipt(orderId, function(receiptDetails){
+    console.log("DUCK ME");
+    console.log(receiptDetails);
+    if(receiptDetails){
+      res.render('receipt', {
+          layout : 'index_head',
+          receipt: receiptDetails,
+          userLoggedIn: req.session.user
+      });
+    }
+    else{
+      console.log("can't get receipt details.");
+    }
+  }); */
 });
 
 

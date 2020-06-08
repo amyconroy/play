@@ -51,9 +51,9 @@ exports.createNewOrder = function(newOrder){
 exports.getOrderId = function(callback){
   var query = "Select orderId FROM UserOrder ORDER BY orderId DESC LIMIT 1;"
   db.serialize(() => {
-    db.each(query, (err, rows) =>{
+    db.all(query, (err, rows) =>{
       if(rows){
-        callback(null, rows);
+        callback(null, rows[0]);
       } else{
         callback(err, null); // unable to get the id
       }
@@ -107,7 +107,7 @@ exports.getReceipt = function(orderId, callback){
   query += "WHERE UserOrder.orderId = ?;";
     // use each as all returns everything from db, each runs query first
   db.serialize(() => {
-    db.each(query, orderId, (err, rows)=>{
+    db.all(query, orderId, (err, rows)=>{
       if(rows){
         console.log("rows for receipt");
         callback(null, rows);
