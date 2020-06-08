@@ -9,7 +9,7 @@ router.get('/', function(req, res) {
 
   var newOrder = {
     userId: req.session.user['userid'],
-    orderPrice: 19.99,
+    orderPrice: req.session.userBasket['total_price'],
     orderDate: Date.now()
   }
 
@@ -49,6 +49,7 @@ router.get('/', function(req, res) {
               console.log(receiptDetails);
               receiptDetails.push(receiptdeet);
             }
+            console.log("price total"+receiptDetails.totalprice);
             res.render('receipt', {
                 layout : 'index_head',
                 orderId: orderId,
