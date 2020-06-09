@@ -8,7 +8,7 @@ var fs = require("fs");
 /// OTHER PACKAGES ///
 /////////////////////
 var cookieParser = require('cookie-parser');
-var uuid = require('uuid/v4');
+const { v4: uuidv4 } = require('uuid');
 var session = require('express-session');
 var logger = require('morgan');
 var handlebars = require('express-handlebars');
@@ -74,7 +74,7 @@ app.use(bodyParser.json()); // supporting JSON-econded bodies
 app.use(cookieParser());
 app.use(session({
     genid: function(req) {
-      return uuid() // use UUIDs for session IDs
+      return uuidv4() // use UUIDs for session IDs
     },
     secure:false, //change to secure
     secret: "343ji43j4n3jn4jk3n",
