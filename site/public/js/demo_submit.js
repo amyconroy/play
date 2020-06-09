@@ -2,11 +2,14 @@
 
 //GENERAL ENGINE STRUCTURE, cobbled together with caffiene and pain, is outlined below
 //TRIGGERS: take a story branch, story index at which branch will trigger, and an effect
+//Pass trigger will continue the next branch
+//End will occur during a condition, triggered by a specific
 //LOCATIONSTORY: responses to player input in each branch
 //STORYOPTIONS: options presented to the player
 //in future this configeration can be abstracted to a json config file
 
 var userInput = document.getElementById("user-input");
+var username = "";
 var firstInput = false;
 var displayText = document.getElementById("display-text");
 var childTextNodes;
@@ -37,17 +40,36 @@ var sshStoryTriggers = [{result:"pass", branch:"branch1", index:1}, {result:"pas
 
 var mainStoryWelcome = "passing the open door, you arrive within what can only be described as a junkyard. you see the letters main() high in the sky. this must be your program! You spot a lonely creature of the Github Branch species sitting quietly on the ground.";
 var mainStoryOptions = {
-  options1: ["talk to the github branch","you humour the cute, albeit annoying develop"], //nice options
-  options2: ["carry on past him to the next area","you punch develop on the face and tell him people should commit straight to master"] //mean options
+  options1: ["talk to the github branch","you humour the cute, albeit annoying develop","you proceed to the door with the code"], //nice options
+  options2: ["carry on past him to the next area","you punch develop on the face and tell him people should commit straight to master","not wanting to continue to yet another door, you run away into the main() badlands"] //mean options
 };
 var mainStory = {
-  branch1: ["the branch looks excited as you approach. shaking your hand, he introduces himself as develop.","develop is so pleased and happy he gives you a code to the next door"],
-  branch2: ["you try to walk past the branch, but something starts tugging at your sleeve excitedly.","develop scoffs, picks himself up, and walks away. 'committing to master is comitting crime against humanity', he yells."]
+  branch1: ["the branch looks excited as you approach. shaking your hand, he introduces himself as develop.","develop is so pleased and happy he gives you a potion, and points you to the next door",""],
+  branch2: ["you try to walk past the branch, but something starts tugging at your sleeve excitedly.","develop scoffs, picks himself up, and walks away. 'committing to master is comitting crime against humanity', he yells. you notice he dropped a potion on the ground.", "you are eaten by wild dangling pointers in the badlands. should've checked for memory leaks..."]
 };
-var mainStoryTriggers = [{result:"pass", branch:"branch1",index:1}, {result:"pass", branch:"branch1",index:2}, {result:"pass", branch:"branch1",index:3}, {result:"end", branch:"branch2",index:1}, {result:"end", branch:"branch2",index:2},{result:"end", branch:"branch2",index:3}];
+var mainStoryTriggers = [{result:"pass", branch:"branch1",index:1}, {result:"pass", branch:"branch1",index:2}, {result:"doorPuzzle", branch:"branch1",index:3}, {result:"pass", branch:"branch2",index:1}, {result:"pass", branch:"branch2",index:2},{result:"end", branch:"branch2",index:3}];
 
-var stacksStoryWelcome = "you see massive highrise skyscrapers. at the end of the street in glowing neon is the sign 'SYSTEM STACK'. you proceed there.";
+var doorPuzzleWelcome = "you arrive the the door at the end of the main() junkyard. you see a strange language on a circular lock, which seems familiar. the top line reads 1 == '1' IS ?. below are two labelled buttons.";
+var doorPuzzleOptions = {
+  options1:["TRUE", "TRUE","proceed to the stacks like a nerd"],
+  options2:["FALSE","FALSE", "proceed to the stacks in style"]
+};
+var doorPuzzleStory = {
+  branch1:["you breath a sigh of relief as the lock begins to turn. however, just before completion it seems to become stuck, and another question appears. 1 === '1' IS ?","the door emitts a shrieking screech, and you are zapped by electricity as the words 'TYPE ERROR' are seared into your brain forever."],
+  branch2:["the door emitts a shrieking screech, and you are zapped by electricity as the words 'TYPE ERROR' are seared into your brain forever.","you put on our glasses, and proceed to the stacks"]
+};
+var doorPuzzleTriggers = [{result:"end", branch:"branch2",index:1}, {result:"pass", branch:"branch1", index:1}, {result:"end", branch:"branch1", index:2}, {result:"stacks", branch:"branch2", index:2}];
 
+var stacksStoryWelcome = "you see massive highrise skyscrapers. at the end of the street in glowing neon is the sign 'SYSTEM STACK'. you proceed towards it.";
+var stacksStoryOptions = {
+  options1:[""],
+  options2:[]
+}
+var stacksStory = {
+  branch1: [],
+  branch2: []
+}
+var stacksStoryTriggers = [{result:"pass", branch:"branch1",index:1}, {result:"pass", branch:"branch1",index:1}];
 
 class Location {
   constructor(locationName, locationNarration, locationStory, storyOptions, triggers) {
@@ -99,7 +121,6 @@ class Location {
     //advance narrative to next set of choices without user input yet, if we have a pass trigger
     if (this.currentStoryIndex < this.locationStory["branch1"].length) {
       this.presentOptions();
-      //this.currentStoryIndex++;
     }
   }
 
@@ -154,7 +175,8 @@ class Controller {
     this.locations.push(new Location("room", roomStoryWelcome, roomStory, roomStoryOptions, roomStoryTriggers));
     this.locations.push(new Location("ssh", sshStoryWelcome, sshStory, sshStoryOptions, sshStoryTriggers));
     this.locations.push(new Location("main", mainStoryWelcome, mainStory, mainStoryOptions, mainStoryTriggers));
-    this.locations.push(new Location("stacks", stacksStoryWelcome));
+    this.locations.push(new Location("doorPuzzle", doorPuzzleWelcome, doorPuzzleStory, doorPuzzleOptions, doorPuzzleTriggers));
+    this.locations.push(new Location("stacks", stacksStoryWelcome, stacksStoryOptions, stacksStory, stacksStoryTriggers));
   }
 
   introductionText() {
@@ -198,10 +220,15 @@ class Controller {
         this.locations[2].presentOptions();
         this.currentLocation = 2;
         break;
-      case "stacks":
+      case "doorPuzzle":
         this.locations[3].welcomeNarration();
         this.locations[3].presentOptions();
         this.currentLocation = 3;
+        break;
+      case "stacks":
+        this.locations[4].welcomeNarration();
+        this.locations[4].presentOptions();
+        this.currentLocation = 4;
         break;
       default:
         outputResponseToParent(displayText, "you can't go there");
@@ -239,10 +266,24 @@ class Controller {
         this.setCharName(inputWords[1]);
         break;
       case "goto":
+        console.log("GOTO COMMAND");
         outputResponseToParent(displayText, "going to "+inputWords[1]);
         this.loadLocationNarrative(inputWords[1]);
         break;
       case "1":
+        var narrationResult = this.locations[this.currentLocation].advanceNarration(inputWords[0]);
+
+        if (narrationResult != "end" && narrationResult != "pass") {
+          console.log("CHANGING LOCATION");
+          this.loadLocationNarrative(narrationResult);
+        }
+
+        if (narrationResult == "pass") {
+          narrationResult = this.locations[this.currentLocation].triggerPass();
+        }
+
+        break;
+      case "2":
         var narrationResult = this.locations[this.currentLocation].advanceNarration(inputWords[0]);
 
         if (narrationResult != "end" && narrationResult != "pass") {
@@ -251,13 +292,6 @@ class Controller {
 
         if (narrationResult == "pass") {
           narrationResult = this.locations[this.currentLocation].triggerPass();
-        }
-        console.log("FINISHED INPUT, WAITING FOR NEXT");
-        break;
-      case "2":
-        var narrationResult = this.locations[this.currentLocation].advanceNarration(inputWords[0]);
-        if (narrationResult != "end") {
-          this.loadLocationNarrative(narrationResult);
         }
 
         break;
