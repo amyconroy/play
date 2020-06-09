@@ -1,5 +1,9 @@
 "use strict";
 
+//GENERAL ENGINE STRUCTURE, cobbled together with caffiene and pain, is outlined below
+//TRIGGERS: take a story branch, story index at which branch will trigger, and an effect
+//STORY IS RESPONSES TO OPTIONS IN EACH BRANCH, CORRESPONDING TO INDEX
+
 var userInput = document.getElementById("user-input");
 var firstInput = false;
 var displayText = document.getElementById("display-text");
@@ -12,15 +16,41 @@ var roomStory = {
   branch1: ["as you type the command, the room around you begind to swirl. you see nothing but swirling characters and darkness. you fear you may never finish this homework on time!"],
   branch2: ["you leave your room and go to hand out with friends. you are done with this homework for now."]
 };
-var roomStoryOptions = ["connect to ssh?", "walk away and socialise"];
-//var roomStoryTriggers = [2, "end", "branch2"];
-var roomStoryTriggers = [{result:"end", branch:"branch2"}, {result:"ssh", branch:"branch1"}]; //atm 2 types of triggers, location changes and end of game
+var roomStoryOptions = {
+  options1: ["connect to ssh"],
+  options2: ["walk away and socialise"]
+};
+var roomStoryTriggers = [{result:"end", branch:"branch2", index:1}, {result:"ssh", branch:"branch1", index:1}];
 
-var sshStoryWelcome = "you look around, and see a large purple portal, with the lessers S S H engraved into the stone.";
+var sshStoryWelcome = "you are spat out of the vortex. you look around, and see a large purple portal, with the lessers S S H engraved into the stone. in the end of the room is a door which appears locked.";
+var sshStory = {
+  branch1: ["the portal is solid, and unresponsive.", "you try the portal again, no dice. but the portal starts to glow unpleasantly.", "you try the portal one more time, and an SQL Injection pierces you with an unsanitized query."],
+  branch2: ["you attempt to open the door, and to your suprise it swings open.", "you decide to head for the door, and to your suprise it swings open.", ""] //branch takes you out
+};
+var sshStoryOptions = {
+  options1: ["try to go back inside the portal", "try again?", "try again?"],
+  options2: ["try the door", "leave the portal alone, and head for the door", "this portal isn't looking too good, try the door..."]
+};
+var sshStoryTriggers = [{result:"pass", branch:"branch1", index:1}, {result:"pass", branch:"branch1", index:2}, {result:"main", branch:"branch2",index:1}, {result:"main", branch:"branch2", index:2}, {result:"main", branch:"branch2", index:3}, {result:"end", branch:"branch1", index:3}];
 
 var mainStoryWelcome = "passing the open door, you arrive within what can only be described as a junkyard. you see the letters main() high in the sky. this must be your program!";
+var mainStory = {
+  branch1: ["bye"],
+  branch2: ["bye"]
+};
+var mainStoryOptions = {
+  options1: ["exit program"],
+  options2: ["exit program"]
+};
+var mainStoryTriggers = [{result:"end", branch:"branch1"}, {result:"end", branch:"branch2"}];
 
 var stacksStoryWelcome = "you see massive highrise skyscrapers. at the end of the street in glowing neon is the sign 'SYSTEM STACK'. you proceed there.";
+/*var sshStory = {
+  branch1: [],
+  branch2: []
+};
+var sshStoryOptions = [];
+var sshStoryTriggers = [];*/
 
 class Location {
   constructor(locationName, locationNarration, locationStory, storyOptions, triggers) {
@@ -38,8 +68,10 @@ class Location {
   }
 
   presentOptions() {
-    outputResponseToParent(displayText, "1: "+this.storyOptions[0]);
-    outputResponseToParent(displayText, "2: "+this.storyOptions[1]);
+    var currentOption1 = this.storyOptions['options1'][this.currentStoryIndex];
+    var currentOption2 = this.storyOptions['options2'][this.currentStoryIndex];
+    outputResponseToParent(displayText, "1: "+currentOption1);
+    outputResponseToParent(displayText, "2: "+currentOption2);
   }
 
   getTriggerResult(branchname) {
@@ -47,8 +79,11 @@ class Location {
 
     for (i = 0; i < this.triggers.length; i++) { //cycle thru triggers until we hit branch
       if (this.triggers[i].branch == branchname) {
-        result = this.triggers[i].result;
-        return result;
+        if (this.triggers[i].index == this.currentStoryIndex) {
+          result = this.triggers[i].result;
+          console.log(result);
+          return result;
+        }
       }
     }
   }
@@ -61,12 +96,19 @@ class Location {
     return status;
   }
 
+  triggerPass() {
+    //advance narrative to next set of choices without user input yet, if we have a pass trigger
+    if (this.currentStoryIndex < this.locationStory["branch1"].length) {
+      this.presentOptions();
+    }
+  }
+
   advanceNarration(userInputText) {
-    if (this.currentStoryIndex < this.locationStory["branch1"].length) { //if story for a single location is still going
+    if (this.currentStoryIndex < this.locationStory["branch1"].length) { //if story for a single location is still going, first branch for now is assumed to be longest
       if (userInputText == "1") {
         var branchStory = this.locationStory["branch1"];
         this.currentBranch = "branch1";
-        outputResponseToParent(displayText, this.currentBranch[this.currentStoryIndex]);
+        outputResponseToParent(displayText, branchStory[this.currentStoryIndex]);
         this.currentStoryIndex++; //for longer locations
 
       } else if (userInputText == "2"){
@@ -90,7 +132,9 @@ class Location {
       return "end";
 
     } else {
-      console.log("TRIGGER RESULT "+triggerResult)
+      console.log("TRIGGER RESULT "+triggerResult);
+      console.log(this.currentStoryIndex);
+
       return triggerResult; //return new location we going to
     }
 
@@ -108,7 +152,7 @@ class Controller {
 
   spawnLocations() {
     this.locations.push(new Location("room", roomStoryWelcome, roomStory, roomStoryOptions, roomStoryTriggers));
-    this.locations.push(new Location("ssh", sshStoryWelcome));
+    this.locations.push(new Location("ssh", sshStoryWelcome, sshStory, sshStoryOptions, sshStoryTriggers));
     this.locations.push(new Location("main", mainStoryWelcome));
     this.locations.push(new Location("stacks", stacksStoryWelcome));
   }
@@ -201,8 +245,12 @@ class Controller {
       case "1":
         var narrationResult = this.locations[this.currentLocation].advanceNarration(inputWords[0]);
 
-        if (narrationResult != "end") {
+        if (narrationResult != "end" && narrationResult != "pass") {
           this.loadLocationNarrative(narrationResult);
+        }
+
+        if (narrationResult == "pass") {
+          narrationResult = this.locations[this.currentLocation].triggerPass();
         }
 
         break;
