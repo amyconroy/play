@@ -1,4 +1,10 @@
+"use strict";
+
 var userInput = document.getElementById("user-input");
+var firstInput = false;
+var displayText = document.getElementById("display-text");
+var childTextNodes;
+
 mainDemo();
 
 function mainDemo() {
@@ -10,11 +16,34 @@ function inputHandler(e) {
   if (e.key == 'Enter') {
     var userInput = document.getElementById("user-input");
 
-    alert(userInput.value);
-    alert("keypresswords");
+    if (firstInput == false) {
+      childTextNodes = displayText.childNodes;
+
+      for (var i = 0; i < childTextNodes.length; i++) {
+        displayText.removeChild(childTextNodes[i]);
+      }
+      firstInput = false;
+
+    } else {
+      var newOutputText = document.createElement('newOutput');
+      displayText.appendChild()
+
+    }
   }
 }
 
+/*
+var b = document.createElement('b');
+b.appendChild(document.createTextNode('World');
+para.appendChild(b);
+
+para.appendChild(document.createTextNode('!'));
+
+var someDiv = document.getElementById('someID');
+var children = someDiv.childNodes;
+for(var i = 0; i < children.length; i++)
+    someDiv.removeChild(children[i]);
+*/
 
 // 1. print welcome intro (set the scene), say just a demo so you can't win
 // 2. must enter the option exactly as they are presented to you
@@ -22,11 +51,11 @@ function inputHandler(e) {
 // (user has to enter what is in quotes, if not throw an error saying please try again!)
 // hackily offer the first narration with two options
 //  would you like to 1. go to 'entrance' or 2. speak to 'neill'
-get.name(); // based on name that user enters (case sensitive)
-get.narration(); // where name.equals() what they entered, get naration (based on the name )
-get.node(); // return array of nodes, present as options to user ... (these are the names of other places they can go/ people they can speak to)
+//get.name(); // based on name that user enters (case sensitive)
+//get.narration(); // where name.equals() what they entered, get naration (based on the name )
+//get.node(); // return array of nodes, present as options to user ... (these are the names of other places they can go/ people they can speak to)
 
-class location {
+/*class location {
   String: narration
   getNarration();
 }
@@ -46,12 +75,12 @@ class NPC {
   [
     "name" : "ssh",
     "description" : "ssh portal room desc",
-    "node" : ["main", "room"] //only go to room if you have key
+    "node" : ["main", "room"]
   ],
   [
     "name" : "main",
     "description" : "main desc",
-    "node" : ["stacks", "root"] //if they solve puzzle in main go straight to root
+    "node" : ["stacks", "root"]
   ],
   [
     "name" : "stacks",
@@ -66,6 +95,6 @@ class NPC {
   [
     "name" : "root",
     "description" : "Main",
-    "node" : ["ssh"] //go back to ssh with key
+    "node" : ["ssh"]
   ]
-}
+}*/
