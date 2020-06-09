@@ -1,3 +1,7 @@
+a {
+  color:inherit;
+}
+
 #product1 {
   background-image: url('../images/background2.png');
   background-size: 100% 100%;
@@ -27,7 +31,7 @@
 }
 
 #product4 {
-  
+
 }
 
 #product5 {

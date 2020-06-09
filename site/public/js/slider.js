@@ -29,7 +29,8 @@ function init() {
 function slider() {
   hidePosts(posts);
   hideText(outputTextParent);
-  addText(outputTextParent, textContent[current_slide]);
+  addText(outputTextParent, textContent[current_slide], "title-post");
+  addText(outputTextParent, randomFacts[randomNum()], "post-text");
 
   posts[current_slide].classList.add("visible");
 
@@ -53,7 +54,8 @@ function nextSlide() {
   }
   hidePosts(posts);
   hideText(outputTextParent);
-  addText(outputTextParent, textContent[current_slide]);
+  addText(outputTextParent, textContent[current_slide], "title-post");
+  addText(outputTextParent, randomFacts[randomNum()], "post-text");
   posts[current_slide].classList.add("visible");
 }
 
@@ -65,7 +67,8 @@ function prevSlide() {
   }
   hidePosts(posts);
   hideText(outputTextParent);
-  addText(outputTextParent, textContent[current_slide]);
+  addText(outputTextParent, textContent[current_slide], "title-post");
+  addText(outputTextParent, randomFacts[randomNum()], "post-text");
   posts[current_slide].classList.add("visible");
 
 }
@@ -93,9 +96,9 @@ function hidePosts(allPosts) {
   }
 }
 
-function addText(parent, text) {
-  var newText = document.createElement('p');
-  newText.classList.add("post-text");
+function addText(parent, text, elclass) {
+  var newText = document.createElement('h4');
+  newText.classList.add(elclass);
 
   var textnode = document.createTextNode(text);
   newText.appendChild(textnode);
@@ -111,4 +114,10 @@ function hideText(element){
     element.removeChild(child);
     child = element.lastElementChild;
   }
+}
+
+function randomNum() {
+  var num;
+  num = Math.floor((Math.random() * (randomFacts.length)));
+  return num;
 }

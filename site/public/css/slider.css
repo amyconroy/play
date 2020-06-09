@@ -13,43 +13,30 @@ a {
 	margin-top:0;
 
 	margin-bottom:100px;
-
-	/*border-radius: 2rem;
-	border: 0.3rem solid;
-	border-bottom-color: #190445;
-	border-left-color: #0f022b;
-  border-right-color: #0f022b;
-  border-top-color: #09011a;*/
 }
 
 .post-overlay {
 	position:absolute;
-	left: 40%;
-	top: 300px;
+}
+
+.overlay-frame {
+
 }
 
 .post-text {
 	position:absolute;
-	font-size: 60px;
+	font-size: 1rem;
 	z-index: 999;
 	color:white;
 }
 
 .title-post {
-	top: -500%;
-	color: magenta;
-	z-index: 700;
-	font-size: 100px;
+	border:red 5px solid;
+	margin-left:500px;
+	z-index: 99;
+	font-size: 3rem;
 	position:absolute;
 	color:white;
-}
-
-.title-container {
-	/*background-color: black;
-	position:relative;
-	border:solid 5px white;
-	width:50%;
-	margin:auto;*/
 }
 
 .slider {
@@ -59,17 +46,12 @@ a {
 	width:100%;
 	margin:auto;
 	height:78vh;
-	margin-top:35px; /*this is a hack, will change*/
+	margin-top:35px;
 }
 
 .posts {
   height:inherit;
 	max-height: 100%;
-  /*hide by default*/
-
-}
-
-.post_number {
 
 }
 
@@ -92,7 +74,7 @@ a {
   position:absolute;
   background-color:gray;
   opacity:0.5;
-  top:340px;
+  top:45%;
   font-weight: bold;
   font-size: 50px;
   padding:20px;
