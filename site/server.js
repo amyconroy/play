@@ -1,4 +1,5 @@
-//var flash = require('flash');
+"use strict";
+
 var createError = require('http-errors'); //change these to constants so cant be changed?
 var express = require('express');
 var path = require('path');
