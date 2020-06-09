@@ -16,7 +16,7 @@ class Location {
   }
 
   welcomeNarration() { //onload call this
-    outputResponseToParent(displayText, locationNarration);
+    outputResponseToParent(displayText, this.locationNarration);
   }
   //load new location
   //read location narration
@@ -24,7 +24,7 @@ class Location {
 
 class Controller {
   constructor(playername, inventory, stats, currentLocation) {
-    var locations = [];
+    this.locations = [];
     this.playername = playername; //string
     this.inventory = inventory; //array
     this.stats = stats; //json object
@@ -33,6 +33,9 @@ class Controller {
 
   spawnLocations() {
     this.locations.push(new Location("room", "you see a large, messy room. the area is filled with red bull, crisps, and half opened computer science textbooks."));
+    this.locations.push(new Location("ssh", "the air around you spins rapidly as you are sucked into your computer! you look around, and see a large purple portal, with the lessers S S H engraved into the stone."));
+    this.locations.push(new Location("main", "passing the open door, you arrive within what can only be described as a junkyard. you see the letters main() high in the sky. this must be your program!"));
+    this.locations.push(new Location("stacks", "you see massive highrise skyscrapers. at the end of the street in glowing neon is the sign 'SYSTEM STACK'. you proceed there."));
   }
 
   introductionText() {
@@ -44,7 +47,7 @@ class Controller {
 
   viewInventory() {
     outputResponseToParent(displayText, "inventory for: "+this.playername);
-    outputResponseToParent(displayText, inventory.join());
+    outputResponseToParent(displayText, this.inventory.join(", "));
   }
 
   viewStats() {
@@ -59,11 +62,24 @@ class Controller {
   }
 
   loadLocationNarrative(gotoLocation) {
+    console.log("loading location");
     switch(gotoLocation) {
       case "room":
-        this.location[0].welcomeNarration();
+        this.locations[0].welcomeNarration();
+        this.currentLocation = 0;
         break;
-
+      case "ssh":
+        this.locations[1].welcomeNarration();
+        this.currentLocation = 1;
+        break;
+      case "main":
+        this.locations[2].welcomeNarration();
+        this.currentLocation = 2;
+        break;
+      case "stacks":
+        this.locations[2].welcomeNarration();
+        this.currentLocation = 2;
+        break;
       default:
         outputResponseToParent(displayText, "you can't go there");
         break;
@@ -88,7 +104,7 @@ class Controller {
         break;
       case "goto":
         outputResponseToParent(displayText, "going to "+inputWords[1]);
-        loadLocationNarrative(inputWords[1]);
+        this.loadLocationNarrative(inputWords[1]);
         break;
       default: //cases for a/b/c?
         outputResponseToParent(displayText, "can't understand command. try again.");
@@ -97,7 +113,7 @@ class Controller {
   }
 }
 
-var game = new Controller("", [], {health:3, armour:3}, "");
+var game = new Controller("", ["cs textbook", "calculator"], {health:3, armour:3}, 0);
 
 mainDemo();
 

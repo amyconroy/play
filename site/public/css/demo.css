@@ -50,8 +50,8 @@
 }
 
 .console {
-  white-space: nowrap;
-  overflow: hidden;
+  white-space: normal;
+  overflow: visible;
   font-size: 1rem;
   animation: output-console 0.5s steps(29,end) 0s 1 normal both;
              /*animated-cursor 600ms steps(29,end) infinite;*/
@@ -67,6 +67,7 @@
 }
 
 .demo-input-form {
+
   color: #ff99df;
   font-family: 'DM Mono';
   border: solid 2px #ff99df;
