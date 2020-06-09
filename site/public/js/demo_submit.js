@@ -343,7 +343,7 @@ function inputHandler(e) {
   }
 }
 
-function fadeText(element) {
+function fadeText(element) { //animation to fade text slowly in main title
   var element;
   var transparency = 1;
   var id = setInterval(frame, 100);

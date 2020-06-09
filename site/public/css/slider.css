@@ -3,10 +3,10 @@ a {
 }
 
 .posts-box {
-	background-color:#1f0036;
+	background-color:black;
 	color:white;
 	width:100%;
-	height:350px;
+	height:600px;
 	padding-bottom:400px;
 
 	margin-left:0;
@@ -30,7 +30,7 @@ a {
 
 .post-text {
 	position:absolute;
-	font-size: 60px; 
+	font-size: 60px;
 	z-index: 999;
 	color:white;
 }
@@ -58,7 +58,7 @@ a {
 	text-align:left;
 	width:100%;
 	margin:auto;
-	height:750px;
+	height:78vh;
 	margin-top:35px; /*this is a hack, will change*/
 }
 

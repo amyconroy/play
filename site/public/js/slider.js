@@ -4,8 +4,8 @@
 var current_slide = 0;
 var posts = getPosts("post_image");
 var total_posts = posts.length;
+var outputTextParent = document.getElementById('remove-inner-text');
 
-var curr_text = 0;
 var randomFacts = ["The first commerical U.S cell phone weighed two pounds!",
 "Olivia Newton-John's 'Phyiscal' was the 80's most popular song!",
 "The original Gameboy had only five games available in the United States!",
@@ -15,6 +15,8 @@ var randomFacts = ["The first commerical U.S cell phone weighed two pounds!",
 "MTV was created in 1981, the first ever video played was 'Video Killed the Radio Star'!",
 "McDonald's Chicken McNuggets were introduced in 1981!",
 "Coca-Cola changed their iconic formula once during the 80s, causing a consumer uproar!"];
+
+var textContent = ["Visit products for amazing deals", "Check out our engine demo today", "Sign up to receive 10% off on your first purchase"];
 
 init();
 slider();
@@ -26,10 +28,10 @@ function init() {
 
 function slider() {
   hidePosts(posts);
-  posts[current_slide].classList.add("visible");
+  hideText(outputTextParent);
+  addText(outputTextParent, textContent[current_slide]);
 
-  var text = randomFacts[curr_text];
-  document.getElementById("text").innerHTML = text;
+  posts[current_slide].classList.add("visible");
 
   if (current_slide < (total_posts-1)) {
     current_slide++;
@@ -50,9 +52,9 @@ function nextSlide() {
     current_slide = 0;
   }
   hidePosts(posts);
+  hideText(outputTextParent);
+  addText(outputTextParent, textContent[current_slide]);
   posts[current_slide].classList.add("visible");
-  var text = randomFacts[curr_text];
-  document.getElementById("text").innerHTML = text;
 }
 
 function prevSlide() {
@@ -62,9 +64,10 @@ function prevSlide() {
     current_slide = (total_posts-1);
   }
   hidePosts(posts);
+  hideText(outputTextParent);
+  addText(outputTextParent, textContent[current_slide]);
   posts[current_slide].classList.add("visible");
-  var text = randomFacts[curr_text];
-  document.getElementById("text").innerHTML = text;
+
 }
 
 function getPostById(postId) {
@@ -90,11 +93,22 @@ function hidePosts(allPosts) {
   }
 }
 
-function hideText(allText){
+function addText(parent, text) {
+  var newText = document.createElement('p');
+  newText.classList.add("post-text");
+
+  var textnode = document.createTextNode(text);
+  newText.appendChild(textnode);
+  parent.appendChild(newText);
+}
+
+function hideText(element){
   var child = element.lastElementChild;
+
+  console.log(child);
 
   while(child){
     element.removeChild(child);
-    child = element.lastElementChild; 
+    child = element.lastElementChild;
   }
 }
