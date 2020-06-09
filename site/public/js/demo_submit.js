@@ -5,6 +5,28 @@ var firstInput = false;
 var displayText = document.getElementById("display-text");
 var childTextNodes;
 
+class Controller {
+  constructor(playername) {
+    this.playername = playername;
+  }
+
+  log() {
+    console.log("FROM INSIDE CLASS");
+  }
+
+
+
+  gameNarrative(userInput) {
+    if (userInput == "help") {
+      outputResponseToParent(displayText, "presenting help here:");
+    } else {
+      outputResponseToParent(displayText, "can't understand command");
+    }
+  }
+}
+
+var game = new Controller("rip");
+
 mainDemo();
 
 function mainDemo() {
@@ -25,7 +47,6 @@ function inputHandler(e) {
       firstInput = true;
 
     } else {
-      console.log("user input incoming");
       console.log(userInput.value);
 
       childTextNodes = displayText.childNodes;
@@ -35,7 +56,8 @@ function inputHandler(e) {
         clearChildNodes(displayText);
       }
 
-      outputResponseToParent(displayText, userInput.value);
+      game.gameNarrative(userInput.value);
+      userInput.value = ""; //clear the value
 
     }
   }
@@ -76,6 +98,7 @@ function outputResponseToParent(parent, text) {
   newOutputText.appendChild(textnode);
   parent.appendChild(newOutputText);
 }
+
 
 // 1. print welcome intro (set the scene), say just a demo so you can't win
 // 2. must enter the option exactly as they are presented to you
