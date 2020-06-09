@@ -10,10 +10,6 @@
 
 	{{> navbar user=userLoggedIn.name basketPage=false}}
 
-	<!--{{#if userLoggedIn  }}
-			{{> logged_in user=userLoggedIn.name }}
-	{{/if}}-->
-
 	<div class="posts-box">
 		<!--<div class="title-container">
 			<h4 class="title-post">TOP POSTS OF THE WEEK</h4>
@@ -22,7 +18,8 @@
 		<div class="slider">
 			<div class="post-overlay">
 					<div class="overlay-frame" id="overlay">
-						<h4 class="title-post" id="text"></h4>
+						<div class="title-post">DID YOU KNOW?</div>
+							<h4 class="post-text" id="text"></h4>
 						<a href="#" id="link"><p>Visit here!</p></a> <!-- this can be dynamic, depending on what post will change link to page-->
 					</div>
 			</div>
