@@ -1,3 +1,5 @@
+"use strict";
+
 //game for the demo page
 
 class Entity { //base class for things that do shit ie NPC's and enemies
