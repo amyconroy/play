@@ -15,6 +15,7 @@ function mainDemo() {
 function inputHandler(e) {
   if (e.key == 'Enter') {
     var userInput = document.getElementById("user-input");
+    console.log("user input for first time");
 
     if (firstInput == false) {
       childTextNodes = displayText.childNodes;
@@ -22,11 +23,27 @@ function inputHandler(e) {
       for (var i = 0; i < childTextNodes.length; i++) {
         displayText.removeChild(childTextNodes[i]);
       }
-      firstInput = false;
+      firstInput = true;
 
     } else {
-      var newOutputText = document.createElement('newOutput');
-      displayText.appendChild()
+      console.log("user input incoming");
+      console.log(userInput.value);
+
+      childTextNodes = displayText.childNodes;
+      console.log(childTextNodes.length);
+
+      if(childTextNodes.length > 10) {
+        for (var i = 0; i < childTextNodes.length; i++) {
+          displayText.removeChild(childTextNodes[i]);
+        }
+      }
+
+      var newOutputText = document.createElement('p'); //new p node
+      newOutputText.classList.add("welcome-text"); //styling
+
+      var textnode = document.createTextNode(userInput.value);
+      newOutputText.appendChild(textnode);
+      displayText.appendChild(newOutputText);
 
     }
   }
