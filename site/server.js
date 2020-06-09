@@ -1,23 +1,27 @@
 "use strict";
-
-var createError = require('http-errors'); //change these to constants so cant be changed?
-var express = require('express');
-var path = require('path');
+// all const so they can not be changed
+//////////////////////
+/// INITIAL SET UP ///
+//////////////////////
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
 const port = process.env.PORT || 8080;
-var fs = require("fs");
+
 //////////////////////
 /// OTHER PACKAGES ///
 /////////////////////
-var cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 const { v4: uuidv4 } = require('uuid');
-var session = require('express-session');
-var logger = require('morgan');
-var handlebars = require('express-handlebars');
-var bodyParser = require('body-parser'); //for post requests
-var md5 = require('md5'); // use for creating a hash for passwords, need to change to SHA-1
-var bodyParser = require('body-parser');
-var helmet = require('helmet'); // for security
-var fs = require("fs"); // ban upper case file names
+const session = require('express-session');
+const logger = require('morgan');
+const handlebars = require('express-handlebars');
+const bodyParser = require('body-parser'); //for post requests
+const md5 = require('md5'); // use for creating a hash for passwords, need to change to SHA-1
+const bodyParser = require('body-parser');
+const helmet = require('helmet'); // for security
+const fs = require("fs"); // ban upper case file names
+
 //////////////////
 /// EXPRESS /////
 /////////////////
@@ -29,10 +33,8 @@ var router = express.Router(); //our router for requests
 /////////////////////
 var banned = [];
 banUpperCase("./public/", "");
-
 app.use(lower); // put to lower case
 app.use(ban); // forbid access to the urls in the banned list
-
 app.use(helmet()); // protects against attacks on express
 
 //////////////////////////////
@@ -71,6 +73,9 @@ app.use(logger('dev'));
 app.use(express.urlencoded({ extended: true })); /// supporting URL-encoded bodies (utf-8)
 app.use(bodyParser.json()); // supporting JSON-econded bodies
 
+////////////////
+/// COOKIES ///
+//////////////
 //cookies for session storage
 app.use(cookieParser());
 app.use(session({
@@ -96,8 +101,6 @@ function lower(req, res, next) {
 ///////////////
 /// ROUTING ///
 //////////////
-
-//change here
 var indexRoute = require('./routes/index.js');
 var demoRoute = require('./routes/demo.js');
 var loginRoute = require('./routes/login.js');
@@ -136,9 +139,6 @@ app.use('/downloads/*/add_product', express.static(__dirname + '/public'));
 app.use('/basket', express.static(__dirname + '/public'));
 app.use('/products', express.static(__dirname + '/public'));
 app.use('/products/add_product', express.static(__dirname + '/public'));
-
-
-///downloads/all/add_product/1
 
 ///////////////////////////////
 /// FILL DB WITH DUMMY DATA ///
