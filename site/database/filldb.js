@@ -15,15 +15,15 @@ exports.createTables = function(){
     comments.createCommentsTable();
   } catch(error){
     console.log(error);
-    playDB.closeDB();
+    playDB.closeDB(); // close DB if fail to create
   }
 }
 
 // CHANGE THE SESSION ID
 exports.fillUsers = function(){
-  var email = ['admin@admin.com', 'amy@bris.com', 'ana@bris.com', 'olaf@bris.com'];
-  var userName = ['admin', 'amy', 'ana', 'olaf'];
-  var password = ['admin', 'anarocks', 'amyrocks', 'summer'];
+  var email = ['admin@admin.com', 'amy@bris.com', 'ana@bris.com', 'olaf@bris.com', 'grace@grace.com', 'sarah@bris.com', 'davide@bris.com', 'mickie@bris.com'];
+  var userName = ['admin', 'amy', 'ana', 'olaf', 'grace', 'sarah', 'davide', 'mickie'];
+  var password = ['admin', 'anarocks', 'amyrocks', 'summer', 'kittiecats', 'amyisthebest', 'amyislove', 'woofwoof'];
 
   for(var i = 0; i < 4; i++){
     var newuser = {
@@ -45,8 +45,8 @@ exports.fillComments = function(){
   'This game has everything!! so nostalgic'];
   var content2 = ['man amy is the best admin ever!',
   'dude no ANA is the best!!',
-  'OMG MY FAVE PRODUCT IS ON SALE !!',
-  'i just beat the game!'];
+  'OMG MY FAVE PRODUCT IS ON SALE !! this is better than amy!',
+  'i just beat the game! woof woof!'];
 
   for(var i = 0; i < 4; i++){
     var time = Date.now();
@@ -98,14 +98,14 @@ exports.fillGameProducts = function(){
 }
 
 exports.fillBackgroundProducts = function(){
-  var name = ['Amys Face', 'Anas Face',
+  var name = ['Ocean Textures', 'Sci-Fi Textures',
  'Galaxy', 'Surprise Meme'];
-  var description = ['Have the judgmental face of one of our co-founders staring back at you as you play.',
-  'Have the beautiful face of one of our co-founders staring back at you as you play.',
+  var description = ['Bring the beach to your game with ocean textures in the background! This is a package of 92 ocean materials.',
+  'Give your game a Sci-Fi feel with this pack of 82 Sci-Fi backgrounds!',
  'Stick to the theme and stare at the stars.',
  'Get a random meme as your background, garaunteed good quality.']
-  var price = ['$10.00', '$10.00', '$5.00', '$10.00'];
-  var image = ['Amy.png', 'Ana.png', 'Galaxy.png', 'Meme.png'];
+  var price = ['$13.00', '$11.00', '$12.00', '$10.00'];
+  var image = ['Ocean.png', 'Scifi.png', 'Galaxy.png', 'Meme.png'];
 
   for(var i = 0; i < 4; i++){
       var backProd = {
@@ -120,13 +120,13 @@ exports.fillBackgroundProducts = function(){
 }
 
 exports.fillAnimationsProducts = function(){
-  var name = ['Dab', 'Yeet',
+  var name = ['RGB Character', 'Flying Animations',
  'Twirl', 'High Five'];
-  var description = ['A dab animation just for you!',
-  'A yeet animation just for you!',
- 'A twirl animation just for you!',
- 'A high five animation just for you!']
-  var price = ['$5.00', '$5.00', '$5.00', '$10.00'];
+  var description = ['Add some realistic animations to your game with this basic character pack filled with 53 new animations.',
+  'This pack is the perfect addition for your game if you want to reach new heights!',
+ 'A twirl animation just for your characters, add a bit of flair to your game!',
+ 'A high five animation for your characters, celebrate your successes!']
+  var price = ['$12.00', '$12.00', '$5.00', '$5.00'];
   var image = ['Dab.png', 'Yeet.png', 'Twirl.png', 'HighFive.png'];
 
   for(var i = 0; i < 4; i++){
@@ -140,3 +140,26 @@ exports.fillAnimationsProducts = function(){
       products.newProduct(animationProd);
     }
 }
+
+exports.fillModelsProducts = function(){
+  var name = ['Character Avatar', 'Farming Kit',
+ 'Customisable Character', 'Map Editor'];
+  var description = ['This is a standard character avatar to add a bit of flair to your game.',
+  'Does your game involve some farming? Add a farming map and some more tools!',
+ 'Go that bit extra and add the ability to customise your characters!',
+ 'Build your own map, move around as the user enters input!']
+  var price = ['$22.00', '$5.00', '$52.00', '$45.00'];
+  var image = ['char.png', 'farmkit.png', 'customchar.png', 'map.png'];
+
+  for(var i = 0; i < 4; i++){
+      var modelProd = {
+        productCategory: 4,
+        description: description[i],
+        name: name[i],
+        price: price[i],
+        image: image[i]
+      }
+      products.newProduct(modelProd);
+    }
+}
+
