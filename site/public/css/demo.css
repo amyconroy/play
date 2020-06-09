@@ -54,6 +54,12 @@
   animation: fade-in-text 1s steps(29,end) 1s 1 normal both;
 }
 
+.demo-input-form {
+  background-color: purple;
+  bottom:10px;
+  width:100%;
+}
+
 @keyframes animated-text {
   from{width: 0;}
   to{width: 180px;}
@@ -67,4 +73,8 @@
 @keyframes fade-in-text {
   from{opacity:0;}
   to{opacity:1;}
+}
+
+@media only screen and (max-width: 800px) {
+
 }
