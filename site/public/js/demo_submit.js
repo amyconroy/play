@@ -8,10 +8,13 @@ var childTextNodes;
 var locations = ["room", "ssh", "linkedlist", "stacks", "root", "ssh", "room"]; //linear sequence, advance one thru the other
 
 var roomStoryWelcome = "you see a large, messy room. the area is filled with red bull, crisps, and half opened computer science textbooks. you see the computer blinking in front of you, with the blinking prompt... CONNECT TO SSH?";
-var roomStory1 = ["as you type the command, the room around you begind to swirl. you see nothing but swirling characters and darkness. you fear you may never finish this homework on time! type goto ssh to continue"];
-var roomStory2 = ["you leave your room and go to hand out with friends. you are done with this homework for now."];
+var roomStory = {
+  branch1: ["as you type the command, the room around you begind to swirl. you see nothing but swirling characters and darkness. you fear you may never finish this homework on time!"],
+  branch2: ["you leave your room and go to hand out with friends. you are done with this homework for now."]
+};
 var roomStoryOptions = ["connect to ssh?", "walk away and socialise"];
-var roomStoryTriggers = []
+//var roomStoryTriggers = [2, "end", "branch2"];
+var roomStoryTriggers = [{result:"end", branch:"branch2"}, {result:"ssh", branch:"branch1"}]; //atm 2 types of triggers, location changes and end of game
 
 var sshStoryWelcome = "you look around, and see a large purple portal, with the lessers S S H engraved into the stone.";
 
@@ -20,13 +23,14 @@ var mainStoryWelcome = "passing the open door, you arrive within what can only b
 var stacksStoryWelcome = "you see massive highrise skyscrapers. at the end of the street in glowing neon is the sign 'SYSTEM STACK'. you proceed there.";
 
 class Location {
-  constructor(locationName, locationNarration, branch1, branch2, storyOptions) {
+  constructor(locationName, locationNarration, locationStory, storyOptions, triggers) {
     this.locationName = locationName;
     this.locationNarration = locationNarration;
-    this.branch1 = branch1;
-    this.branch2 = branch2;
+    this.locationStory = locationStory;
     this.storyOptions = storyOptions;
     this.currentStoryIndex = 0;
+    this.triggers = triggers;
+    this.currentBranch;
   }
 
   welcomeNarration() { //onload call this
@@ -38,34 +42,37 @@ class Location {
     outputResponseToParent(displayText, "2: "+this.storyOptions[1]);
   }
 
+  getTriggerResult(branchname) {
+    var i, result;
+
+    for (i = 0; i < this.triggers.length; i++) { //cycle thru triggers until we hit branch
+      if (this.triggers[i].branch == branchname) {
+        result = this.triggers[i].result;
+        return result;
+      }
+    }
+  }
+
   checkTriggers() {
     var status;
 
-    //testing
-    status = "end";
-
+    console.log(this.currentBranch);
+    status = this.getTriggerResult(this.currentBranch);
     return status;
   }
 
   advanceNarration(userInputText) {
-
-    if (this.checkTriggers() == "end") { //check for game ending
-      outputResponseToParent(displayText, "game over");
-      userInput.disabled = true;
-      return;
-
-    } else if (this.checkTriggers() == "nextLocation") {
-      //change location
-      console.log("location change");
-    }
-
-    if (this.currentStoryIndex < this.branch1.length) { //if story for a single location is still going
+    if (this.currentStoryIndex < this.locationStory["branch1"].length) { //if story for a single location is still going
       if (userInputText == "1") {
-        outputResponseToParent(displayText, this.branch1[this.currentStoryIndex]);
-        this.currentStoryIndex++;
+        var branchStory = this.locationStory["branch1"];
+        this.currentBranch = "branch1";
+        outputResponseToParent(displayText, this.currentBranch[this.currentStoryIndex]);
+        this.currentStoryIndex++; //for longer locations
 
       } else if (userInputText == "2"){
-        outputResponseToParent(displayText, this.branch2[this.currentStoryIndex]);
+        var branchStory = this.locationStory["branch2"];
+        this.currentBranch = "branch2";
+        outputResponseToParent(displayText, branchStory[this.currentStoryIndex]);
         this.currentStoryIndex++;
 
       } else {
@@ -74,6 +81,19 @@ class Location {
     } else { //story is done for this location, player must move on
       outputResponseToParent(displayText, "there is nothing to do! type look to see where you can go");
     }
+
+    var triggerResult = this.checkTriggers();
+
+    if (triggerResult == "end") { //check for game ending
+      outputResponseToParent(displayText, "game over");
+      userInput.disabled = true;
+      return "end";
+
+    } else {
+      console.log("TRIGGER RESULT "+triggerResult)
+      return triggerResult; //return new location we going to
+    }
+
   }
 }
 
@@ -87,7 +107,7 @@ class Controller {
   }
 
   spawnLocations() {
-    this.locations.push(new Location("room", roomStoryWelcome, roomStory1, roomStory2, roomStoryOptions));
+    this.locations.push(new Location("room", roomStoryWelcome, roomStory, roomStoryOptions, roomStoryTriggers));
     this.locations.push(new Location("ssh", sshStoryWelcome));
     this.locations.push(new Location("main", mainStoryWelcome));
     this.locations.push(new Location("stacks", stacksStoryWelcome));
@@ -145,6 +165,16 @@ class Controller {
     }
   }
 
+  getLocationIndex(name) {
+    var i;
+    for (i = 0; i < this.locations.length; i++) {
+      if (this.locations.locationName == name) {
+        return i;
+      }
+    }
+    return 0;
+  }
+
   gameCommands(userInput) {
     var inputWords = userInput.split(" ");
 
@@ -169,10 +199,19 @@ class Controller {
         this.loadLocationNarrative(inputWords[1]);
         break;
       case "1":
-        this.locations[this.currentLocation].advanceNarration(inputWords[0]);
+        var narrationResult = this.locations[this.currentLocation].advanceNarration(inputWords[0]);
+
+        if (narrationResult != "end") {
+          this.loadLocationNarrative(narrationResult);
+        }
+
         break;
       case "2":
-        this.locations[this.currentLocation].advanceNarration(inputWords[0]);
+        var narrationResult = this.locations[this.currentLocation].advanceNarration(inputWords[0]);
+        if (narrationResult != "end") {
+          this.loadLocationNarrative(narrationResult);
+        }
+
         break;
       default: //cases for a/b/c?
         outputResponseToParent(displayText, "can't understand command. try again.");
