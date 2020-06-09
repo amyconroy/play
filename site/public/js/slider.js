@@ -46,13 +46,13 @@ function slider() {
 function nextSlide() {
   if (current_slide < (total_posts-1)) {
     current_slide++;
-    curr_text++;
   } else {
     current_slide = 0;
-    curr_text = 0;
   }
   hidePosts(posts);
   posts[current_slide].classList.add("visible");
+  var text = randomFacts[curr_text];
+  document.getElementById("text").innerHTML = text;
 }
 
 function prevSlide() {
@@ -63,6 +63,8 @@ function prevSlide() {
   }
   hidePosts(posts);
   posts[current_slide].classList.add("visible");
+  var text = randomFacts[curr_text];
+  document.getElementById("text").innerHTML = text;
 }
 
 function getPostById(postId) {
@@ -85,5 +87,14 @@ function hidePosts(allPosts) {
 
   for (i = 0; i < allPosts.length; i++) {
     allPosts[i].classList.remove("visible");
+  }
+}
+
+function hideText(allText){
+  var child = element.lastElementChild;
+
+  while(child){
+    element.removeChild(child);
+    child = element.lastElementChild; 
   }
 }
