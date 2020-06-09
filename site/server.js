@@ -2,7 +2,7 @@
 var createError = require('http-errors'); //change these to constants so cant be changed?
 var express = require('express');
 var path = require('path');
-var port = 8080; //443 is https defaul port
+const port = process.env.PORT || 8080;
 var fs = require("fs");
 //////////////////////
 /// OTHER PACKAGES ///
