@@ -1,7 +1,7 @@
 "use strict";
 var express = require('express');
 var router = express.Router();
-var loginDB = require('./login_db.js');
+var loginDB = require('../database/login_db.js');
 var bcrypt = require('bcrypt');
 
 router.get('/', function(req, res){

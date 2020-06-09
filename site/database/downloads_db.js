@@ -1,12 +1,6 @@
 "use strict";
 ///// init database /////
-var sqlite3 = require('sqlite3').verbose();
-let db = new sqlite3.Database('Play.db', sqlite3.OPEN_READWRITE, (err) => {
-  if(err) {
-    console.error(err.message);
-  }
-  console.log('Connected to the PLAY database in products.');
-});
+const playDB = require('./play_db.js');
 
 /////////////////////////////////////////
 ///////////// SQL QUERIES ///////////////
@@ -16,6 +10,8 @@ let db = new sqlite3.Database('Play.db', sqlite3.OPEN_READWRITE, (err) => {
 /// 'view all products'
 exports.getAllDownloads = function(callback){
   var query = "SELECT * FROM Product WHERE productCategory != 1;";
+  const db = null;
+  playDB.getDB(function(db){
     // use each as all returns everything from db, each runs query first
     db.each(query, (err, rows) =>{
       if(rows){
@@ -23,6 +19,7 @@ exports.getAllDownloads = function(callback){
       } else{
         callback(error, null); // unable to get products
       }
+    });
   });
 }
 
@@ -31,13 +28,16 @@ exports.getAllDownloads = function(callback){
 exports.getAllCategories = function(callback){
   var query = "SELECT * FROM Category WHERE categoryId != 1;";
     // use each as all returns everything from db, each runs query first
+  const db = null;
+  playDB.getDB(function(db){
     db.serialize(() => {
-    db.each(query, (err, rows) =>{
-      if(rows){
-        callback(null, rows);
-      } else{
-        callback(error, null); // unable to get products
-      }
+      db.each(query, (err, rows) =>{
+        if(rows){
+          callback(null, rows);
+        } else{
+          callback(error, null); // unable to get products
+        }
+      });
     });
   });
 }
@@ -45,13 +45,16 @@ exports.getAllCategories = function(callback){
 exports.getDownloadsByCategory = function(categoryId, callback){
     var query = "SELECT * FROM Product WHERE productCategory = ?;";
       // use each as all returns everything from db, each runs query first
+    const db = null;
+    playDB.getDB(function(db){
       db.serialize(() => {
-      db.each(query, categoryId, (err, rows) =>{
-        if(rows){
-          callback(null, rows);
-        } else{
-          callback(error, null); // unable to get products
-        }
+        db.each(query, categoryId, (err, rows) =>{
+          if(rows){
+            callback(null, rows);
+          } else{
+            callback(error, null); // unable to get products
+          }
+        });
       });
     });
 }
@@ -60,6 +63,8 @@ exports.getDownloadsByCategory = function(categoryId, callback){
 exports.getDownloadsHightoLow = function(callback){
   var query = "SELECT * FROM Product WHERE productCategory != 1 ORDER BY price ASC;";
     // use each as all returns everything from db, each runs query first
+  const db = null;
+  playDB.getDB(function(db){
     db.serialize(() => {
       db.each(query, (err, rows) =>{
         if(rows){
@@ -67,6 +72,7 @@ exports.getDownloadsHightoLow = function(callback){
         } else{
           callback(error, null); // unable to get products
         }
+      });
     });
   });
 }
@@ -75,6 +81,8 @@ exports.getDownloadsHightoLow = function(callback){
 exports.getDownloadsLowtoHigh = function(callback){
   var query = "SELECT * FROM Product WHERE productCategory != 1 ORDER BY price DESC;";
     // use each as all returns everything from db, each runs query first
+  const db = null;
+  playDB.getDB(function(db){
     db.serialize(() =>{
       db.each(query, (err, rows) =>{
         if(rows){
@@ -84,6 +92,7 @@ exports.getDownloadsLowtoHigh = function(callback){
           callback(error, null); // unable to get products
         }
       });
+    });
   });
 }
 
@@ -91,6 +100,8 @@ exports.getDownloadsLowtoHigh = function(callback){
 exports.getDownloadsLowtoHighCategory = function(categoryid, callback){
   var query = "SELECT * FROM Product WHERE productCategory == ? ORDER BY price DESC;";
     // use each as all returns everything from db, each runs query first
+  const db = null;
+  playDB.getDB(function(db){
     db.serialize(() =>{
       db.each(query, categoryid, (err, rows) =>{
         if(rows){
@@ -100,6 +111,7 @@ exports.getDownloadsLowtoHighCategory = function(categoryid, callback){
           callback(error, null); // unable to get products
         }
       });
+    });
   });
 }
 
@@ -107,6 +119,8 @@ exports.getDownloadsLowtoHighCategory = function(categoryid, callback){
 exports.getDownloadsHightoLowCategory = function(categoryid, callback){
   var query = "SELECT * FROM Product WHERE productCategory == ? ORDER BY price ASC;";
     // use each as all returns everything from db, each runs query first
+  const db = null;
+  playDB.getDB(function(db){
     db.serialize(() => {
       db.each(query, categoryid, (err, rows) =>{
         if(rows){
@@ -114,6 +128,7 @@ exports.getDownloadsHightoLowCategory = function(categoryid, callback){
         } else{
           callback(error, null); // unable to get products
         }
+      });
     });
   });
 }

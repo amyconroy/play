@@ -1,8 +1,8 @@
 "use strict";
 var express = require('express');
 var router = express.Router();
-var downloadsDB = require('./downloads_db.js');
-var basketDB = require('./basket_db.js');
+var downloadsDB = require('../database/downloads_db.js');
+var basketDB = require('../database/basket_db.js');
 
 /// PAGE LOADS UP WITH ALL CATEGORIES - view all categories
 router.get('/', function(req, res){

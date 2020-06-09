@@ -18,7 +18,6 @@ const logger = require('morgan');
 const handlebars = require('express-handlebars');
 const bodyParser = require('body-parser'); //for post requests
 const md5 = require('md5'); // use for creating a hash for passwords, need to change to SHA-1
-const bodyParser = require('body-parser');
 const helmet = require('helmet'); // for security
 const fs = require("fs"); // ban upper case file names
 
@@ -143,14 +142,14 @@ app.use('/products/add_product', express.static(__dirname + '/public'));
 ///////////////////////////////
 /// FILL DB WITH DUMMY DATA ///
 ///////////////////////////////
-const fillDB = require('./filldb.js');
+/* const fillDB = require('./database/filldb.js');
 fillDB.createTables();
-/* fillDB.fillUsers();
+fillDB.fillUsers();
 fillDB.fillComments();
 fillDB.fillCategories();
 fillDB.fillGameProducts();
 fillDB.fillAnimationsProducts();
-fillDB.fillBackgroundProducts();*/
+fillDB.fillBackgroundProducts(); */
 
 /////////////////////////////
 ////// BAN UPPER FILES //////
