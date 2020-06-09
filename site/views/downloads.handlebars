@@ -4,34 +4,57 @@
   </div>
 </div>
 
-{{> navbar }}
+{{> navbar user=userLoggedIn.name }}
+
+{{#if error }}
+  <h1 class = "error-message">{{this.errormessage}}</h1>
+{{/if}}
+
+{{#unless error}}
+<h4 class="title-content" id="downloads-title"></h4> <!--this needs to be empty for navbar select script to work-->
+<div class="dropdown">
+  <button class="dropbtn">SORT</button>
+  <div class="dropdown-content">
+    <a href="/downloads/lowtohigh">Price Low to High</a>
+    <a href="/downloads/hightolow">Price High to Low</a>
+    <a href="/downloads/all">View All</a>
+    <a href="/downloads/">Select Category</a>
+  </div>
+</div>
+{{/unless}}
+
+<div class="content-box downloads-container">
+
+{{#if category}}
+<h4 class="title-content-center" id="downloads-title">Categories</h4>
+{{/if}}
+
+{{#if downloads}}
+<h4 class="title-content-center">Downloads</h4>
+{{/if}}
 
 {{#each category}}
 <div class="category-box">
   <div class="comments-box-inner">
-    <p class="category-name title-content">  {{ this.categoryName }}</p></br>
+    <a href="/downloads{{this.url}}" ><p class="category-name title-content">  {{ this.categoryName }}</p></br></a>
     <p class="category-description">{{ this.categoryDescription }}</p></br>
     <p class="category-description">{{ this.categoryId }}</p></br>
   </div>
 </div>
 {{/each}}
 
-
+<div class = "downloads-box-box">
 {{#each downloads}}
   <div class="downloads-box">
-
       <p class="downloads-name title-content">  {{ this.productName }}</p></br>
+      <img class="downloads-image" src="images/comingsoon.png"  alt=" " /></br>
       <p class="downloads-description">{{ this.productDescription }}</p></br>
-      <p class="downloads-category">{{ this.productCategory }}</p></br>
       <p class="downloads-price">{{ this.productPrice }}</p></br>
-      <img class="downloads-image" src = {{ this.productImage }} alt=" " /></br>
-      <p class="downloads-productId">{{ this.productId }}</p></br>
-
+      <a  href="/downloads{{ this.url }}/add_product/{{ this.productId }}"><button type="submit" class="downloads-submit">Add to Basket</button></a>
   </div>
 {{/each}}
+</div>
 
-{{#if view-all }}
-{{/if}}
-
+</div>
 
 {{> footer }}

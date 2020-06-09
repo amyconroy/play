@@ -1,3 +1,4 @@
+"use strict";
 ///// init database /////
 var sqlite3 = require('sqlite3').verbose();
 let db = new sqlite3.Database('Play.db', sqlite3.OPEN_READWRITE, (err) => {
@@ -38,7 +39,6 @@ exports.createProductTable = function(){
 
 exports.createOrderTable = function(){
  db.serialize(() => {
-  console.log("order creating");
     db.run("CREATE TABLE IF NOT EXISTS UserOrder ( "+
       "orderId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, " +
       "orderUserId TEXT NOT NULL, " +
@@ -169,8 +169,6 @@ exports.viewProduct = function(productId, callback){
 }
 
 
-
-
 ///////////////////////////
 //// TESTING FUNCTIONS ////
 /////// to fill db ////////
@@ -193,7 +191,7 @@ exports.newCategory = function(categoryDetails){
 // get most recent categoryId to insert into product
 exports.getCategoryId = function(err, rows){
   var query = "Select id FROM Category ORDER BY id DESC LIMIT 1"
-    db.run(query, [categoryDetails['categoryName'], categoryDetails['categoryDescription']], function(error){
+    db.run(query, function(error){
       if(rows){
         callback(null, rows);
       } else{
@@ -209,9 +207,6 @@ exports.newProduct = function(productDetails){
     db.run(query, [productDetails['productCategory'], productDetails['description'], productDetails['name'],  productDetails['price'], productDetails['image']], function(error){
       if(error){
         console.log(error);
-      }
-      else{
-        console.log("new category added");
       }
     });
   });

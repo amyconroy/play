@@ -11,7 +11,7 @@ We tried to include the XHTML tag, however after using Handlebars it does not se
      
  : fixed XHTML delivery 
  : example issues that we've faced (ana)
- : nb no framework all done manyall
+ : nb no framework all done manually 
  
  TO MOVE TO A+
 
@@ -19,16 +19,19 @@ We tried to include the XHTML tag, however after using Handlebars it does not se
 
 We have ensured that there are no style tags and attributes in our HTML pages, and have gained a high level of experience with stylesheets. There are some bad relative measurements, currently in px measurements, which will be changed to make it responsive.  By doing so, as we are confident with CSS style, we expect this to bring our grade to an A. 
 
-high confidence, all manually
+: high confidence, all manually
+: examples o the CSS 
 TO MOVE TO A+
 
-<b> JS : B </b>
+<b> JS : A+ </b>
 
 We have written a large amount of script ourselves. The slider script was self written, main issue with that was timing as javascript does not have native sleep() function. For our random quote generator (used to insert quotes under the PNG header, different upon each reload), we added a text file to pull quotes from, and we currently changing it from HTMLinner method which is unsafe. We are also planning on creating a demo for our game, written ourselves in javascript. We expect this will bring us to an A. 
 
 TO MOVE TO A+ = ESPECIALLY A+ with creative game application 
 high confidence, whole game written in js for client side, 
 ANA - CSS animation done here!! we can add this in. Titles animated, parameter bars animated in css. 
+
+using ES5, ie using var not let, all JS pages have "use strict" 
 
 <b> PNG : B </b>
 
@@ -88,10 +91,40 @@ We have currently written some of the callbacks for inserting and updating the d
      
 normalised to 3NF: multiple tables may not seem efficient, but done to allow for scalability of our website and ensure  no contradicitions. 
 
-TO MOVE TO A lots of data inserted, high experiences, normalised data, complex queries, complex schema, id numbers sorted with database, 
+TO MOVE TO A+ 
+: lots of data inserted, 
+: high experiences,
+: normalised data, 
+: complex queries, 
+: complex schema, 
+: id numbers sorted with database, 
+: insert and pull a lot of data
+: experience with serialization 
+: effective error handling in the db (no rows etc handled well server side) 
 
 <b> DYNAMIC PAGES : A </b>
 
 We have delivered dynamic pages by inserting data into templates on the server side, and have currently created a simple dynamic delivery system. We are using the handlebars templating engine to dynamically serve our HTML pages. We plan to do more of our own programming to organise it better and remove the redundancy of the headers, additionally dynamically rendering a logged in user's name depending on session id. As we have spent a lot of time researching this we expect this will bring our grade up to an A.
 
-TO MOVE TO A need to just show that we're fluent, etc etc, errors handled dynamically  
+TO MOVE TO A need to just show that we're fluent, etc etc, errors handled dynamically 
+
+
+
+**example issues to highlight** 
+- login issues from db
+- error handling from database
+- parameters from the db 
+- getting the footer to stay at the bottom (used flex display; growing in height to ensure it stays at the end) using vh unit
+- dealt with all / each returning rows (ie with username and email already existing) : know more about databases and js
+- dealt with category rendering that we don't have
+- redirect from log in (get an error did /login/login) 
+
+**depth considerations**
+- game
+- product page
+- basket system set up 
+- log in across pages
+- user sessions and cookies
+- using req parameters 
+- security audit for vulnerabilities in express
+- user pass hashed / user email already exists / user name already exists 

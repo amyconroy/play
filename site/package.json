@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node server.js"
   },
   "dependencies": {
     "bcrypt": "^4.0.1",
@@ -14,8 +14,10 @@
     "express": "~4.16.1",
     "express-flash": "git://github.com/RGBboy/express-flash.git",
     "express-handlebars": "",
+    "express-lowercase-paths": "^1.0.0",
     "express-session": "^1.17.1",
     "flash": "^1.1.0",
+    "helmet": "^3.22.0",
     "http-errors": "~1.6.3",
     "https": "^1.0.0",
     "isemail": "^3.2.0",

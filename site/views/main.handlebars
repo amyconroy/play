@@ -8,7 +8,11 @@
 		</div>
 	</div>
 
-	{{> navbar }}
+	{{> navbar user=userLoggedIn.name }}
+
+	<!--{{#if userLoggedIn  }}
+			{{> logged_in user=userLoggedIn.name }}
+	{{/if}}-->
 
 	<div class="posts-box">
 		<!--<div class="title-container">
@@ -18,8 +22,8 @@
 		<div class="slider">
 			<div class="post-overlay">
 					<div class="overlay-frame">
-						<h4 class="title-post">WEEKLY BEST</h4>
-						<a href="#"><p>Visit here?</p></a> <!-- this can be dynamic, depending on what post will change link to page-->
+						<h4 class="title-post">TOP SELLERS</h4>
+						<a href="#"><p>Visit here!</p></a> <!-- this can be dynamic, depending on what post will change link to page-->
 					</div>
 			</div>
 			<div class = "posts" id="post_1">
@@ -48,7 +52,7 @@
 	</div>
 
 	<div class="content-box" id="content0">
-		<h4 class="title-content">Level Up</h4>
+		<h4 class="title-content" id="index-title">Level Up</h4>
 		<p class="content-inner">Our state of the art text adventure game engine is pleasant to work with.
 		Simple easy to learn syntax, accessable technical interface.</p>
 		<p class="content-inner">We hide nothing behind propriety compilation formats. Every detail, every plugin,

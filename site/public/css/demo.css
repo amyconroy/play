@@ -40,6 +40,31 @@
   background-size: 100% 6px, 8px 100%;
 }
 
-.text {
+.animate {
+  border-right: solid 3px pink;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 1rem;
+  animation: animated-text 1s steps(29,end) 1s 1 normal both,
+             animated-cursor 600ms steps(29,end) infinite;
+}
 
+.fade-in {
+  animation-delay: 10s;
+  animation: fade-in-text 1s steps(29,end) 1s 1 normal both;
+}
+
+@keyframes animated-text {
+  from{width: 0;}
+  to{width: 180px;}
+}
+
+@keyframes animated-cursor{
+  from{border-right-color: pink;}
+  to{border-right-color: transparent;}
+}
+
+@keyframes fade-in-text {
+  from{opacity:0;}
+  to{opacity:1;}
 }

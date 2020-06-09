@@ -1,5 +1,5 @@
-
 //polyfills for old browsers, remove the frigging copy pasting
+"use strict"
 
 var current_slide = 0;
 var posts = getPosts("post_image");
@@ -67,6 +67,8 @@ function showPicture(element) {
 
 function hidePosts(allPosts) {
   //for i in all posts, go thru posts and remove visible class
+  var i;
+
   for (i = 0; i < allPosts.length; i++) {
     allPosts[i].classList.remove("visible");
   }

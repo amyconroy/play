@@ -9,7 +9,11 @@
 
 {{> navbar }}
 
-<div class="content-box" id="404">
-  <h4 class="404">ERROR 404: Page Not Found</h4> </div>
+<canvas id='canv'></canvas>
+
+<div class="content-box" id="error">
+   <p class="error-type" id="{{ errorType }}">{{ this.error }}</p></br>
+   <p class="error-type">{{ this.errorMessage }}</p></br>
+</div>
 
 {{> footer }}

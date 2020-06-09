@@ -4,18 +4,30 @@
   </div>
 </div>
 
-{{> navbar }}
+{{> navbar user=userLoggedIn.name }}
 
 <div class="content-box">
-  <h4 class="title-content title-content-main">Get Your Head In The Game</h4>
+  <h4 class="title-content title-content-main" id="demo-title">Get Your Head In The Game</h4>
 
   <div class = "demo-outer-box">
     <div class = "demo-outer-screen">
       <div class = "demo-inner-screen">
         <div class = "text">
-          <p>RIP</p>
-          <p>game Heeeereeee</p>
-          <p>death to pacman</p>
+          <p class="welcome-text animate">Welcome to P L A Y</p>
+          <p class="welcome-text fade-in">
+<pre class="fade-in">
+/       \ /  |       /      \ /  \    /  |
+$$$$$$$  |$$ |      /$$$$$$  |$$  \  /$$/
+$$ |__$$ |$$ |      $$ |__$$ | $$  \/$$/
+$$    $$/ $$ |      $$    $$ |  $$  $$/
+$$$$$$$/  $$ |      $$$$$$$$ |   $$$$/
+$$ |      $$ |_____ $$ |  $$ |    $$ |
+$$ |      $$       |$$ |  $$ |    $$ |
+$$/       $$$$$$$$/ $$/   $$/     $$/
+
+</pre>
+          </p>
+          <input value="type here!" name="demo-input" class="demo-input-form" id="user-input"></input>
         </div>
       </div>
     </div>

@@ -1,3 +1,4 @@
+"use strict";
 ///// init database /////
 var sqlite3 = require('sqlite3').verbose();
 let db = new sqlite3.Database('Play.db', sqlite3.OPEN_READWRITE, (err) => {
@@ -56,7 +57,8 @@ exports.getAllComments = function(callback){
 }
 
 exports.getTenRecentComments = function(callback){
-    var query = "SELECT User.userName, Comments.content, Comments.timePosted FROM Comments JOIN User ON Comments.userId = User.userId ORDER BY timePosted DESC LIMIT 10;";
+    var query = "SELECT User.userName, Comments.content, Comments.timePosted FROM Comments "
+    query+= "JOIN User ON Comments.userId = User.userId ORDER BY Comments.commentId DESC LIMIT 10;";
     db.serialize(() => {
       // use each as all returns everything from db, each runs query first
       db.each(query, (err, rows) =>{

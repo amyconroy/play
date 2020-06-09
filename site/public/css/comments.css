@@ -40,6 +40,71 @@
       0 0 2rem black;
 }
 
-.comments-form {
+.comments-form-box {
+  border: solid 5px #ff2bf1;
+  border-radius: 5px;
+  margin-left:30%;
+  margin-right:30%;
+  box-shadow: inset 0 0 2rem blue,
+    inset 0 0 0.5rem blue,
+    0 0 2rem blue;
+  margin-bottom:-10%;
+}
 
+.comments-form {
+  display: inline-block;
+  position:relative;
+  margin:5%;
+  padding:15%;
+  width: 70%;
+  height:78%;
+}
+
+.form-contents {
+  margin-left:20px;
+  margin-top:20px;
+}
+
+.comments-form-input {
+  border: solid 5px #ff2bf1;
+  color: #e854ff;
+  border-radius: 5px;
+  background-color: black;
+  width:225px;
+  height:200px;
+  margin-bottom:35px;
+  font-family:"Aldrich";
+  box-shadow: inset 0 0 2rem purple,
+      inset 0 0 0.5rem purple,
+      0 0 2rem black;
+  transition:width 1s, margin-left 1s, box-shadow 0.5s;
+}
+
+
+.form-label {
+  color:white;
+  display:block;
+  margin:auto;
+
+}
+
+.form-submit {
+  border:none;
+  font-family: "Aldrich";
+  background-color:#ff2bf1;
+	color:black;
+	text-shadow: none;
+	box-shadow: inset 0 0 5rem black,
+    inset 0 0 2rem black,
+    0 0 5rem black;
+  font-size:2em;
+
+  width:240px;
+  height:50px;
+
+}
+
+.form-submit:hover {
+  border:solid 1px hotpink;
+  /*transition:border 0.5s;*/
 }

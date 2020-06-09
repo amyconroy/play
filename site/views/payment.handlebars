@@ -1,0 +1,38 @@
+<div class="main-title-box">
+  <div class = "">
+      <img src="images/download_text.png" alt="main_text" class="page_title_text" />
+  </div>
+</div>
+
+{{> navbar user=userLoggedIn.name }}
+
+{{#if error }}
+  <h1 class = "error-message">{{this.errormessage}}</h1>
+{{/if}}
+
+{{#unless error}}
+<div>
+
+</div>
+
+<div class="context-box">
+  <span class="arrow">></span>
+  <span class="dash">_</span><h4 class="title-content-float">Payment</h4> </div>
+<div class="content-inner">
+  <h4 class="content-inner-float">Press 'Buy Now' to confirm your order!</h4>
+</div>
+
+<div class="checkout-buttons">
+  <a href="/basket"><button type="submit" class="form-submit">Back to Basket</button></a>
+  <a href="/receipt"><button type="submit" class="form-submit">Buy Now</button></a>
+</div>
+
+<div class="copywrite">
+  <p>Please note: PLAY is still in development, and as such pressing 'Buy Now' does not constitute a binding sale.
+  When 'Buy Now' is pressed you will not be charged. None of the products or downloads shown on our site
+  are currently available for purchase, and you will not receive the products despite being given a receipt after clicking
+  'Buy Now'. This is purely for testing purposes and does not constitute a binding sales contract.</p>
+</div>
+{{/unless}}
+
+{{> footer }}

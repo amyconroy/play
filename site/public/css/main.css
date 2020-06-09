@@ -1,11 +1,29 @@
 body {
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
 	background: black;
 	color:white;
 	font-family: 'Aldrich';
 }
 
+mark {
+	background: red;
+}
+
+canvas{
+  align-self:center;
+  cursor:move;
+}
+
 a {
 	text-decoration: none;
+	color:#e854ff;
+}
+
+a:hover {
+	color:black;
 }
 
 .error-message {
@@ -14,10 +32,10 @@ a {
 
 /*seperete css file for this*/
 .quote-container {
-	position:relative;
+	position:absolute;
 	color:yellow;
-	margin-top:750px;
-	margin-left:250px;
+	margin-top:700px; /*pin this in title box due to fixed size*/
+	margin-left:34%;
 }
 
 .quote {
@@ -28,6 +46,7 @@ a {
 
 /*footer partial*/
 .copywrite {
+	height: 50px;
 	color:white;
 	background-color:black;
 	width:100%;
@@ -36,6 +55,7 @@ a {
 }
 
 .legal_links {
+	height: 50px;
 	list-style-type: none;
 	float: right;
 }
@@ -53,7 +73,6 @@ a {
 	font-size: 300px;
 	margin: auto;
 	text-align:center;
-
 }
 
 .image_frame {
@@ -73,7 +92,6 @@ a {
 
 .main-title-box {
 	background-image: url("../images/background.png");
-
 	background-size: cover;
 	overflow: hidden;
 	background-repeat: no-repeat;
@@ -82,7 +100,7 @@ a {
 	max-width: 100%;
 	max-height: 100%;
 	width:100%;
-	height:1000px;
+	height:1000px; /*fixed size to preserve font image quality*/
 }
 
 .menu_list {
@@ -90,7 +108,7 @@ a {
   margin: 0;
   padding: 0;
 	background-color:#1f0036;
-	color:#672bb7;
+	color:#e854ff;
 	padding:25px;
 	margin-top:15px;
 	text-align:center;
@@ -103,14 +121,26 @@ a {
 }
 
 .menu_item {
+	position:relative;
+	color:#e854ff;
+	font-size: 20px;
+	display:inline;
+	padding:25px;
+	padding-left:50px;
+	margin:-2px;
+	margin-left:-7px;
+	border-right:5px solid black;
+	border-left:5px solid black;
+	text-shadow: 0 0 5px purple, 0 0 10px purple, 0 0 15px purple, 0 0 40px #ff00aa, 0 0 70px #ff00aa;
+}
+
+.greeting {
 	color:#e854ff;
 	font-size: 20px;
 	display:inline;
 	padding:25px;
 	margin:-2px;
 	margin-left:-7px;
-	border-right:5px solid black;
-	border-left:5px solid black;
 	text-shadow: 0 0 5px purple, 0 0 10px purple, 0 0 15px purple, 0 0 40px #ff00aa, 0 0 70px #ff00aa;
 }
 
@@ -137,18 +167,18 @@ a {
 
 /*icons in navbar partial*/
 .icons {
-	width:auto;
-	height:50%;
-	position:relative;
-
+	height:2rem;
+	position:absolute;
+	left:10px;
+	top:20px;
 }
 
 .content-box {
 	color:white;
 	width:100%;
-	height:750px;
+	min-height:750px;
+	max-height: 50%;
 	padding-bottom:400px;
-	/*border: solid red 5px;*/
 }
 
 .content-inner { /*styling for things inside content box*/
@@ -167,6 +197,66 @@ a {
 	margin-left:20px;
 }
 
+.title-content-center {
+	position:relative;
+	margin-top:0px;
+	font-family: 'Aldrich';
+	color:#e854ff;
+	text-align:center;
+	font-size:5em;
+	text-shadow: 0 0 5px purple, 0 0 10px purple, 0 0 15px purple, 0 0 40px #ff00aa, 0 0 70px #ff00aa;
+	margin-left:20px;
+}
+
+.title-content-float {
+	position:relative;
+	font-family: 'Aldrich';
+	color:#e854ff;
+	float: left;
+	margin-top: 70px;
+	text-align:center;
+	font-size:5em;
+	text-shadow: 0 0 5px purple, 0 0 10px purple, 0 0 15px purple, 0 0 40px #ff00aa, 0 0 70px #ff00aa;
+	margin-left:20px;
+}
+
+.content-inner-float {
+	color:white;
+	font-size:2em;
+	text-align: center;
+	position: relative;
+}
+
+.title-error {
+     position:relative;
+     margin-top:50px;
+     font-family: 'Aldrich';
+     color: red;
+     text-align:center;
+     font-size:5em;
+     text-shadow: 0 0 5px purple, 0 0 10px purple, 0 0 15px purple, 0 0 40px #ff00aa, 0 0 70px #ff00aa;
+     margin-left:20px;
+ }
+
+ .error-type {
+     position: relative;
+     margin-top:0px;
+     font-family: 'Aldrich';
+     text-align:center;
+     color: red;
+     font-size:3em;
+     margin-left:20px;
+ }
+
+ .error-content {
+     position: relative;
+     text-align:center;
+     margin-top:-20px;
+     font-family: 'Aldrich';
+     font-size:2em;
+     margin-left:20px;
+ }
+
 .title-content-main {
 	font-size:8em;
 	text-align:center;
@@ -174,8 +264,253 @@ a {
 	transition: font-size 2s;
 }
 
-@media only screen and (max-width: 828px) {
-	.navbar {
+.basketbtn {
+  border: solid 5px #ff2bf1;
+  border-radius: 5px;
+  color: #e854ff;
+  padding:25px;
+  font-size: 20px;
+  cursor: pointer;
+  background: black;
+  text-shadow: 0 0 5px purple, 0 0 10px purple,
+  0 0 15px purple, 0 0 40px #ff00aa, 0 0 70px #ff00aa;
+  position: relative;
+  display: inline-block;
+  right:10%;
+  padding:25px;
+}
 
+.basketbtn:hover {
+  background-color: black;
+  box-shadow: inset 0 0 2rem blue,
+  inset 0 0 0.5rem blue,
+  0 0 2rem blue;
+  transition: box-shadow 0.7s;
+  position: relative;
+  display: inline-block;
+}
+
+.form-submit {
+  border: solid 5px #ff2bf1;
+  border-radius: 5px;
+  color: #e854ff;
+  padding:25px;
+  font-size: 20px;
+  cursor: pointer;
+  background: black;
+  text-shadow: 0 0 5px purple, 0 0 10px purple,
+  0 0 15px purple, 0 0 40px #ff00aa, 0 0 70px #ff00aa;
+  position: relative;
+  display: inline-block;
+  padding:25px;
+}
+
+.form-submit:hover {
+  background-color: black;
+  box-shadow: inset 0 0 2rem blue,
+  inset 0 0 0.5rem blue,
+  0 0 2rem blue;
+  transition: box-shadow 0.7s;
+  position: relative;
+  display: inline-block;
+}
+
+.basket {
+  border: solid 5px #ff2bf1;
+  border-radius: 5px;
+  color: #e854ff;
+  padding:25px;
+  font-size: 20px;
+  cursor: pointer;
+  background: black;
+  text-shadow: 0 0 5px purple, 0 0 10px purple,
+  0 0 15px purple, 0 0 40px #ff00aa, 0 0 70px #ff00aa;
+  position: relative;
+  display: inline-block;
+  padding:25px;
+	float: right;
+}
+
+.form:hover {
+  background-color: black;
+  box-shadow: inset 0 0 2rem blue,
+  inset 0 0 0.5rem blue,
+  0 0 2rem blue;
+  transition: box-shadow 0.7s;
+  position: relative;
+  display: inline-block;
+}
+
+
+.arrow {
+	float: left;
+	position: relative;
+    font: italic bold 150px Georgia, serif;
+    color:#e854ff;
+    text-shadow: 0 0 5px purple, 0 0 10px purple,
+	  0 0 15px purple, 0 0 40px #ff00aa, 0 0 70px #ff00aa;
+}
+
+.dash {
+	float: left;
+		position: relative;
+    font: italic bold 150px Georgia, serif;
+    color:#e854ff;
+    text-shadow: 0 0 5px purple, 0 0 10px purple,
+	  0 0 15px purple, 0 0 40px #ff00aa, 0 0 70px #ff00aa;
+    blink: blink;
+    blink: 1s;
+    blink: infinite;
+
+     animation-name: blink;
+     animation-duration: 1s;
+     animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes blink {
+    to {
+        opacity: 0.0;
+    }
+}
+
+@-moz-keyframes blink {
+    to {
+        opacity: 0.0;
+    }
+}
+
+@-ms-keyframes blink {
+    to {
+        opacity: 0.0;
+    }
+}
+
+@-o-keyframes blink {
+    to {
+        opacity: 0.0;
+    }
+}
+@keyframes blink {
+    to {
+        opacity: 0.0;
+    }
+}
+
+.blinkText {
+  font-size: 200px;
+}
+
+.blink {
+  -webkit-animation-name: blinker;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-duration: 2s;
+  text-align: center;
+}
+
+@-webkit-keyframes blinker {
+    0% { color: slateblue;
+          text-shadow: darkslateblue 0px 0px 20px;
+          font-size: 500%}
+    50% { color: cyan;
+           text-shadow: aqua 0px 0px 20px;
+            font-size: 500%;}
+
+    100% { color: magenta;
+           text-shadow: fuchsia 0px 0px 20px;
+            font-size: 500%;}
+}
+
+.receipt {
+	  border: 7px solid cyan;
+		color: cyan;
+}
+
+.receipt-order {
+	position:relative;
+	margin-top: 30px;
+	font-family: 'Aldrich';
+	color: white;
+	text-align:center;
+	font-size:4em;
+	text-shadow: 0 0 5px #38a8a5, 0 0 10px #38a8a5, 0 0 15px #38a8a5, 0 0 40px #00fff7, 0 0 70px #00fff7;
+	margin-left:20px;
+}
+
+.receipt-content {
+	position:relative;
+	margin-top:0px;
+	font-family: 'Aldrich';
+	color: white;
+	text-align:left;
+	font-size:4em;
+	margin-left:20px;
+}
+
+.receipt-total {
+	position:relative;
+	margin-top:0px;
+	font-family: 'Aldrich';
+	color: white;
+	text-align:center;
+	font-size:5em;
+	text-shadow:  0 0 5px #38a8a5, 0 0 10px #38a8a5, 0 0 15px #38a8a5, 0 0 40px #00fff7, 0 0 70px #00fff7;
+	margin-left:20px;
+}
+
+.payment-submit {
+  border: solid 5px #ff2bf1;
+  border-radius: 5px;
+  color: #e854ff;
+  padding:25px;
+  font-size: 20px;
+  cursor: pointer;
+	text-align: center;
+  background: black;
+  text-shadow: 0 0 5px purple, 0 0 10px purple,
+  0 0 15px purple, 0 0 40px #ff00aa, 0 0 70px #ff00aa;
+  position: relative;
+  display: inline-block;
+  padding:25px;
+}
+
+.payment-submit:hover {
+	text-align: center;
+  background-color: black;
+  box-shadow: inset 0 0 2rem blue,
+  inset 0 0 0.5rem blue,
+  0 0 2rem blue;
+  transition: box-shadow 0.7s;
+  position: relative;
+  display: inline-block;
+}
+
+.checkout-buttons {
+	margin-top: -10px;
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+@media only screen and (max-width: 500px) {
+
+	body {
+		background-color:black;
 	}
+
+	.navbar {
+		padding:10px;
+	}
+
+	.menu_list {
+		display:block;
+		background-color:black;
+	}
+
+	.menu_item {
+		display:block;
+		border:3px solid hotpink;
+		border-radius:1rem;
+		margin-top:10px;
+		background-color:#1f0036;
+	}
+
 }

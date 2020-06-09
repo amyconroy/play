@@ -1,18 +1,46 @@
 <div class="menu_box">
 		<div class="nav_menu">
 			<ul class="menu_list">
-				<li class="menu_item menu_item_selected">
+
+				<li class="menu_item" id="index-menu">
 					<img src="images/icons/home.svg" alt="home icon" class="icons"><a href="/">HOME</a>
 				</li>
-				<li class="menu_item"><a href="/demo">
+
+				<li class="menu_item" id="demo-menu">
 					<img src="images/icons/game.svg" alt="home icon" class="icons"><a href="/demo">DEMO</a>
 				</li>
-				<li class="menu_item"><a href="/comments">COMMENTS</a></li>
-				<li class="menu_item">
-					<img src="images/icons/shoppingCart.svg" alt="shopping icon" class="icons"><a href="/products">PRODUCTS</a>
+
+				<li class="menu_item" id="comments-menu">
+					<img src="images/icons/game.svg" alt="home icon" class="icons"><a href="/comments">COMMENTS</a>
 				</li>
-				<li class="menu_item"><a href="/downloads">DOWNLOADS</a></li>
-				<li class="menu_item"><a href="/login">SIGN-IN</a></li>
+
+				<li class="menu_item" id="products-menu">
+					<img src="images/icons/shoppingcart.svg" alt="shopping icon" class="icons"><a href="/products">PRODUCTS</a>
+				</li>
+
+				<li class="menu_item" id="downloads-menu">
+					<img src="images/icons/download.svg" alt="home icon" class="icons"><a href="/downloads">DOWNLOADS</a>
+				</li>
+
+				{{#if userLoggedIn }}
+				<li class="menu_item" id="login-menu">
+					<img src="images/icons/key.svg" alt="home icon" class="icons"><a href="/login">SIGN-OUT</a>
+				</li>
+
+				{{else}}
+				<li class="menu_item" id="login-menu">
+					<img src="images/icons/key.svg" alt="home icon" class="icons"><a href="/login">SIGN-IN</a>
+				</li>
+
+				{{/if}}
+
+				{{#if userLoggedIn }}
+				<li class="menu_item" id="basket"><a href="/basket"> BASKET</a><li>
+				{{/if}}
+
 			</ul>
+			{{#if userLoggedIn }}
+			<li class= "greeting" id= "greeting"> Welcome back {{ user }}! </li>
+			{{/if}}
 		</div>
 </div>
