@@ -30,11 +30,13 @@ function inputHandler(e) {
       console.log(userInput.value);
 
       childTextNodes = displayText.childNodes;
-      console.log(childTextNodes.length);
+      var childNodesNum = childTextNodes.length;
 
-      if(childTextNodes.length > 10) {
-        for (var i = 0; i < childTextNodes.length; i++) {
-          displayText.removeChild(childTextNodes[i]);
+      if(childNodesNum > 13) {
+        var child = displayText.lastElementChild;
+        while (child) {
+          displayText.removeChild(child);
+          child = displayText.lastElementChild;
         }
       }
 
