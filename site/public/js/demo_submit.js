@@ -60,16 +60,27 @@ var doorPuzzleStory = {
 };
 var doorPuzzleTriggers = [{result:"end", branch:"branch2",index:1}, {result:"pass", branch:"branch1", index:1}, {result:"end", branch:"branch1", index:2}, {result:"stacks", branch:"branch2", index:2}];
 
-var stacksStoryWelcome = "you see massive highrise skyscrapers. at the end of the street in glowing neon is the sign 'SYSTEM STACK'. you proceed towards it.";
+var stacksStoryWelcome = "you see massive highrise skyscrapers. at the end of the street in glowing neon is the sign 'SYSTEM STACK'. you proceed towards it. as you arrive, you see a guy in a fedora, and name tag reading 'Stack Overflow'";
 var stacksStoryOptions = {
-  options1:[""],
-  options2:[]
-}
+  options1:["you greet the stranger by name", "you appreciate his style, and say 'hello stack, how goes it?'", "you accept his help, and he shows you a seperate portal. you jump in."],
+  options2:["you go to attack him", "you despise his pretentiousness, and smirk, saying 'what kind of name is that?'","you insult him and tell him where to put his portal"]
+};
 var stacksStory = {
-  branch1: [],
-  branch2: []
-}
-var stacksStoryTriggers = [{result:"pass", branch:"branch1",index:1}, {result:"pass", branch:"branch1",index:1}];
+  branch1: ["he replies with a suave tone - 'i'm stack.... stack overflow'", "'thanks man. you want the way of here?'", "you wake up at home, and promise you will never pull an alnighter doing homework again..."],
+  branch2: ["you realise he was not prepared for your assualt, as you tackle the poor man to the ground", "his face falls, and he just looks very angry he leaves you alone.", "absolutely lost, you have nothing left but to wander this strange land, forever alone."]
+};
+var stacksStoryTriggers = [{result:"pass", branch:"branch1",index:1}, {result:"stacksFight", branch:"branch2",index:1}, {result:"pass", branch:"branch1",index:2}, {result:"pass", branch:"branch2",index:2},{result:"end", branch:"branch1",index:3},{result:"end", branch:"branch2",index:3}];
+
+var stacksFightWelcome = "you attack him. catching him by suprise, you manage to defeat stack overflow quickly but take damage in the process.";
+var stacksFightOptions = {
+  options1:["loot the body for useful items"],
+  options2:["carry on to the final door"]
+};
+var stacksFight = {
+  branch1: ["you pick a scroll of debugging. you decide to stay and explore this world, and maybe become a better programmer. the hero this land needs, and definitely doesn't deserve."],
+  branch2: ["you arrive at the door and go through it, completing your journey and waking up at home. you fell asleep at your computer, maybe now you will do homework on time!"]
+};
+var stacksFightTriggers = [{result:"end", branch:"branch1",index:1}, {result:"end", branch:"branch2",index:1}];
 
 class Location {
   constructor(locationName, locationNarration, locationStory, storyOptions, triggers) {
@@ -87,6 +98,8 @@ class Location {
   }
 
   presentOptions() {
+    console.log(this.storyOptions);
+    console.log(this.currentStoryIndex);
     var currentOption1 = this.storyOptions['options1'][this.currentStoryIndex];
     var currentOption2 = this.storyOptions['options2'][this.currentStoryIndex];
     outputResponseToParent(displayText, "1: "+currentOption1);
@@ -176,7 +189,8 @@ class Controller {
     this.locations.push(new Location("ssh", sshStoryWelcome, sshStory, sshStoryOptions, sshStoryTriggers));
     this.locations.push(new Location("main", mainStoryWelcome, mainStory, mainStoryOptions, mainStoryTriggers));
     this.locations.push(new Location("doorPuzzle", doorPuzzleWelcome, doorPuzzleStory, doorPuzzleOptions, doorPuzzleTriggers));
-    this.locations.push(new Location("stacks", stacksStoryWelcome, stacksStoryOptions, stacksStory, stacksStoryTriggers));
+    this.locations.push(new Location("stacks", stacksStoryWelcome, stacksStory, stacksStoryOptions, stacksStoryTriggers));
+    this.locations.push(new Location("stacksFight", stacksFightWelcome, stacksFight, stacksFightOptions, stacksFightTriggers));
   }
 
   introductionText() {
@@ -230,6 +244,10 @@ class Controller {
         this.locations[4].presentOptions();
         this.currentLocation = 4;
         break;
+      case "stacksFight":
+        this.locations[5].welcomeNarration();
+        this.locations[5].presentOptions();
+        this.currentLocation = 5;
       default:
         outputResponseToParent(displayText, "you can't go there");
         break;
@@ -295,7 +313,7 @@ class Controller {
         }
 
         break;
-      default: //cases for a/b/c?
+      default:
         outputResponseToParent(displayText, "can't understand command. try again.");
         break;
     }
@@ -337,7 +355,7 @@ function inputHandler(e) {
       }
 
       game.gameCommands(userInput.value);
-      userInput.value = ""; //clear the value
+      userInput.value = ""; //clear the value after each input so user doesn't accidently submit same thing again
 
     }
   }

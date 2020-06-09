@@ -4,7 +4,7 @@ a {
 
 #product1 {
   background-image: url('../images/background2.png');
-  background-size: 100% 100%;
+  background-size: cover;
   background-color: purple;
   background-attachment:fixed;
 }
@@ -24,9 +24,9 @@ a {
 }
 
 #product3 {
-  background-color: blue;
+  background-color: black;
   background-image: url('../images/productbackground.png');
-  background-size: 100% 100%;
+  background-size: cover;
   background-attachment:fixed;
 }
 
@@ -37,6 +37,6 @@ a {
 #product5 {
   background-color: blue;
   background-image: url('../images/codingbackground.png');
-  background-size: 100% 100%;
+  background-size: cover;
   background-attachment:fixed;
 }
