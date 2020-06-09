@@ -23,6 +23,9 @@
 </div>
 {{/unless}}
 
+ <h1 class = "error-message">PLEASE NOTE: The database is not currently linked to this website, and so 
+ all products and categories are rendered statically below. Sorry for any inconvencience!</h1>
+
 <div class="content-box downloads-container">
 
 {{#if category}}
@@ -33,26 +36,32 @@
 <h4 class="title-content-center">Downloads</h4>
 {{/if}}
 
-{{#each category}}
+<h4 class="title-content-center" id="downloads-title">Categories</h4>
+
 <div class="category-box">
   <div class="comments-box-inner">
-    <a href="/downloads{{this.url}}" ><p class="category-name title-content">  {{ this.categoryName }}</p></br></a>
-    <p class="category-description">{{ this.categoryDescription }}</p></br>
-    <p class="category-description">{{ this.categoryId }}</p></br>
+    <a href="/downloads{{this.url}}" ><p class="category-name title-content">Backgrounds</p></br></a>
+    <p class="category-description">Spice up your experience by buying your own background!</p></br>
   </div>
 </div>
-{{/each}}
+
+<div class="category-box">
+  <div class="comments-box-inner">
+    <a href="/downloads{{this.url}}" ><p class="category-name title-content">Animations</p></br></a>
+    <p class="category-description">Add animations to the game to make it your own!</p></br>
+  </div>
+</div>
+
+<h4 class="title-content-center">Downloads</h4>
 
 <div class = "downloads-box-box">
-{{#each downloads}}
   <div class="downloads-box">
-      <p class="downloads-name title-content">  {{ this.productName }}</p></br>
+      <p class="downloads-name title-content">Yeet</p></br>
       <img class="downloads-image" src="images/comingsoon.png"  alt=" " /></br>
-      <p class="downloads-description">{{ this.productDescription }}</p></br>
-      <p class="downloads-price">{{ this.productPrice }}</p></br>
+      <p class="downloads-description">Yeet</p></br>
+      <p class="downloads-price">$10.00</p></br>
       <a  href="/downloads{{ this.url }}/add_product/{{ this.productId }}"><button type="submit" class="downloads-submit">Add to Basket</button></a>
   </div>
-{{/each}}
 </div>
 
 </div>
