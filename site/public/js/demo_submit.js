@@ -7,19 +7,74 @@ var childTextNodes;
 
 var locations = ["room", "ssh", "linkedlist", "stacks", "root", "ssh", "room"]; //linear sequence, advance one thru the other
 
+var roomStoryWelcome = "you see a large, messy room. the area is filled with red bull, crisps, and half opened computer science textbooks. you see the computer blinking in front of you, with the blinking prompt... CONNECT TO SSH?";
+var roomStory1 = ["as you type the command, the room around you begind to swirl. you see nothing but swirling characters and darkness. you fear you may never finish this homework on time! type goto ssh to continue"];
+var roomStory2 = ["you leave your room and go to hand out with friends. you are done with this homework for now."];
+var roomStoryOptions = ["connect to ssh?", "walk away and socialise"];
+var roomStoryTriggers = []
+
+var sshStoryWelcome = "you look around, and see a large purple portal, with the lessers S S H engraved into the stone.";
+
+var mainStoryWelcome = "passing the open door, you arrive within what can only be described as a junkyard. you see the letters main() high in the sky. this must be your program!";
+
+var stacksStoryWelcome = "you see massive highrise skyscrapers. at the end of the street in glowing neon is the sign 'SYSTEM STACK'. you proceed there.";
+
 class Location {
-  constructor(locationName, locationNarration) {
+  constructor(locationName, locationNarration, branch1, branch2, storyOptions) {
     this.locationName = locationName;
     this.locationNarration = locationNarration;
-    /*this.locationStory = locationStory;
-    this.completedTasks = completedTasks;*/
+    this.branch1 = branch1;
+    this.branch2 = branch2;
+    this.storyOptions = storyOptions;
+    this.currentStoryIndex = 0;
   }
 
   welcomeNarration() { //onload call this
     outputResponseToParent(displayText, this.locationNarration);
   }
-  //load new location
-  //read location narration
+
+  presentOptions() {
+    outputResponseToParent(displayText, "1: "+this.storyOptions[0]);
+    outputResponseToParent(displayText, "2: "+this.storyOptions[1]);
+  }
+
+  checkTriggers() {
+    var status;
+
+    //testing
+    status = "end";
+
+    return status;
+  }
+
+  advanceNarration(userInputText) {
+
+    if (this.checkTriggers() == "end") { //check for game ending
+      outputResponseToParent(displayText, "game over");
+      userInput.disabled = true;
+      return;
+
+    } else if (this.checkTriggers() == "nextLocation") {
+      //change location
+      console.log("location change");
+    }
+
+    if (this.currentStoryIndex < this.branch1.length) { //if story for a single location is still going
+      if (userInputText == "1") {
+        outputResponseToParent(displayText, this.branch1[this.currentStoryIndex]);
+        this.currentStoryIndex++;
+
+      } else if (userInputText == "2"){
+        outputResponseToParent(displayText, this.branch2[this.currentStoryIndex]);
+        this.currentStoryIndex++;
+
+      } else {
+        outputResponseToParent(displayText, "sorry, that's not an option");
+      }
+    } else { //story is done for this location, player must move on
+      outputResponseToParent(displayText, "there is nothing to do! type look to see where you can go");
+    }
+  }
 }
 
 class Controller {
@@ -32,17 +87,17 @@ class Controller {
   }
 
   spawnLocations() {
-    this.locations.push(new Location("room", "you see a large, messy room. the area is filled with red bull, crisps, and half opened computer science textbooks."));
-    this.locations.push(new Location("ssh", "the air around you spins rapidly as you are sucked into your computer! you look around, and see a large purple portal, with the lessers S S H engraved into the stone."));
-    this.locations.push(new Location("main", "passing the open door, you arrive within what can only be described as a junkyard. you see the letters main() high in the sky. this must be your program!"));
-    this.locations.push(new Location("stacks", "you see massive highrise skyscrapers. at the end of the street in glowing neon is the sign 'SYSTEM STACK'. you proceed there."));
+    this.locations.push(new Location("room", roomStoryWelcome, roomStory1, roomStory2, roomStoryOptions));
+    this.locations.push(new Location("ssh", sshStoryWelcome));
+    this.locations.push(new Location("main", mainStoryWelcome));
+    this.locations.push(new Location("stacks", stacksStoryWelcome));
   }
 
   introductionText() {
     outputResponseToParent(displayText, "welcome to our demo. to view inventory, please press inv.");
     outputResponseToParent(displayText, "if you forget commands, write 'help' in the console");
     outputResponseToParent(displayText, "to set character name, type setname <name>");
-    outputResponseToParent(displayText, "to proceed write goto Room");
+    outputResponseToParent(displayText, "to proceed write goto room");
   }
 
   viewInventory() {
@@ -66,19 +121,23 @@ class Controller {
     switch(gotoLocation) {
       case "room":
         this.locations[0].welcomeNarration();
+        this.locations[0].presentOptions();
         this.currentLocation = 0;
         break;
       case "ssh":
         this.locations[1].welcomeNarration();
+        this.locations[1].presentOptions();
         this.currentLocation = 1;
         break;
       case "main":
         this.locations[2].welcomeNarration();
+        this.locations[2].presentOptions();
         this.currentLocation = 2;
         break;
       case "stacks":
-        this.locations[2].welcomeNarration();
-        this.currentLocation = 2;
+        this.locations[3].welcomeNarration();
+        this.locations[3].presentOptions();
+        this.currentLocation = 3;
         break;
       default:
         outputResponseToParent(displayText, "you can't go there");
@@ -93,6 +152,9 @@ class Controller {
       case "help":
         outputResponseToParent(displayText, "commands: help look inv setname goto stats");
         break;
+      case "look":
+        outputResponseToParent(displayText, this.locations[this.currentLocation].welcomeNarration());
+        break;
       case "inv":
         this.viewInventory();
         break;
@@ -105,6 +167,12 @@ class Controller {
       case "goto":
         outputResponseToParent(displayText, "going to "+inputWords[1]);
         this.loadLocationNarrative(inputWords[1]);
+        break;
+      case "1":
+        this.locations[this.currentLocation].advanceNarration(inputWords[0]);
+        break;
+      case "2":
+        this.locations[this.currentLocation].advanceNarration(inputWords[0]);
         break;
       default: //cases for a/b/c?
         outputResponseToParent(displayText, "can't understand command. try again.");
