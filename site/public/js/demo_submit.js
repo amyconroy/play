@@ -2,7 +2,9 @@
 
 //GENERAL ENGINE STRUCTURE, cobbled together with caffiene and pain, is outlined below
 //TRIGGERS: take a story branch, story index at which branch will trigger, and an effect
-//STORY IS RESPONSES TO OPTIONS IN EACH BRANCH, CORRESPONDING TO INDEX
+//LOCATIONSTORY: responses to player input in each branch
+//STORYOPTIONS: options presented to the player
+//in future this configeration can be abstracted to a json config file
 
 var userInput = document.getElementById("user-input");
 var firstInput = false;
@@ -33,24 +35,19 @@ var sshStoryOptions = {
 };
 var sshStoryTriggers = [{result:"pass", branch:"branch1", index:1}, {result:"pass", branch:"branch1", index:2}, {result:"main", branch:"branch2",index:1}, {result:"main", branch:"branch2", index:2}, {result:"main", branch:"branch2", index:3}, {result:"end", branch:"branch1", index:3}];
 
-var mainStoryWelcome = "passing the open door, you arrive within what can only be described as a junkyard. you see the letters main() high in the sky. this must be your program!";
-var mainStory = {
-  branch1: ["bye"],
-  branch2: ["bye"]
-};
+var mainStoryWelcome = "passing the open door, you arrive within what can only be described as a junkyard. you see the letters main() high in the sky. this must be your program! You spot a lonely creature of the Github Branch species sitting quietly on the ground.";
 var mainStoryOptions = {
-  options1: ["exit program"],
-  options2: ["exit program"]
+  options1: ["talk to the github branch","you humour the cute, albeit annoying develop"], //nice options
+  options2: ["carry on past him to the next area","you punch develop on the face and tell him people should commit straight to master"] //mean options
 };
-var mainStoryTriggers = [{result:"end", branch:"branch1"}, {result:"end", branch:"branch2"}];
+var mainStory = {
+  branch1: ["the branch looks excited as you approach. shaking your hand, he introduces himself as develop.","develop is so pleased and happy he gives you a code to the next door"],
+  branch2: ["you try to walk past the branch, but something starts tugging at your sleeve excitedly.","develop scoffs, picks himself up, and walks away. 'committing to master is comitting crime against humanity', he yells."]
+};
+var mainStoryTriggers = [{result:"pass", branch:"branch1",index:1}, {result:"pass", branch:"branch1",index:2}, {result:"pass", branch:"branch1",index:3}, {result:"end", branch:"branch2",index:1}, {result:"end", branch:"branch2",index:2},{result:"end", branch:"branch2",index:3}];
 
 var stacksStoryWelcome = "you see massive highrise skyscrapers. at the end of the street in glowing neon is the sign 'SYSTEM STACK'. you proceed there.";
-/*var sshStory = {
-  branch1: [],
-  branch2: []
-};
-var sshStoryOptions = [];
-var sshStoryTriggers = [];*/
+
 
 class Location {
   constructor(locationName, locationNarration, locationStory, storyOptions, triggers) {
@@ -82,6 +79,8 @@ class Location {
         if (this.triggers[i].index == this.currentStoryIndex) {
           result = this.triggers[i].result;
           console.log(result);
+          console.log(this.triggers[i].index);
+          console.log("current index "+this.currentStoryIndex);
           return result;
         }
       }
@@ -100,6 +99,7 @@ class Location {
     //advance narrative to next set of choices without user input yet, if we have a pass trigger
     if (this.currentStoryIndex < this.locationStory["branch1"].length) {
       this.presentOptions();
+      //this.currentStoryIndex++;
     }
   }
 
@@ -153,7 +153,7 @@ class Controller {
   spawnLocations() {
     this.locations.push(new Location("room", roomStoryWelcome, roomStory, roomStoryOptions, roomStoryTriggers));
     this.locations.push(new Location("ssh", sshStoryWelcome, sshStory, sshStoryOptions, sshStoryTriggers));
-    this.locations.push(new Location("main", mainStoryWelcome));
+    this.locations.push(new Location("main", mainStoryWelcome, mainStory, mainStoryOptions, mainStoryTriggers));
     this.locations.push(new Location("stacks", stacksStoryWelcome));
   }
 
@@ -221,7 +221,7 @@ class Controller {
 
   gameCommands(userInput) {
     var inputWords = userInput.split(" ");
-
+    console.log("NEW COMMAND ACCEPTING USER INPUT");
     switch (inputWords[0]) {
       case "help":
         outputResponseToParent(displayText, "commands: help look inv setname goto stats");
@@ -252,7 +252,7 @@ class Controller {
         if (narrationResult == "pass") {
           narrationResult = this.locations[this.currentLocation].triggerPass();
         }
-
+        console.log("FINISHED INPUT, WAITING FOR NEXT");
         break;
       case "2":
         var narrationResult = this.locations[this.currentLocation].advanceNarration(inputWords[0]);
