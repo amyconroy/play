@@ -61,6 +61,7 @@ class Controller {
   loadLocationNarrative(gotoLocation) {
     switch(gotoLocation) {
       case "room":
+        this.location[0].welcomeNarration();
         break;
 
       default:
