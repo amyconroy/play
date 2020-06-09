@@ -35,6 +35,20 @@ banUpperCase("./public/", "");
 app.use(lower); // put to lower case
 app.use(ban); // forbid access to the urls in the banned list
 app.use(helmet()); // protects against attacks on express
+// content security policy
+app.use(helmet.contentSecurityPolicy({
+				  directives:{
+            fontSrc: [
+              "'self'",
+              'https://fonts.gstatic.com' // Google Fonts
+            ],
+            styleSrc: [
+              "'self'",
+              'https://fonts.googleapis.com' // Google Fonts.
+            ],
+            defaultSrc: ["'self'"]
+          }
+    }));
 
 //////////////////////////////
 /// CERTIFICATES and HTTPS ///
