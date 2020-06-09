@@ -10,11 +10,11 @@ class Controller {
     this.playername = playername;
   }
 
-  log() {
-    console.log("FROM INSIDE CLASS");
+  introductionText() {
+    outputResponseToParent(displayText, "Welcome to our demo");
+    outputResponseToParent(displayText, "To view inventory, please press i");
+    outputResponseToParent(displayText, "Please enter your character's name:");
   }
-
-
 
   gameNarrative(userInput) {
     if (userInput == "help") {
@@ -25,7 +25,7 @@ class Controller {
   }
 }
 
-var game = new Controller("rip");
+var game = new Controller("new controller");
 
 mainDemo();
 
@@ -93,6 +93,7 @@ function clearChildNodes(element) {
 function outputResponseToParent(parent, text) {
   var newOutputText = document.createElement('p'); //new p node
   newOutputText.classList.add("welcome-text"); //styling
+  newOutputText.classList.add("console");
 
   var textnode = document.createTextNode(text);
   newOutputText.appendChild(textnode);

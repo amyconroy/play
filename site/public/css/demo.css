@@ -49,8 +49,15 @@
              animated-cursor 600ms steps(29,end) infinite;
 }
 
+.console {
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 1rem;
+  animation: output-console 0.5s steps(29,end) 0s 1 normal both;
+             /*animated-cursor 600ms steps(29,end) infinite;*/
+}
+
 .fade-in {
-  animation-delay: 10s;
   animation: fade-in-text 1s steps(29,end) 2.5s 1 normal both;
 }
 
@@ -80,6 +87,11 @@
 @keyframes animated-text {
   from{width: 0;}
   to{width: 180px;}
+}
+
+@keyframes output-console {
+  from{width: 0;}
+  to{width: 99%;}
 }
 
 @keyframes animated-cursor{
