@@ -1,7 +1,7 @@
 "use strict";
 var express = require('express');
 var router = express.Router();
-var commentsDB = require('./comments_db.js');
+var commentsDB = require('../database/comments_db.js');
 
 router.get('/', function(req, res){
   console.log(req.session.user);

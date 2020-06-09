@@ -1,15 +1,9 @@
+"use strict";
 ///// init database /////
-var sqlite3 = require('sqlite3').verbose();
-let db = new sqlite3.Database('Play.db', sqlite3.OPEN_READWRITE, (err) => {
-  if(err) {
-    console.error(err.message);
-  }
-  console.log('Connected to the PLAY database in fill db.');
-});
-
-const user = require('./routes/login_db.js');
-const products = require('./routes/products_db.js');
-const comments = require('./routes/comments_db.js');
+const playDB = require('./play_db.js');
+const user = require('./login_db.js');
+const products = require('./products_db.js');
+const comments = require('./comments_db.js');
 
 exports.createTables = function(){
   try{
@@ -19,10 +13,9 @@ exports.createTables = function(){
     products.createProductTable();
     products.createOrderDetailsTable();
     comments.createCommentsTable();
-    db.close();
   } catch(error){
     console.log(error);
-    db.close();
+    playDB.closeDB();
   }
 }
 
@@ -33,7 +26,7 @@ exports.fillUsers = function(){
   var password = ['admin', 'anarocks', 'amyrocks', 'summer'];
 
   for(var i = 0; i < 4; i++){
-    newuser = {
+    var newuser = {
       email: email[i],
       username: userName[i],
       password: password[i],
@@ -57,7 +50,7 @@ exports.fillComments = function(){
 
   for(var i = 0; i < 4; i++){
     var time = Date.now();
-    newcomm = {
+    var newcomm = {
       userId: userId[i],
       timePosted: time,
       content: content[i]
@@ -73,8 +66,8 @@ exports.fillCategories = function(){
 'Add animations to the game to make it your own!',
 'All the models you can imagine to make the game more realistic!'];
 
-for(var i = 0; i < 4; i++){
-    newcat = {
+ for(var i = 0; i < 4; i++){
+    var newcat = {
       categoryName: categoryName[i],
       categoryDescription: categoryDescription[i]
     }
@@ -93,7 +86,7 @@ exports.fillGameProducts = function(){
   var image = ['Personal.png', 'Community.png', 'Pro.png', 'Student.png'];
 
   for(var i = 0; i < 4; i++){
-      gameProd = {
+      var gameProd = {
         productCategory: 1,
         description: description[i],
         name: name[i],
@@ -115,7 +108,7 @@ exports.fillBackgroundProducts = function(){
   var image = ['Amy.png', 'Ana.png', 'Galaxy.png', 'Meme.png'];
 
   for(var i = 0; i < 4; i++){
-      backProd = {
+      var backProd = {
         productCategory: 2,
         description: description[i],
         name: name[i],
@@ -137,7 +130,7 @@ exports.fillAnimationsProducts = function(){
   var image = ['Dab.png', 'Yeet.png', 'Twirl.png', 'HighFive.png'];
 
   for(var i = 0; i < 4; i++){
-      animationProd = {
+      var animationProd = {
         productCategory: 3,
         description: description[i],
         name: name[i],

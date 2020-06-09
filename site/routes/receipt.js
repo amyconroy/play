@@ -1,7 +1,7 @@
 "use strict";
 var express = require('express');
 var router = express.Router();
-var basketDB = require('./basket_db.js');
+var basketDB = require('../database/basket_db.js');
 
 router.get('/', function(req, res) {
   var products = [];
