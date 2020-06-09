@@ -3,12 +3,23 @@
 document.ready(function(){
   var c = document.getElementById('canv');
   var $ = c.getContext('2d');
-  c.width = 600; c.height = 400;
+
+  c.width = 800; c.height = 500;
+
   var ms = false;
   var w = 0, h = 0;
 
   var img = new Image();
-  img.src = 'images/comingsoon.png';
+
+  var imageId = document.getElementsByClassName("error-type")[0].id;
+
+  if (imageId == "404") {
+    img.src = 'images/404size.png';
+  } else if (imageId == "500") {
+    img.src = 'images/500size.png';
+  }
+
+  img.style.width = "100px";
 
   var set = function(){
     var run, _h, _w, dx, a;
