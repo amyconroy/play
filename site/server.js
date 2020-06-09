@@ -163,7 +163,9 @@ fillDB.fillComments();
 fillDB.fillCategories();
 fillDB.fillGameProducts();
 fillDB.fillAnimationsProducts();
-fillDB.fillBackgroundProducts(); */
+fillDB.fillBackgroundProducts(); 
+fillDB.fillModelsProducts();
+*/
 
 /////////////////////////////
 ////// BAN UPPER FILES //////
