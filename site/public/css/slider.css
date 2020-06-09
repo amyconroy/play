@@ -25,14 +25,14 @@ a {
 
 .post-text {
 	position:absolute;
-	font-size: 1rem;
+	font-size: 2rem;
 	z-index: 999;
 	color:white;
+	left:25vh;
 }
 
 .title-post {
-	border:red 5px solid;
-	margin-left:500px;
+	left:96vh;
 	z-index: 99;
 	font-size: 3rem;
 	position:absolute;
