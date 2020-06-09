@@ -5,27 +5,70 @@ var firstInput = false;
 var displayText = document.getElementById("display-text");
 var childTextNodes;
 
+var locations = ["room", "ssh", "linkedlist", "stacks", "root", "ssh", "room"]; //linear sequence, advance one thru the other
+
 class Controller {
-  constructor(playername) {
-    this.playername = playername;
+  constructor(playername, inventory, stats, currentLocation) {
+    this.playername = playername; //string
+    this.inventory = inventory; //array
+    this.stats = stats; //json object
+    this.currentLocation = currentLocation;
   }
 
   introductionText() {
-    outputResponseToParent(displayText, "Welcome to our demo");
-    outputResponseToParent(displayText, "To view inventory, please press i");
-    outputResponseToParent(displayText, "Please enter your character's name:");
+    outputResponseToParent(displayText, "welcome to our demo. to view inventory, please press inv.");
+    outputResponseToParent(displayText, "if you forget commands, write 'help' in the console");
+    outputResponseToParent(displayText, "to set character name, type setname <name>");
+    outputResponseToParent(displayText, "to proceed write goto Room");
   }
 
-  gameNarrative(userInput) {
-    if (userInput == "help") {
-      outputResponseToParent(displayText, "presenting help here:");
-    } else {
-      outputResponseToParent(displayText, "can't understand command");
+  viewInventory() {
+    outputResponseToParent(displayText, "inventory for: "+this.playername);
+    outputResponseToParent(displayText, inventory.join());
+  }
+
+  viewStats() {
+    outputResponseToParent(displayText, "stats for: "+this.playername);
+    outputResponseToParent(displayText, "health - "+this.stats['health']);
+    outputResponseToParent(displayText, "armour - "+this.stats['armour']);
+  }
+
+  setCharName(newName) {
+      this.playername = newName;
+      outputResponseToParent(displayText, "set name to "+newName);
+  }
+
+  advanceNarrative(userInput) {
+
+  }
+
+  gameCommands(userInput) {
+    var inputWords = userInput.split(" ");
+
+    switch (inputWords[0]) {
+      case "help":
+        outputResponseToParent(displayText, "commands: help look inv setname goto stats");
+        break;
+      case "inv":
+        this.viewInventory();
+        break;
+      case "stats":
+        this.viewStats();
+        break;
+      case "setname":
+        this.setCharName(inputWords[1]);
+        break;
+      case "goto":
+        outputResponseToParent(displayText, "going to "+inputWords[1]);
+        break;
+      default:
+        outputResponseToParent(displayText, "can't understand command. try again.");
+        break;
     }
   }
 }
 
-var game = new Controller("new controller");
+var game = new Controller("", [], {health:3, armour:3}, "");
 
 mainDemo();
 
@@ -37,17 +80,18 @@ function mainDemo() {
 function inputHandler(e) {
   if (e.key == 'Enter') {
     var userInput = document.getElementById("user-input");
-    console.log("user input for first time");
+
 
     if (firstInput == false) {
       childTextNodes = displayText.childNodes;
       fadeText(document.getElementById('welcome'));
       clearChildNodes(displayText);
 
+      game.introductionText();
       firstInput = true;
+      userInput.value = "";
 
     } else {
-      console.log(userInput.value);
 
       childTextNodes = displayText.childNodes;
       var childNodesNum = childTextNodes.length;
@@ -56,7 +100,7 @@ function inputHandler(e) {
         clearChildNodes(displayText);
       }
 
-      game.gameNarrative(userInput.value);
+      game.gameCommands(userInput.value);
       userInput.value = ""; //clear the value
 
     }
@@ -111,19 +155,8 @@ function outputResponseToParent(parent, text) {
 //get.narration(); // where name.equals() what they entered, get naration (based on the name )
 //get.node(); // return array of nodes, present as options to user ... (these are the names of other places they can go/ people they can speak to)
 
-/*class location {
-  String: narration
-  getNarration();
-}
 
-class NPC {
-    String: narration
-    getNarration();
-}
-
-
-
-{ "graph": [
+/*{ "graph": [
     "name" : "room",
     "description": "your room desc",
     "node" : ["ssh"]
