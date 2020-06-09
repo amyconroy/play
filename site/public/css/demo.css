@@ -54,6 +54,11 @@
   animation: fade-in-text 1s steps(29,end) 2.5s 1 normal both;
 }
 
+.welcome-text {
+  opacity:1;
+  word-wrap: break-word;
+}
+
 .demo-input-form {
   color: #ff99df;
   font-family: 'DM Mono';

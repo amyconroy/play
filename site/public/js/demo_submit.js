@@ -19,10 +19,9 @@ function inputHandler(e) {
 
     if (firstInput == false) {
       childTextNodes = displayText.childNodes;
+      fadeText(document.getElementById('welcome'));
+      clearChildNodes(displayText);
 
-      for (var i = 0; i < childTextNodes.length; i++) {
-        displayText.removeChild(childTextNodes[i]);
-      }
       firstInput = true;
 
     } else {
@@ -33,36 +32,50 @@ function inputHandler(e) {
       var childNodesNum = childTextNodes.length;
 
       if(childNodesNum > 13) {
-        var child = displayText.lastElementChild;
-        while (child) {
-          displayText.removeChild(child);
-          child = displayText.lastElementChild;
-        }
+        clearChildNodes(displayText);
       }
 
-      var newOutputText = document.createElement('p'); //new p node
-      newOutputText.classList.add("welcome-text"); //styling
-
-      var textnode = document.createTextNode(userInput.value);
-      newOutputText.appendChild(textnode);
-      displayText.appendChild(newOutputText);
+      outputResponseToParent(displayText, userInput.value);
 
     }
   }
 }
 
-/*
-var b = document.createElement('b');
-b.appendChild(document.createTextNode('World');
-para.appendChild(b);
+function fadeText(element) {
+  var element;
+  var transparency = 1;
+  var id = setInterval(frame, 100);
 
-para.appendChild(document.createTextNode('!'));
+  console.log(element);
 
-var someDiv = document.getElementById('someID');
-var children = someDiv.childNodes;
-for(var i = 0; i < children.length; i++)
-    someDiv.removeChild(children[i]);
-*/
+  function frame() {
+    if (transparency == 0) {
+      clearInterval(id);
+    } else {
+      transparency -= 0.1;
+      element.style.opacity = transparency;
+    }
+  }
+}
+
+function clearChildNodes(element) {
+  var child = element.lastElementChild;
+
+  while (child) {
+
+    element.removeChild(child);
+    child = element.lastElementChild;
+  }
+}
+
+function outputResponseToParent(parent, text) {
+  var newOutputText = document.createElement('p'); //new p node
+  newOutputText.classList.add("welcome-text"); //styling
+
+  var textnode = document.createTextNode(text);
+  newOutputText.appendChild(textnode);
+  parent.appendChild(newOutputText);
+}
 
 // 1. print welcome intro (set the scene), say just a demo so you can't win
 // 2. must enter the option exactly as they are presented to you
