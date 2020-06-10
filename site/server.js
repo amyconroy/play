@@ -20,6 +20,7 @@ const bodyParser = require('body-parser'); //for post requests
 const md5 = require('md5'); // use for creating a hash for passwords, need to change to SHA-1
 const helmet = require('helmet'); // for security
 const fs = require("fs"); // ban upper case file names
+const cors = require('cors'); // for security
 
 //////////////////
 /// EXPRESS /////
@@ -47,8 +48,10 @@ app.use(helmet.contentSecurityPolicy({
               'https://fonts.googleapis.com' // Google Fonts.
             ],
             defaultSrc: ["'self'"]
-          }
-    }));
+        }
+}));
+
+app.use(cors())
 
 //////////////////////////////
 /// CERTIFICATES and HTTPS ///
@@ -163,7 +166,7 @@ fillDB.fillComments();
 fillDB.fillCategories();
 fillDB.fillGameProducts();
 fillDB.fillAnimationsProducts();
-fillDB.fillBackgroundProducts(); 
+fillDB.fillBackgroundProducts();
 fillDB.fillModelsProducts();
 */
 
