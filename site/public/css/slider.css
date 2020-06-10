@@ -28,14 +28,20 @@ a {
 	font-size: 2rem;
 	z-index: 999;
 	color:white;
-	left:25vh;
+	margin-left:4%;
+	margin-top:-35%;
+	color:hotpink;
+	/*left:25vh;*/
 }
 
 .title-post {
-	left:96vh;
+	/*left:96vh;*/
 	z-index: 99;
 	font-size: 3rem;
 	position:absolute;
+	margin-left:4%;
+	margin-top:-45%;
+	/*transform: translate(0,-120vh);*/
 	color:white;
 }
 
@@ -95,5 +101,31 @@ a {
   border-radius: 0 10px 10px 0;
 }
 
+@media only screen and (max-width: 1743px) {
+	.post-text {
+		margin-top:-40%;
+		transition: margin-top 1s;
+	}
+	.title-post {
+		margin-top:-55%;
+		transition: margin-top 1s;
+	}
+}
+
+@media only screen and (max-width: 1078px) {
+	.post-text {
+		margin-top:-55%;
+		transition: margin-top 1s;
+	}
+	.title-post {
+		margin-top:-70%;
+		transition: margin-top 1s;
+	}
+}
+
+@media only screen and (max-width: 700px) {
+
+
+}
 
 /*below probs not needed anymore*/
