@@ -1,23 +1,22 @@
-/*move to seperate css file?*/
-
 #content0 {
-	background-image: url('https://wallpapercave.com/wp/QNQaTlD.jpg');
-	background-size:100% 100%;
+	/*background-image: url('../image/content2.png');*/
+	background-color:black;
+	background-size:100%;
 	background-attachment:fixed;
 }
 
 #content1 {
-	background: black;
-	background-size:100% 100%;
+	background-image: url('../images/content1.png');
+	background-size: cover;
+	background-attachment:fixed;
 }
 
 #content2 {
-	background-image: url('https://wallpaperplay.com/walls/full/1/5/d/104387.jpg');
+	background-color:black;
 	background-size:100% 100%;
 	background-attachment:fixed;
 }
 
-/*is this needed?*/
 .content-image {
 	width:35%;
 	margin-left:30px;
