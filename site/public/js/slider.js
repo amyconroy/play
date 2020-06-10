@@ -11,7 +11,7 @@ var randomFacts = ["The first commerical U.S cell phone weighed two pounds!",
 "The original Gameboy had only five games available in the United States!",
 "You couldn't play a CD at home until 1982!",
 "The first widely-used disposable camera hit the market in 1986!",
-"80's computers typicall had 64KB of memory!",
+"80's computers typically had 64KB of memory!",
 "MTV was created in 1981, the first ever video played was 'Video Killed the Radio Star'!",
 "McDonald's Chicken McNuggets were introduced in 1981!",
 "Coca-Cola changed their iconic formula once during the 80s, causing a consumer uproar!"];

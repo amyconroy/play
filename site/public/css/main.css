@@ -490,6 +490,7 @@ a:hover {
   text-align: center;
 }
 
+/*for phones so navbar does not get crushed*/
 @media only screen and (max-width: 800px) {
 
 	body {
