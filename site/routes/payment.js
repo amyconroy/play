@@ -10,7 +10,8 @@ router.get('/', function(req, res) {
       res.render('payment', {
         layout : 'index_head',
         error: true,
-        errormessage: "Your basket is empty, please add products to basket"
+        errormessage: "Your basket is empty, please add products to basket",
+        userLoggedIn: req.session.user
       });
 
     } else {
