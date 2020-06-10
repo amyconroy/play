@@ -1,7 +1,7 @@
 //makes a random quote appear on the main page title
 "use strict"
 
-var quotes = ["We'll be back", "Play on, play off", "Unity drew first blood, not us", "Nobody puts PLAY in the corner", "There can only be PLAY", "Snakes, why'd it have to be snakes?", "Luke, I am your father", "Heeeereeee's Johnny (coming to recommend PLAY)", "Yipee-ki-yay motherPLAYer"];
+var quotes = ["Welcome to the party, PLAY", "We'll be back", "Play on, play off", "Unity drew first blood, not us", "Nobody puts PLAY in the corner", "There can only be PLAY", "Snakes, why'd it have to be snakes?", "Luke, I am your father", "Heeeereeee's Johnny (coming to recommend PLAY)", "Yipee-ki-yay motherPLAYer"];
 
 writeQuote();
 

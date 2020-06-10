@@ -27,7 +27,7 @@ var roomStoryOptions = {
 };
 var roomStoryTriggers = [{result:"end", branch:"branch2", index:1}, {result:"ssh", branch:"branch1", index:1}];
 
-var sshStoryWelcome = "you are spat out of the vortex. you look around, and see a large purple portal, with the lessers S S H engraved into the stone. in the end of the room is a door which appears locked.";
+var sshStoryWelcome = "you are spat out of the vortex. you look around, and see a large purple portal, with the letters S S H engraved into the stone. in the end of the room is a door which appears locked.";
 var sshStory = {
   branch1: ["the portal is solid, and unresponsive.", "you try the portal again, no dice. but the portal starts to glow unpleasantly.", "you try the portal one more time, and an SQL Injection pierces you with an unsanitized query."],
   branch2: ["you attempt to open the door, and to your suprise it swings open.", "you decide to head for the door, and to your suprise it swings open.", ""] //branch takes you out
@@ -40,7 +40,7 @@ var sshStoryTriggers = [{result:"pass", branch:"branch1", index:1}, {result:"pas
 
 var mainStoryWelcome = "passing the open door, you arrive within what can only be described as a junkyard. you see the letters main() high in the sky. this must be your program! You spot a lonely creature of the Github Branch species sitting quietly on the ground.";
 var mainStoryOptions = {
-  options1: ["talk to the github branch","you humour the cute, albeit annoying develop","you proceed to the door with the code"], //nice options
+  options1: ["talk to the github branch","you humour the cute, albeit annoying develop","you proceed to the door with the potion develop dropped"], //nice options
   options2: ["carry on past him to the next area","you punch develop on the face and tell him people should commit straight to master","not wanting to continue to yet another door, you run away into the main() badlands"] //mean options
 };
 var mainStory = {
@@ -336,7 +336,7 @@ function inputHandler(e) {
 
     if (firstInput == false) {
       childTextNodes = displayText.childNodes;
-      fadeText(document.getElementById('welcome'));
+      fadeText(document.getElementById('demo-title'));
       clearChildNodes(displayText);
 
       game.spawnLocations();
