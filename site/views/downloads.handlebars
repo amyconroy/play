@@ -4,7 +4,7 @@
   </div>
 </div>
 
-{{> navbar user=userLoggedIn.name }}
+{{> navbar user=userLoggedIn.name basketPage=true}}
 
 {{#if error }}
   <h1 class = "error-message">{{this.errormessage}}</h1>
@@ -26,7 +26,7 @@
 <div class="content-box downloads-container">
 
 {{#if category}}
-<h4 class="title-content-center" id="downloads-title">Categories</h4>
+<h4 class="title-content-center">Categories</h4>
 {{/if}}
 
 {{#if downloads}}
@@ -36,9 +36,9 @@
 {{#each category}}
 <div class="category-box">
   <div class="comments-box-inner">
-    <a href="/downloads{{this.url}}" ><p class="category-name title-content">  {{ this.categoryName }}</p></br></a>
-    <p class="category-description">{{ this.categoryDescription }}</p></br>
-    <p class="category-description">{{ this.categoryId }}</p></br>
+    <p class="category-name title-content"><a href="/downloads{{this.url}}" >{{ this.categoryName }}</a></p><br />
+    <p class="category-description">{{ this.categoryDescription }}</p><br />
+    <p class="category-description">{{ this.categoryId }}</p><br />
   </div>
 </div>
 {{/each}}
@@ -46,11 +46,11 @@
 <div class = "downloads-box-box">
 {{#each downloads}}
   <div class="downloads-box">
-      <p class="downloads-name title-content">  {{ this.productName }}</p></br>
-      <img class="downloads-image" src="images/comingsoon.png"  alt=" " /></br>
-      <p class="downloads-description">{{ this.productDescription }}</p></br>
-      <p class="downloads-price">{{ this.productPrice }}</p></br>
-      <a  href="/downloads{{ this.url }}/add_product/{{ this.productId }}"><button type="submit" class="downloads-submit">Add to Basket</button></a>
+      <p class="downloads-name title-content">  {{ this.productName }}</p><br />
+      <img class="downloads-image" src="images/comingsoon.png"  alt=" " /><br />
+      <p class="downloads-description">{{ this.productDescription }}</p><br />
+      <p class="downloads-price">{{ this.productPrice }}</p><br />
+      <button type="submit" class="downloads-submit"><a  href="/downloads{{ this.url }}/add_product/{{ this.productId }}">Add to Basket</a></button>
   </div>
 {{/each}}
 </div>

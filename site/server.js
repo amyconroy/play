@@ -1,22 +1,27 @@
-//var flash = require('flash');
-var createError = require('http-errors'); //change these to constants so cant be changed?
-var express = require('express');
-var path = require('path');
-var port = 8080; //443 is https defaul port
-var fs = require("fs");
+"use strict";
+// all const so they can not be changed
+//////////////////////
+/// INITIAL SET UP ///
+//////////////////////
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const port = process.env.PORT || 8080;
+
 //////////////////////
 /// OTHER PACKAGES ///
 /////////////////////
-var cookieParser = require('cookie-parser');
-var uuid = require('uuid/v4');
-var session = require('express-session');
-var logger = require('morgan');
-var handlebars = require('express-handlebars');
-var bodyParser = require('body-parser'); //for post requests
-var md5 = require('md5'); // use for creating a hash for passwords, need to change to SHA-1
-var bodyParser = require('body-parser');
-var helmet = require('helmet'); // for security
-var fs = require("fs"); // ban upper case file names
+const cookieParser = require('cookie-parser');
+const { v4: uuidv4 } = require('uuid');
+const session = require('express-session');
+const logger = require('morgan');
+const handlebars = require('express-handlebars');
+const bodyParser = require('body-parser'); //for post requests
+const md5 = require('md5'); // use for creating a hash for passwords, need to change to SHA-1
+const helmet = require('helmet'); // for security
+const fs = require("fs"); // ban upper case file names
+const cors = require('cors'); // for security
+
 //////////////////
 /// EXPRESS /////
 /////////////////
@@ -28,11 +33,25 @@ var router = express.Router(); //our router for requests
 /////////////////////
 var banned = [];
 banUpperCase("./public/", "");
-
 app.use(lower); // put to lower case
 app.use(ban); // forbid access to the urls in the banned list
-
 app.use(helmet()); // protects against attacks on express
+// content security policy
+app.use(helmet.contentSecurityPolicy({
+				  directives:{
+            fontSrc: [
+              "'self'",
+              'https://fonts.gstatic.com' // Google Fonts
+            ],
+            styleSrc: [
+              "'self'",
+              'https://fonts.googleapis.com' // Google Fonts.
+            ],
+            defaultSrc: ["'self'"]
+        }
+}));
+
+app.use(cors())
 
 //////////////////////////////
 /// CERTIFICATES and HTTPS ///
@@ -70,11 +89,14 @@ app.use(logger('dev'));
 app.use(express.urlencoded({ extended: true })); /// supporting URL-encoded bodies (utf-8)
 app.use(bodyParser.json()); // supporting JSON-econded bodies
 
+////////////////
+/// COOKIES ///
+//////////////
 //cookies for session storage
 app.use(cookieParser());
 app.use(session({
     genid: function(req) {
-      return uuid() // use UUIDs for session IDs
+      return uuidv4() // use UUIDs for session IDs
     },
     secure:false, //change to secure
     secret: "343ji43j4n3jn4jk3n",
@@ -95,8 +117,6 @@ function lower(req, res, next) {
 ///////////////
 /// ROUTING ///
 //////////////
-
-//change here
 var indexRoute = require('./routes/index.js');
 var demoRoute = require('./routes/demo.js');
 var loginRoute = require('./routes/login.js');
@@ -136,20 +156,19 @@ app.use('/basket', express.static(__dirname + '/public'));
 app.use('/products', express.static(__dirname + '/public'));
 app.use('/products/add_product', express.static(__dirname + '/public'));
 
-
-///downloads/all/add_product/1
-
 ///////////////////////////////
 /// FILL DB WITH DUMMY DATA ///
 ///////////////////////////////
-const fillDB = require('./filldb.js');
+/* const fillDB = require('./database/filldb.js');
 fillDB.createTables();
-/* fillDB.fillUsers();
+fillDB.fillUsers();
 fillDB.fillComments();
 fillDB.fillCategories();
 fillDB.fillGameProducts();
 fillDB.fillAnimationsProducts();
-fillDB.fillBackgroundProducts();*/
+fillDB.fillBackgroundProducts();
+fillDB.fillModelsProducts();
+*/
 
 /////////////////////////////
 ////// BAN UPPER FILES //////

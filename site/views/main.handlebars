@@ -8,11 +8,7 @@
 		</div>
 	</div>
 
-	{{> navbar user=userLoggedIn.name }}
-
-	<!--{{#if userLoggedIn  }}
-			{{> logged_in user=userLoggedIn.name }}
-	{{/if}}-->
+	{{> navbar user=userLoggedIn.name basketPage=false}}
 
 	<div class="posts-box">
 		<!--<div class="title-container">
@@ -21,34 +17,36 @@
 
 		<div class="slider">
 			<div class="post-overlay">
-					<div class="overlay-frame">
-						<h4 class="title-post">TOP SELLERS</h4>
-						<a href="#"><p>Visit here!</p></a> <!-- this can be dynamic, depending on what post will change link to page-->
-					</div>
+
 			</div>
 			<div class = "posts" id="post_1">
 					<div class="post_number"></div>
-
-						<img class = "post_image" id = "image_1" src="https://www.scitecheuropa.eu/wp-content/uploads/2019/07/ClaudioVentrella-696x392.jpg" />
+						<img class = "post_image" id = "image_1" src="images/post1.png" />
 					<div class="caption"></div>
 			</div>
 
 			<div class = "posts" id="post_3">
 				 <div class="post_number"></div>
-				 		<img class = "post_image" id = "image_3" src="https://www.openaccessgovernment.org/wp-content/uploads/2019/09/dreamstime_xxl_123015144.jpg"/>
+				 		<img class = "post_image" id = "image_3" src="images/post2.png"/>
 				 <div class="caption"></div>
 			</div>
 
 			<div class = "posts" id="post_4">
 				<div class="post_number"></div>
-					<img class = "post_image " id = "image_4" src="https://www.abc.net.au/cm/rimage/10078922-3x2-large.jpg?v=2"/>
+					<img class = "post_image " id = "image_4" src="images/post3.png"/>
 				<div class="caption"></div>
 			</div>
 
 			<a class="prev slider_buttons" id="prev_slide">&#10094;</a>
 			<a class="next slider_buttons" id="next_slide">&#10095;</a>
 		</div>
+	</div>
 
+	<div class="overlay-frame">
+		<div class="inner-text" id="remove-inner-text">
+
+
+		</div>
 	</div>
 
 	<div class="content-box" id="content0">

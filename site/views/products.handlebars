@@ -4,7 +4,7 @@
 		</div>
 	</div>
 
-	{{> navbar user=userLoggedIn.name }}
+	{{> navbar user=userLoggedIn.name basketPage=true}}
 
 	{{#if error }}
 	  <h1 class = "error-message">{{this.errormessage}}</h1>
@@ -35,7 +35,7 @@
 				<li>A PDF development guide</li>
 				<li>The power and freedom to develop text adventure games with our amazing engine</li>
 			</ul>
-			<a  href="/products/add_product/5"><button type="submit" class="form-submit">Add to Basket</button></a>
+			<button type="submit" class="form-submit"><a  href="/products/add_product/5">Add to Basket</a></button>
 			</div>
 		</div>
 	</div>
@@ -54,7 +54,7 @@
 				<li>Free asset pack on download</li>
 				<li>Access to our learning environment, with tutorials and guides for all your development needs</li>
 			</ul>
-			<a  href="/products/add_product/4"><button type="submit" class="form-submit">Add to Basket</button></a>
+			<button type="submit" class="form-submit"><a  href="/products/add_product/4">Add to Basket</a></button>
 		</div>
 	</div>
 
@@ -69,7 +69,7 @@
 				<li>You will have on-call 24 hour support from our admin staff</li>
 				<li>4 asset packs of your choosing</li>
 			</ul>
-			<a  href="/products/add_product/6"><button type="submit" class="form-submit basketbtn">Add to Basket</button></a>
+			<button type="submit" class="form-submit basketbtn"><a  href="/products/add_product/6">Add to Basket</a></button>
 		</div>
 	</div>
 
@@ -80,15 +80,22 @@
 			<p>For students all over the world.</p>
 			<p>You will be required to sign up with a valid institution email, and will gain all of the excellent
 			features of the PRO VERSION, for a quarter of the price.</p>
-			<a  href="/products/add_product/7"><button type="submit" class="form-submit basketbtn">Add to Basket</button></a>
+			<button type="submit" class="form-submit basketbtn"><a  href="/products/add_product/7">Add to Basket</a></button>
 		</div>
 	</div>
 
 	<div class="content-box" id = "product5">
 		<h4 class="title-content">Assets Pack</h4>
-		<div class="content-inner">
+		<div class="content-inner box-text-styling">
 			<p>Variable</p>
-			<p>under construction</p>
+			<p>Visit our downloads page for the following:</p>
+			<ul>
+				<li>Backgrounds</li>
+				<li>Models</li>
+				<li>Sprites</li>
+				<li>Graphics</li>
+				<li><a href="/downloads">... and so much more</a></li>
+			</ul>
 		</div>
 	</div>
 
