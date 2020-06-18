@@ -3,6 +3,7 @@
 Website for PLAY text adventure game engine, in the style of retro 80's nerds. Features include a fully working shop, comments page, and text-adventure game playable on the demo page.
 
 ## Usage 
+    $ npm install
     $ node server.js 
    
 Visit http(s)://localhost:8080/ to view the website.
