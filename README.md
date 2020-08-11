@@ -12,7 +12,7 @@ For full content, uncomment:
        
      const fillDB = require('./database/filldb.js');
      
-In server.js as well as the subsequent function calls to fill the database with dummy data.
+in server.js as well as the subsequent function calls to fill the database with dummy data.
 
 ## Built With 
 - [Node.js](https://github.com/nodejs)
